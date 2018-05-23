@@ -17,7 +17,6 @@ public interface IPersonsDao {
     void updatePerson(Person person);
 
     List<Person> selectAllPersons();
-//    Map<String, Person> selectAllPersonsMap();
 
     //按照IdPerson获取
     Person selectPersonByIdPerson(int idPerson);

@@ -10,7 +10,7 @@
 <head>
     <title>success</title>
     <p>upload success...</p>
-    <a href="/download">点击下载上传文件</a>
+    <a href="/download">Submit to download files</a>
 </head>
 <body>
 

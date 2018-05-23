@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("personService")
 public class PersonImpl implements IPersonService{
@@ -19,27 +20,31 @@ public class PersonImpl implements IPersonService{
 
     @Override
     public void addPerson(Person person) {
-
+        personsDao.insertPerson(person);
     }
 
     @Override
     public void removeById(Integer idPerson) {
-
+        personsDao.deletePersonByIdPerson(idPerson);
     }
 
     @Override
     public void modifyPerson(Person person) {
-
+        personsDao.updatePerson(person);
     }
 
     @Override
     public List<String> findAllPersonsNames() {
-        return null;
+        List<String> res = personsDao.selectAllPersons().
+                stream().
+                map(Person::getName).
+                collect(Collectors.toList());
+        return res;
     }
 
     @Override
     public String findPersonNameById(int idPerson) {
-        return null;
+         return personsDao.selectPersonByIdPerson(idPerson).getName();
     }
 
     @Override
