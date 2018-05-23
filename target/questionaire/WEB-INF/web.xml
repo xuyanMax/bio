@@ -18,6 +18,11 @@
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
+      <!--增加编码过滤器，如下（注意，需要设置forceEncoding参数值为true）-->
+      <init-param>
+          <param-name>forceEncoding</param-name>
+          <param-value>true</param-value>
+      </init-param>
   </filter>
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
