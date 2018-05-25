@@ -10,7 +10,7 @@ public class Person implements Serializable {
     private String name;
     private String gender;
     private int age;
-    private int ID_code;
+    private String ID_code;
     private String sn_in_center;
     private String global_sn;
     private int idcenter;
@@ -26,7 +26,7 @@ public class Person implements Serializable {
     }
 
     public Person(Integer idPerson, String name, String gender, int age,
-                  int ID_code, String sn_in_center, String global_sn,
+                  String ID_code, String sn_in_center, String global_sn,
                   int idcenter, String identity, String barcode, String tel1,
                   String tel2, String email, int relative) {
         this.idPerson = idPerson;
@@ -77,11 +77,11 @@ public class Person implements Serializable {
         this.age = age;
     }
 
-    public int getID_code() {
+    public String  getID_code() {
         return ID_code;
     }
 
-    public void setID_code(int ID_code) {
+    public void setID_code(String ID_code) {
         this.ID_code = ID_code;
     }
 

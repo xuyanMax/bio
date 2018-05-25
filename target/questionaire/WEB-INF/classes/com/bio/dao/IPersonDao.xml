@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bio.dao.IPersonsDao">
+    <insert id="insertPerson">
+		insert into persons(name, age, gender, ID_code, sn_in_center, global_sn, relative, barcode, tel1, tel2)
+		values (#{name}, #{age}, #{gender}, #{ID_code}, #{sn_in_center},
+							 #{global_sn}, #{barcode}, #{tel1}, #{tel2}, #{email}, #{relative})
+-- 		(name, age, gender, ID_code, sn_in_center, global_sn, idcenter, identity, barcode,
+-- 							tel1, tel2, email, relative) values(#{name}, #{age}, #{gender}, #{ID_code}, #{sn_in_center},
+-- 							 #{global_sn}, #{idcenter}, #{identity}, #{barcode},
+-- 							#{tel1}, #{tel2}, #{email}, #{relative}
+-- 							)
+	</insert>
+    <insert id="insertPersonCache">
+    </insert>
+
+    <delete id="deletePersonByIdPerson">
+		delete from persons where id=#{xxx}
+	</delete>
+
+    <update id="updatePerson">
+		update persons set name=#{name}, age=#{age}, id=#{ID_code} where id=#{id}
+	</update>
+
+    <select id="selectAllPersons" resultType="com.bio.beans.Person">
+		select * from persons
+	</select>
+
+    <select id="selectPersonByIdPerson" resultType="com.bio.beans.Person">
+		select id,name,age from persons where id=#{xxx}
+	</select>
+
+    <select id="selectPersonByID_code" resultType="com.bio.beans.Person">
+		select id,name,age from persons where id=#{xxx}
+	</select>
+</mapper>

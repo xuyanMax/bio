@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("personService")
+@Service
 public class PersonImpl implements IPersonService{
 
     @Autowired
@@ -49,12 +49,12 @@ public class PersonImpl implements IPersonService{
 
     @Override
     public List<Person> findAllPersons() {
-        return null;
+        return personsDao.selectAllPersons();
     }
 
     @Override
-    public Person findPersonById() {
-        return null;
+    public Person findPersonById(int id) {
+        return personsDao.selectPersonByIdPerson(id);
     }
 
 

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface IPersonService {
     void addPerson(Person person);
     void removeById(Integer idPerson);
@@ -15,6 +14,6 @@ public interface IPersonService {
     String findPersonNameById(int idPerson);
 
     List<Person> findAllPersons();
-    Person findPersonById();
+    Person findPersonById(int id);
 
 }

@@ -3,13 +3,12 @@ package com.bio.Utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.Option;
 import java.io.File;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class Utils {
     /**
@@ -70,6 +69,15 @@ public class Utils {
                 filePath.getParentFile().mkdir();
             }
     }
+    //身份证号计算: https://blog.csdn.net/dabing69221/article/details/9150819
+    public static boolean isDigital(String str) {
+        return str == null || "".equals(str) ? false : str.matches("^[0-9]*$");
+    }
+    public static boolean isID_code(String ID_code){
+        return ID_code == null || "".equals(ID_code) ? false : Pattern.matches(
+                "(^\\d{15}$)|(\\d{17}(?:\\d|x|X)$)", ID_code);
+    }
+
     //从ID中获取性别
     public static int getGender(String ID_code){
         int size = ID_code.length();
@@ -91,19 +99,25 @@ public class Utils {
         //报错
         if (size == 0) return -1;
         switch (size){
-            case 15:return getAgeHelper15(ID_code.substring(6,12));
-            case 18:return getAgeHelper18(ID_code.substring(6,11));
+            case 15:return getAgeHelper(ID_code.substring(6,11), 6);
+            case 18:return getAgeHelper(ID_code.substring(6,13), 8);
         }
         return -1;
 
     }
-    // 年龄范围: 18年到18年
-    public static int getAgeHelper15(String birth){
+    // 年龄范围: 1918年到2018年
+    // 通过年，月，日与当前时间做对比，计算实际年龄
 
-        return -1;
-    }
-    public static int getAgeHelper18(String birth){
-
-        return -1;
+    //合并处理15位/18位身份证号，计算年龄的问题
+    public static int getAgeHelper(String birth, int size){
+        int offset = (size==6) ? 0 : 2;
+        Calendar calendar = Calendar.getInstance();
+        int res = calendar.get(Calendar.YEAR) - Integer.valueOf(birth.substring(0, 2+offset));
+        int monDiff = calendar.get(Calendar.MONTH) - Integer.valueOf(birth.substring(2+offset, 4+offset));
+        if (monDiff < 0)
+            res--;
+        else if (monDiff == 0)
+            res += calendar.get(Calendar.DAY_OF_MONTH) - Integer.valueOf(birth.substring(4+offset)) >= 0 ? 1 : -1;
+        return res;
     }
 }
