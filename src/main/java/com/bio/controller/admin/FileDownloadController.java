@@ -51,20 +51,31 @@ public class FileDownloadController {
     }
 
 
+    //reference: https://zhidao.baidu.com/question/54064551.html
     @RequestMapping(value = "/list")
-    public String listFiles(HttpServletRequest request,
-                            ModelAndView mv,
-                            HttpServletResponse response){
-        String filesPath = request.getSession().getServletContext().getRealPath("/data/");
-        File[] files = new File(filesPath).listFiles();
+    public ModelAndView listFiles(HttpServletRequest request){
+        System.out.println(request!=null);
 
+        ModelAndView mv = new ModelAndView();
+        String filesPath = request.getSession().getServletContext().getRealPath("/data");
+
+        System.out.println(filesPath);
+
+        File file = new File(filesPath);
+        System.out.println(file.isDirectory());
+        File[] files = file.listFiles();
+
+        System.out.println(files);
+
+        String[] filesNames = file.list();
+        Arrays.stream(filesNames).forEach(System.out::println);
         //返回包含上传文件列表的字符串
-        String res = Arrays.stream(files).
-                            map(File::getName).
+        String res = Arrays.stream(filesNames).
                             reduce((f1, f2)->(f1+"\n"+f2)).
                             get();
         mv.addObject("files", res);
-        return "views/success";
+        mv.setViewName("views/success");
+        return mv;
     }
 
 }

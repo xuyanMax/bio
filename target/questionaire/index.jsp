@@ -12,7 +12,7 @@
 <%--<a href="/list">List uploaded files</a><br/>--%>
 
 <%--test--%>
-<a href="/admin/displayUsers">Display all persons</a>
-
+<a href="/admin/displayUsers">Display all persons</a><br/>
+<a href="/list">List uploaded files</a>
 </body>
 </html>
