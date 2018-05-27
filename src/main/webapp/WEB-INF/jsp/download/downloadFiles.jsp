@@ -13,6 +13,6 @@
 </head>
 <body>
     <h1>Download file</h1>
-    <a href="/download?filename=${requestScope.}"
+    <a href=""></a>
 </body>
 </html>

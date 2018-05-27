@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" charset="UTF-8" content="text/plain">
+    <title>Download files</title>
 </head>
 <body>
-
+    <h1>Download file</h1>
+    <a href=""></a>
 </body>
 </html>

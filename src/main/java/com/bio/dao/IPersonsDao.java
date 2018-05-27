@@ -20,6 +20,4 @@ public interface IPersonsDao {
 
     //按照IdPerson获取
     Person selectPersonByIdPerson(int idPerson);
-    //按照ID身份证获取
-    Person selectPersonByID_code(int ID_code);
 }

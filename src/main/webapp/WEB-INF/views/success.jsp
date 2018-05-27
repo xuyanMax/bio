@@ -10,7 +10,7 @@
 <head>
     <title>success</title>
     <p>upload success...</p>
-    <a href="/download?file=${requestScope.file.}">Click to download the uploaded file</a>
+    <a href="">Click to download the uploaded file</a>
     <a href="/list">View uploaded files</a>
 </head>
 <body>

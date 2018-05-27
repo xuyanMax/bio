@@ -14,16 +14,16 @@ public class PersonImpl implements IPersonService{
     @Autowired
     private IPersonsDao personsDao;
 
-    public void setPersonsDao(IPersonsDao personsDao) {
-        this.personsDao = personsDao;
-    }
-
     @Override
     public void addPerson(Person person) {
         personsDao.insertPerson(person);
     }
 
-    @Override
+    public void setPersonsDao(IPersonsDao personsDao) {
+        this.personsDao = personsDao;
+    }
+
+   /* @Override
     public void removeById(Integer idPerson) {
         personsDao.deletePersonByIdPerson(idPerson);
     }
@@ -40,12 +40,12 @@ public class PersonImpl implements IPersonService{
                 map(Person::getName).
                 collect(Collectors.toList());
         return res;
-    }
+    }*/
 
-    @Override
-    public String findPersonNameById(int idPerson) {
-         return personsDao.selectPersonByIdPerson(idPerson).getName();
-    }
+//    @Override
+//    public String findPersonNameById(int idPerson) {
+//         return personsDao.selectPersonByIdPerson(idPerson).getName();
+//    }
 
     @Override
     public List<Person> findAllPersons() {
@@ -53,9 +53,8 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
-    public Person findPersonById(int id) {
-        return personsDao.selectPersonByIdPerson(id);
+    public Person findPersonById(int idperson) {
+        return personsDao.selectPersonByIdPerson(idperson);
     }
-
 
 }

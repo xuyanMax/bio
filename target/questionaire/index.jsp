@@ -14,5 +14,7 @@
 <%--test--%>
 <a href="admin/UploadedPersons">View uploaded persons</a>
 
+<a href="/admin/displayUsers">Display all persons</a>
+
 </body>
 </html>

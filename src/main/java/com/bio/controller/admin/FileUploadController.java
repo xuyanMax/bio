@@ -33,13 +33,14 @@ public class FileUploadController{
                          Model model) throws IOException {
         if (!multipartFile.isEmpty()) {
             Utils.uploadSingleFile(httpServletRequest, multipartFile);
-            model.addAttribute("path", httpServletRequest.getSession().getServletContext().getRealPath("/"))
+            model.addAttribute("path", httpServletRequest.getSession().getServletContext().getRealPath("/data"));
 
             return "views/success";
         } else
             return "views/error";
     }
 
+    // 上传多个文件
     @RequestMapping(value = "/uploadMultiFiles")
     public String uploadMultiFiles(){
         return "jsp/upload/uploadMultiFiles";

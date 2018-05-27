@@ -10,10 +10,10 @@
 <head>
     <title>success</title>
     <p>upload success...</p>
-    <a href="/download">Submit to download files</a>
+    <a href="">Click to download the uploaded file</a>
     <a href="/list">View uploaded files</a>
 </head>
 <body>
-
+        <h1>${files}</h1>
 </body>
 </html>

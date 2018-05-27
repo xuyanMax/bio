@@ -79,18 +79,17 @@ public class Utils {
     }
 
     //从ID中获取性别
-    public static int getGender(String ID_code){
+    public static String getGender(String ID_code){
         int size = ID_code.length();
         //报错
-        if (size == 0) return -1;
+        if (size == 0) return null;
         switch (size){
-            case 15: return ID_code.charAt(14)-'0';
-            case 18: return ID_code.charAt(16)-'0';
+            case 15: return String.valueOf(ID_code.charAt(14));
+            case 18: return String.valueOf(ID_code.charAt(16));
         }
 
-        return -1;
+        return null;
     }
-    // todo: 判断ID_code是否合法...
     //利用ID计算生日
     // 15/18位身份证
     // @return 1: 男, 2: 女
