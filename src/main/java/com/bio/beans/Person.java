@@ -122,8 +122,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return "person [id="+idperson
-                +", name=" + name
+        return "person["
+                +"name=" + name
                 +", gender=" + gender
                 +", age=" + age
 //                +", ID_code=" + ID_code
@@ -136,7 +136,7 @@ public class Person {
                 +", tel2=" + tel2
                 +", email=" + email
                 +", relative=" + relative
-                +"]";
+                +"\n]";
     }
 
 

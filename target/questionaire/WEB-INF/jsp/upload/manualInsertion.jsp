@@ -45,10 +45,7 @@
             <td>tel2</td>
             <td>数据库操作</td>
         </tr>
-        <%
-            for (Person p:persons){
-            %>
-
+        <%for (Person p:persons){%>
         <tr>
             <td><%= p.getIdperson()%></td>
             <td><%= p.getName()%></td>
@@ -60,28 +57,12 @@
             <td><%= p.getBarcode()%></td>
             <td><%= p.getTel1()%></td>
             <td><%= p.getTel2()%></td>
-            <td><a href="">更新</a> | <a href="">删除</a> </td>
+            <td><a href="/admin/update?idperson=<%=p.getIdperson()%>">更新</a> |
+                <a href="/admin/delete?idperson=<%=p.getIdperson()%>">删除</a> </td>
         </tr>
-
             <%}%><%--persons--%>
-    <%--</table>--%>
-
+    </table>
     <%}%><%--if persons not null--%>
-
 
 </body>
 </html>
-<%--private Integer idPerson;
-private String name;
-private String gender;
-private int age;
-private int ID_code;
-private String sn_in_center;
-private String global_sn;
-private int idcenter;
-private String identity;
-private String barcode;
-private String tel1;
-private String tel2;
-private String email;
-private int relative;--%>

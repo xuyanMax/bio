@@ -6,26 +6,14 @@
     <insert id="insertPerson">
 		insert into persons (name, gender, age, ID_code, sn_in_center, email, relative, tel1, tel2, global_sn, barcode) values (#{name}, #{gender}, #{age}, #{ID_code}, #{sn_in_center}, #{email}, #{relative}, #{tel1}, #{tel2}, #{global_sn}, #{barcode});
 	</insert>
-	<!--<insert id="insertPerson">-->
-		<!--insert into persons(name, age, gender, ID_code, sn_in_center, global_sn, relative, barcode, tel1, tel2)-->
-		<!--values (#{name}, #{age}, #{gender}, #{ID_code}, #{sn_in_center},-->
-							 <!--#{global_sn}, #{barcode}, #{tel1}, #{tel2}, #{email}, #{relative})-->
-<!--&#45;&#45; 		(name, age, gender, ID_code, sn_in_center, global_sn, idcenter, identity, barcode,-->
-<!--&#45;&#45; 							tel1, tel2, email, relative) values(#{name}, #{age}, #{gender}, #{ID_code}, #{sn_in_center},-->
-<!--&#45;&#45; 							 #{global_sn}, #{idcenter}, #{identity}, #{barcode},-->
-<!--&#45;&#45; 							#{tel1}, #{tel2}, #{email}, #{relative}-->
-<!--&#45;&#45; 							)-->
-	<!--</insert>-->
-    <!--<insert id="insertPersonCache">-->
-    <!--</insert>-->
 
     <delete id="deletePersonByIdPerson">
 		delete from persons where idperson=#{xxx}
 	</delete>
 
-    <!--<update id="updatePerson">-->
-		<!--update persons set name=#{name}, age=#{age}, id=#{ID_code} where id=#{id}-->
-	<!--</update>-->
+    <update id="updatePerson">
+		update persons set name=#{name}, age=#{age}, gender=#{gender}, tel1=#{tel1}, tel2=#{tel2}, email=#{email}, barcode = #{barcode} where id=#{id}
+	</update>
 
     <select id="selectAllPersons" resultType="com.bio.beans.Person">
 		select * from persons order by idperson desc

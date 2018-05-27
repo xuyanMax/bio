@@ -12,24 +12,35 @@
     <title>User info display</title>
 </head>
 <body>
-    <div>
-        <table border="1">
+        <table border="1" width="100%">
+            <thead>注册用户数据展示</thead>
             <tr>
+                <th>id</th>
                 <th>name</th>
                 <th>age</th>
                 <th>gender</th>
-                <th>tel</th>
+                <th>sn_in_center</th>
+                <th>global_sn</th>
+                <th>relative</th>
+                <th>email</th>
+                <th>tel1</th>
+                <th>tel2</th>
             </tr>
             <c:forEach items="${requestScope.persons}" var="person">
                 <tr>
+                    <td>${person.idperson}</td>
                     <td>${person.name}</td>
                     <td>${person.age}</td>
                     <td>${person.gender}</td>
+                    <td>${person.sn_in_center}</td>
+                    <td>${person.global_sn}</td>
+                    <td>${person.relative}</td>
+                    <td>${person.email}</td>s
                     <td>${person.tel1}</td>
+                    <td>${person.tel2}</td>
                 </tr>
             </c:forEach>
         </table>
-    </div>
 
 </body>
 </html>

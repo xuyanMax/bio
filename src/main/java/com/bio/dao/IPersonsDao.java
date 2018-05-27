@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface IPersonsDao {
     void insertPerson(Person person );
-    void insertPersonCache(Person person);
 
     //删除指定IdPerson
     void deletePersonByIdPerson(int idPerson);

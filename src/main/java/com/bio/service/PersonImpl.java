@@ -23,7 +23,7 @@ public class PersonImpl implements IPersonService{
         this.personsDao = personsDao;
     }
 
-   /* @Override
+    @Override
     public void removeById(Integer idPerson) {
         personsDao.deletePersonByIdPerson(idPerson);
     }
@@ -33,14 +33,14 @@ public class PersonImpl implements IPersonService{
         personsDao.updatePerson(person);
     }
 
-    @Override
-    public List<String> findAllPersonsNames() {
-        List<String> res = personsDao.selectAllPersons().
-                stream().
-                map(Person::getName).
-                collect(Collectors.toList());
-        return res;
-    }*/
+//    @Override
+//    public List<String> findAllPersonsNames() {
+//        List<String> res = personsDao.selectAllPersons().
+//                stream().
+//                map(Person::getName).
+//                collect(Collectors.toList());
+//        return res;
+//    }
 
 //    @Override
 //    public String findPersonNameById(int idPerson) {

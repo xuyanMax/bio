@@ -55,7 +55,7 @@ public class FileDownloadController {
     public String listFiles(HttpServletRequest request,
                             ModelAndView mv,
                             HttpServletResponse response){
-        String filesPath = request.getSession().getServletContext().getRealPath("/data");
+        String filesPath = request.getSession().getServletContext().getRealPath("/data/");
         File[] files = new File(filesPath).listFiles();
 
         //返回包含上传文件列表的字符串
