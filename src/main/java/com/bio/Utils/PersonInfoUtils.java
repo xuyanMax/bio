@@ -22,26 +22,39 @@ public class PersonInfoUtils {
     //获取队列成员信息的- md5(ID_code)
     public static String md5(String ID_code){
         try {
-            // 得到一个信息摘要器
-            MessageDigest digest = MessageDigest.getInstance("md5");
-            byte[] result = digest.digest(ID_code.getBytes());
-            StringBuilder builder = new StringBuilder();
-            // 把每一个byte 做一个与运算 0xff;
-            for (byte b : result) {
-                // 与运算
-                int number = b & 0xff;// 加盐
-                String str = Integer.toHexString(number);
-                if (str.length() == 1) {
-                    builder.append("0");
-                }
-                builder.append(str);
-            }
-            // 标准的md5加密后的结果
-            return builder.toString();
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //input converted to bytes
+            byte[] bytes = ID_code.getBytes();
+            md.update(bytes);
+            //md5 hash and convert back to bytes
+            byte[] res = md.digest();
+
+            //
+            return byteArrayToHex(res);
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
+    }
+    // convert md5 bytes back to HEXADECIMAL
+    // refer: https://blog.csdn.net/xiao__gui/article/details/8148203
+    public static String byteArrayToHex(byte[] bytes){
+// 首先初始化一个字符数组，用来存放每个16进制字符
+
+        char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9', 'A','B','C','D','E','F' };
+        // new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
+        char[] res =new char[bytes.length * 2];
+
+        // 遍历字节数组，通过位运算（位运算效率高），转换成字符放到字符数组中去
+        int index = 0;
+
+        for (byte b:bytes) {
+            res[index++] = hexDigits[b>>> 4 & 0xf];
+            res[index++] = hexDigits[b& 0xf];
+        }
+        // 字符数组组合成字符串返回
+        return new String(res);
     }
     //获取队列成员信息的-姓
     public static String lastName(Optional<String> name){

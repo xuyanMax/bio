@@ -1,3 +1,5 @@
+<%@ page import="com.bio.beans.Person" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -12,6 +14,9 @@
     <title>User info display</title>
 </head>
 <body>
+        <% List<Person> persons = (List<Person>) request.getAttribute("persons");
+        if (persons != null){
+        %>
         <table border="1" width="100%">
             <thead>注册用户数据展示</thead>
             <tr>
@@ -25,6 +30,7 @@
                 <th>email</th>
                 <th>tel1</th>
                 <th>tel2</th>
+                <td>数据库操作</td>
             </tr>
             <c:forEach items="${requestScope.persons}" var="person">
                 <tr>
@@ -38,9 +44,17 @@
                     <td>${person.email}</td>s
                     <td>${person.tel1}</td>
                     <td>${person.tel2}</td>
+                    <td><a href="/admin/update?idperson=${person.idperson}">更新</a>|<a href="/admin/delete?idperson=${person.idperson}">删除</a></td>
                 </tr>
             </c:forEach>
         </table>
+        <%
+            } else {
+        %>
+            <p>No available data</p>
+        <%
+            }
+        %>
 
 </body>
 </html>

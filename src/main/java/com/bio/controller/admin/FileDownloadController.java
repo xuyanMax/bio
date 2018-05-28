@@ -35,7 +35,7 @@ public class FileDownloadController {
             @RequestParam("file") String filename,
             Model model) throws IOException {
 //        https://blog.csdn.net/qian_ch/article/details/69258465
-//下载文件路径
+//        下载文件路径
         String path = request.getServletContext().getRealPath("/data/");
         File file = new File(path + File.separator + filename);
         HttpHeaders headers = new HttpHeaders();
@@ -65,6 +65,7 @@ public class FileDownloadController {
         System.out.println(file.isDirectory());
         File[] files = file.listFiles();
 
+        //test
         System.out.println(files);
 
         String[] filesNames = file.list();

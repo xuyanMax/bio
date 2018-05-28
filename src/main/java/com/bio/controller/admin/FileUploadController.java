@@ -67,17 +67,20 @@ public class FileUploadController{
     }
 
     @RequestMapping(value = "/upMultiFiles", method = RequestMethod.POST)
-    public String upMultiFiles(HttpServletRequest request,
+    public ModelAndView upMultiFiles(HttpServletRequest request,
                                @RequestParam("files") MultipartFile[] multipartFiles){
+        ModelAndView mv = new ModelAndView();
         boolean flag = true;
         List<MultipartFile> nonEmptyFiles = Arrays.stream(multipartFiles).
                                             filter((f)->(!f.isEmpty())).collect(Collectors.toList());
         // 存在空的上传文件
         if(nonEmptyFiles.size() != multipartFiles.length)
-            return "views/error";
+            mv.addObject("message", "错误：存在空文件！");
+//            return "views/error";
         else
             Arrays.stream(multipartFiles).forEach((f)-> DBUtils.uploadSingleFile(request, f));
-        return "views/success";
+//        return "views/success";
+        return mv;
     }
 
 

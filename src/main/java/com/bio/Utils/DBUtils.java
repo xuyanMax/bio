@@ -68,6 +68,7 @@ public class DBUtils {
 
     /**
      * save to db
+     * only applicable to: 2003 Excel, e.g., *.xls
      * 1. read xls file from the server
      * 2. save it to db
     * */
