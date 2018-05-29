@@ -18,7 +18,7 @@
         if (persons != null){
         %>
         <table border="1" width="100%">
-            <thead>注册用户数据展示</thead>
+            注册用户数据展示
             <tr>
                 <th>id</th>
                 <th>name</th>
@@ -44,7 +44,7 @@
                     <td>${person.email}</td>s
                     <td>${person.tel1}</td>
                     <td>${person.tel2}</td>
-                    <td><a href="/admin/update?idperson=${person.idperson}">更新</a>|<a href="/admin/delete?idperson=${person.idperson}">删除</a></td>
+                    <td><a href="/admin/updatePerson?idperson=${person.idperson}">更新</a>|<a href="/admin/delete?idperson=${person.idperson}">删除</a></td>
                 </tr>
             </c:forEach>
         </table>

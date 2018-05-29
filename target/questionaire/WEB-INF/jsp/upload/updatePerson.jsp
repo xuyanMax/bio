@@ -14,14 +14,14 @@
         <% if (request.getAttribute("person") != null){
         %>
         <form method="post" action="/admin/update"></form>
-        age: <input type="text" placeholder="${person.age}" value="age"/> <br/>
-        gender:<input type="text" placeholder="${person.gender}" value="gender"/> <br/>
-        email:<input type="text" placeholder="${person.email}" value="email"/><br/>
-        sn_in_center:<input type="text" placeholder="${person.sn_in_center}" value="sn_in_center"/><br/>
-        global_sn:<input type="text" placeholder="${person.global_sn}" value="global_sn"/><br/>
-        tel1:<input type="text" placeholder="${person.tel1}" value="tel1"/><br/>
-        barcode:<input type="text" placeholder="${person.barcode}" value="barcode"/><br/>
-        relative:<input type="text" placeholder="${person.relative}" value="relative"/><br/>
+        age: <input type="text" value="${person.age}"/> <br/>
+        gender:<input type="text" value="${person.gender}"/> <br/>
+        email:<input type="text" value="${person.email}"/><br/>
+        sn_in_center:<input type="text" value="${person.sn_in_center}"/><br/>
+        global_sn:<input type="text" value="person.global_sn"/><br/>
+        tel1:<input type="text" value="${person.tel1}"/><br/>
+        barcode:<input type="text" value="${person.barcode}"/><br/>
+        relative:<input type="text" value="${person.relative}"/><br/>
         submit: <input type="submit" value="update">
         <%
             }

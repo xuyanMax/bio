@@ -39,7 +39,6 @@ public class FileUploadController{
         if (!multipartFile.isEmpty()) {
 
             DBUtils.uploadSingleFile(request, multipartFile);
-
             mv.addObject("path", request.getSession().getServletContext().getRealPath("/data"));
 
             // 1. read the xls file
@@ -76,10 +75,11 @@ public class FileUploadController{
         // 存在空的上传文件
         if(nonEmptyFiles.size() != multipartFiles.length)
             mv.addObject("message", "错误：存在空文件！");
-//            return "views/error";
-        else
-            Arrays.stream(multipartFiles).forEach((f)-> DBUtils.uploadSingleFile(request, f));
-//        return "views/success";
+        else {
+            Arrays.stream(multipartFiles).forEach((f) -> DBUtils.uploadSingleFile(request, f));
+            mv.addObject("message", "successfully uploaded " + multipartFiles.length + " files");
+        }
+        mv.setViewName("views/success");
         return mv;
     }
 

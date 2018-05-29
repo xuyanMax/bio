@@ -57,12 +57,11 @@
             <td><%= p.getBarcode()%></td>
             <td><%= p.getTel1()%></td>
             <td><%= p.getTel2()%></td>
-            <td><a href="/admin/update?idperson=<%=p.getIdperson()%>">更新</a> |
+            <td><a href="/admin/updatePerson?idperson=<%=p.getIdperson()%>">更新</a> |
                 <a href="/admin/delete?idperson=<%=p.getIdperson()%>">删除</a> </td>
         </tr>
             <%}%><%--persons--%>
     </table>
     <%}%><%--if persons not null--%>
-
 </body>
 </html>
