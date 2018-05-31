@@ -18,7 +18,7 @@
         if (persons != null){
         %>
         <table border="1" width="100%">
-            注册用户数据展示
+            Display registered users
             <tr>
                 <th>id</th>
                 <th>name</th>

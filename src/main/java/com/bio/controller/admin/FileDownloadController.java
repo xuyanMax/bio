@@ -28,7 +28,8 @@ public class FileDownloadController {
         return "jsp/download/downloadFiles";
     }
 
-    //下载上传文件
+    //下载数据库中包含所有person的Excel文件
+    // todo:
     @RequestMapping("/downloadFiles")
     public ResponseEntity<byte[]> downloadFiles(
             HttpServletRequest request,
@@ -50,7 +51,7 @@ public class FileDownloadController {
                 headers, HttpStatus.CREATED);
     }
 
-
+    // 测试用功能
     //reference: https://zhidao.baidu.com/question/54064551.html
     @RequestMapping(value = "/list")
     public ModelAndView listFiles(HttpServletRequest request){

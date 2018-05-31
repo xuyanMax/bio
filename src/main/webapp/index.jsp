@@ -1,10 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
- <meta content="text/plain; charset=UTF-8">
 </head>
 <body>
 <h2>后台控制</h2>
-<a href="upload">Upload file</a><br/>
 
 <a href="uploadMultiFiles">Upload multiple files</a><br/>
 

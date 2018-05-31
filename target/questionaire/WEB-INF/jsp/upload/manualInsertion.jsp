@@ -24,7 +24,7 @@
     电话1：<input type="text" name="tel1" value="15151528348"/><br/>
     电话2：<input type="text" name="tel2" value="110"/><br/>
     提交：<input type="submit" name="submit">
-    <h1 color="red">${requestScope.message}</h1>
+    <h1 color="red">${requestScope.message}</h1>2
 </form>
 <%
     List<Person> persons = (List<Person>) request.getAttribute("persons");

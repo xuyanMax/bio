@@ -92,31 +92,30 @@ public class PersonInfoUtils {
         return null;
     }
     //利用ID计算生日
-    // 15/18位身份证
+    // 默认18位身份证
     // @return 1: 男, 2: 女
     public static int getAge(String ID_code){
         int size = ID_code.length();
         //报错
-        if (size == 0) return -1;
-        switch (size){
+        if (ID_code == null || size == 0) return -1;
+        /*switch (size){
             case 15:return getAgeHelper(ID_code.substring(6,11), 6);
             case 18:return getAgeHelper(ID_code.substring(6,13), 8);
-        }
-        return -1;
+        }*/
+        return getAgeHelper(ID_code.substring(6,13), 8);
     }
     // 年龄范围: 1918年到2018年
     // 通过年，月，日与当前时间做对比，计算实际年龄
 
     //合并处理15位/18位身份证号，计算年龄的问题
     public static int getAgeHelper(String birth, int size){
-        int offset = (size==6) ? 0 : 2;
         Calendar calendar = Calendar.getInstance();
-        int res = calendar.get(Calendar.YEAR) - Integer.valueOf(birth.substring(0, 2+offset));
-        int monDiff = calendar.get(Calendar.MONTH) - Integer.valueOf(birth.substring(2+offset, 4+offset));
+        int res = calendar.get(Calendar.YEAR) - Integer.valueOf(birth.substring(0, 4));
+        int monDiff = calendar.get(Calendar.MONTH)+1 - Integer.valueOf(birth.substring(4, 6));
         if (monDiff < 0)
             res--;
         else if (monDiff == 0)
-            res += calendar.get(Calendar.DAY_OF_MONTH) - Integer.valueOf(birth.substring(4+offset)) >= 0 ? 1 : -1;
+            res += calendar.get(Calendar.DAY_OF_MONTH) - Integer.valueOf(birth.substring(6)) >= 0 ? 0 : -1;
         return res;
     }
 

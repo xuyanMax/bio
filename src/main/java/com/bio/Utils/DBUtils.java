@@ -1,21 +1,47 @@
 package com.bio.Utils;
 
 import com.bio.beans.Person;
-import javafx.scene.control.Cell;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DBUtils {
-    private static int CONSTANT = 6;
+    private static final int CONSTANT = 6;
+    private static String sheetName = "下载队列成员信息表";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final String FILE_EXTENSION = ".xls";
+    private static final String FILE_NAME = "队列成员信息表" + LocalDate.now().format(DATE_TIME_FORMATTER) + FILE_EXTENSION;
+    private static final String[] COL_NAMES = new String[10];
+    private static final String[] PS =  new String[9];
+    static {
+        COL_NAMES[0] = "项目内序号";
+        COL_NAMES[1] = "单位内序号(工号)";
+        COL_NAMES[2] = "姓名";
+        COL_NAMES[3] = "性别";
+        COL_NAMES[4] = "年龄";
+        COL_NAMES[5] = "身份证号";//?
+        COL_NAMES[6] = "编译后身份证号";
+        COL_NAMES[7] = "样品条形码(登记流水号)";
+        COL_NAMES[8] = "身份";
+        COL_NAMES[9] = "电话";
+
+        PS[0] = "本表为系统生成，由单位管理员下载";
+        PS[1] = "“项目内序号”为系统赋予，唯一不重复，格式为三个数字以_连接：‘postcode’_‘local_num’_‘number’，number是在本单位内从1开始顺序排列的数字";
+        PS[2] = "“单位内序号”、“姓名”与输入表相同";
+        PS[3] = "“性别”、“年龄”由身份证号读取";
+        PS[4] = "“身份证号”与输入表相同";
+        PS[5] = "“编译后的身份证号”由身份证号经过MD5加密算法得到，无法回溯得到原身份证号";
+        PS[6] = "样品条形码（登记流水号）”、“身份”、“电话”与输入表相同";
+        PS[7] = "本表信息由单位管理员下载并保存，全名和身份证号不会存入系统数据库";
+        PS[8] = "下载成功说明队列成员信息已入库，如下载失败须重新上传和下载";
+    }
     /**
     * read xls
     * @return List<person>
@@ -94,6 +120,118 @@ public class DBUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    // output an excel file, containing all person's essential info
+    public static void createExcelSheet(List<Person> persons, String ID) {
+        //1. 创建workbook，对应一个excel
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        //2. 添加一个sheet
+        HSSFSheet sheet = workbook.createSheet(sheetName);
+//        sheet.setDefaultColumnWidth(5);//统一设置列宽度
+
+        //3. 添加内容
+        // a. 创建标题
+//        HSSFRow row0 = sheet.createRow(0);
+//        row0.setHeightInPoints(50);//标题高度
+//        HSSFCellStyle style = workbook.createCellStyle();
+//        style.setAlignment(HorizontalAlignment.CENTER_SELECTION);//标题居中
+//        style.setVerticalAlignment(VerticalAlignment.CENTER);//标题居中
+        // b. 创建表头
+        HSSFRow row0 = sheet.createRow(0);
+        row0.setHeightInPoints(37);
+        HSSFCellStyle style = workbook.createCellStyle();
+        //设置边框
+        setCellStyle(workbook, style);
+
+        HSSFFont headerFont = (HSSFFont) workbook.createFont(); // 创建字体样式
+        headerFont.setBold(true); // 字体加粗
+        headerFont.setFontName("黑体"); // 设置字体类型
+        headerFont.setFontHeightInPoints((short) 10); // 设置字体大小
+        style.setFont(headerFont); // 为标题样式设置字体样式
+
+        //单元格
+        HSSFCell cell = null;
+        // 4.创建表头的列
+        for (int i = 0; i < COL_NAMES.length; i++) {
+            cell = row0.createCell(i);
+            cell.setCellValue(COL_NAMES[i]);
+            cell.setCellStyle(style);
+        }
+        // 第五步，创建单元格，并设置值
+        HSSFRow row = null;
+        for (int i = 0; i < persons.size(); i++) {
+            row = sheet.createRow(i+1);
+            // 为数据内容设置特点新单元格样式1 自动换行 上下居中
+            style = workbook.createCellStyle();
+            //设置单元格边框
+            setCellStyle(workbook, style);
+            //获取row的输入信息
+            List<String> rowInfo = getColValues(persons.get(i), ID);
+            //插入每一列单元格信息
+            for (int j = 0; j< COL_NAMES.length; j++){
+                cell = row.createCell(j);
+                cell.setCellValue(rowInfo.get(j));
+                cell.setCellStyle(style);
+            }
+        }
+        // 第六步，存储下载文件到指定位置
+        // for windows
+        String path = System.getProperty("user.home")+"/Downloads";
+        // todo: for mac
+        try {
+            FileOutputStream os = new FileOutputStream(path + FILE_NAME);
+            workbook.write();//导出
+            System.out.println("已导出: " + FILE_NAME);
+            os.close();//关闭输出流
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }/*finally {
+            os
+        }*/
+    }
+    public static void setCellStyle(HSSFWorkbook workbook, CellStyle style){
+        style.setWrapText(true);// 设置自动换行
+        style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        style.setVerticalAlignment(VerticalAlignment.CENTER); // 创建一个居中格式
+        //设置边框
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setBorderTop(BorderStyle.THIN);
+    }
+    public static List<String> getColValues(Person person, String ID){
+        if (person == null)
+            return new ArrayList<>();
+        List<String> res = new ArrayList<>();
+
+        String global_sn = person.getGlobal_sn();
+        String sn_in_center = person.getSn_in_center();
+        String name = person.getName();
+        String gender = person.getGender().equals("1")?"男":"女";
+        String age = String.valueOf(person.getAge());
+        String ID_code = ID;//原身份证号
+        String ID_md5 = person.getID_code();//加密身份证号
+        //1:男 else女
+        String barcode = person.getBarcode();
+        String relative = person.getRelative()==0?"participant":"relative";
+        String tel1 = person.getTel1();
+
+        res.add(global_sn);
+        res.add(sn_in_center);
+        res.add(name);
+        res.add(gender);
+        res.add(age);
+        res.add(ID_code);
+        res.add(ID_md5);
+        res.add(barcode);
+        res.add(relative);
+        res.add(tel1);
+
+        return res;
+
     }
 
 }
