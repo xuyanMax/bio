@@ -9,9 +9,9 @@ README
 ****
 ## 目录
 
-* [java jdk]  (#jdk)
-* [tomcat version]  (#tomcat)
-* [db settings]  (#dbsettings)
+* [jdk](#jdk)
+* [tomcat](#tomcat)
+* [db settings](#db settings)
 
 
 jdk
@@ -20,5 +20,5 @@ jdk
 tomcat
 ------
 
-dbsettings
+db settings
 ------
