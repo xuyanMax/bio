@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Repository
-public interface IPersonsDao {
+public interface IPersonDao {
     void insertPerson(Person person );
 
     //删除指定IdPerson
@@ -19,4 +19,6 @@ public interface IPersonsDao {
 
     //按照IdPerson获取
     Person selectPersonByIdPerson(int idPerson);
+    Person selectPersonByID_code(String ID_code, String name);
+
 }

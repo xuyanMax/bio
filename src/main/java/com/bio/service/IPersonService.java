@@ -1,7 +1,6 @@
 package com.bio.service;
 
 import com.bio.beans.Person;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,5 +14,6 @@ public interface IPersonService {
 
     List<Person> findAllPersons();
     Person findPersonById(int id);
+    Person findPersonByID_code(String ID_code, String name);
 
 }

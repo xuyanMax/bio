@@ -123,4 +123,10 @@ public class PersonInfoUtils {
     public static int relative(String relative){
         return !relative.equals("参与人")?0:1;
     }
+
+    //判断是否为纯数字组成字符串
+    public static boolean isDigits(String code){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(code).matches();
+    }
 }

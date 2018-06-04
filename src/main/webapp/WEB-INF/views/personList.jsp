@@ -18,7 +18,7 @@
         if (persons != null){
         %>
         <table border="1" width="100%">
-            Display registered users
+            <thead>Display registered users</thead>
             <tr>
                 <th>id</th>
                 <th>name</th>

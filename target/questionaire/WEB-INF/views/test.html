@@ -3,139 +3,20 @@
 <head>
     <!-- Required meta tags -->
     <title>Login page</title>
-    <!-- Bootstrap CSS -->
+    <!-- 本地 Bootstrap CSS -->
     <link href="/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <!--测试用-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
-<!-- Large modal -->
-<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Login modal</button>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    ×</button>
-                <h4 class="modal-title" id="myModalLabel">
-                    Login/Registration - <a href="http://www.jquery2dotnet.com">jquery2dotnet.com</a></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#Login" data-toggle="tab">Login</a></li>
-                            <li><a href="#Registration" data-toggle="tab">Registration</a></li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="Login">
-                                <form role="form" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email1" placeholder="Email" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1" class="col-sm-2 control-label">
-                                            Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Submit</button>
-                                            <a href="javascript:;">Forgot your password?</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane" id="Registration">
-                                <form role="form" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Name</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <select class="form-control">
-                                                        <option>Mr.</option>
-                                                        <option>Ms.</option>
-                                                        <option>Mrs.</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" placeholder="Name" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Email" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            Mobile</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="mobile" placeholder="Mobile" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password" class="col-sm-2 control-label">
-                                            Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" id="password" placeholder="Password" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary btn-sm">
-                                                Save & Continue</button>
-                                            <button type="button" class="btn btn-default btn-sm">
-                                                Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div id="OR" class="hidden-xs">
-                            OR</div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row text-center sign-with">
-                            <div class="col-md-12">
-                                <h3>
-                                    Sign in with</h3>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="btn-group btn-group-justified">
-                                    <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
-                                    Google</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- 本地 jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="/bootstrap-3.3.7-dist/js/jquery-3.3.1.js"></script>
 <script src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<!--测试用-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>

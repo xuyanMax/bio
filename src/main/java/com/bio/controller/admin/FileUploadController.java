@@ -75,12 +75,14 @@ public class FileUploadController{
             mv.setViewName("views/errors/error");
         }
         else {
+            // 0. 文件仅逐个上传，不做处理
             Arrays.stream(files).forEach((f) -> DBUtils.uploadSingleFile(request, f));
-            //插入前，调取数据库中的所有person
+            //1. 插入文件中数据到db前，调取数据库中的现有person
             List<Person> allPersons = personService.findAllPersons();
-            //插入数据库, 添加到allPerson尾部
+            //2. 插入数据库, 添加到allPerson尾部
             allPersons.addAll(readXls(request, files));
             //调用返回下载队列成员信息表的Controller页面
+            //返回信息中的原ID
 
             // add persons to model
             mv.addObject("persons", allPersons);
@@ -93,7 +95,9 @@ public class FileUploadController{
         return mv;
     }
 
-    // once upload the files
+    // 1. upload the files
+    // 2. insert person data to db
+
     public List<Person> readXls(HttpServletRequest request,
                                 MultipartFile[] files){
         List<Person> res = new ArrayList<>();

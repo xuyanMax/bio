@@ -5,9 +5,10 @@ import com.jcraft.jsch.JSchException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
 // refer: https://stackoverflow.com/questions/33526427/spring-boot-ssh-mysql
-@WebListener
+
+/*若需要切换到本地数据库，请注释掉下面一行 @WebListener*/
+//@WebListener
 public class MyContextListener implements ServletContextListener {
     private SSHConnection sshConnection;
 

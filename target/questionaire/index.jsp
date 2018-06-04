@@ -1,21 +1,66 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+ <title>后台控制</title>
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!------ Include the above in your HEAD tag ---------->
 <body>
-<h2>后台控制</h2>
-<a href="upload">Upload file</a><br/>
 
-<a href="uploadMultiFiles">Upload multiple files</a><br/>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="/home">FLUP</a>
+            </li>
+            <%--<li class="nav-item">--%>
+                <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+                <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+                <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <a class="navbar-brand mx-auto" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <% if (request.getAttribute("username") != null) {
 
-<%--test--%>
-<a href="admin/manualInsertPage">Manually insert personal data</a><br/>
+        %>
+        <ul class="navbar-nav ml-auto">
+            Welcome, <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">${username} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
+                    <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <%
+            }
+        %>
+    </div>
+</nav>
+<div class="list-group list">
+    <a href="uploadMultiFiles" class="list-group-item list-group-item-action active">
+        Upload multiple files
+    </a> <br/>
+    <a href="admin/manualInsertPage" class="list-group-item list-group-item-action">Manually insert personal data</a><br/>
+    <a href="admin/displayUsers" class="list-group-item list-group-item-action">Display all persons</a><br/>
+    <a href="list" class="list-group-item list-group-item-action disabled">List uploaded files</a><br/>
+</div>
 
- <%--test--%>
-<%--<a href="/list">List uploaded files</a><br/>--%>
 
-<%--test--%>
-<a href="admin/displayUsers">Display all persons</a><br/>
-<a href="list">List uploaded files</a>
+<!--测试用-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>

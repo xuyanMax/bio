@@ -12,6 +12,16 @@ public class Person {
     private int age;
     private String ID_code;
     private String sn_in_center;
+    private int idcenter;
+
+    public int getIdcenter() {
+        return idcenter;
+    }
+
+    public void setIdcenter(int idcenter) {
+        this.idcenter = idcenter;
+    }
+
     private String global_sn;
     private int relative;
     private String tel1;
@@ -108,10 +118,6 @@ public class Person {
         this.ID_code = ID_code;
     }
 
-//    public int getIdperson() {
-//        return idperson;
-//    }
-//
     public int getAge() {
         return age;
     }
