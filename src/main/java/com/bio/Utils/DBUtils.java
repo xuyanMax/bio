@@ -6,11 +6,13 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.registry.infomodel.PersonName;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class DBUtils {
     private static final int CONSTANT = 6;
@@ -26,7 +28,7 @@ public class DBUtils {
         COL_NAMES[2] = "姓名";
         COL_NAMES[3] = "性别";
         COL_NAMES[4] = "年龄";
-        COL_NAMES[5] = "身份证号";//?
+        COL_NAMES[5] = "身份证号";
         COL_NAMES[6] = "编译后身份证号";
         COL_NAMES[7] = "样品条形码(登记流水号)";
         COL_NAMES[8] = "身份";
@@ -42,8 +44,10 @@ public class DBUtils {
         PS[7] = "本表信息由单位管理员下载并保存，全名和身份证号不会存入系统数据库";
         PS[8] = "下载成功说明队列成员信息已入库，如下载失败须重新上传和下载";
     }
+    private static int INFO_ROWS = 6;
     /**
     * read xls
+     * * 从服务器端读取上传文件，并获取persons数据
     * @return List<person>
     * */
     public static List<Person> readXls (String path) throws IOException {
@@ -59,7 +63,7 @@ public class DBUtils {
         //sanity check
         if (uploadQueueInfo == null) return res;
         // iterate every row
-        for (int i=2; i<uploadQueueInfo.getLastRowNum()-6; i++){
+        for (int i=2; i<=uploadQueueInfo.getLastRowNum()-INFO_ROWS; i++){
             HSSFRow hssfRow = uploadQueueInfo.getRow(i);
             if (hssfRow != null){
                 Person p = new Person();
@@ -72,11 +76,18 @@ public class DBUtils {
 
                 DataFormatter formatter = new DataFormatter();
 
-                // assemble a person object and add to return list
-                /*Returns the formatted value of a cell as a String regardless of the cell type
-                https://stackoverflow.com/questions/30125465/cannot-get-a-text-value-from-a-numeric-cell-poi*/
+                /*
+                assemble a person object and add to return list
+                Returns the formatted value of a cell as a String regardless of the cell type
+
+                https://stackoverflow.com/questions/30125465/cannot-get-a-text-value-from-a-numeric-cell-poi
+                */
                 p.setName(formatter.formatCellValue(name));
+                //保留原身份证号
+                p.setOriginal_ID_code(formatter.formatCellValue(ID_code));
+                //md5散列的身份证号
                 p.setID_code(PersonInfoUtils.md5(formatter.formatCellValue(ID_code)));
+
                 p.setBarcode(formatter.formatCellValue(barcode));
                 p.setRelative(PersonInfoUtils.relative(formatter.formatCellValue(relative)));
                 p.setSn_in_center(formatter.formatCellValue(sn_in_center));
@@ -89,6 +100,13 @@ public class DBUtils {
                 // assemble done
             }
         }
+        return res;
+    }
+
+    //todo:直接从上传excels文件中读取数据List<persons>
+    public List<Person> readXls(MultipartFile[] files){
+        List<Person> res = new ArrayList<>();
+
         return res;
     }
 
@@ -122,7 +140,8 @@ public class DBUtils {
         }
     }
     // output an excel file, containing all person's essential info
-    public static void createExcelSheet(List<Person> persons, String ID) {
+    public static void createExcelSheet(List<Person> persons) {
+        System.out.println(persons.size());
         //1. 创建workbook，对应一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
         //2. 添加一个sheet
@@ -159,14 +178,15 @@ public class DBUtils {
         }
         // 第五步，创建单元格，并设置值
         HSSFRow row = null;
-        for (int i = 0; i < persons.size(); i++) {
+        int i;
+        for ( i=0; i < persons.size(); i++) {
             row = sheet.createRow(i+1);
             // 为数据内容设置特点新单元格样式1 自动换行 上下居中
             style = workbook.createCellStyle();
             //设置单元格边框
             setCellStyle(workbook, style);
             //获取row的输入信息
-            List<String> rowInfo = getColValues(persons.get(i), ID);
+            List<String> rowInfo = getColValues(persons.get(i), persons.get(i).getOriginal_ID_code());
             //插入每一列单元格信息
             for (int j = 0; j< COL_NAMES.length; j++){
                 cell = row.createCell(j);
@@ -174,13 +194,20 @@ public class DBUtils {
                 cell.setCellStyle(style);
             }
         }
+        // 插入注解信息
+        for (int j=0; j<PS.length; j++, i++){
+            row = sheet.createRow(i+1);
+            cell = row.createCell(0);
+            cell.setCellValue(PS[j]);
+        }
         // 第六步，存储下载文件到指定位置
-        // for windows
-        String path = System.getProperty("user.home")+"/Downloads";
+        // for macos: /Users/"你的用户"/Downloads/
+        String path = System.getProperty("user.home")+"/Downloads/";
+        System.out.println(path);
         // todo: for mac
         try {
             FileOutputStream os = new FileOutputStream(path + FILE_NAME);
-            workbook.write();//导出
+            workbook.write(os);//导出
             System.out.println("已导出: " + FILE_NAME);
             os.close();//关闭输出流
         } catch (FileNotFoundException e) {

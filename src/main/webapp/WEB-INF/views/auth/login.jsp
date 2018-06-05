@@ -48,7 +48,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
 </head>
 <body>
 <div class="login-form">
-    <form name="signInForm" action="/signIn" method="post" onsubmit="return checkOnSignIn();">
+    <form name="signInForm" action="/Login" method="post" onsubmit="return checkOnSignIn();">
         <h2 class="text-center">Log in</h2>
         <div class="form-group" id="name_div">
             <input type="text" class="form-control" placeholder="姓名" required="required" name="name">
@@ -101,7 +101,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
             if (id1 != id2){
                 var id_class = document.getElementById("id2_div");
                 id_class.className += ' has-error';
-                document.getElementById("ID-error1").innerText="两次输入身份证号不匹配";
+                document.getElementById("ID-error2").innerText="两次输入身份证号不匹配";
                 return false;
             }
             return true;

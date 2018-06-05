@@ -30,12 +30,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
+    <% if (request.getAttribute("username") != null) {
+    %>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <% if (request.getAttribute("username") != null) {
-
-        %>
         <ul class="navbar-nav ml-auto">
-            Welcome, <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">${username} <b class="caret"></b></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <%=request.getSession().getAttribute("username")%> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
                     <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
@@ -44,9 +43,7 @@
                 </ul>
             </li>
         </ul>
-        <%
-            }
-        %>
+
     </div>
 </nav>
 <div class="list-group list">
@@ -55,9 +52,11 @@
     </a> <br/>
     <a href="admin/manualInsertPage" class="list-group-item list-group-item-action">Manually insert personal data</a><br/>
     <a href="admin/displayUsers" class="list-group-item list-group-item-action">Display all persons</a><br/>
-    <a href="list" class="list-group-item list-group-item-action disabled">List uploaded files</a><br/>
+    <a href="list" class="list-group-item list-group-item-action disabled" disabled="true">List uploaded files</a><br/>
 </div>
-
+<%
+    }
+%>
 
 <!--测试用-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

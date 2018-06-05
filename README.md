@@ -11,10 +11,10 @@ README
 ## 目录
 
 * [Project Description](#project)
-* [JDK version](#jdk)
-* [Tomcat version](#Tomcat)
-* [db settings](#Database)
-* [Sign-in](#signin)
+* [JDK Version](#jdk)
+* [Tomcat Version](#tomcat)
+* [db Settings](#Database)
+* [Sign-In](#signin)
 
 
 Project
@@ -37,7 +37,7 @@ Project
 jdk
 ------
     1.8.0_101
-Tomcat
+tomcat
 ------
     9.0.46
 Database

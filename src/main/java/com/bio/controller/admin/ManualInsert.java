@@ -5,7 +5,9 @@ import com.bio.beans.Person;
 import com.bio.service.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,20 +15,26 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@SessionAttributes({"user", "username"})
 public class ManualInsert {
     @Autowired
     private IPersonService personService;
 
     @RequestMapping("/manualInsertPage")
-    public String goInsertPage(){
-        return "jsp/upload/manualInsertion";
+    public ModelAndView goInsertPage(@ModelAttribute("username") String username){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", username);
+        mv.setViewName("jsp/upload/manualInsertion");
+        return mv;
     }
 
     @RequestMapping(value = "/manualInsertion")
     public ModelAndView manualInsertion(HttpServletRequest request,
-                                        Person person){
+                                        Person person,
+                                        @ModelAttribute("username") String username){
 
         ModelAndView mv = new ModelAndView();
+        mv.addObject("username", username);
         if (person == null){
             mv.addObject("message", "输入错误");
         }else {

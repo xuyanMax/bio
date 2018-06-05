@@ -4,7 +4,6 @@ import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Person;
 import com.bio.service.ICenterService;
 import com.bio.service.IPersonService;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Request;
+
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 @SessionAttributes({"user","username"})
@@ -27,16 +28,18 @@ public class Home {
         return "../index";
     }
 
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public String loginPage(){
-        return "views/auth/signIn";
+        return "views/auth/login";
     }
 
-    @RequestMapping(value = "/signIn", method = RequestMethod.POST)
+    @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public ModelAndView login(@Param("ID_code") String ID_code,
                               @Param("name") String name,
-                              ModelMap modelMap){
-        ModelAndView mv = new ModelAndView();
+                              ModelMap modelMap,
+                              HttpSession session){
+        ModelAndView mv = null;
+
         System.out.println(ID_code);
         System.out.println(name);
         System.out.println("----");
@@ -52,9 +55,10 @@ public class Home {
         //check 用户输入的name 是否与数据库中注册该身份证对应的姓名相同
         if (!pname.equals(name)){
             //test
+            System.out.println("aa");
             System.out.println("username not equal");
+            mv = new ModelAndView("forward:views/auth/login");
             mv.addObject("userNameError", "输入用户名错误");
-            mv.setViewName("views/auth/signIn");
             return mv;
         }
 
@@ -68,16 +72,24 @@ public class Home {
                 //前往'index.jsp'页面
                 modelMap.addAttribute("user", person);
                 modelMap.addAttribute("username", person.getName());
-                mv.setViewName("../index");
+                mv = new ModelAndView("../index");
+
+                System.out.println(mv.getViewName());
+
+                System.out.println("aac");
+                return mv;
             } else { //说明其sn_in_center值不在centers表中，不是Admin user
                 // 普通用户登陆
-               mv.setViewName("views/success");
+                mv = new ModelAndView("forward:/views/success");
+//               mv.setViewName("redirect:/views/success");
+               return mv;
             }
         }else { // sn_in_center==null，说明不是Admin user
             //普通用户登陆
-            mv.setViewName("views/success");
+            //todo: redirect 代替 forward 实现url变化
+            mv = new ModelAndView("forward:/views/success");
+            return mv;
         }
-        return mv;
     }
     @RequestMapping("/auth/logout")
     public String logout(@ModelAttribute("user") Person person,
@@ -86,7 +98,7 @@ public class Home {
         sessionStatus.setComplete();
 
         //返回登陆页面
-        return "views/auth/signIn";
+        return "views/auth/login";
 
     }
     @RequestMapping("/signup")

@@ -5,14 +5,35 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 public class Person {
-    private int idperson;
 
+    private int idperson;
     private String name;
     private String gender;
     private int age;
+
+    private String original_ID_code;
     private String ID_code;
+
     private String sn_in_center;
+    private String global_sn;
     private int idcenter;
+
+    private String email;
+
+    private String barcode;
+
+    private int relative;
+
+    private String tel1;
+    private String tel2;
+
+    public String getOriginal_ID_code() {
+        return original_ID_code;
+    }
+
+    public void setOriginal_ID_code(String original_ID_code) {
+        this.original_ID_code = original_ID_code;
+    }
 
     public int getIdcenter() {
         return idcenter;
@@ -21,14 +42,6 @@ public class Person {
     public void setIdcenter(int idcenter) {
         this.idcenter = idcenter;
     }
-
-    private String global_sn;
-    private int relative;
-    private String tel1;
-
-    private String tel2;
-    private String barcode;
-    private String email;
 
     public int getRelative() {
         return relative;
@@ -132,10 +145,11 @@ public class Person {
                 +"name=" + name
                 +", gender=" + gender
                 +", age=" + age
-//                +", ID_code=" + ID_code
+                +", original_ID_code="+original_ID_code
+                +", ID_code=" + ID_code
                 +", sn_in_center=" + sn_in_center
                 +", global_sn=" + global_sn
-//                +", idcenter=" + idcenter
+                +", idcenter=" + idcenter
 //                +", identity=" + identity
                 +", barcode=" + barcode
                 +", tel1=" + tel1

@@ -138,95 +138,45 @@
 
 </head>
 <body>
-<%--<form action="/admin/manualInsertion" method="post"><br/>--%>
-    <%--姓名: <input type="text" name="name" required="required" value="name" placeholder="input name"/><br/>--%>
-    <%--身份证：<input type="text" name="ID_code" required="required" value="13010419920518241X"/><br/>--%>
-    <%--单位内编号：<input type="text" name="sn_in_center" value="110042"/><br/>--%>
-    <%--邮箱：<input type="text" name="email" value="xu.yan11@icloud.coms"/><br/>--%>
-    <%--系统内唯一编号：<input type="text" name="global_sn" required="required" value="140662"/><br/>--%>
-    <%--身份：<input type="radio" name="relative" value=1 checked/>参与人--%>
-         <%--<input type="radio" name="relative" value=0 />家属<br/>--%>
-    <%--条形码：<input type="text" name="barcode" value="security*&^"/><br/>--%>
-    <%--电话1：<input type="text" name="tel1" value="15151528348"/><br/>--%>
-    <%--电话2：<input type="text" name="tel2" value="110"/><br/>--%>
-    <%--提交：<input type="submit" name="submit">--%>
-    <%--<h1 color="red">${requestScope.message}</h1>2--%>
-<%--</form>--%>
-
-<%--<div class="signup-form">--%>
-    <%--<form action="/admin/manualInsertion" method="post">--%>
-        <%--<h2>填写用户数据</h2>--%>
-        <%--<p class="hint-text">Create user account</p>--%>
-        <%--<div class="form-group has-warning">--%>
-            <%--身份证: <input type="text" class="form-control" name="ID_code" placeholder="身份证号码" required="required" value="xu">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--邮箱: <input type="email" class="form-control" name="email" placeholder="邮箱" required="required" value="xu.yan11@icloud.com">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--单位内编号: <input type="text" class="form-control" name="sn_in_center" placeholder="单位内编号" required="required" value="1100420">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--系统内唯一编号: <input type="text" class="form-control" name="global_sn" placeholder="系统内唯一编号" required="required" value="1406626">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--身份: <input type="radio" class="form-control" name="relative" required="required" value=1 checked>参与人--%>
-                 <%--<input type="radio" class="form-control" name="relative" required="required" value=2>家属--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--条形码: <input type="text" class="form-control" name="barcode" placeholder="条形码" required="required">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--电话1: <input type="text" class="form-control" name="tel1" placeholder="电话1" required="required">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--电话2: <input type="text" class="form-control" name="tel2" placeholder="电话2" required="required">--%>
-        <%--</div>--%>
-
-        <%--<div class="form-group">--%>
-            <%--<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--<button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>--%>
-        <%--</div>--%>
-    <%--</form>--%>
-<%--</div>--%>
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Left</a>
+                <a class="navbar-brand" href="/home">FLUP</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="//codeply.com">FLUP</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link1</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link2</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link3</a>
-            </li>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">Link</a>--%>
+            <%--</li>--%>
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="#">Navbar 2</a>
+        <a class="navbar-brand mx-auto" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <% if (request.getAttribute("username") != null) {
+        %>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Right</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${username} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
+                    <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+                </ul>
             </li>
         </ul>
+        <%
+            }
+        %>
     </div>
 </nav>
 <%--https://bootsnipp.com/snippets/featured/register-page-design--%>
@@ -365,12 +315,10 @@
 
 <!--测试用-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 <%--todo: validate input fields--%>
 <script type="text/javascript">
-
 </script>
 </body>
 </html>
