@@ -44,12 +44,12 @@ Database
 ------
     db测试，连接本地数据库，不对远程数据库进行操作。
     连接本地127.0.0.1，需要:
-    1. 对`src/main/resources/jdbc.properties`文件中，注释掉远程数据库的连接信息
-    2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，按代码提示，注释掉`@WebListener`
+    1. 对src/main/resources/jdbc.properties文件中，注释掉远程数据库的连接信息
+    2. 对src/main/java/com/bio/Utils/MyContextListener.java，按代码提示，注释掉@WebListener
     
     反之，连接远程数据库，需要:
-     1. 对`src/main/resources/jdbc.properties`文件中，释掉本地数据库的连接信息，反注释远程连接信息
-     2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，反注释`@WebListener`
+     1. 对src/main/resources/jdbc.properties文件中，释掉本地数据库的连接信息，反注释远程连接信息
+     2. 对src/main/java/com/bio/Utils/MyContextListener.java，反注释@WebListener
     
    
 signin
