@@ -52,7 +52,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
         <h2 class="text-center">Log in</h2>
         <div class="form-group" id="name_div">
             <input type="text" class="form-control" placeholder="姓名" required="required" name="name">
-            <span class="help-block" id="name-error">${userNameError}</span>
+            <span class="help-block" id="name-error"></span>
         </div>
         <div class="form-group" id="id1_div">
             <input type="text" class="form-control" placeholder="身份证号" required="required" name="ID_code" id="id1">
@@ -71,42 +71,43 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
         </div>--%>
     </form>
     <%--<p class="text-center"><a href="#">Create an Account</a></p>--%>
-    <script type="text/javascript">
-        function clear() {
-            document.getElementById("ID-error2").innerText="";
-            document.getElementById("ID-error1").innerText="";
-            document.getElementById("name-error").innerText="";
-        }
-        function checkOnSignIn() {
-            clear();
-            var id1 = document.getElementById("id1").value;
-            var id2 = document.getElementById("id2").value;
 
-            // alert(id1);
-            // alert(id2);
-            // todo: 限制为18
-            if (id1.length!=18){
-                var id_class = document.getElementById("id1_div");
-                id_class.className += ' has-error';
-                document.getElementById("ID-error1").innerText="身份证号必须为18位";
-                // alert(document.getElementById("id1_div").className);
-                return false;
-            }
-            if ( id2.length!=18){
-                var id_class = document.getElementById("id2_div");
-                id_class.className += ' has-error';
-                document.getElementById("ID-error2").innerText="身份证号必须为18位";
-                return false;
-            }
-            if (id1 != id2){
-                var id_class = document.getElementById("id2_div");
-                id_class.className += ' has-error';
-                document.getElementById("ID-error2").innerText="两次输入身份证号不匹配";
-                return false;
-            }
-            return true;
-        }
-    </script>
 </div>
+<script type="text/javascript">
+    function clear() {
+        document.getElementById("ID-error2").innerText="";
+        document.getElementById("ID-error1").innerText="";
+        document.getElementById("name-error").innerText="";
+    }
+    function checkOnSignIn() {
+        clear();
+        var id1 = document.getElementById("id1").value;
+        var id2 = document.getElementById("id2").value;
+
+        // alert(id1);
+        // alert(id2);
+        // todo: 限制为18
+        if (id1.length!=18){
+            var id_class = document.getElementById("id1_div");
+            id_class.className += ' has-error';
+            document.getElementById("ID-error1").innerText="身份证号必须为18位";
+            // alert(document.getElementById("id1_div").className);
+            return false;
+        }
+        if ( id2.length!=18){
+            var id_class = document.getElementById("id2_div");
+            id_class.className += ' has-error';
+            document.getElementById("ID-error2").innerText="身份证号必须为18位";
+            return false;
+        }
+        if (id1 != id2){
+            var id_class = document.getElementById("id2_div");
+            id_class.className += ' has-error';
+            document.getElementById("ID-error2").innerText="两次输入身份证号不匹配";
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

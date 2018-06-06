@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Upload multiple files</title>
+    <title>多文件上传</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
-
+<%--todo: 添加jQuery文件上传插件; 解决Bootstrap路径识别问题--%>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
@@ -58,9 +58,9 @@
 
 <form class="" action="/upMultiFiles" enctype="multipart/form-data" method="post">
     <!-- 可以选取一张或者多种图片上传 -->
-    Please upload Excel files: <input type="file" id="files" name="files" multiple="multiple"
+    请上传2003版Excel文件: <input type="file" id="files" name="files" multiple="multiple"
                                       required="required" accept=".xls" onchange="getFiles();"><br/>
-    Please submit: <input type="submit" value="submit">
+    上传: <input type="submit" value="submit">
 </form>
 上传文件:<br/>
 <div class="list-group" id="fileNames"></div>

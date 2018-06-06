@@ -9,132 +9,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Manually Insert Personal Data to DB</title>
+    <title>输入用户数据</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!-- Website Font style -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
     <style type="text/css">
-/* Created by Filipe Pina
- * Specific styles of signin, register, component
-
- * General styles
- */
-        #playground-container {
-            height: 500px;
-            overflow: hidden !important;
-            -webkit-overflow-scrolling: touch;
+        .login-form {
+            width: 340px;
+            margin: 50px auto;
         }
-        body, html{
-            height: 100%;
-            background-repeat: no-repeat;
-            background:url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);
-            font-family: 'Oxygen', sans-serif;
-            background-size: cover;
-        }
-
-        .main{
-            margin:50px 15px;
-        }
-
-        h1.title {
-            font-size: 50px;
-            font-family: 'Passion One', cursive;
-            font-weight: 400;
-        }
-
-        hr{
-            width: 10%;
-            color: #fff;
-        }
-
-        .form-group{
+        .login-form form {
             margin-bottom: 15px;
-        }
-
-        label{
-            margin-bottom: 15px;
-        }
-
-        input,
-        input::-webkit-input-placeholder {
-            font-size: 11px;
-            padding-top: 3px;
-        }
-
-        .main-login{
-            background-color: #fff;
-            /* shadows and rounded borders */
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
-            -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            background: #f7f7f7;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-
+            padding: 30px;
         }
-        .form-control {
-            height: auto!important;
-            padding: 8px 12px !important;
+        .login-form h2 {
+            margin: 0 0 15px;
         }
-        .input-group {
-            -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
-            -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
-            box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+        .form-control, .btn {
+            min-height: 38px;
+            border-radius: 2px;
         }
-        #button {
-            border: 1px solid #ccc;
-            margin-top: 28px;
-            padding: 6px 12px;
-            color: #666;
-            text-shadow: 0 1px #fff;
-            cursor: pointer;
-            -moz-border-radius: 3px 3px;
-            -webkit-border-radius: 3px 3px;
-            border-radius: 3px 3px;
-            -moz-box-shadow: 0 1px #fff inset, 0 1px #ddd;
-            -webkit-box-shadow: 0 1px #fff inset, 0 1px #ddd;
-            box-shadow: 0 1px #fff inset, 0 1px #ddd;
-            background: #f5f5f5;
-            background: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #eeeeee));
-            background: -webkit-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-            background: -o-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-            background: -ms-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-            background: linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#eeeeee', GradientType=0);
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
         }
-        .main-center{
-            margin-top: 30px;
-            margin: 0 auto;
-            max-width: 400px;
-            padding: 10px 40px;
-            background:#009edf;
-            color: #FFF;
-            text-shadow: none;
-            -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-            -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-            box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-
-        }
-        span.input-group-addon i {
-            color: #009edf;
-            font-size: 17px;
-        }
-
-        .login-button{
-            margin-top: 5px;
-        }
-
-        .login-register{
-            font-size: 11px;
-            text-align: center;
-        }
-
     </style>
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -163,6 +66,7 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <% if (request.getAttribute("username") != null) {
+
         %>
         <ul class="navbar-nav ml-auto">
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${username} <b class="caret"></b></a>
@@ -179,100 +83,52 @@
         %>
     </div>
 </nav>
-<%--https://bootsnipp.com/snippets/featured/register-page-design--%>
-<div class="container">
-    <div class="row main">
-        <div class="main-login main-center">
-            <form action="/admin/manualInsertion" method="post">
 
-                <div class="form-group">
-                    <label for="ID_code" class="cols-sm-2 control-label">身份证</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="ID_code" id="ID_code"  placeholder="Your national ID" required="required"/>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">邮箱</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="sn_in_center" class="cols-sm-2 control-label">单位内编号</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="sn_in_center" id="sn_in_center"  placeholder="请输入单位内编号" required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="global_sn" class="cols-sm-2 control-label">系统内编号</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="global_sn" id="global_sn"  placeholder="请输入系统内编号" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    <label for="radio120" class="cols-sm-2 control-label">身份</label>
-                        <div class="form-check">
-                            <input class="form-check-input" name="relative" type="radio" id="radio120" checked="checked" value=1>
-                            <label class="form-check-label" for="radio120">参与者</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" name="relative" type="radio" id="radio121" value=0>
-                            <label class="form-check-label" for="radio121">家属</label>
-                        </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="barcode" class="cols-sm-2 control-label">条形码</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="barcode" id="barcode"  placeholder="请输入条形码" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="tel1" class="cols-sm-2 control-label">tel1</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="tel1" id="tel1"  placeholder="请输入tel1" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="tel2" class="cols-sm-2 control-label">tel2</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <%--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>--%>
-                            <input type="text" class="form-control" name="tel2" id="tel2"  placeholder="请输入tel2" required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="submit"/>
-                </div>
-
-            </form>
+<div class="login-form">
+    <form name="dataInputForm" action="/admin/manualInsertion" method="post">
+        <h2 class="text-center">填写用户数据</h2>
+        <div class="form-group" id="name_div">
+            <input type="text" class="form-control" placeholder="姓名" required="required" name="name">
+            <small class="help-block" id="name-error"></small>
         </div>
-    </div>
+        <div class="form-group" id="ID_code_div">
+            <input type="text" onchange="checkID();" class="form-control" placeholder="身份证号" required="required" name="ID_code" id="ID_code">
+            <small class="help-block" id="ID-error"></small>
+        </div>
+        <div class="form-group" id="email_div">
+            <input type="text" class="form-control" placeholder="邮箱" required="required" name="email" id="email">
+            <small class="help-block" id="email-error"></small>
+        </div>
+        <div class="form-group" id="sn_div">
+            <input type="text" class="form-control" placeholder="单位内编号" required="required" name="sn_in_center" id="sn_in_center">
+            <small class="help-block" id="sn-error"></small>
+        </div>
+        <div class="form-group" id="glob_div">
+            <input type="text" class="form-control" placeholder="系统内编号" required="required" name="global_sn" id="global_sn">
+            <small class="help-block" id="glob-error"></small>
+        </div>
+        <div class="form-group" id="bar_div">
+            <input type="text" class="form-control" placeholder="条形码" required="required" name="barcode" id="barcode">
+            <small class="help-block" id="bar-error"></small>
+        </div>
+        <div class="form-group" id="tel1_div">
+            <input type="text" class="form-control" placeholder="电话1" required="required" name="tel1" id="tel1">
+            <small class="help-block" id="tel1-error"></small>
+        </div>
+        <div class="form-group" id="tel2_div">
+            <input type="text" class="form-control" placeholder="电话2" required="required" name="tel2" id="tel2">
+            <small class="help-block" id="tel2-error"></small>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">上传数据</button>
+        </div>
+        <%--<div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="#" class="pull-right">Forgot Password?</a>
+        </div>--%>
+    </form>
+
 </div>
 
 <%
@@ -316,9 +172,29 @@
 <!--测试用-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-
 <%--todo: validate input fields--%>
 <script type="text/javascript">
+    function checkID() {
+        document.getElementById("ID-error").innerText="";
+        var reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+        var id = document.getElementById("ID_code").value;
+        if (!reg.test(id)){
+            document.getElementById("ID_code").className += ' is-invalid';
+            document.getElementById("ID-error").className +=' text-danger';
+            document.getElementById("ID-error").innerText="请输入18位合法身份证";
+            return;
+        }
+    }
+    function clear() {
+        document.getElementById("name-error").innerText="";
+        document.getElementById("ID-error").innerText="";
+        document.getElementById("email-error").innerText="";
+        document.getElementById("sn-error").innerText="";
+        document.getElementById("glob-error").innerText="";
+        document.getElementById("relative-error").innerText="";
+        document.getElementById("tel1-error").innerText="";
+        document.getElementById("tel2-error").innerText="";
+    }
 </script>
 </body>
 </html>
