@@ -1,9 +1,5 @@
 package com.bio.beans;
 
-import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
-
 public class Person {
 
     private int idperson;

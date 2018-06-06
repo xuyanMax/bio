@@ -118,4 +118,11 @@ public class Home {
     public String support(){
         return "";
     }
+
+    //todo: 404
+    /*404 Page Not Found*/
+    @RequestMapping("*")
+    public String _404NotFound(){
+        return "views/errors/404";
+    }
 }

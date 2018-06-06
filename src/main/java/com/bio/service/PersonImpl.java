@@ -1,7 +1,6 @@
 package com.bio.service;
 
 import com.bio.beans.Person;
-import com.bio.dao.ICenterDao;
 import com.bio.dao.IPersonDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

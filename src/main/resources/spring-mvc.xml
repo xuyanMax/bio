@@ -49,4 +49,14 @@
         <property name="maxInMemorySize" value="40960" />
     </bean>
 
+    <!--配置拦截器-0607-权限设定-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/home"/>
+            <mvc:mapping path="/signup"/>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.bio.interceptor.CommonInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

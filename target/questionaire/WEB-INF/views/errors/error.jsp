@@ -9,9 +9,8 @@
 <html>
 <head>
     <title>error</title>
-    <p>Error Happened.</p>
 </head>
 <body>
-
+    <p>Error Happened.</p>
 </body>
 </html>
