@@ -34,4 +34,12 @@
   [INFO] [2018-06-05 01:43:15][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [jdbcApplicationContext.xml]
   [INFO] [2018-06-05 01:43:15][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
   [INFO] [2018-06-05 01:43:15][org.springframework.jdbc.datasource.DriverManagerDataSource]Loaded JDBC driver: com.mysql.jdbc.Driver
+  [INFO] [2018-06-07 18:34:41][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@721e0f4f: startup date [Thu Jun 07 18:34:41 CST 2018]; root of context hierarchy
+  [INFO] [2018-06-07 18:34:41][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [jdbcApplicationContext.xml]
+  [INFO] [2018-06-07 18:34:41][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
+  [INFO] [2018-06-07 18:34:41][org.springframework.jdbc.datasource.DriverManagerDataSource]Loaded JDBC driver: com.mysql.jdbc.Driver
+  [INFO] [2018-06-07 18:35:10][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@721e0f4f: startup date [Thu Jun 07 18:35:10 CST 2018]; root of context hierarchy
+  [INFO] [2018-06-07 18:35:10][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [jdbcApplicationContext.xml]
+  [INFO] [2018-06-07 18:35:10][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
+  [INFO] [2018-06-07 18:35:10][org.springframework.jdbc.datasource.DriverManagerDataSource]Loaded JDBC driver: com.mysql.jdbc.Driver
   
