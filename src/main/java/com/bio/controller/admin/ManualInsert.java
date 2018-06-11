@@ -36,6 +36,7 @@ public class ManualInsert {
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
         if (person == null){
+            //暂时前端无用message
             mv.addObject("message", "输入错误");
         }else {
             String ID_code = person.getID_code();

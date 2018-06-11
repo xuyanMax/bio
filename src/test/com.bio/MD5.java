@@ -1,5 +1,4 @@
 import com.bio.Utils.PersonInfoUtils;
-import org.junit.Test;
 
 import java.util.Scanner;
 

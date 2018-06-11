@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/admin")
 @SessionAttributes({"username", "user"})// 此处定义此Controller中将要创建和使用哪些session中的对象名
 public class FileUploadController{
     @Autowired

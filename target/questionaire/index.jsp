@@ -47,12 +47,12 @@
     </div>
 </nav>
 <div class="list-group list">
-    <a href="uploadMultiFiles" class="list-group-item list-group-item-action active">
+    <a href="admin/uploadMultiFiles" class="list-group-item list-group-item-action active">
         Upload multiple files
     </a> <br/>
     <a href="admin/manualInsertPage" class="list-group-item list-group-item-action">Manually insert personal data</a><br/>
     <a href="admin/displayUsers" class="list-group-item list-group-item-action">Display all persons</a><br/>
-    <a href="list" class="list-group-item list-group-item-action disabled" disabled="true">List uploaded files</a><br/>
+    <%--<a href="list" class="list-group-item list-group-item-action disabled" disabled="true">List uploaded files</a><br/>--%>
 </div>
 <%
     }

@@ -6,13 +6,11 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Scanner;
-
 public class DBTest {
     private IPersonService personService;
     @Before
     public void test0(){
-        String resource = "jdbcApplicationContext.xml";
+        String resource = "junit-applicationContext.xml";
         ApplicationContext ac = new ClassPathXmlApplicationContext(resource);
         personService = (IPersonService) ac.getBean("personService");
 

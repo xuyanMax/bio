@@ -46,12 +46,19 @@ public class Home {
         System.out.println(PersonInfoUtils.md5(ID_code));
 
         Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code), name);
+
+        if (person == null){
+            mv = new ModelAndView("views/auth/login");
+            mv.addObject("error", "Not A Registered User");
+            return mv;
+        }
         System.out.println(person);
+        Integer idcenter = person.getIdcenter();
         //判断登陆用户是否为Admin user
         //关联关系查询 sn_in_center在表centers中存在
-        Integer idcenter = person.getIdcenter();
         String pname = person.getName();
-
+        System.out.println(idcenter);
+        System.out.println(pname);
         //check 用户输入的name 是否与数据库中注册该身份证对应的姓名相同
         if (!pname.equals(name)){
             //test
@@ -80,8 +87,10 @@ public class Home {
                 return mv;
             } else { //说明其sn_in_center值不在centers表中，不是Admin user
                 // 普通用户登陆
-                mv = new ModelAndView("forward:/views/success");
-//               mv.setViewName("redirect:/views/success");
+                mv = new ModelAndView();
+                //暂定
+                mv.addObject("admin-error", "不是管理员账户");
+               mv.setViewName("views/auth/login");
                return mv;
             }
         }else { // sn_in_center==null，说明不是Admin user

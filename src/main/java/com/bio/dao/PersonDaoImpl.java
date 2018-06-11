@@ -1,11 +1,14 @@
 package com.bio.dao;
 
 import com.bio.beans.Person;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.util.List;
 
-// for self-JUnit test only
+// 1. used for Spring IPersonService's implementation
+// 2. used for JUnit test
 public class PersonDaoImpl extends JdbcDaoSupport implements IPersonDao {
     @Override
     public void insertPerson(Person person) {
@@ -37,7 +40,7 @@ public class PersonDaoImpl extends JdbcDaoSupport implements IPersonDao {
 
     @Override
     public Person selectPersonByID_code(String ID_code, String name) {
-        String sql = "select * from persons where ID_code = ? and name = ?";
+        String sql = "select * from persons where ID_code = ? and name = ? limit 1";
         return this.getJdbcTemplate().queryForObject(sql, new PersonRowMapper(), ID_code, name);
     }
 }

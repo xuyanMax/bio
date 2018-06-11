@@ -12,7 +12,7 @@ public class MyBatisUtils {
     private static SqlSessionFactory sqlSessionFactory;
     public static SqlSession getSqlSession(){
         try {
-            InputStream is = Resources.getResourceAsStream("jdbcApplicationContext.xml");
+            InputStream is = Resources.getResourceAsStream("junit-applicationContext.xml");
             if (sqlSessionFactory == null){
                 sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
             }
