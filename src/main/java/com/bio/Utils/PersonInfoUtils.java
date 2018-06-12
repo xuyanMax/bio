@@ -65,10 +65,11 @@ public class PersonInfoUtils {
     }
 
 
-    //身份证号计算: https://blog.csdn.net/dabing69221/article/details/9150819
+    //身份证号计算参考: https://blog.csdn.net/dabing69221/article/details/9150819
     public static boolean isDigital(String str) {
         return str == null || "".equals(str) ? false : str.matches("^[0-9]*$");
     }
+    /*deprecated, 已经被前端替换*/
     public static boolean isID_code(String ID_code){
         return ID_code == null || "".equals(ID_code) ? false : Pattern.matches(
                 "(^\\d{15}$)|(\\d{17}(?:\\d|x|X)$)", ID_code);

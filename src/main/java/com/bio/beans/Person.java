@@ -22,6 +22,24 @@ public class Person {
 
     private String tel1;
     private String tel2;
+    private String sup2;
+    private String sup3;
+
+    public String getSup2() {
+        return sup2;
+    }
+
+    public void setSup2(String sup2) {
+        this.sup2 = sup2;
+    }
+
+    public String getSup3() {
+        return sup3;
+    }
+
+    public void setSup3(String sup3) {
+        this.sup3 = sup3;
+    }
 
     public String getOriginal_ID_code() {
         return original_ID_code;

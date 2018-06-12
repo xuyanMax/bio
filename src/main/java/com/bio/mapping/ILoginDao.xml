@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bio.dao.ILoginDao">
+    <insert id="insertLoginItem">
+        INSERT INTO login (idperson, time, ip, sup2, sup3) VALUES(#{idperson}, #{time}, #{ip}, #{sup2}, {sup3});
+    </insert>
+
+</mapper>
