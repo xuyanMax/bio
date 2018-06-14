@@ -18,12 +18,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 @Controller
 @SessionAttributes({"user","username", "snAdmin", "sysAdmin"})/*单位管理员，系统管理员*/
 public class Home {
+    private static final String ACCESS_TOKEN = "brb_xyx_zyz_token";
     @Autowired
     IPersonService personService;
     @Autowired
@@ -48,7 +50,8 @@ public class Home {
                               @Param("name") String name,
                               ModelMap modelMap,
                               HttpSession session,
-                              HttpServletRequest request){
+                              HttpServletRequest request,
+                              HttpServletResponse response){
         ModelAndView mv = null;
         /*测试*/
         System.out.println(ID_code);
@@ -57,8 +60,17 @@ public class Home {
         System.out.println(PersonInfoUtils.md5(ID_code));
         /*测试结束*/
 
-        /*根据身份证号, 获取person对象*/
+        /*根据身份证号和姓名, 获取person对象*/
         Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code), name);
+
+        if (person == null){
+            mv = new ModelAndView("views/auth/login");
+            mv.addObject("error", "非合法用户!!!");
+            return mv;
+        }
+        /*测试*/
+        System.out.println(person);
+        /*测试结束*/
 
         /*组装login item*/
         LoginItem loginItem = new LoginItem();
@@ -70,51 +82,34 @@ public class Home {
         loginService.addLoginItem(loginItem);
         /*组装结束*/
 
-        if (person == null){
-            mv = new ModelAndView("views/auth/login");
-            mv.addObject("error", "未注册用户!!!");
-            return mv;
-        }
-        /*测试*/
-        System.out.println(person);
-        /*测试结束*/
-
         /*判断登陆用户是否为单位管理员*/
         /*关联关系查询 sn_in_center在表centers中存在*/
         Integer idcenter = person.getIdcenter();
         String pname = person.getName();
 
         /*测试*/
-        System.out.println(idcenter);
-        System.out.println(pname);
+        System.out.println("idcenter: " + idcenter);
+        System.out.println("name " + pname);
         /*测试结束*/
 
-        /*输入检验1: 用户输入的name是否与数据库中注册该身份证对应的姓名相同*/
-        if (!pname.equals(name)){
-            /*测试*/
-            System.out.println("aa");
-            System.out.println("username not equal");
-            /*测试结束*/
-            mv = new ModelAndView("forward:views/auth/login");
-            mv.addObject("error", "输入用户名错误!!!");
-            return mv;
-        }
+        /*输入检验: */
 
          /*关联关系查询*/
         if (idcenter != null){
             /*测试*/
             System.out.println("在关联内");
             int cnt = centerService.findPersonInCentersByCenterid(idcenter);
-            System.out.println(cnt);
+            System.out.println("cnt = " + cnt);
             /*测试结束*/
             if (cnt > 0) {// 说明其sn_in_center在centers表中存在
                 /*添加session attribute*/
-//                modelMap.addAttribute("user", person);
-                modelMap.addAttribute("username", person.getName());
+                mv = new ModelAndView("redirect:/home");//不需要在参数列表添加HttpSession， 需要HttpServletResponse
                 mv.addObject("user", person);
+                mv.addObject("username", person.getName());
+                modelMap.addAttribute("user", person);
+                modelMap.addAttribute("username", person.getName());
                 modelMap.addAttribute("snAdmin", "snAdmin");
                 //前往主页面
-                mv = new ModelAndView("../index");
                 return mv;
             } /*else { //说明其sn_in_center值不在centers表中，不是单位管理员
                      //有可能是系统管理员
@@ -130,7 +125,9 @@ public class Home {
             mv = new ModelAndView("forward:/views/success");
             return mv;
         }*/
-        /*判断用户是否为系统管理员*/
+        /*判断用户是否为系统管理员
+        * 首先如果是单位管理员，则不考虑是否为系统管理员
+        * */
         //关联关系查询 idperson是否在表admin中存在
         Admin admin  = adminService.selectAdminUser(person.getIdperson());
         if (admin !=null && admin.getIdperson() == person.getIdperson()){

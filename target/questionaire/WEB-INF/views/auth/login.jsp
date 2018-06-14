@@ -62,6 +62,15 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
             <input type="text" class="form-control" placeholder="身份证号" required="required" name="ID_code_" id="id2">
             <span class="help-block" id="ID-error2"></span>
         </div>
+        <%--登陆错误提示--%>
+        <% if (request.getAttribute("error") != null){
+        %>
+        <div class="form-group has-error">
+            <span class="form-control">${error}</span>
+        </div>
+        <%
+            }
+        %>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>

@@ -40,8 +40,9 @@ public class ClientInfoUtils {
     }
 
     public static String getCurrDatetime(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
+        System.out.println(sdf.format(calendar.getTime()));
         return sdf.format(calendar.getTime());
     }
 

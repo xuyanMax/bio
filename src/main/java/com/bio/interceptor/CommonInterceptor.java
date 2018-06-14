@@ -29,8 +29,16 @@ public class CommonInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String url = httpServletRequest.getRequestURL().toString();
         String username = (String) httpServletRequest.getSession().getAttribute(USERNAME);
+
+        /**/
+        System.out.println((String) httpServletRequest.getSession().getAttribute("snAdmin"));
         System.out.println("inside pre-handle");
-        // 进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面
+        /**/
+        /*/auth/logout 被拦截, 跳转到登陆页面*/
+        if (url.contains("logout") ) {
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+        }
+         /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
         if (url.contains("login")){
             if (username != null) {
                 System.out.println("inside login");
@@ -38,7 +46,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             }
             else
                 return true;//继续登陆请求
-        }else  {// 其他非/login界面情况, 判断session中是否有key，有的话继续用户的操作
+        } else {// 其他非/login界面情况, 判断session中是否有key，有的话继续用户的操作
+            System.out.println(url);
             if (username != null) {
                 System.out.println("inside non-login username!=null");
                 return true;//继续当前页面
@@ -51,7 +60,7 @@ public class CommonInterceptor implements HandlerInterceptor {
         }
         //最后就是进入登陆页面
         System.out.println("inside login last");
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+//        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         return false;//重定向
     }
 

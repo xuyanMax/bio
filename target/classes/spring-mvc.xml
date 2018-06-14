@@ -53,9 +53,9 @@
     <!--配置拦截器-0607-管理员登陆验证设定, 未来Shiro框架替代-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/home"/>
             <mvc:mapping path="/signup"/>
             <mvc:mapping path="/admin/**"/>
+            <mvc:mapping path="/auth/**"/>
             <bean class="com.bio.interceptor.CommonInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
