@@ -22,7 +22,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             "/admin/manualInsertion",
             "/admin/update",
             "/displayUses"
-    };//todo: 唯一表示管理员的session id
+    };
+    //todo: 唯一表示管理员的session id
 //    https://blog.csdn.net/tonytfjing/article/details/39207551
 //    https://blog.csdn.net/huangjp_hz/article/details/73614314
     @Override
@@ -30,11 +31,12 @@ public class CommonInterceptor implements HandlerInterceptor {
         String url = httpServletRequest.getRequestURL().toString();
         String username = (String) httpServletRequest.getSession().getAttribute(USERNAME);
 
-        /**/
+        /*测试*/
         System.out.println((String) httpServletRequest.getSession().getAttribute("snAdmin"));
         System.out.println("inside pre-handle");
-        /**/
-        /*/auth/logout 被拦截, 跳转到登陆页面*/
+        /*测试结束*/
+
+        /*auth/logout 被拦截, 跳转到登陆页面*/
         if (url.contains("logout") ) {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         }

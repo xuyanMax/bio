@@ -35,18 +35,15 @@ public class PersonInfoUtils {
     // convert md5 bytes back to HEXADECIMAL
     // refer: https://blog.csdn.net/xiao__gui/article/details/8148203
     public static String byteArrayToHex(byte[] bytes){
-// 首先初始化一个字符数组，用来存放每个16进制字符
-
+        // 首先初始化一个字符数组，用来存放每个16进制字符
         char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9', 'A','B','C','D','E','F' };
         // new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
         char[] res =new char[bytes.length * 2];
-
         // 遍历字节数组，通过位运算（位运算效率高），转换成字符放到字符数组中去
         int index = 0;
-
         for (byte b:bytes) {
             res[index++] = hexDigits[b>>> 4 & 0xf];
-            res[index++] = hexDigits[b& 0xf];
+            res[index++] = hexDigits[b & 0xf];
         }
         // 字符数组组合成字符串返回
         return new String(res);
@@ -65,11 +62,11 @@ public class PersonInfoUtils {
     }
 
 
-    //身份证号计算参考: https://blog.csdn.net/dabing69221/article/details/9150819
+    //@deprecated 身份证号计算参考: https://blog.csdn.net/dabing69221/article/details/9150819
     public static boolean isDigital(String str) {
         return str == null || "".equals(str) ? false : str.matches("^[0-9]*$");
     }
-    /*deprecated, 已经被前端替换*/
+    /*@deprecated, 已经被前端替换*/
     public static boolean isID_code(String ID_code){
         return ID_code == null || "".equals(ID_code) ? false : Pattern.matches(
                 "(^\\d{15}$)|(\\d{17}(?:\\d|x|X)$)", ID_code);

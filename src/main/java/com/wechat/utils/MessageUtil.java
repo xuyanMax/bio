@@ -1,13 +1,20 @@
-package com.wechat;
+package com.wechat.utils;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.core.util.QuickWriter;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.XppDriver;
+//import com.wechat.Article;
+import com.wechat.model.NewsMessage;
+import com.wechat.model.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +85,7 @@ public class MessageUtil {
     * xml转换为map
      * @param request
      * @return
-             * @throws IOException
+     * @throws IOException
      */
     @SuppressWarnings("unchecked")
     public static Map<String, String> xmlToMap(HttpServletRequest request) throws IOException {
@@ -86,22 +93,15 @@ public class MessageUtil {
         SAXReader reader = new SAXReader();
 
         InputStream ins = null;
-        try {
-            ins = request.getInputStream();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
         Document doc = null;
         try {
+            ins = request.getInputStream();
             doc = reader.read(ins);
             Element root = doc.getRootElement();
-
             List<Element> list = root.elements();
-
             list.forEach(e->{
                 map.put(e.getName(), e.getText());
             });
-
             return map;
         } catch (DocumentException e1) {
             e1.printStackTrace();
@@ -122,4 +122,47 @@ public class MessageUtil {
         xstream.alias("xml", textMessage.getClass());
         return xstream.toXML(textMessage);
     }
+
+    /**
+     * 图文消息对象转换成xml
+     *
+     * @param newsMessage
+     *            图文消息对象
+     * @return xml
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+//        xstream.alias("item", new Article.getClass());
+        return xstream.toXML(newsMessage);
+    }
+
+    /**
+     * 扩展xstream，使其支持CDATA块
+     *
+     * @date 2013-05-19
+     */
+    private static XStream xstream = new XStream(new XppDriver() {
+        public HierarchicalStreamWriter createWriter(Writer out) {
+            return new PrettyPrintWriter(out) {
+                // 对所有xml节点的转换都增加CDATA标记
+                boolean cdata = true;
+
+                @SuppressWarnings("unchecked")
+                public void startNode(String name, Class clazz) {
+                    super.startNode(name, clazz);
+                }
+
+                protected void writeText(QuickWriter writer, String text) {
+                    if (cdata) {
+                        writer.write("<![CDATA[");
+                        writer.write(text);
+                        writer.write("]]>");
+                    } else {
+                        writer.write(text);
+                    }
+                }
+            };
+        }
+    });
+
 }

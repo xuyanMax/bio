@@ -1,13 +1,11 @@
-package com.wechat;
+package com.wechat.model;
 
-
-//https://blog.csdn.net/qq_25646191/article/details/78856639
-public class TextMessage {
+public class BaseMessage {
     private String toUserName;
     private String fromUserName;
     private String createTime;
     private String msgType;
-    private String Content;
+//    private String Content;
     private String MsgId;
 
     public String getToUserName() {
@@ -42,14 +40,6 @@ public class TextMessage {
         this.msgType = msgType;
     }
 
-    public String getContent() {
-        return Content;
-    }
-
-    public void setContent(String content) {
-        Content = content;
-    }
-
     public String getMsgId() {
         return MsgId;
     }
@@ -57,4 +47,5 @@ public class TextMessage {
     public void setMsgId(String msgId) {
         MsgId = msgId;
     }
+
 }

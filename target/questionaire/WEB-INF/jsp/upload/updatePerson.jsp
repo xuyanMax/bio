@@ -13,17 +13,6 @@
 <body>
         <% if (request.getAttribute("person") != null){
         %>
-       <%-- <form method="post" action="/admin/update"></form>
-        age: <input type="text" value="${person.age}"/> <br/>
-        gender:<input type="text" value="${person.gender}"/> <br/>
-        email:<input type="text" value="${person.email}"/><br/>
-        sn_in_center:<input type="text" value="${person.sn_in_center}"/><br/>
-        global_sn:<input type="text" value="person.global_sn"/><br/>
-        tel1:<input type="text" value="${person.tel1}"/><br/>
-        barcode:<input type="text" value="${person.barcode}"/><br/>
-        relative:<input type="text" value="${person.relative}"/><br/>
-        submit: <input type="submit" value="update">--%>
-
         <form action="/admin/update" method="post">
                 <h2>Update</h2>
                 <p class="hint-text">Create your personal account</p>
