@@ -1,4 +1,4 @@
-package com.wechat.threads;
+package com.wechat.thread;
 
 import com.wechat.model.AccessToken;
 import com.wechat.utils.AccessTokenUtil;

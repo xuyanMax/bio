@@ -1,7 +1,7 @@
 package com.bio.controller.token;
 
-import com.wechat.threads.MenuThread;
-import com.wechat.threads.TokenThread;
+import com.wechat.thread.MenuThread;
+import com.wechat.thread.TokenThread;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
