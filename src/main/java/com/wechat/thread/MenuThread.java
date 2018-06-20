@@ -1,10 +1,7 @@
 package com.wechat.thread;
 
 import com.wechat.model.*;
-import com.wechat.model.button.Button;
-import com.wechat.model.button.CommonButton;
-import com.wechat.model.button.Menu;
-import com.wechat.model.button.ParentButton;
+import com.wechat.model.button.*;
 import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatUtils;
 
@@ -74,15 +71,24 @@ public class MenuThread implements Runnable {
         btn31.setType("click");
         btn31.setKey("31");
 
-        CommonButton btn32 = new CommonButton();
+      /*  CommonButton btn32 = new CommonButton();
         btn32.setName("电影排行榜");
         btn32.setType("click");
-        btn32.setKey("32");
+        btn32.setKey("32");*/
 
         CommonButton btn33 = new CommonButton();
         btn33.setName("幽默笑话");
         btn33.setType("click");
         btn33.setKey("33");
+        CommonButton btn35 = new CommonButton();
+        btn35.setName("关于我们");
+        btn35.setType("click");
+        btn35.setKey("35");
+
+        ViewButton btn32 = new ViewButton();
+        btn32.setName("使用帮助");
+        btn32.setType("view");
+        btn32.setUrl("http://liufeng.gotoip2.com/xiaoqrobot/help.jsp");
 
         ParentButton mainBtn1 = new ParentButton();
         mainBtn1.setName("生活助手");
@@ -94,7 +100,7 @@ public class MenuThread implements Runnable {
 
         ParentButton mainBtn3 = new ParentButton();
         mainBtn3.setName("更多体验");
-        mainBtn3.setSub_button(new CommonButton[] { btn31, btn32, btn33 });
+        mainBtn3.setSub_button(new Button[] { btn31, btn35, btn33, btn32});
 
         /**
          * 这是公众号xiaoqrobot目前的菜单结构，每个一级菜单都有二级菜单项<br>
