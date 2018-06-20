@@ -24,7 +24,7 @@ public class CoreService {
             // 默认返回的文本消息内容
             String respContent = "请求处理异常，请稍候尝试！";
 
-            // xml请求解析
+            // xml请求解析x
             Map<String, String> requestMap = MessageUtil.parseXml(request);
 
             // 发送方帐号（open_id）

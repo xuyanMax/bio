@@ -3,9 +3,11 @@ package com.wechat.utils;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.AccessToken;
+import com.wechat.model.WeChatUser;
 import com.wechat.model.button.Menu;
 import org.apache.log4j.Logger;
 
+import javax.json.JsonObjectBuilder;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -162,5 +164,26 @@ public class WeChatUtils {
         }
 
         return result;
+    }
+
+    private static String get_openId_url = "https://api.weixin.qq.com/cgi-bin/user/info?" +
+            "access_token=ACCESS_TOKEN&" +
+            "openid=OPENID&lang=zh_CN";
+    /*
+    * 获取用户openId等信息
+    * todo:
+    * */
+    public static WeChatUser getOpenId(String openId, String accessToken){
+        String url = get_openId_url.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+
+        JSONObject jsonObject = httpRequest(url, "GET", null);
+        /**/
+        System.out.println(jsonObject);
+        /**/
+        WeChatUser user = null;
+        if (jsonObject != null){
+             user = new WeChatUser();
+        }
+        return user;
     }
 }

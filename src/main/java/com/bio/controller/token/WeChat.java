@@ -1,13 +1,17 @@
 package com.bio.controller.token;
 
+import com.wechat.model.WeChatUser;
+import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.CheckTokenUtils;
 import com.bio.Utils.ClientInfoUtils;
 import com.wechat.utils.CoreService;
+import com.wechat.utils.WeChatUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,9 +27,9 @@ public class WeChat {
     /**
      * 确认请求来自微信服务器
      */
-    @RequestMapping(value = "wx/token/get", method = RequestMethod.GET)
+    @RequestMapping(value = "wx/token/get")
     public void get(HttpServletRequest request,
-                    HttpServletResponse response) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+                    HttpServletResponse response) throws NoSuchAlgorithmException, IOException, ServletException {
 
         request.setCharacterEncoding("UTF-8");// 将请求、响应的编码均设置为UTF-8（防止中文乱码)
         response.setCharacterEncoding("UTF-8");
@@ -55,8 +59,12 @@ public class WeChat {
             /*测试获取ip地址*/
             System.out.println(ClientInfoUtils.getIpAddr(request));
             /*测试结束*/
+        }else if (request.getMethod().toLowerCase().contains("wx/rec/msg")){
+            System.out.println("inside ELSE /wx/token/get");
+            request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }
+    /*微信消息接口测试*/
     @RequestMapping("/wx/rec/msg")
     public void receiveMessage(HttpServletRequest request,
                                      HttpServletResponse response) throws IOException {
@@ -70,5 +78,27 @@ public class WeChat {
         pw.print(respMsg);
         pw.close();
 
+    }
+    /**
+     * 进行网页授权，便于获取到用户的绑定的内容
+     * 此为回调页面
+     * reference: https://blog.csdn.net/cs_hnu_scw/article/details/79103129
+     * @param request
+     * @return
+     */
+    @RequestMapping("/user/info")
+    public String getOpenId(HttpServletRequest request,
+                            HttpServletResponse response){
+        // todo:
+        WeChatUser user = new WeChatUser();
+
+        /**
+         * 进行获取openId，必须的一个参数，这个是当进行了授权页面的时候，再重定向了我们自己的一个页面的时候，
+         * 会在request页面中，新增这个字段信息，
+         */
+        System.out.println(request.getParameter("code"));
+        System.out.println(request.getParameter("openId"));
+
+        return  user.getOpenId();
     }
 }
