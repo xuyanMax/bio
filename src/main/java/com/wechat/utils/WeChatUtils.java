@@ -3,7 +3,7 @@ package com.wechat.utils;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.AccessToken;
-import com.wechat.model.Menu;
+import com.wechat.model.button.Menu;
 import org.apache.log4j.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -147,7 +147,9 @@ public class WeChatUtils {
         String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
         // 将菜单对象转换成json字符串
         String jsonMenu = JSONObject.toJSONString(menu);
+        /*测试*/
         System.out.println(jsonMenu);
+        /*测试*/
         // 调用接口创建菜单
         JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
 

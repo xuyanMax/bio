@@ -3,7 +3,7 @@ README
 该文件记录开发过程中的部分配置文件和测试方法。
 
 
-Author|Bright, Xu, zy
+Author|Bright, Xu, zcy, zy 
 :---:|:---:
 Email|xuyanpeter0619@gmail.com
 
@@ -36,23 +36,43 @@ Project
     2. md5生成器脚本工具
     3. 微信注册和登陆机制研究
 4. week 4
-    1. 注册个人订阅号(用于熟悉微信接口功能)/企业服务号(申请中)
+    1. `xu`注册个人订阅号(用于熟悉微信接口功能)/企业服务号(申请中)
         1. 订阅号
             1. `appId=wx0f81f68f813bd68d`
-            1. `secret=c9d7f54ec1d0642d187141636ba69af2`
-    2. 更新`数据库表头说明`，并更新`jdbc.properties`
+            1. `secret=c9d7f54ec1d0642d187141636ba6XXXX`
+    2. `zy`更新`数据库表头说明`，并更新`jdbc.properties`
     3. 更新用户登陆逻辑(添加本地管理员/系统管理员)
     
 5. week 5
-    1. 获取网页授权的接口`Access_Token`
+    1. 微信接口接口配置 `/wx/token/get`
+    1. 实现获取网页授权的接口`Access_Token`的类
         1. `TokenThread`, `AccessTokenUtil`, `AccessToken`
-        1. 使用测试接口时，需要
-            1. 在`微信公众平台->基本配置->ip白名单`添加当前主机所在ip
-            1. 在`微信公众平台->基本配置->服务器配置`更改服务器地址(ngrok随机生成公网地址)
-            1. 前往`微信公众平台->开发者工具->在线接口测试工具`调试
-    1.`bright`申请小程序, 添加开发者。`appId=wx5410ab8c5094da60`
-    1. 测试订阅号`自定义菜单栏`
-       
+    1. 消息及消息处理工具的封装 ``
+    1. 使用`微信公众平台接口调试工具`
+        1. 在`微信公众平台->基本配置->ip白名单`添加当前主机所在ip
+        1. 在`微信公众平台->基本配置->服务器配置`更改服务器地址(ngrok随机生成公网地址)
+        1. 前往`微信公众平台->开发者工具->在线接口测试工具`调试
+    1. 使用`测试号管理`
+        1. 修改`接口配置信息`
+        1. 修改`JS接口安全域名`       
+    1. 熟悉`微信公众平台接口调试工具`
+        1. 不需要修改`ngrok`生成的临时`url`
+        1. 测试的`接口类型`包括:
+            1. 测试成功`基础支持`
+                1. 需要指定生成的随机`url`
+            1. 测试成功`消息接口测试`
+                1. 需要指定生成的随机`url`
+                1. 测试文本、图片、语音等消息
+            1. 测试成功`自定义菜单栏`
+                1. 输入有效的`access_token`
+                1. 输入`json数据`
+                1. 返回`{"errcode":48001,"errmsg":"api unauthorized hint: [GffX3a0146vr61!]`，说明调用api权限不够
+            1. 测试`用户管理`
+            1. 测试`向用户发送信息`
+    1. `bright`申请小程序并添加开发者
+       1. `appId=wx5410ab8c5094da60`
+       1. 调试`微信开发者工具`
+        
       
 jdk
 ------
@@ -84,7 +104,7 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 signin
 ------
     
-管理员利用md5生成工具，预先添加persons表中的管理员用户，对应的centerid字段不能为空且要出现于表centers的idcenter字段中
+管理员利用md5脚本工具`Flup/scripts/output_file_md5.py`，预先添加persons表中的管理员用户，对应的centerid字段不能为空且要出现于表centers的idcenter字段中
      
 ------
 1. 用户/本地管理员/系统管理员登陆，校验姓名+身份证号，判断是否为Admin user，
@@ -136,10 +156,11 @@ issues
         1. 提供公网80端口到内网任意端口的映射机制
         2. 遍于测试
  1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
- 1. 微信`Access_Token`验证方法
+    1. `checkTokenUtils`和`@Controller WeChatToken`
+ 1. 微信`Access_Token`获取方法
     1. IP白名单添加开发者ip, 否则无法获得Access_Token
     1. 配置TokenThread，轮训获得Access_Token
-    1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 并
+    1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
    
 
     

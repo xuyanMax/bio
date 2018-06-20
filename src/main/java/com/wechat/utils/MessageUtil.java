@@ -6,8 +6,9 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 //import com.wechat.Article;
-import com.wechat.model.NewsMessage;
-import com.wechat.model.TextMessage;
+import com.wechat.model.message.response.Article;
+import com.wechat.model.message.response.NewsMessage;
+import com.wechat.model.message.response.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.InputStream;
-
+//消息处理工具的封装
 public class MessageUtil {
     /**
      * 返回消息类型：文本
@@ -82,23 +83,30 @@ public class MessageUtil {
     public static final String EVENT_TYPE_CLICK = "CLICK";
 
     /**
-    * xml转换为map
+     * 解析微信发来的请求（XML）
+     *
      * @param request
      * @return
      * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    public static Map<String, String> xmlToMap(HttpServletRequest request) throws IOException {
+    public static Map<String, String> parseXml(HttpServletRequest request) throws IOException {
+        // 将解析结果存储在HashMap中
         Map<String, String> map = new HashMap<String, String>();
+        // 读取输入流
         SAXReader reader = new SAXReader();
-
-        InputStream ins = null;
+        InputStream inputStream = null;
         Document doc = null;
         try {
-            ins = request.getInputStream();
-            doc = reader.read(ins);
+            // 从request中取得输入流
+            inputStream = request.getInputStream();
+            doc = reader.read(inputStream);
+            // 得到xml根元素
             Element root = doc.getRootElement();
+            // 得到根元素的所有子节点
             List<Element> list = root.elements();
+            // 遍历所有子节点
+
             list.forEach(e->{
                 map.put(e.getName(), e.getText());
             });
@@ -106,7 +114,8 @@ public class MessageUtil {
         } catch (DocumentException e1) {
             e1.printStackTrace();
         }finally{
-            ins.close();
+            // 释放资源
+            inputStream.close();
         }
 
         return null;
@@ -126,20 +135,18 @@ public class MessageUtil {
     /**
      * 图文消息对象转换成xml
      *
-     * @param newsMessage
-     *            图文消息对象
+     * @param newsMessage 图文消息对象
      * @return xml
      */
     public static String newsMessageToXml(NewsMessage newsMessage) {
         xstream.alias("xml", newsMessage.getClass());
-//        xstream.alias("item", new Article.getClass());
+        xstream.alias("item", new Article().getClass());
         return xstream.toXML(newsMessage);
     }
 
     /**
      * 扩展xstream，使其支持CDATA块
      *
-     * @date 2013-05-19
      */
     private static XStream xstream = new XStream(new XppDriver() {
         public HierarchicalStreamWriter createWriter(Writer out) {

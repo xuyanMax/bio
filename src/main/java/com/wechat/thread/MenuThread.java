@@ -1,6 +1,10 @@
 package com.wechat.thread;
 
 import com.wechat.model.*;
+import com.wechat.model.button.Button;
+import com.wechat.model.button.CommonButton;
+import com.wechat.model.button.Menu;
+import com.wechat.model.button.ParentButton;
 import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatUtils;
 
