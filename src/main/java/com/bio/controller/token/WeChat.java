@@ -34,7 +34,7 @@ public class WeChat {
         request.setCharacterEncoding("UTF-8");// 将请求、响应的编码均设置为UTF-8（防止中文乱码)
         response.setCharacterEncoding("UTF-8");
         /*测试*/
-        System.out.println("wx/token/get" + request.getRequestURL().toString());
+        System.out.println("访问Controller: wx/token/get: " + request.getRequestURL().toString());
         System.out.println("@Controller: WeChat, 请求使用的方法: " + request.getMethod());
 
         if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET

@@ -83,7 +83,46 @@ public class CoreService {
                     // 将图文消息对象转换成xml字符串
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
 
+                } else if (content.equals("2")){
+                    Article article = new Article();
+                    article.setTitle("微信公众帐号开发教程Java版");
+                    // 图文消息中可以使用QQ表情、符号表情
+                    article.setDescription("Flup -> Puss");
+                    // 将图片置为空
+                    article.setPicUrl("");
+                    article.setUrl("http://57792978.ngrok.io/login");
+                    articles.add(article);
+                    newsMessage.setArticleCount(articles.size());
+                    newsMessage.setArticles(articles);
+                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
+                }// 多图文消息
+                else if ("3".equals(content)) {
+                    Article article1 = new Article();
+                    article1.setTitle("微信公众帐号开发教程\n引言");
+                    article1.setDescription("");
+                    article1.setPicUrl("http://57792978.ngrok.io/images/login.png");
+                    article1.setUrl("http://57792978.ngrok.io/login");
+
+                    Article article2 = new Article();
+                    article2.setTitle("第2篇\n微信公众帐号的类型");
+                    article2.setDescription("");
+                    article2.setPicUrl("http://avatar.csdn.net/1/4/A/1_lyq8479.jpg");
+                    article2.setUrl("http://57792978.ngrok.io/login");
+
+                    Article article3 = new Article();
+                    article3.setTitle("第3篇\n开发模式启用及接口配置");
+                    article3.setDescription("");
+                    article3.setPicUrl("http://avatar.csdn.net/1/4/A/1_lyq8479.jpg");
+                    article3.setUrl("http://57792978.ngrok.io/login");
+
+                    articles.add(article1);
+                    articles.add(article2);
+                    articles.add(article3);
+                    newsMessage.setArticleCount(articles.size());
+                    newsMessage.setArticles(articles);
+                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
                 }
+
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -105,6 +144,7 @@ public class CoreService {
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 // 事件类型
                 String eventType = requestMap.get("Event");
+                System.out.println("事件推送");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     respContent = "谢谢您的关注！";
