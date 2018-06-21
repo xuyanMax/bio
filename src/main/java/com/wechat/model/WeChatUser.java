@@ -21,7 +21,16 @@ public class WeChatUser {
     private String language;
     // 用户头像
     private String headImgUrl;
+    //只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+    private String unionId;
 
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
 
     public String getOpenId() {
         return openId;
@@ -101,5 +110,20 @@ public class WeChatUser {
 
     public void setHeadImgUrl(String headImgUrl) {
         this.headImgUrl = headImgUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "WeChatUser=[openId="+openId
+                +", subscribe="+subscribe
+                +", nickname="+nickname
+                +", subscribe_time"+subscribeTime
+                +", sex="+sex
+                +", country="+country
+                +", province="+province
+                +", city="+city
+                +", language="+language
+                +", headImgUrl="+headImgUrl
+                +"]";
     }
 }

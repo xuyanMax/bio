@@ -32,14 +32,14 @@ public class WeChatUtils {
     /**
      * 获取access_token
      *
-     * @param appid 凭证
-     * @param appsecret 密钥
+     * @param appId 凭证
+     * @param appSecret 密钥
      * @return
      */
-    public static AccessToken getAccessToken(String appid, String appsecret) {
+    public static AccessToken getAccessToken(String appId, String appSecret) {
         AccessToken accessToken = null;
 
-        String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
+        String requestUrl = access_token_url.replace("APPID", appId).replace("APPSECRET", appSecret);
         JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
         // 如果请求成功
         if (null != jsonObject) {
@@ -170,20 +170,44 @@ public class WeChatUtils {
             "access_token=ACCESS_TOKEN&" +
             "openid=OPENID&lang=zh_CN";
     /*
-    * 获取用户openId等信息
+    * 通过关注公众号的用户发送消息，获取其用户信息
     * todo:
     * */
     public static WeChatUser getOpenId(String openId, String accessToken){
+        //1.
         String url = get_openId_url.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
-        /**/
-        System.out.println(jsonObject);
-        /**/
-        WeChatUser user = null;
-        if (jsonObject != null){
-             user = new WeChatUser();
+
+        if (jsonObject != null) {
+            /**/
+            System.out.println(jsonObject);
+            /**/
+
+            WeChatUser user = null;
+            // 组装一个WeChatUser
+            user = new WeChatUser();
+            user.setOpenId(jsonObject.getString("openid"));
+            user.setCity(jsonObject.getString("city"));
+            user.setCountry(jsonObject.getString("country"));
+            user.setProvince(jsonObject.getString("province"));
+            user.setLanguage(jsonObject.getString("language"));
+            user.setNickname(jsonObject.getString("nickname"));
+            user.setSubscribeTime(jsonObject.getString("subscribe_time"));
+            user.setSex(jsonObject.getIntValue("sex"));
+            //不返回unionId??
+//            user.setUnionId(jsonObject.getString("unionId"));
+
+            /**/
+            System.out.println("getOpenId()->openId=" + openId);
+            System.out.println(jsonObject.getString("openid"));
+            /**/
+
+            return user;
         }
-        return user;
+        else{
+            System.out.println("inside WeChatUtils->getOpenId(), 返回JSONObject == null");
+            return null;
+        }
     }
 }

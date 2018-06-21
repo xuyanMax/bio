@@ -1,8 +1,10 @@
 package com.wechat.utils;
 
+import com.wechat.model.WeChatUser;
 import com.wechat.model.message.response.Article;
 import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
+import com.wechat.thread.TokenThread;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -46,8 +48,13 @@ public class CoreService {
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
             textMessage.setFuncFlag(0);
 
-            /*reference: https://blog.csdn.net/lyq8479/article/details/9393195*/
+            /*获得openId, 获取用户信息，并显示在console*/
+            WeChatUser user = WeChatUtils.getOpenId(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
+            System.out.println(user);
 
+            /*
+            * reference: https://blog.csdn.net/lyq8479/article/details/9393195
+            * */
             textMessage.setContent("欢迎访问<a href=\"http://57792978.ngrok.io\">Flup</a>!");
             // 将文本消息对象转换成xml字符串
 
@@ -71,7 +78,7 @@ public class CoreService {
                 //单图文消息
                 if (content.equals("1")){
                     Article article = new Article();
-                    article.setTitle("正当红月雏明镜");
+                    article.setTitle("我不开心了");
                     article.setDescription("不务正业的人们，躁动不安，总想找点事，又怕惹事...");
                     article.setPicUrl("http://57792978.ngrok.io/images/login.png");
                     article.setUrl("http://57792978.ngrok.io/login");
@@ -82,10 +89,11 @@ public class CoreService {
                     newsMessage.setArticles(articles);
                     // 将图文消息对象转换成xml字符串
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
+                    return respMessage;
 
                 } else if (content.equals("2")){
                     Article article = new Article();
-                    article.setTitle("微信公众帐号开发教程Java版");
+                    article.setTitle("没什么");
                     // 图文消息中可以使用QQ表情、符号表情
                     article.setDescription("Flup -> Puss");
                     // 将图片置为空
@@ -95,24 +103,25 @@ public class CoreService {
                     newsMessage.setArticleCount(articles.size());
                     newsMessage.setArticles(articles);
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
+                    return respMessage;
                 }// 多图文消息
                 else if ("3".equals(content)) {
                     Article article1 = new Article();
-                    article1.setTitle("微信公众帐号开发教程\n引言");
+                    article1.setTitle("好说的");
                     article1.setDescription("");
                     article1.setPicUrl("http://57792978.ngrok.io/images/login.png");
                     article1.setUrl("http://57792978.ngrok.io/login");
 
                     Article article2 = new Article();
-                    article2.setTitle("第2篇\n微信公众帐号的类型");
+                    article2.setTitle("事情");
                     article2.setDescription("");
-                    article2.setPicUrl("http://avatar.csdn.net/1/4/A/1_lyq8479.jpg");
+                    article2.setPicUrl("http://57792978.ngrok.io/images/lucky.png");
                     article2.setUrl("http://57792978.ngrok.io/login");
 
                     Article article3 = new Article();
-                    article3.setTitle("第3篇\n开发模式启用及接口配置");
+                    article3.setTitle("告诉你");
                     article3.setDescription("");
-                    article3.setPicUrl("http://avatar.csdn.net/1/4/A/1_lyq8479.jpg");
+                    article3.setPicUrl("http://57792978.ngrok.io/images/lucky.png");
                     article3.setUrl("http://57792978.ngrok.io/login");
 
                     articles.add(article1);
@@ -121,6 +130,7 @@ public class CoreService {
                     newsMessage.setArticleCount(articles.size());
                     newsMessage.setArticles(articles);
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
+                    return respMessage;
                 }
 
             }
@@ -158,8 +168,8 @@ public class CoreService {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
                 }
             }
-//            textMessage.setContent(respContent);
-//            respMessage = MessageUtil.textMessageToXml(textMessage);
+            textMessage.setContent(respContent);
+            respMessage = MessageUtil.textMessageToXml(textMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
