@@ -27,7 +27,7 @@ public class WeChat {
     /**
      * 确认请求来自微信服务器
      */
-    @RequestMapping(value = "wx/token/get")
+    @RequestMapping(value = "/wx/token/get")
     public void get(HttpServletRequest request,
                     HttpServletResponse response) throws NoSuchAlgorithmException, IOException, ServletException {
 
@@ -35,7 +35,7 @@ public class WeChat {
         response.setCharacterEncoding("UTF-8");
         /*测试*/
         System.out.println("wx/token/get" + request.getRequestURL().toString());
-        System.out.println("@WeChat, 请求使用的方法: " + request.getMethod());
+        System.out.println("@Controller: WeChat, 请求使用的方法: " + request.getMethod());
 
         if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET
             //微信加密签名
@@ -55,14 +55,17 @@ public class WeChat {
                     printWriter.print(echostr);
                     printWriter.flush();
                     printWriter.close();
+                    System.out.println("TOKEN验证: 确认来自微信的请求!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             /*测试获取ip地址*/
+            System.out.println("验证失败!!!");
             System.out.println(ClientInfoUtils.getIpAddr(request));
             /*测试结束*/
         }else {
+            System.out.println(request.getContextPath());
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }

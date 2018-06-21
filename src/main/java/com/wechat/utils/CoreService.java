@@ -1,10 +1,14 @@
 package com.wechat.utils;
 
+import com.wechat.model.message.response.Article;
+import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,9 +47,43 @@ public class CoreService {
             textMessage.setFuncFlag(0);
 
             /*reference: https://blog.csdn.net/lyq8479/article/details/9393195*/
+
+            textMessage.setContent("欢迎访问<a href=\"http://57792978.ngrok.io\">Flup</a>!");
+            // 将文本消息对象转换成xml字符串
+
+            //默认回复消息
+            respMessage = MessageUtil.textMessageToXml(textMessage);
+
             // 文本消息
+            List<Article> articles = new ArrayList<>();
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 respContent = "您发送的是文本消息！";
+                String content = requestMap.get("Content");
+
+                // 创建图文消息
+                NewsMessage newsMessage = new NewsMessage();
+                newsMessage.setToUserName(fromUserName);
+                newsMessage.setFromUserName(toUserName);
+                newsMessage.setCreateTime(new Date().getTime());
+                newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                newsMessage.setFuncFlag(0);
+
+                //单图文消息
+                if (content.equals("1")){
+                    Article article = new Article();
+                    article.setTitle("正当红月雏明镜");
+                    article.setDescription("不务正业的人们，躁动不安，总想找点事，又怕惹事...");
+                    article.setPicUrl("http://57792978.ngrok.io/images/login.png");
+                    article.setUrl("http://57792978.ngrok.io/login");
+                    articles.add(article);
+                    // 设置图文消息个数
+                    newsMessage.setArticleCount(articles.size());
+                    // 设置图文消息包含的图文集合
+                    newsMessage.setArticles(articles);
+                    // 将图文消息对象转换成xml字符串
+                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
+
+                }
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -80,8 +118,8 @@ public class CoreService {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
                 }
             }
-            textMessage.setContent(respContent);
-            respMessage = MessageUtil.textMessageToXml(textMessage);
+//            textMessage.setContent(respContent);
+//            respMessage = MessageUtil.textMessageToXml(textMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }

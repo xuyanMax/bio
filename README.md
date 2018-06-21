@@ -114,9 +114,9 @@ signin
 ------    
 2. 当前登陆流程
     1. 判断无指定session, 则拦截访问, 跳转至登陆界面: 请求输入用户名+身份证验证
-        1.管理员，可上传文件、添加用户信息  
-        1.普通用户  
-        1.系统管理员
+        1. 管理员，可上传文件、添加用户信息  
+        1. 普通用户  
+        1. 系统管理员
      
 upload
 -------
@@ -161,7 +161,7 @@ issues
     1. IP白名单添加开发者ip, 否则无法获得Access_Token
     1. 配置TokenThread，轮训获得Access_Token
     1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
-1.  获取用户openId的途径有`[参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)`
+1.  获取用户openId的途径有 [参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)
     1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
     1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
     1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息

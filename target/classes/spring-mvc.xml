@@ -11,6 +11,8 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
     <context:component-scan base-package="com.bio.controller" />
+    <!--解决spring mvc No mapping found for HTTP request with URI-->
+    <mvc:annotation-driven />
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -48,6 +50,8 @@
         <property name="maxInMemorySize" value="40960" />
     </bean>
     <!--shiro 缓存-->
+
+    <mvc:resources mapping="/images/**" location="/images/" />
 
     <!--配置拦截器-0607-管理员登陆验证设定, 未来Shiro框架替代-->
     <mvc:interceptors>
