@@ -42,6 +42,7 @@ public class CoreService {
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
             textMessage.setFuncFlag(0);
 
+            /*reference: https://blog.csdn.net/lyq8479/article/details/9393195*/
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 respContent = "您发送的是文本消息！";

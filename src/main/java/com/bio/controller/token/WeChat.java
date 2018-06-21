@@ -33,8 +33,11 @@ public class WeChat {
 
         request.setCharacterEncoding("UTF-8");// 将请求、响应的编码均设置为UTF-8（防止中文乱码)
         response.setCharacterEncoding("UTF-8");
+        /*测试*/
+        System.out.println("wx/token/get" + request.getRequestURL().toString());
+        System.out.println("@WeChat, 请求使用的方法: " + request.getMethod());
 
-        if (request.getMethod().toLowerCase().equals("get")){
+        if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET
             //微信加密签名
             String signature = request.getParameter("signature");
             //时间戳
@@ -59,8 +62,7 @@ public class WeChat {
             /*测试获取ip地址*/
             System.out.println(ClientInfoUtils.getIpAddr(request));
             /*测试结束*/
-        }else if (request.getMethod().toLowerCase().contains("wx/rec/msg")){
-            System.out.println("inside ELSE /wx/token/get");
+        }else {
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }

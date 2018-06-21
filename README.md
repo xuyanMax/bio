@@ -72,7 +72,7 @@ Project
     1. `bright`申请小程序并添加开发者
        1. `appId=wx5410ab8c5094da60`
        1. 调试`微信开发者工具`
-        
+
       
 jdk
 ------
@@ -155,15 +155,16 @@ issues
     2. 优势
         1. 提供公网80端口到内网任意端口的映射机制
         2. 遍于测试
- 1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
+1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
     1. `checkTokenUtils`和`@Controller WeChatToken`
- 1. 微信`Access_Token`获取方法
+1. 微信`Access_Token`获取方法
     1. IP白名单添加开发者ip, 否则无法获得Access_Token
     1. 配置TokenThread，轮训获得Access_Token
     1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
-   
-
-    
+1.  获取用户openId的途径有`[参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)`
+    1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
+    1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
+    1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
 
     
    

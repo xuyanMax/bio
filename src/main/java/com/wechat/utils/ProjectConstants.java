@@ -8,7 +8,7 @@ public class ProjectConstants {
     public final static String GetPageUsersUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 
     /**
-     * 用于进行网页授权验证的接口URL，通过这个才可以得到opendID等字段信息
+     * 用于进行网页授权验证的接口URL，通过这个才可以得到openID等字段信息
      */
     public final static String GET_WEBAUTH_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 
