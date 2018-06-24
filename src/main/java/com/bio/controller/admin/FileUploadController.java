@@ -76,9 +76,10 @@ public class FileUploadController{
             // add persons to model
             mv.addObject("persons", allPersons);
             mv.addObject("message", "successfully uploaded " + files.length + " files");
-            //test
+            /*test*/
             System.out.println("creating excel sheet..");
-            //
+            /**/
+            //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createExcelSheet(personsToUpload);
 
             // set view
