@@ -22,69 +22,73 @@ Email|xuyanpeter0619@gmail.com
 
 项目
 ------
-**Flup一期开发**
-1. week 1
-    1. 搭建SpringMVC+Spring+MyBatis，两个关键配置文件 `springmvc.xml, spring-mybatis.xml`
-    2. 管理员用户功能部分实现，包括手动输入用户信息+上传Excel文件后下载队列成员信息表
-    4. 实现ssh连接远程数据库 `utils/DBUtils`
-2. week 2
-    1. 实现管理员用户登陆
-    2. 实现管理员登陆`认证(authentication)`并在研究用户`权限(authorization)`使用
-    3. 实现上管理员上传、下载`成员队列信息表`功能 
-    4. 完成远程/本地数据库切换工作及操作说明，详情参考目录`db settings`      
-3. week 3
-    1. 实现服务器Tomcat部署项目war包的工作，详情参考目录`tomcat`
-    2. md5生成器脚本工具
-    3. 微信注册和登陆机制研究
-4. week 4
-    1. `xu`注册个人订阅号(用于熟悉微信接口功能)/企业服务号(申请中)
-        1. 订阅号
-            1. `appId=wx0f81f68f813bd68d`
-            1. `secret=c9d7f54ec1d0642d187141636ba6XXXX`
-    2. `zy`更新`数据库表头说明`，并更新`jdbc.properties`
-    3. 更新用户登陆逻辑(添加本地管理员/系统管理员)
+###Flup一期开发
+**week1**  
+1. 搭建SpringMVC+Spring+MyBatis，两个关键配置文件 `springmvc.xml, spring-mybatis.xml`
+2. 管理员用户功能部分实现，包括手动输入用户信息+上传Excel文件后下载队列成员信息表
+3. 实现ssh连接远程数据库 `utils/DBUtils`
+
+**week 2**
+1. 实现管理员用户登陆
+2. 实现管理员登陆`认证(authentication)`并在研究用户`权限(authorization)`使用
+3. 实现上管理员上传、下载`成员队列信息表`功能 
+4. 完成远程/本地数据库切换工作及操作说明，详情参考目录`db settings`      
+
+**week 3**
+1. 实现服务器Tomcat部署项目war包的工作，详情参考目录`tomcat`
+2. md5生成器脚本工具
+3. 微信注册和登陆机制研究
+
+**week 4**
+1. `xu`注册个人订阅号(用于熟悉微信接口功能)/企业服务号(申请中)
+    1. 订阅号
+        1. `appId=wx0f81f68f813bd68d`
+        1. `secret=c9d7f54ec1d0642d187141636ba6XXXX`
+2. `zy`更新`数据库表头说明`，并更新`jdbc.properties`
+3. 更新用户登陆逻辑(添加本地管理员/系统管理员)
     
-5. week 5
-    1. 微信接口接口配置 `/wx/token/get`
-    1. 实现获取网页授权的接口`Access_Token`的类
-        1. `TokenThread`, `AccessTokenUtil`, `AccessToken`
-    1. 消息及消息处理工具的封装
-    1. 使用`微信公众平台接口调试工具`
-        1. 在`微信公众平台->基本配置->ip白名单`添加当前主机所在ip
-        1. 在`微信公众平台->基本配置->服务器配置`更改服务器地址(ngrok随机生成公网地址)
-        1. 前往`微信公众平台->开发者工具->在线接口测试工具`调试
-    1. 使用`测试号管理`
-        1. 修改`接口配置信息`
-        1. 修改`JS接口安全域名`       
-    1. 熟悉`微信公众平台接口调试工具`
-        1. 不需要修改`ngrok`生成的临时`url`
-        1. 测试的`接口类型`包括:
-            1. 测试成功`基础支持`
-                1. 需要指定生成的随机`url`
-            1. 测试成功`消息接口测试`
-                1. 需要指定生成的随机`url`
-                1. 测试文本、图片、语音等消息
-            1. 测试成功`自定义菜单栏`
-                1. 输入有效的`access_token`
-                1. 输入`json数据`
-                1. 返回`{"errcode":48001,"errmsg":"api unauthorized hint: [GffX3a0146vr61!]`，说明调用api权限不够
-            1. 测试`用户管理`
-            1. 测试`向用户发送信息`
-        1. 获取用户信息
-    1. `bright`申请小程序并添加开发者
-       1. `appId=wx5410ab8c5094da60`
-       1. 调试`微信开发者工具`
-    1. `zy`添加新需求，调查问卷页面
-        1. 利用Javascript实现调查问卷页面
-    1. 添加测试用户:
-        1. 姓名: 本地管理员
-        2. 身份证号: 13010419920518241X
-1. Week 6
-    1. `Bright`测试问题反馈
-        1. 姓名、身份证号、单位内编号、条形码、身份为必填项，其余可缺省
-        1. 上传页面添加一个`下载表格模块`，方便本地管理员下载有表头的空文件
-    1. 微信端扫码登陆
-    1. 微信端
+**week 5**
+1. 微信接口接口配置 `/wx/token/get`
+1. 实现获取网页授权的接口`Access_Token`的类
+    1. `TokenThread`, `AccessTokenUtil`, `AccessToken`
+1. 消息及消息处理工具的封装
+1. 使用`微信公众平台接口调试工具`
+    1. 在`微信公众平台->基本配置->ip白名单`添加当前主机所在ip
+    1. 在`微信公众平台->基本配置->服务器配置`更改服务器地址(ngrok随机生成公网地址)
+    1. 前往`微信公众平台->开发者工具->在线接口测试工具`调试
+1. 使用`测试号管理`
+    1. 修改`接口配置信息`
+    1. 修改`JS接口安全域名`       
+1. 熟悉`微信公众平台接口调试工具`
+    1. 不需要修改`ngrok`生成的临时`url`
+    1. 测试的`接口类型`包括:
+        1. 测试成功`基础支持`
+            1. 需要指定生成的随机`url`
+        1. 测试成功`消息接口测试`
+            1. 需要指定生成的随机`url`
+            1. 测试文本、图片、语音等消息
+        1. 测试成功`自定义菜单栏`
+            1. 输入有效的`access_token`
+            1. 输入`json数据`
+            1. 返回`{"errcode":48001,"errmsg":"api unauthorized hint: [GffX3a0146vr61!]`，说明调用api权限不够
+        1. 测试`用户管理`
+        1. 测试`向用户发送信息`
+    1. 获取用户信息
+1. `bright`申请小程序并添加开发者
+   1. `appId=wx5410ab8c5094da60`
+   1. 调试`微信开发者工具`
+1. `zy`添加新需求，调查问卷页面
+    1. 利用Javascript实现调查问卷页面
+1. 添加测试用户:
+    1. 姓名: 本地管理员
+    2. 身份证号: 13010419920518241X
+
+**Week 6**
+1. `Bright`测试问题反馈
+    1. 姓名、身份证号、单位内编号、条形码、身份为必填项，其余可缺省
+    1. 上传页面添加一个`下载表格模块`，方便本地管理员下载有表头的空文件
+1. 微信端扫码登陆
+1. 微信获取用户openId
 
 jdk
 ------
@@ -97,14 +101,14 @@ OS name: "mac os x", version: "10.13.5", arch: "x86_64", family: "mac"
 
 tomcat
 -------
-1. 版本号9.0.46
+`版本号9.0.46`
     
-2. **服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
-    1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
-      `scp -P 10061  ~/tmp/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
-    2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
-    3. 重命名新生成的`questionaire`, 用来替换原来的`ROOT`, `mv questionaire ROOT`
-    4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
+**服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
+1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
+  `scp -P 10061  ~/tmp/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
+2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
+3. 重命名新生成的`questionaire`, 用来替换原来的`ROOT`, `mv questionaire ROOT`
+4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
     
 数据库
 -----
