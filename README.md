@@ -12,6 +12,7 @@ Email|xuyanpeter0619@gmail.com
 
 * [项目进展](#项目)
 * [JDK版本](#jdk)
+* [maven版本](#maven)
 * [Tomcat配置](#tomcat)
 * [DB配置](#数据库)
 * [登陆说明](#登陆)
@@ -84,12 +85,18 @@ Email|xuyanpeter0619@gmail.com
         1. 上传页面添加一个`下载表格模块`，方便本地管理员下载有表头的空文件
     1. 微信端扫码登陆
     1. 微信端
+
 jdk
 ------
-    版本号1.8.0_101
-    
-tomcat
+版本号1.8.0_101
+
+maven
 ------
+
+OS name: "mac os x", version: "10.13.5", arch: "x86_64", family: "mac"
+
+tomcat
+-------
 1. 版本号9.0.46
     
 2. **服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
@@ -101,6 +108,7 @@ tomcat
     
 数据库
 -----
+## 本地测试与远程数据库切换
 db测试，连接本地数据库，不对远程数据库进行操作。
 连接本地127.0.0.1，需要:
 1. 对`src/main/resources/jdbc.properties`文件中，注释掉远程数据库的连接信息
@@ -110,25 +118,25 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 1. 对`src/main/resources/jdbc.properties`文件中，释掉本地数据库的连接信息，反注释远程连接信息
 2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，去除注释`@WebListener`
 
-## 本地测试与远程数据库切换
-1. 
  
 登陆
 ------
     
 管理员利用md5脚本工具`Flup/scripts/output_file_md5.py`，预先添加persons表中的管理员用户，对应的centerid字段不能为空且要出现于表centers的idcenter字段中
      
-------
+## pc端登陆
 1. 用户/本地管理员/系统管理员登陆，校验姓名+身份证号，判断是否为Admin user，
     1. 若是本地管理员, 进入主页index.jsp
     1. 若是普通user，进入待定用户界面 xxx.jsp
     1. 若是系统管理员, 进入待定系统界面 yyy.jsp
 ------    
-2. 当前登陆流程
+2. 登陆流程
     1. 判断无指定session, 则拦截访问, 跳转至登陆界面: 请求输入用户名+身份证验证
         1. 管理员，可上传文件、添加用户信息  
         1. 普通用户  
         1. 系统管理员
+
+### 微信端扫码登陆
      
 上传文件
 -------
@@ -137,49 +145,69 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 1. 限定上传文件格式: Microsoft Excel 2003
 2. 为方便解析文件中用户数据，文件数据格式有一定要求，需要严格按照提供的上传队列信息表中前2行为字段声明，最后6行为字段说明，中间部分为有用
 的待插入用户数据格式，且无空数据行
-3. 上传文件后，解析用户数据信息，并结合数据库中已存在用户信息(疑问1)，生成`下载队列成员信息表YYYmmDD.xls`文件，并下载到系统的`Downloads`
+3. 上传文件后，解析用户数据信息，并结合数据库中已存在用户信息，生成`下载队列成员信息表YYYYmmDD.xls`文件，并下载到系统的`~/Downloads/`
 
-## 下载表格模版
+**下载表格模版**
     
+
 问题交流
 ------
-**开发问题及解决方案**
+**上传/下载文件**
+
 1. 根据上传文件，`生成下载队列信息表`中可包含上传文件中的原身份证号信息，然后结合的数据库数据中，无法反推得到该部分用户原身份证号信息(从实现的角度，还是有点疑惑)
 1. `文件下载`，并未像传统下载方式一样，在浏览器界面左下角显示下载文件，而是直接下载到当前用户的Downloads，同时在浏览器界面提示下载成功信息
+
+**数据校验**
 1. 身份证在本单位要查重
+
+**session管理**
 1. `Session`管理，目前使用注解@sessionAttribute
 1. `ModelAndView`默认forward, redirect问题
     1. forward为默认, 并结合视图解析器的前缀(`/WEB-INF/`)与后缀信息(`.jsp`)
     2. redirect需要特别指定
         1. 完整写出对应项目的根路径, 如`/WEB-INF/views/success.jsp`
         2. 重定向到`Controller`
+
+**权限管理**
 1. `权限管理`方法, 目前使用拦截器拦截未登陆用户进入指定页面，未实现系统权限管理. 可选Spring Shiro 或 Spring Security框架
+
+**静态数据的访问**
 1. `Bootstrap`前端页面引用路径不识别问题
+1. 静态图片的访问 image, `spring-mvc.xml`新增
+    1. `<mvc:resources mapping="/images/**" location="/images/" />`
+    1. `<mvc:annotation-driven />`
+
+**tomcat部署**
 1. `Tomcat部署war包`访问路径问题，目前通过替换ROOT文件方式实现
-1. `微信公众号本地开发80端口映射解决方案`: 
-    1. 下载ngrok, 地址 [https://ngrok.com/download](https://ngrok.com/download)
-    1. 点击注册并登陆[ngrok](https://dashboard.ngrok.com/user/signup)
-    1. 获取授权码 `yourauthtoken`
-    1. 输入ngrok授权码 `${ngrok}/./ngrok authtoken yourauthtoken`
-    1. 启用端口映射(注: http后面跟的是本地要映射的端口, 如8080) `./ngrok http 8080`
-    1. 弊端
-        1. 域名随机
-        1. 服务器在国外，访问速度慢
-    2. 优势
-        1. 提供公网80端口到内网任意端口的映射机制
-        2. 遍于测试
+
+**微信公众号本地开发80端口映射解决方案**
+1. 下载ngrok, 地址 [https://ngrok.com/download](https://ngrok.com/download)
+1. 点击注册并登陆[ngrok](https://dashboard.ngrok.com/user/signup)
+1. 获取授权码 `yourauthtoken`
+1. 输入ngrok授权码 `${ngrok}/./ngrok authtoken yourauthtoken`
+1. 启用端口映射(注: http后面跟的是本地要映射的端口, 如8080) `./ngrok http 8080`
+1. 弊端
+    1. 域名随机
+    1. 服务器在国外，访问速度慢
+2. 优势
+    1. 提供公网80端口到内网任意端口的映射机制
+    2. 遍于测试
+**微信公众测试号**
 1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
     1. `checkTokenUtils`和`@Controller WeChatToken`
+1. 微信测试号    
+    1. 具备你微信号的全部功能，及部分受限接口功能    
 1. 微信`Access_Token`获取方法
     1. IP白名单添加开发者ip, 否则无法获得Access_Token
     1. 配置TokenThread，轮训获得Access_Token
     1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
-1.  获取用户openId的途径有 [参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)
-    1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
-    1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
-    1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
-1. 微信测试号
-    1. 具备你微信号的全部功能，及部分受限接口功能
+
+
+**获取用户openId的途径有 [参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)**
+1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
+1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
+1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
+
 
     
    
