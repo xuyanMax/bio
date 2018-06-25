@@ -22,7 +22,7 @@ Email|xuyanpeter0619@gmail.com
 
 项目
 ------
-###Flup一期开发
+### Flup一期开发
 
 **week1**  
 1. 搭建SpringMVC+Spring+MyBatis，两个关键配置文件 `springmvc.xml, spring-mybatis.xml`
