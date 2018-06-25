@@ -23,6 +23,7 @@ Email|xuyanpeter0619@gmail.com
 项目
 ------
 ###Flup一期开发
+
 **week1**  
 1. 搭建SpringMVC+Spring+MyBatis，两个关键配置文件 `springmvc.xml, spring-mybatis.xml`
 2. 管理员用户功能部分实现，包括手动输入用户信息+上传Excel文件后下载队列成员信息表
@@ -92,7 +93,7 @@ Email|xuyanpeter0619@gmail.com
 
 jdk
 ------
-版本号1.8.0_101
+java version "1.8.0_101"
 
 maven
 ------
