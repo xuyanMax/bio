@@ -28,15 +28,16 @@ public class CommonInterceptor implements HandlerInterceptor {
 //    https://blog.csdn.net/huangjp_hz/article/details/73614314
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+
         String url = httpServletRequest.getRequestURL().toString();
         String username = (String) httpServletRequest.getSession().getAttribute(USERNAME);
 
         /*测试*/
+        System.out.println(username);
         System.out.println((String) httpServletRequest.getSession().getAttribute("snAdmin"));
-        System.out.println("inside pre-handle");
+        System.out.println("inside pre-handle\n");
         /*测试结束*/
 
-        /*auth/logout 被拦截, 跳转到登陆页面*/
         if (url.contains("logout") ) {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         }
@@ -45,24 +46,16 @@ public class CommonInterceptor implements HandlerInterceptor {
             if (username != null) {
                 System.out.println("inside login");
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
-            }
-            else
-                return true;//继续登陆请求
-        } else {// 其他非/login界面情况, 判断session中是否有key，有的话继续用户的操作
-            System.out.println(url);
-            if (username != null) {
-                System.out.println("inside non-login username!=null");
-                return true;//继续当前页面
-            }
-            else {
-                System.out.println("username == null non-login");
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
-                return false;
-            }
+            } else
+                return true;
         }
-        //最后就是进入登陆页面
+        //其他情况判断session中是否有key，有的话继续用户的操作
+        if (username != null)
+            return true;
+
+        //最后的情况就是进入登录页面
         System.out.println("inside login last");
-//        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         return false;//重定向
     }
 

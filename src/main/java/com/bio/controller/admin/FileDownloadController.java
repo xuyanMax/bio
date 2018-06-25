@@ -20,22 +20,17 @@ import java.util.Arrays;
 
 @Controller
 public class FileDownloadController {
-    //跳转
-    @RequestMapping("/download")
-    public String download(){
-        return "jsp/download/downloadFiles";
-    }
 
     //下载数据库中包含所有person的Excel文件
     // todo:
-    @RequestMapping("/downloadFiles")
+    @RequestMapping("/download")
     public ResponseEntity<byte[]> downloadFiles(
             HttpServletRequest request,
-            @RequestParam("file") String filename,
             Model model) throws IOException {
 //        https://blog.csdn.net/qian_ch/article/details/69258465
 //        下载文件路径
-        String path = request.getServletContext().getRealPath("/data/");
+        String filename = "队列成员信息表模版.xls";
+        String path = request.getServletContext().getRealPath("/resource/");
         File file = new File(path + File.separator + filename);
         HttpHeaders headers = new HttpHeaders();
         //下载显示的文件名，解决中文名称乱码问题

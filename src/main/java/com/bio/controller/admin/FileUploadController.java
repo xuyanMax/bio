@@ -29,7 +29,7 @@ public class FileUploadController{
     public ModelAndView uploadMultiFiles(@ModelAttribute("username") String username){
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
-        mv.setViewName("jsp/upload/uploadMultiFiles");
+        mv.setViewName("jsp/upload/uploadFiles");
         return mv;
     }
 

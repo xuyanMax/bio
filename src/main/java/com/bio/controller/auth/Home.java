@@ -80,8 +80,6 @@ public class Home {
         loginItem.setIdperson(person.getIdperson());
         loginItem.setIp(ClientInfoUtils.getIpAddr(request));
         loginItem.setTime(ClientInfoUtils.getCurrDatetime());
-        loginItem.setSup2(person.getSup2()==null?"":person.getSup2());
-        loginItem.setSup3(person.getSup3()==null?"":person.getSup3());
         loginService.addLoginItem(loginItem);
         /*组装结束*/
 
@@ -137,7 +135,7 @@ public class Home {
         return mv;
 
     }
-    @RequestMapping("/auth/logout")
+    @RequestMapping("/logout")
     public String logout(@ModelAttribute("user") Person person,
                          SessionStatus sessionStatus){
         //sessionStatus中的setComplete方法可以将session中的内容全部清空
@@ -153,12 +151,12 @@ public class Home {
 
     @RequestMapping("/user/preferences")
     public String preference(){
-        return "";
+        return "views/errors/404";
     }
 
     @RequestMapping("/help/support")
     public String support(){
-        return "";
+        return "views/errors/404";
     }
 
     /*404 Page Not Found*/

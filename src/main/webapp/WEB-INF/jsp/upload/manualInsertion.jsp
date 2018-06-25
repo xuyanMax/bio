@@ -74,7 +74,7 @@
                     <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
                     <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
                     <li class="divider"></li>
-                    <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+                    <li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -97,27 +97,31 @@
             <small class="help-block" id="ID-error"></small>
         </div>
         <div class="form-group" id="email_div">
-            <input type="text" class="form-control" placeholder="邮箱" required="required" name="email" id="email">
+            <input type="text" class="form-control" placeholder="邮箱" name="email" id="email">
             <small class="help-block" id="email-error"></small>
         </div>
         <div class="form-group" id="sn_div">
             <input type="text" class="form-control" placeholder="单位内编号" required="required" name="sn_in_center" id="sn_in_center">
             <small class="help-block" id="sn-error"></small>
         </div>
-        <div class="form-group" id="glob_div">
-            <input type="text" class="form-control" placeholder="系统内编号" required="required" name="global_sn" id="global_sn">
-            <small class="help-block" id="glob-error"></small>
-        </div>
         <div class="form-group" id="bar_div">
             <input type="text" class="form-control" placeholder="条形码" required="required" name="barcode" id="barcode">
             <small class="help-block" id="bar-error"></small>
         </div>
+        <div class="form-control" id="relative">
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox1" name="relative" value="0"> 职员
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox2" name="relative" value="1"> 家属
+            </label>
+        </div>
         <div class="form-group" id="tel1_div">
-            <input type="text" class="form-control" placeholder="电话1" required="required" name="tel1" id="tel1">
+            <input type="text" class="form-control" placeholder="电话1" name="tel1" id="tel1">
             <small class="help-block" id="tel1-error"></small>
         </div>
         <div class="form-group" id="tel2_div">
-            <input type="text" class="form-control" placeholder="电话2" required="required" name="tel2" id="tel2">
+            <input type="text" class="form-control" placeholder="电话2" name="tel2" id="tel2">
             <small class="help-block" id="tel2-error"></small>
         </div>
         <div class="form-group">
@@ -190,7 +194,6 @@
         document.getElementById("ID-error").innerText="";
         document.getElementById("email-error").innerText="";
         document.getElementById("sn-error").innerText="";
-        document.getElementById("glob-error").innerText="";
         document.getElementById("relative-error").innerText="";
         document.getElementById("tel1-error").innerText="";
         document.getElementById("tel2-error").innerText="";

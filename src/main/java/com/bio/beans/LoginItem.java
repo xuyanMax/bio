@@ -10,8 +10,6 @@ public class LoginItem {
     private int idperson;
     private String time;
     private String ip;
-    private String sup2;
-    private String sup3;
 
     public int getIdlogin() {
         return idlogin;
@@ -43,21 +41,5 @@ public class LoginItem {
 
     public void setIp(String ip) {
         this.ip = ip;
-    }
-
-    public String getSup2() {
-        return sup2;
-    }
-
-    public void setSup2(String sup2) {
-        this.sup2 = sup2;
-    }
-
-    public String getSup3() {
-        return sup3;
-    }
-
-    public void setSup3(String sup3) {
-        this.sup3 = sup3;
     }
 }
