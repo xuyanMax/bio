@@ -50,35 +50,30 @@ public class FileUploadController{
             Arrays.stream(files).forEach((f) -> DBUtils.uploadSingleFile(request, f));
 
             //1. 插入文件中数据到db前，调取数据库中的现有person
-            List<Person> allPersons = personService.findAllPersons();
+//            List<Person> allPersons = personService.findAllPersons();
 
             // test
-            System.out.println("数据库中user数量: " + allPersons.size());
+//            System.out.println("数据库中user数量: " + allPersons.size());
             System.out.println("等待上传的user: /n" + readXls(request, files));
 
-            //2. 插入数据库的数据，从上传到server的文件中读取
-            // todo: 文件是否不需要上传到Server
+            //2. 插入数据库的数据，返回的数据全部从上传到server文件中获得
             List<Person> personsToUpload = readXls(request, files);
-            //set age, gender
+            //set age, gender这类需要原身份证号的信息
             personsToUpload.stream().forEach(p->{
-                p.setGender(PersonInfoUtils.getGender(p.getID_code()));
-                p.setAge(PersonInfoUtils.getAge(p.getID_code()));
+                p.setGender(PersonInfoUtils.getGender(p.getOriginal_ID_code()));
+                p.setAge(PersonInfoUtils.getAge(p.getOriginal_ID_code()));
             });
-            // 3. 添加到allPerson尾部
-            allPersons.addAll(personsToUpload);
-            // todo:??无法获取数据库中person的原身份证号
-            String tmp_ID_code = "13010419920518241X";
-            allPersons.stream().forEach(p->p.setOriginal_ID_code(tmp_ID_code));
 
             //调用返回下载队列成员信息表的Controller页面
             //返回信息中的原ID
 
             // add persons to model
-            mv.addObject("persons", allPersons);
+            mv.addObject("persons", personsToUpload);
             mv.addObject("message", "successfully uploaded " + files.length + " files");
             /*test*/
             System.out.println("creating excel sheet..");
             /**/
+
             //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createExcelSheet(personsToUpload);
 

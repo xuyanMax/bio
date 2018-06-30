@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * 核心服务类
+ * 微信公众帐号开发教程第14篇-自定义菜单的创建及菜单事件响应
  * reference: https://blog.csdn.net/lyq8479/article/details/8952173
  */
 public class CoreService {
@@ -48,17 +49,19 @@ public class CoreService {
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
             textMessage.setFuncFlag(0);
 
-            /*获得openId, 获取用户信息，并显示在console*/
-            WeChatUser user = WeChatUtils.getOpenId(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
-            System.out.println(user);
-
             /*
-            * reference: https://blog.csdn.net/lyq8479/article/details/9393195
+            *
+            * 获得openId, 获取用户信息
             * */
-            textMessage.setContent("欢迎访问<a href=\"http://57792978.ngrok.io\">Flup</a>!");
-            // 将文本消息对象转换成xml字符串
+            WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
+            System.out.println("通过回复信息获取到的用户是: " + user);
 
-            //默认回复消息
+            //reference: https://blog.csdn.net/lyq8479/article/details/9393195
+            String url = WeChatUtils.url_snsapi_userinfo.replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL);
+            textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
+
+            // 将文本消息对象转换成xml字符串
+            // 默认回复消息
             respMessage = MessageUtil.textMessageToXml(textMessage);
 
             // 文本消息
@@ -168,8 +171,6 @@ public class CoreService {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
                 }
             }
-            textMessage.setContent(respContent);
-            respMessage = MessageUtil.textMessageToXml(textMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }

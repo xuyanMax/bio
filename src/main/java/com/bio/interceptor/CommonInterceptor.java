@@ -33,19 +33,24 @@ public class CommonInterceptor implements HandlerInterceptor {
         String username = (String) httpServletRequest.getSession().getAttribute(USERNAME);
 
         /*测试*/
-        System.out.println(username);
-        System.out.println((String) httpServletRequest.getSession().getAttribute("snAdmin"));
+        System.out.println("=====interceptor======");
+        System.out.println("username = " + username);
+        System.out.println("snAdmin = "+ (String) httpServletRequest.getSession().getAttribute("snAdmin"));
         System.out.println("inside pre-handle\n");
         /*测试结束*/
-
-        if (url.contains("logout") ) {
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+        if (url.contains("logout")){
+            if (username != null){
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
+                System.out.println("=====interceptor end======");
+            }else
+                return true;
         }
          /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
         if (url.contains("login")){
             if (username != null) {
                 System.out.println("inside login");
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
+                System.out.println("=====interceptor end======");
             } else
                 return true;
         }
@@ -54,7 +59,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             return true;
 
         //最后的情况就是进入登录页面
-        System.out.println("inside login last");
+        System.out.println("login last");
+        System.out.println("=====interceptor end======");
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         return false;//重定向
     }

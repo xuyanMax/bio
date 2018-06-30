@@ -59,6 +59,8 @@
             <mvc:mapping path="/signup"/>
             <mvc:mapping path="/admin/**"/>
             <mvc:mapping path="/auth/**"/>
+            <mvc:mapping path="/login"/>
+            <mvc:mapping path="/logout"/>
             <bean class="com.bio.interceptor.CommonInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -78,8 +78,8 @@ public class PersonInfoUtils {
         //报错
         if (size == 0) return null;
         switch (size){
-            case 15: return String.valueOf(ID_code.charAt(14));
-            case 18: return String.valueOf(ID_code.charAt(16));
+            case 15: return Integer.valueOf(ID_code.charAt(14)) % 2 == 0? "女":"男";
+            case 18: return Integer.valueOf(ID_code.charAt(16)) % 2 == 0? "女":"男";
         }
 
         return null;

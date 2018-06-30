@@ -18,16 +18,16 @@
         if (persons != null){
         %>
         <table border="1" width="100%">
-            <thead>Display registered users</thead>
+            <thead>展示部分用户</thead>
             <tr>
                 <th>id</th>
-                <th>name</th>
-                <th>age</th>
-                <th>gender</th>
-                <th>sn_in_center</th>
-                <th>global_sn</th>
-                <th>relative</th>
-                <th>email</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>本地编号(工号)</th>
+                <th>系统内编号</th>
+                <th>身份</th>
+                <th>邮箱</th>
                 <th>tel1</th>
                 <th>tel2</th>
                 <td>数据库操作</td>
@@ -51,7 +51,7 @@
         <%
             } else {
         %>
-            <p>No available data</p>
+            <p>暂无数据</p>
         <%
             }
         %>

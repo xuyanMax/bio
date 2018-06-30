@@ -14,10 +14,7 @@
     <a href="/list">View uploaded files</a>--%>
 </head>
 <body>
-        某一项操作成功!显示数字代表数据插入成功/获取数据库List<Person>成功；<br/>
-        ${person.idperson}<%--手动插入/上传excel/删除 都会返回idperson--%>
-        ${persons.size()}<%--displayAllUsers--%>
-        <h1>${files}</h1><%--list all uploaded files--%>
-            <a href="/home">返回主页</a>
+<a href="/home">返回主页</a>
+ <p>上传成功</p>
 </body>
 </html>

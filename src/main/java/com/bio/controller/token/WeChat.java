@@ -1,5 +1,6 @@
 package com.bio.controller.token;
 
+import com.wechat.model.OAuthInfo;
 import com.wechat.model.WeChatUser;
 import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.CheckTokenUtils;
@@ -55,14 +56,14 @@ public class WeChat {
                     printWriter.print(echostr);
                     printWriter.flush();
                     printWriter.close();
-                    System.out.println("TOKEN验证: 确认来自微信的请求!");
+                    System.out.println("TOKEN验证: 确认SHI来自微信的请求!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             /*测试获取ip地址*/
             System.out.println("验证失败!!!");
-            System.out.println(ClientInfoUtils.getIpAddr(request));
+            System.out.println("微信服务器地址: " + ClientInfoUtils.getIpAddr(request));
             /*测试结束*/
         }else {
             System.out.println(request.getContextPath());
@@ -94,16 +95,26 @@ public class WeChat {
     @RequestMapping("/user/info")
     public String getOpenId(HttpServletRequest request,
                             HttpServletResponse response){
-        // todo:
-        WeChatUser user = new WeChatUser();
+        String code = request.getParameter("code");
+        OAuthInfo authInfo = new OAuthInfo();
+        WeChatUser user;
+        String openId = authInfo.getOpenid();
 
         /**
          * 进行获取openId，必须的一个参数，这个是当进行了授权页面的时候，再重定向了我们自己的一个页面的时候，
          * 会在request页面中，新增这个字段信息，
          */
-        System.out.println(request.getParameter("code"));
-        System.out.println(request.getParameter("openId"));
+        if (code != null & !code.equals("")){
+            //1. 通过code参数获取access_token
+            authInfo = WeChatUtils.getOpenId(code);
+            if (openId != null && !openId.equals("")) {
+                //2. 通过access_token获取用户的基本信息
+                user = WeChatUtils.getWeChatUser(authInfo.getAccess_token(), authInfo.getOpenid());
+                if (user != null)
+                    System.out.println("wechat user: " + user);
+            }
 
-        return  user.getOpenId();
+        }
+        return  openId;
     }
 }

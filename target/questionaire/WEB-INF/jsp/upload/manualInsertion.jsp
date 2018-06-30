@@ -101,7 +101,7 @@
             <small class="help-block" id="email-error"></small>
         </div>
         <div class="form-group" id="sn_div">
-            <input type="text" class="form-control" placeholder="单位内编号" required="required" name="sn_in_center" id="sn_in_center">
+            <input type="text" class="form-control" placeholder="单位内编号(工号)" required="required" name="sn_in_center" id="sn_in_center">
             <small class="help-block" id="sn-error"></small>
         </div>
         <div class="form-group" id="bar_div">
@@ -146,7 +146,7 @@
             <td>name</td>
             <td>gender</td>
             <td>邮箱</td>
-            <td>单位内编号</td>
+            <td>单位内编号(工号)</td>
             <td>系统内唯一编号</td>
             <td>身份</td>
             <td>条形码</td>

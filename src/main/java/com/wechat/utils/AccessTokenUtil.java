@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class AccessTokenUtil {
 
     /**
-     * 获取accessToken
+     * 获取access_token: 公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。
      * @param appID 微信公众号凭证
      * @param appSecret 微信公众号凭证秘钥
      * @return

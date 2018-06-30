@@ -3,11 +3,12 @@ package com.wechat.utils;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.AccessToken;
+import com.wechat.model.OAuthInfo;
 import com.wechat.model.WeChatUser;
 import com.wechat.model.button.Menu;
+import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
 
-import javax.json.JsonObjectBuilder;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -25,17 +26,18 @@ import java.security.NoSuchProviderException;
 public class WeChatUtils {
     private static final Logger log = Logger.getLogger(WeChatUtils.class.getName());
 
-
-    // 获取access_token的接口地址（GET） 限200（次/天）
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
-    /**
-     * 获取access_token
-     *
-     * @param appId 凭证
-     * @param appSecret 密钥
-     * @return
-     */
+    //当我们点击，每个人都有的按钮, 通过url后面的域名redirect_uri=http://population.chgc.sh.cn/user/info
+    //进入我们的 task/technician/check  这个方法传一个code值过去
+    public static String url_snsapi_userinfo = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
+            + "REDIRECT_URL&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+
+    //todo: 根据项目url做更新
+    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/info";
+
+    /*getAccessToken + httpRequest == AccessTokenUtil*/
+    // 获取access_token的接口地址（GET） 限200（次/天）
     public static AccessToken getAccessToken(String appId, String appSecret) {
         AccessToken accessToken = null;
 
@@ -67,9 +69,9 @@ public class WeChatUtils {
     public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
 
         JSONObject jsonObject = null;
-        // 创建SSLContext对象，并使用我们指定的信任管理器初始化
         StringBuffer buffer = new StringBuffer();
         try {
+            // 创建SSLContext对象，并使用我们指定的信任管理器初始化
             TrustManager[] tm = { new MyX509TrustManager() };
             SSLContext sslContext = null;
             sslContext = SSLContext.getInstance("SSL", "SunJSSE");
@@ -90,14 +92,14 @@ public class WeChatUtils {
             if ("GET".equalsIgnoreCase(requestMethod))
                 httpUrlConn.connect();
 
-            // 当有数据需要提交时
+            // 当outputStr不为null时向输出流写数据
             if (null != outputStr) {
                 OutputStream outputStream = httpUrlConn.getOutputStream();
                 // 注意编码格式，防止中文乱码
                 outputStream.write(outputStr.getBytes("UTF-8"));
                 outputStream.close();
             }
-            // 将返回的输入流转换成字符串
+            // 从输入流读取返回内容
             InputStream inputStream = httpUrlConn.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -125,20 +127,18 @@ public class WeChatUtils {
         }
         return jsonObject;
     }
-/*
- * 1）39~48行：解决https请求的问题，很多人问题就出在这里；
-
- * 2）53~57行：兼容GET、POST两种方式；
-
- * 3）59~65行：兼容有数据提交、无数据提交两种情况，也有相当一部分人不知道如何POST提交数据；
- * */
+    /*
+     * 1）39~48行：解决https请求的问题，很多人问题就出在这里；
+     * 2）53~57行：兼容GET、POST两种方式；
+     * 3）59~65行：兼容有数据提交、无数据提交两种情况，也有相当一部分人不知道如何POST提交数据；
+     * */
 
     // 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     /**
      * 创建菜单
      *
-     * @param menu 菜单实例
+     * @param menu 菜单实例，可以包含post/get到微信的查询接口按钮
      * @param accessToken 有效的access_token
      * @return 0表示成功，其他值表示失败
      */
@@ -166,16 +166,16 @@ public class WeChatUtils {
         return result;
     }
 
-    private static String get_openId_url = "https://api.weixin.qq.com/cgi-bin/user/info?" +
+    private static String get_openId_url_msg = "https://api.weixin.qq.com/cgi-bin/user/info?" +
             "access_token=ACCESS_TOKEN&" +
             "openid=OPENID&lang=zh_CN";
     /*
-    * 通过关注公众号的用户发送消息，获取其用户信息
-    * todo:
-    * */
-    public static WeChatUser getOpenId(String openId, String accessToken){
+     * 通过关注公众号的用户发送消息，获取用户部分信息
+     * todo:
+     * */
+    public static WeChatUser getWeChatUser(String openId, String accessToken){
         //1.
-        String url = get_openId_url.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+        String url = get_openId_url_msg.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
@@ -195,19 +195,88 @@ public class WeChatUtils {
             user.setNickname(jsonObject.getString("nickname"));
             user.setSubscribeTime(jsonObject.getString("subscribe_time"));
             user.setSex(jsonObject.getIntValue("sex"));
-            //不返回unionId??
-//            user.setUnionId(jsonObject.getString("unionId"));
 
             /**/
-            System.out.println("getOpenId()->openId=" + openId);
+            System.out.println("getWeChatUser()->openId=" + openId);
             System.out.println(jsonObject.getString("openid"));
             /**/
 
             return user;
         }
         else{
-            System.out.println("inside WeChatUtils->getOpenId(), 返回JSONObject == null");
+            System.out.println("inside WeChatUtils->getWeChatUser(), 返回JSONObject == null");
             return null;
         }
+    }
+    //todo:
+    //在创建自定义菜单时指定URL为网页授权接口：
+    public static final String url_snsapi_base = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+            "appid=APPID&" +
+            "redirect_uri=REDIRECT_URI&" +
+            "response_type=code&" +
+            "scope=snsapi_base&" +
+            "state=s";
+
+    /**
+     * @param code
+     * @return  OAuthInfo
+     * */
+    public static OAuthInfo getOpenId(String code){
+
+        String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
+
+        url = url.replace("APPID", TokenThread.appID).replace("APP_SECRET", TokenThread.appSecret);
+
+        JSONObject jsonObject = httpRequest(url, "GET", null);
+
+        OAuthInfo authInfo = composeAuthInfo(jsonObject);
+        return authInfo;
+
+    }
+
+    // OAuth2 授权获取用户信息by access_token and openId
+    public static String url_get_user = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+
+    public static WeChatUser getUserByAccessTokenAndOpenId(String access_token, String openid){
+        url_get_user = url_get_user.replace("ACCESS_TOKEN", access_token).replace("OPENID", openid);
+        JSONObject jsonObject = httpRequest(url_get_user, "GET", null);
+
+        if (jsonObject != null){
+            WeChatUser user = composeWeChatUser(jsonObject);
+            return user;
+        }
+        return null;
+    }
+
+    // 组装一个WeChatUser
+    public static WeChatUser composeWeChatUser(JSONObject jsonObject){
+
+        WeChatUser user = new WeChatUser();
+
+        user.setOpenId(jsonObject.getString("openid"));
+        user.setNickname(jsonObject.getString("nickname"));
+        user.setSex(jsonObject.getIntValue("sex"));
+        user.setProvince(jsonObject.getString("province"));
+        user.setCity(jsonObject.getString("city"));
+        user.setCountry(jsonObject.getString("country"));
+        user.setHeadImgUrl(jsonObject.getString("headimgurl"));
+        user.setUnionId(jsonObject.getString("unionId"));
+
+        /*测试*/
+        System.out.println("getWeChatUser()->openId=" + user.getOpenId());
+        System.out.println(jsonObject.getString("openid"));
+        /**/
+        return user;
+    }
+    public static OAuthInfo composeAuthInfo(JSONObject jsonObject){
+        OAuthInfo authInfo = new OAuthInfo();
+        authInfo.setAccess_token(jsonObject.getString("access_token"));
+        authInfo.setExpires_in(jsonObject.getString("expires_in"));
+        authInfo.setOpenid(jsonObject.getString("openid"));
+        authInfo.setRefresh_token(jsonObject.getString("refresh_token"));
+        authInfo.setScope(jsonObject.getString("scope"));
+        authInfo.setUnionid(jsonObject.getString("unionid"));
+        System.out.println(authInfo);
+        return authInfo;
     }
 }
