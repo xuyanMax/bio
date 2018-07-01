@@ -88,8 +88,13 @@ Email|xuyanpeter0619@gmail.com
 1. `Bright`测试问题反馈
     1. 姓名、身份证号、单位内编号、条形码、身份为必填项，其余可缺省
     1. 上传页面添加一个`下载表格模块`，方便本地管理员下载有表头的空文件
+    1. 逐个录入保存在Web前端，点击上传后全部并下载Excel文件
 1. 微信端扫码登陆
-1. 微信获取用户openId
+1. 微信OAuth2.0授权登录，获取用户openId
+    1. 第三方发起微信授权登录请求，微信用户允许授权第三方应用后，微信会拉起应用或重定向到第三方网站，并且带上授权临时票据code参数；
+    2. 通过code参数加上AppID和AppSecret等，通过API换取access_token；
+    3. 通过access_token进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
+1. `zy`提出更新`下载表格模版`，非数据行以#开头，并标注单位内编号不能以#起头
 
 jdk
 ------
@@ -108,7 +113,7 @@ tomcat
 1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
   `scp -P 10061  ~/tmp/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
 2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
-3. 重命名新生成的`questionaire`, 用来替换原来的`ROOT`, `mv questionaire ROOT`
+3. 先删除`ROOT`, 重命名新生成的`questionaire`为`ROOT`. `mv questionaire ROOT`
 4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
     
 数据库
@@ -153,6 +158,7 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 3. 上传文件后，解析用户数据信息，并结合数据库中已存在用户信息，生成`下载队列成员信息表YYYYmmDD.xls`文件，并下载到系统的`~/Downloads/`
 
 **下载表格模版**
+进入`上传文件`页面，点击导航栏的`下载表格模版`,模版自动下载到`Downloads`文件夹下
     
 
 问题交流
@@ -162,8 +168,12 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 1. 根据上传文件，`生成下载队列信息表`中可包含上传文件中的原身份证号信息，然后结合的数据库数据中，无法反推得到该部分用户原身份证号信息(从实现的角度，还是有点疑惑)
 1. `文件下载`，并未像传统下载方式一样，在浏览器界面左下角显示下载文件，而是直接下载到当前用户的Downloads，同时在浏览器界面提示下载成功信息
 
-**数据校验**
-1. 身份证在本单位要查重
+**SSH 远程连接**
+参考`/com/bio/Utils/SSHConnection.java`
+
+**tomcat部署**
+1. `Tomcat部署war包`访问路径问题，通过替换ROOT文件方式实现
+
 
 **session管理**
 1. `Session`管理，目前使用注解@sessionAttribute
@@ -176,14 +186,23 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 **权限管理**
 1. `权限管理`方法, 目前使用拦截器拦截未登陆用户进入指定页面，未实现系统权限管理. 可选Spring Shiro 或 Spring Security框架
 
+**拦截器**
+
+1. 拦截的`url`路径有:
+    1. `/signup`, `/login`, `/logout`, `/admin`
+
+**log4j说明**
+1. 日志输出级别，由低到高 `ERROR < WARN < INFO < DEBUG`
+    1. 如输出级别为`DEBUG`， 则全部输出
+    1. 如输出级别为`INFO`， 则除了`DEBUG`全部输出
+
+
 **静态数据的访问**
 1. `Bootstrap`前端页面引用路径不识别问题
-1. 静态图片的访问 image, `spring-mvc.xml`新增
+1. 静态图片的访问 image, `spring-mvc.xml`新增代码
     1. `<mvc:resources mapping="/images/**" location="/images/" />`
     1. `<mvc:annotation-driven />`
 
-**tomcat部署**
-1. `Tomcat部署war包`访问路径问题，目前通过替换ROOT文件方式实现
 
 **微信公众号本地开发80端口映射解决方案**
 1. 下载ngrok, 地址 [https://ngrok.com/download](https://ngrok.com/download)
@@ -197,21 +216,33 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 2. 优势
     1. 提供公网80端口到内网任意端口的映射机制
     2. 遍于测试
+
 **微信公众测试号**
 1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
-    1. `checkTokenUtils`和`@Controller WeChatToken`
-1. 微信测试号    
-    1. 具备你微信号的全部功能，及部分受限接口功能    
-1. 微信`Access_Token`获取方法
-    1. IP白名单添加开发者ip, 否则无法获得Access_Token
-    1. 配置TokenThread，轮训获得Access_Token
-    1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
+    1. 微信`Access_Token`获取方法
+        1. IP白名单添加开发者ip, 否则无法获得Access_Token
+        1. 配置TokenThread，轮训获得Access_Token
+        1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
 
+ 
+**微信公众平台接口调试工具**
+1. 测试微信不同接口类型
 
 **获取用户openId的途径有 [参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)**
 1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
 1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
 1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
+
+**小程序**
+
+**待解决问题**
+1. 管理员扫码登陆，短信验证
+1. 下载队列模版更新
+1. 问卷调查，题目制作
+1. 小程序开发
+
+**TIRED**
+
 
 
     

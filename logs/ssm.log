@@ -98,4 +98,30 @@
   [INFO] [2018-06-11 02:12:57][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [junit-applicationContext.xml]
   [INFO] [2018-06-11 02:12:57][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
   [INFO] [2018-06-11 02:12:57][org.springframework.jdbc.datasource.DriverManagerDataSource]Loaded JDBC driver: com.mysql.jdbc.Driver
+  [ERROR] [2018-07-01 12:19:58][TestLog4j]err
+  [INFO] [2018-07-01 12:19:58][TestLog4j]info
+  [ERROR] [2018-07-01 12:21:08][TestLog4j]err
+  [INFO] [2018-07-01 12:21:08][TestLog4j]info
+  [ERROR] [2018-07-01 12:25:29][TestLog4j]err
+  [INFO] [2018-07-01 12:25:29][TestLog4j]info
+  [ERROR] [2018-07-01 12:26:13][TestLog4j]err
+  [INFO] [2018-07-01 12:26:13][TestLog4j]info
+  [ERROR] [2018-07-01 12:27:37][TestLog4j]err
+  [INFO] [2018-07-01 12:27:37][TestLog4j]info
+  [ERROR] [2018-07-01 12:28:09][TestLog4j]err
+  [INFO] [2018-07-01 12:28:09][TestLog4j]info
+  [WARN] [2018-07-01 12:28:09][TestLog4j]warn
+  [ERROR] [2018-07-01 12:29:06][TestLog4j]err
+  [INFO] [2018-07-01 12:29:06][TestLog4j]info
+  [WARN] [2018-07-01 12:29:06][TestLog4j]warn
+  [DEBUG] [2018-07-01 12:37:43][TestLog4j]debug
+  [ERROR] [2018-07-01 12:37:43][TestLog4j]err
+  [INFO] [2018-07-01 12:37:43][TestLog4j]info
+  [WARN] [2018-07-01 12:37:43][TestLog4j]warn
+  [ERROR] [2018-07-01 12:42:07][TestLog4j]err
+  [WARN] [2018-07-01 12:42:07][TestLog4j]warn
+  [INFO] [2018-07-01 12:42:07][TestLog4j]info
+  [ERROR] [2018-07-01 12:58:16][TestLog4j]err
+  [WARN] [2018-07-01 12:58:16][TestLog4j]warn
+  [INFO] [2018-07-01 12:58:16][TestLog4j]info
   

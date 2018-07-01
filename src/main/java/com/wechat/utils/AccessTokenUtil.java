@@ -45,7 +45,7 @@ public class AccessTokenUtil {
             String message = new String(b, "UTF-8");
             JSONObject json = JSONObject.parseObject(message);
             token.setToken(json.getString("access_token"));
-            token.setExpiresIn(new Integer(json.getString("expires_in")));
+            token.setExpiresIn(new Integer(json.getIntValue("expires_in")));
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
