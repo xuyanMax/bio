@@ -96,6 +96,18 @@ Email|xuyanpeter0619@gmail.com
     3. 通过access_token进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
 1. `zy`提出更新`下载表格模版`，非数据行以#开头，并标注单位内编号不能以#起头
 
+**week 7**
+
+1. 上传`MP_verify_...`
+1. 更改公众号`appid`和`secret`
+1. 将所有24道'填空题'的正则表达，传入数据库，生成txt文件，例如`您的出生地是_正则_（省/直辖市）#请输入正确的省/直辖市`
+1. 生成问卷调查，使用了`https://surveyjs.io`
+    1. 动态问卷，需要创建`JsonGenerator`，利用`fastjson`，创建符合`surveyjs`规范的JSON数据
+    1. 完成`text`测试
+    1. 接下来，测试
+        1. `multitext`, `checkbox` with `Validators`
+
+
 jdk
 ------
 java version "1.8.0_101"
@@ -111,7 +123,7 @@ tomcat
     
 **服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
 1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
-  `scp -P 10061  ~/tmp/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
+  `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
 2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
 3. 先删除`ROOT`, 重命名新生成的`questionaire`为`ROOT`. `mv questionaire ROOT`
 4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
@@ -233,6 +245,9 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
 1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
 
+**向微信特定地址发起GET请求**
+
+
 **小程序**
 
 **待解决问题**
@@ -240,6 +255,9 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 1. 下载队列模版更新
 1. 问卷调查，题目制作
 1. 小程序开发
+1. 自动初始化题目数量
+1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗
+
 
 **TIRED**
 

@@ -6,8 +6,8 @@ import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatUtils;
 
 public class MenuThread implements Runnable {
-    private static final String appID = "wx0f81f68f813bd68d";
-    private static final String appSecret = "c9d7f54ec1d0642d187141636ba69af2";
+    private static final String appID = "wxb92b6517e66c5eda";//wx0f81f68f813bd68d
+    private static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";//c9d7f54ec1d0642d187141636ba69af2
     private static AccessToken access_token=null;
     @Override
     public void run() {

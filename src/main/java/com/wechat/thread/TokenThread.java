@@ -6,8 +6,8 @@ import com.wechat.utils.AccessTokenUtil;
 public class TokenThread implements Runnable {
     //微信公众号的凭证和秘钥
 
-    public static final String appID = "wx0f81f68f813bd68d";
-    public static final String appSecret = "c9d7f54ec1d0642d187141636ba69af2";
+    public static final String appID = "wxb92b6517e66c5eda";
+    public static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";
     public static AccessToken access_token=null;
 
     @Override

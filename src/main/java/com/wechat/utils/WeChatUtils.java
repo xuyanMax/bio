@@ -26,6 +26,7 @@ import java.security.NoSuchProviderException;
 public class WeChatUtils {
     private static final Logger log = Logger.getLogger(WeChatUtils.class.getName());
 
+    //微信token的获取
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
     //当我们点击，每个人都有的按钮, 通过url后面的域名redirect_uri=http://population.chgc.sh.cn/user/info
@@ -33,8 +34,10 @@ public class WeChatUtils {
     public static String url_snsapi_userinfo = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
             + "REDIRECT_URL&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 
-    //todo: 根据项目url做更新
-    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/info";
+    public static String REDIRECT_URL = "http://population.chgc.sh.cn:10080/user/info";
+
+    // 通过扫描微信二维码登陆
+    public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 
     /*getAccessToken + httpRequest == AccessTokenUtil*/
     // 获取access_token的接口地址（GET） 限200（次/天）

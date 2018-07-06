@@ -56,14 +56,6 @@ public class CoreService {
             WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
             System.out.println("通过回复信息获取到的用户是: " + user);
 
-            //reference: https://blog.csdn.net/lyq8479/article/details/9393195
-            String url = WeChatUtils.url_snsapi_userinfo.replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL);
-            textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
-
-            // 将文本消息对象转换成xml字符串
-            // 默认回复消息
-            respMessage = MessageUtil.textMessageToXml(textMessage);
-
             // 文本消息
             List<Article> articles = new ArrayList<>();
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
@@ -81,10 +73,10 @@ public class CoreService {
                 //单图文消息
                 if (content.equals("1")){
                     Article article = new Article();
-                    article.setTitle("我不开心了");
-                    article.setDescription("不务正业的人们，躁动不安，总想找点事，又怕惹事...");
-                    article.setPicUrl("http://57792978.ngrok.io/images/login.png");
-                    article.setUrl("http://57792978.ngrok.io/login");
+                    article.setTitle("测试");
+                    article.setDescription("务正业");
+                    article.setPicUrl("http://population.chgc.sh.cn/images/login.png");
+                    article.setUrl("http://population.chgc.sh.cn/login");
                     articles.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articles.size());
@@ -101,7 +93,7 @@ public class CoreService {
                     article.setDescription("Flup -> Puss");
                     // 将图片置为空
                     article.setPicUrl("");
-                    article.setUrl("http://57792978.ngrok.io/login");
+                    article.setUrl("http://population.chgc.sh.cn/login");
                     articles.add(article);
                     newsMessage.setArticleCount(articles.size());
                     newsMessage.setArticles(articles);
@@ -112,8 +104,8 @@ public class CoreService {
                     Article article1 = new Article();
                     article1.setTitle("好说的");
                     article1.setDescription("");
-                    article1.setPicUrl("http://57792978.ngrok.io/images/login.png");
-                    article1.setUrl("http://57792978.ngrok.io/login");
+                    article1.setPicUrl("http://population.chgc.sh.cn/images/login.png");
+                    article1.setUrl("http://population.chgc.sh.cn//login");
 
                     Article article2 = new Article();
                     article2.setTitle("事情");
@@ -124,8 +116,8 @@ public class CoreService {
                     Article article3 = new Article();
                     article3.setTitle("告诉你");
                     article3.setDescription("");
-                    article3.setPicUrl("http://57792978.ngrok.io/images/lucky.png");
-                    article3.setUrl("http://57792978.ngrok.io/login");
+                    article3.setPicUrl("http://population.chgc.sh.cn/images/lucky.png");
+                    article3.setUrl("http://population.chgc.sh.cn/login");
 
                     articles.add(article1);
                     articles.add(article2);
@@ -133,6 +125,17 @@ public class CoreService {
                     newsMessage.setArticleCount(articles.size());
                     newsMessage.setArticles(articles);
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
+                    return respMessage;
+                } else if (content.equals("Flup")){
+                    //reference: https://blog.csdn.net/lyq8479/article/details/9393195
+                    String url = WeChatUtils.url_snsapi_userinfo.replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL);
+                    url = url.replace("APPID", TokenThread.appID);
+                    System.out.println("redirect_url = " + url);
+                    textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
+
+                    // 将文本消息对象转换成xml字符串
+                    // 默认回复消息
+                    respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
                 }
 
@@ -171,6 +174,9 @@ public class CoreService {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
                 }
             }
+            textMessage.setContent(respContent);
+            respMessage = MessageUtil.textMessageToXml(textMessage);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
