@@ -12,102 +12,133 @@ import java.util.List;
 
 public class FetchData {
     private static int NUM_PER_PAGE = 10;
-    public static void main(String[] args) throws JSchException, ClassNotFoundException, SQLException {
+    private static String sql = "SELECT * FROM questions where types = \'table\'";
+    public static void main(String[] args)  {
 
         //建立ssh数据库连接
-        SSHConnection sshConnection = new SSHConnection();
+//        SSHConnection sshConnection = new SSHConnection();
         //slq
         Connection conn = null;
         Statement statement = null;
         ResultSet rs = null;
         SurveyJson surveyJson = new SurveyJson();
 
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev", "root", "root");
-        statement = conn.createStatement();
-        String sql = "SELECT * FROM questions limit 15";
-        rs = statement.executeQuery(sql);
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev","root","root");
+            statement = conn.createStatement();
 
-        //获取列名
-        ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            rs = statement.executeQuery(sql);
 
-        //获取数据
-        int num_quest = 0;
-        List<BaseQuestion> elements = null;
-        while (rs.next()) {
+            //获取列名
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
 
-            System.out.println("========"+num_quest+"=========");
+            //获取数据
+            int num_quest = 0;
+            List<BaseQuestion> elements = null;
+            while (rs.next()) {
 
-            if (num_quest % 10 == 0){
-                Page page = new Page();
-                page.setName("page"+num_quest / 10 + "");
-                elements = new ArrayList<>();
-                page.setElements(elements);
-                surveyJson.getPages().add(page);
-            }
-            num_quest++;
-            String question = rs.getString("question");
-            String type = rs.getString("types");
-            String description = rs.getString("note");
-            String opts= rs.getString("options");
-            String section = rs.getString("section");
+                System.out.println("========"+num_quest+"=========");
 
-            /*测试*/
-            System.out.println(question);
-            System.out.println(type);
-            System.out.println(description);
-            System.out.println(opts);
-            System.out.println(section);
-            System.out.println("\n\n");
-            /**/
+                if (num_quest % 10 == 0){
+                    Page page = new Page();
+                    page.setName("page"+num_quest / 10 + "");
+                    elements = new ArrayList<>();
+                    page.setElements(elements);
+                    surveyJson.getPages().add(page);
+                }
+                num_quest++;
+                String question = rs.getString("question");
+                String type = rs.getString("types");
+                String description = rs.getString("note");
+                String opts= rs.getString("options");
+                String section = rs.getString("section");
 
-            if (type.equals("choice")){
+                /*测试*/
+                System.out.println(question);
+                System.out.println(type);
+                System.out.println(description);
+                System.out.println(opts);
+                System.out.println(section);
+                System.out.println("\n\n");
+                /**/
 
-                RadioGroup radioGroup = new RadioGroup("question" + num_quest, question);
-                //拆分选项,生成选项
-                Choice[] choices = addChoices(opts);
-                radioGroup.setChoices(choices);
-                //添加到Page.elements
-                elements.add(radioGroup);
-            } else if (type.equals("double")){
-                Checkbox checkBox = new Checkbox("question" + num_quest, question);
-                Choice[] choices = addChoices(opts);
+                if (type.equals("choice")){
 
-                if (description != null) checkBox.setDescription(description);
+                    RadioGroup radioGroup = new RadioGroup("question" + num_quest, question);
+                    //拆分选项,生成选项
+                    Choice[] choices =  addChoices(opts);
+                    radioGroup.setChoices(choices);
+                    //添加到Page.elements
+                    elements.add(radioGroup);
+                } else if (type.equals("double")){
+                    Checkbox checkBox = new Checkbox("question" + num_quest, question);
+                    Choice[] choices = addChoices(opts);
 
-                checkBox.setChoices(choices);
-                //添加到Page.elements
-                 elements.add(checkBox);
-            } else if (type.equals("table")) {//multi-text
-                MultipleText table = new MultipleText("question" + num_quest, question);
-                table.setItems(addItems(opts));
-                elements.add(table);
-            } else if (type.equals("blank")) {
-                Text text = new Text("question"+num_quest, question);
+                    if (description != null) checkBox.setDescription(description);
 
-                if (question.matches("_.*_")) {
-                    int first = question.indexOf('_');
-                    System.out.println("first="+first);
-                    int sec = question.lastIndexOf('_');
-                    System.out.println("second="+sec);
+                    checkBox.setChoices(choices);
+                    //添加到Page.elements
+                    elements.add(checkBox);
+                } else if (type.equals("table")) {//multi-text
+                    MatrixDropdown matrixDropdown = new MatrixDropdown("question" + num_quest, question);
+                    //todo
+                    int size = opts!=null && opts.contains(",") ? opts.split(",").length : -1;
 
-                    String regex = question.substring(first + 1, sec);
+                    if (size != -1){//多列
 
-                    if (question.contains("#")) {
-                        int third = question.indexOf("#");
-                        String warning = question.substring(third);
-                        if (warning != null) {
-
-                            ValidatorRegex validatorRegex = new ValidatorRegex(warning);
-
-                            text.setValidators(validatorRegex);
-                        }
                     }
 
+                    elements.add(matrixDropdown);
+                } else if (type.equals("blank")) {
+                    //todo:判断是text还是multipletext
+
+                    int size = question.contains(";")?question.split(";").length:-1;
+                    if (size == -1) {
+                        Text text = new Text("question" + num_quest, question);
+
+                        if (question.matches("_.*_")) {
+                            int first = question.indexOf('_');
+                            System.out.println("first=" + first);
+                            int sec = question.lastIndexOf('_');
+                            System.out.println("second=" + sec);
+
+                            String regex = question.substring(first + 1, sec);
+
+                            if (question.contains("#")) {
+                                int third = question.indexOf("#");
+                                String warning = question.substring(third);
+                                if (warning != null) {
+
+                                    ValidatorRegex validatorRegex = new ValidatorRegex(warning);
+
+                                    text.setValidators(validatorRegex);
+                                }
+                            }
+                        }
+                        elements.add(text);
+                    }else { //size > 0 multipletext
+                        MultipleText multipleText = new MultipleText("question" + num_quest, question);
+                        multipleText.setItems(addItems(opts));
+                        elements.add(multipleText);
+                    }
 
                 }
-
-                elements.add(text);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (conn!=null)
+                    conn.close();
+                if (statement != null)
+                    statement.close();
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
@@ -131,15 +162,29 @@ public class FetchData {
         int size = options.length;
         List<Item> items = new ArrayList<>();
         //todo:获取title
-        for (int i=0; i<size; i++)
-            items.add(new Item( "", ""));//设置名字为空
+        for (int i=0; i<size; i++) {
+            items.add(new Item("", ""));//设置名字为空
+
+            if (options[i].contains("_")) {//添加正则表达
+                int first = options[i].indexOf('_');
+                int second = options[i].lastIndexOf('_');
+                String regex = options[i].substring(first + 1, second);
+                ValidatorRegex validatorRegex = new ValidatorRegex(regex);
+
+                if (options[i].contains("#")) {//添加错误提示
+                    String text = options[i].substring(options[i].indexOf("#") + 1);
+                    validatorRegex.setText(text);//错误提示
+                }
+                items.get(i).getValidators().add(validatorRegex);
+            }
+        }
         return items;
 
     }
     public void output(String JSONString){
         BufferedWriter writer = null;
         try {
-             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/resources/json.txt")));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/resources/json.txt")));
             writer.write(JSONString);
 
         } catch (FileNotFoundException e) {

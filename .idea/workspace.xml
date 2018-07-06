@@ -7,18 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Choice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Page.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/SurveyJson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Validator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/ValidatorRegex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/BaseQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Checkbox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/RadioGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Column.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDropdown.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wechat/utils/WeChatUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wechat/utils/WeChatUtils.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,8 +47,8 @@
       <file leaf-file-name="ValidatorRegex.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/ValidatorRegex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="90">
+              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -71,8 +65,8 @@
       <file leaf-file-name="SurveyJson.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/SurveyJson.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="-591">
+              <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FetchData.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FetchData.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="85" column="20" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
+            <state relative-caret-position="330">
+              <caret line="88" selection-start-line="88" selection-end-line="88" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,7 +86,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Text.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Text.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
@@ -104,34 +98,12 @@
       <file leaf-file-name="MultipleText.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            <state relative-caret-position="306">
+              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Checkbox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Checkbox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RadioGroup.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/RadioGroup.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#427#428#0" expanded="true" />
+                <element signature="e#461#462#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,20 +112,61 @@
       <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="558">
+              <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#820#821#0" expanded="true" />
+                <element signature="e#881#882#0" expanded="true" />
+                <element signature="e#920#921#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Page.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Page.java">
+      <file leaf-file-name="MatrixDropdown.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDropdown.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state relative-caret-position="243">
+              <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#397#398#0" expanded="true" />
+                <element signature="e#427#428#0" expanded="true" />
+                <element signature="e#479#480#0" expanded="true" />
+                <element signature="e#517#518#0" expanded="true" />
+                <element signature="e#552#553#0" expanded="true" />
+                <element signature="e#583#584#0" expanded="true" />
+                <element signature="e#631#632#0" expanded="true" />
+                <element signature="e#671#672#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Column.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Column.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+              <folding>
+                <element signature="e#144#145#0" expanded="true" />
+                <element signature="e#184#185#0" expanded="true" />
+                <element signature="e#216#217#0" expanded="true" />
+                <element signature="e#251#252#0" expanded="true" />
+                <element signature="e#282#283#0" expanded="true" />
+                <element signature="e#330#331#0" expanded="true" />
+                <element signature="e#370#371#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseQuestion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/BaseQuestion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -172,7 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>signin</find>
       <find>0_101</find>
       <find>已导出</find>
       <find>read</find>
@@ -202,6 +214,7 @@
       <find>checkb</find>
       <find>home</find>
       <find>gender</find>
+      <find>validator</find>
     </findStrings>
     <replaceStrings>
       <replace>small</replace>
@@ -238,9 +251,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/message/request/VoiceMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/message/response/TextMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/message/response/NewsMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/message/request/TextMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/message/request/BaseMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/button/ViewButton.java" />
@@ -285,10 +295,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/WeChatUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Page.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/RadioGroup.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Checkbox.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/Column.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDropdown.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
       </list>
     </option>
   </component>
@@ -376,6 +389,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
+              <item name="type" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -582,9 +605,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.index.jsp">
+  <component name="RunManager" selected="Application.FetchData">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+    </configuration>
+    <configuration name="FetchData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.JsonGenerator.FetchData" />
+      <module name="bio" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.JsonGenerator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
     </configuration>
     <configuration name="JsonGenerate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="JsonGenerate" />
@@ -713,77 +747,6 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
     </configuration>
-    <configuration name="index.jsp (2)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 9.0.42" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
-      <deployment>
-        <artifact name="bio:war">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="_bio" />
-      </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="61906" />
-      </RunnerSettings>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="bio:war" />
-        </option>
-      </method>
-    </configuration>
     <configuration name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 9.0.8" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/login" />
       <option name="UPDATING_POLICY" value="hot-swap-classes" />
@@ -859,18 +822,18 @@
     </configuration>
     <list>
       <item itemvalue="Tomcat Server.index.jsp" />
-      <item itemvalue="Tomcat Server.index.jsp (2)" />
       <item itemvalue="Application.TestLog4j" />
       <item itemvalue="Application.JsonGenerate" />
       <item itemvalue="JUnit.JsonGenerate.test1" />
+      <item itemvalue="Application.FetchData" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FetchData" />
         <item itemvalue="Tomcat Server.index.jsp" />
         <item itemvalue="JUnit.JsonGenerate.test1" />
         <item itemvalue="Application.JsonGenerate" />
         <item itemvalue="Application.TestLog4j" />
-        <item itemvalue="Tomcat Server.index.jsp (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -936,7 +899,7 @@
       <workItem from="1530714865782" duration="1805000" />
       <workItem from="1530722309636" duration="277000" />
       <workItem from="1530798135419" duration="4738000" />
-      <workItem from="1530887712123" duration="827000" />
+      <workItem from="1530887712123" duration="5781000" />
     </task>
     <servers />
   </component>
@@ -973,7 +936,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="319823000" />
+    <option name="totallyTimeSpent" value="324777000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -1003,6 +966,7 @@
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="1.0" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.49928468" weight="0.32969698" />
@@ -1011,7 +975,7 @@
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32969698" />
       <window_info anchor="bottom" id="Spring" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32969698" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.5078684" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.814741" weight="0.23676682" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
       <window_info id="Web" order="6" sideWeight="0.38878843" side_tool="true" weight="0.2274678" />
       <window_info anchor="right" id="SciView" order="12" />
@@ -1022,7 +986,6 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24964234" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1036,36 +999,36 @@
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.490701" visible="true" weight="0.39151517" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24964234" />
-      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32969698" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32969698" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.509299" side_tool="true" weight="0.33333334" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="bottom" id="TODO" order="6" weight="1.0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24964234" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32969698" />
       <window_info anchor="right" id="Maven Projects" order="11" weight="0.3297568" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.5078684" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.23676682" />
       <window_info anchor="right" id="SciView" order="12" />
       <window_info anchor="right" id="Database" order="6" weight="0.16738197" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Web" order="6" sideWeight="0.38878843" side_tool="true" weight="0.2274678" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info id="Structure" order="1" sideWeight="0.18525897" side_tool="true" visible="true" weight="0.5078684" />
+      <window_info id="Structure" order="1" sideWeight="0.18525897" side_tool="true" weight="0.5078684" />
       <window_info anchor="right" id="CDI" order="8" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Coverage" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
-      <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4" />
+      <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1092,27 +1055,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="70" column="43" lean-forward="true" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/admin/FileDownloadController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/model/WeChatUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/personList.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1382,23 +1324,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/SurveyJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Validator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Page.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1406,13 +1331,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1436,37 +1354,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="108">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Validator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/ValidatorRegex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+        <state relative-caret-position="90">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="85" column="20" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
+        <state relative-caret-position="558">
+          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#820#821#0" expanded="true" />
+            <element signature="e#881#882#0" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/BaseQuestion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/Column.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding>
+            <element signature="e#144#145#0" expanded="true" />
+            <element signature="e#184#185#0" expanded="true" />
+            <element signature="e#216#217#0" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#282#283#0" expanded="true" />
+            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#370#371#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#461#462#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/SurveyJson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-591">
+          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDropdown.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        <state relative-caret-position="243">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#517#518#0" expanded="true" />
+            <element signature="e#552#553#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#671#672#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1530,7 +1521,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
