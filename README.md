@@ -107,6 +107,13 @@ Email|xuyanpeter0619@gmail.com
     1. 接下来，测试
         1. `multitext`, `checkbox` with `Validators`
 
+**week 8** 
+1.  测试通过`JsonGenerator`，存在问题:`table`表格类型题目确定输入行数
+
+**week 10**
+1. 微信公众号二维码扫码登陆
+1. 修改`table`表格类，使用`matrixdynamic`组件，设置第一栏为dropdown，其余为input field
+1. 
 
 jdk
 ------

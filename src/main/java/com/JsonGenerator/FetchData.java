@@ -8,6 +8,7 @@ import com.jcraft.jsch.JSchException;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FetchData {
@@ -67,13 +68,13 @@ public class FetchData {
 
                     RadioGroup radioGroup = new RadioGroup("question" + num_quest, question);
                     //拆分选项,生成选项
-                    Choice[] choices =  addChoices(opts);
+                    List<Choice> choices =  addChoices(opts);
                     radioGroup.setChoices(choices);
                     //添加到Page.elements
                     elements.add(radioGroup);
                 } else if (type.equals("double")){
                     Checkbox checkBox = new Checkbox("question" + num_quest, question);
-                    Choice[] choices = addChoices(opts);
+                    List<Choice> choices = addChoices(opts);
 
                     if (description != null) checkBox.setDescription(description);
 
@@ -81,15 +82,18 @@ public class FetchData {
                     //添加到Page.elements
                     elements.add(checkBox);
                 } else if (type.equals("table")) {//multi-text
-                    MatrixDropdown matrixDropdown = new MatrixDropdown("question" + num_quest, question);
-                    //todo
-                    int size = opts!=null && opts.contains(",") ? opts.split(",").length : -1;
+//                    MatrixDropdown matrixDropdown = new MatrixDropdown("question" + num_quest, question);
+//                    //todo
+//                    int size = opts!=null && opts.contains(",") ? opts.split(",").length : -1;
+//                    if (description != null) matrixDropdown.setDescription(description);
+//                    if (size != -1){//多列
+//
+//                    }
 
-                    if (size != -1){//多列
+//                    elements.add(matrixDropdown);
+                    MatrixDynamic matrixDynamic = new MatrixDynamic("question" + num_quest, question);
 
-                    }
 
-                    elements.add(matrixDropdown);
                 } else if (type.equals("blank")) {
                     //todo:判断是text还是multipletext
 
@@ -146,14 +150,14 @@ public class FetchData {
 
 
     }
-    public static Choice[] addChoices(String opts){
+    public static List<Choice> addChoices(String opts){
         //拆分选项
         String[] options = opts.split(",");
-        Choice[] choices = new Choice[options.length];
+        List<Choice> choices = new ArrayList<>();
         for (int i=0; i<options.length; i++) {
             //todo
             Choice choice = new Choice(i+"", options[i]);
-            choices[i] = choice;
+            choices.add(choice);
         }
         return choices;
     }
@@ -181,10 +185,36 @@ public class FetchData {
         return items;
 
     }
+    public static void AssembleMatrixDynamic(MatrixDynamic matrixDynamic, String description, String opts){
+        if (description != null){
+            matrixDynamic.setDescription(description);
+        }
+        String[] splits = opts.split(",");
+        List<Column> columns = new ArrayList<>();
+        int index = 0;
+        for (String split:splits){
+            String item = split.substring(0, split.indexOf("（"));//阶段（小学、中学、大学、硕士、博士）,开始时间（XX年）,结束时间（XX年）,地点（XX省XX市/县）,邮编
+            Column column = new Column();
+            column.setName(item);
+            if (index != 0){
+                column.setCellType("text");
+                column.setName(item.substring(item.indexOf("（"), item.indexOf("）")));//XX年
+            }else {
+                column.setCellType("dropdown");
+                List<String> choices = new ArrayList<>();
+                String choice = item.substring(item.indexOf("（") + 1, item.indexOf("）"));
+
+                for (String c:choice.split("、"))
+                    choices.add(c);
+
+                column.setChoices(choices);
+            }
+        }
+    }
     public void output(String JSONString){
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/resources/json.txt")));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/Users/apple/Downloads/json.txt")));
             writer.write(JSONString);
 
         } catch (FileNotFoundException e) {

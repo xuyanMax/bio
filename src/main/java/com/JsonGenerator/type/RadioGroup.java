@@ -4,27 +4,28 @@ package com.JsonGenerator.type;
 import com.JsonGenerator.Choice;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class RadioGroup extends BaseQuestion {
 
-    Choice[] choices;
+    List<Choice> choices;
     public RadioGroup(String name, String title) {
         super(name, title);
         this.type = "radiogroup";
     }
 
-    public Choice[] getChoices() {
+    public List<Choice> getChoices() {
         return choices;
     }
 
-    public void setChoices(Choice[] choices) {
+    public void setChoices(List<Choice> choices) {
         this.choices = choices;
     }
 
     @Override
     public String toString() {
         return "RadioGroup{" +
-                "choices=" + Arrays.toString(choices) +
+                "choices=" + choices +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
