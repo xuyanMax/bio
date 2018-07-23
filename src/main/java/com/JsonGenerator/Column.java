@@ -1,11 +1,12 @@
 package com.JsonGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Column {
     String name;
     String cellType;
-    List<String> choices;
+    List<String> choices = new ArrayList<>();
 
     public List<String> getChoices() {
         return choices;

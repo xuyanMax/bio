@@ -7,9 +7,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 // reference: https://stackoverflow.com/questions/33526427/spring-boot-ssh-mysql
-
 /*若需要切换到本地数据库，请注释掉下面一行 @WebListener, 否则去掉注释*/
-//@WebListener
+@WebListener
 public class MyContextListener implements ServletContextListener {
     private SSHConnection sshConnection;
 

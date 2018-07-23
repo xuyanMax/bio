@@ -4,6 +4,7 @@ import com.JsonGenerator.type.*;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.SSHConnection;
 import com.jcraft.jsch.JSchException;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.sql.*;
@@ -12,13 +13,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FetchData {
+    private static Logger logger = Logger.getLogger(FetchData.class);
     private static int NUM_PER_PAGE = 10;
-    private static String sql = "SELECT * FROM questions where types = \'table\'";
-    public static void main(String[] args)  {
+    private static String SQL_ALL = "SELECT * FROM questions";
+    private static String SQL_TABLE = "SELECT * FROM questions where types = \'table\' limit 2";
 
-        //建立ssh数据库连接
+    public static void main(String[] args)  {
+        try {
+            getSurveyJSON();
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getSurveyJSON() throws JSchException {
+
+        //建立ssh数据库连接, 不需要了
 //        SSHConnection sshConnection = new SSHConnection();
-        //slq
+        //slqs
         Connection conn = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -26,10 +38,10 @@ public class FetchData {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev","root","root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev","user20182","!user;2018");
             statement = conn.createStatement();
 
-            rs = statement.executeQuery(sql);
+            rs = statement.executeQuery(SQL_ALL);
 
             //获取列名
             ResultSetMetaData resultSetMetaData = rs.getMetaData();
@@ -40,6 +52,7 @@ public class FetchData {
             while (rs.next()) {
 
                 System.out.println("========"+num_quest+"=========");
+                logger.info(num_quest);
 
                 if (num_quest % 10 == 0){
                     Page page = new Page();
@@ -56,12 +69,11 @@ public class FetchData {
                 String section = rs.getString("section");
 
                 /*测试*/
-                System.out.println(question);
-                System.out.println(type);
-                System.out.println(description);
-                System.out.println(opts);
-                System.out.println(section);
-                System.out.println("\n\n");
+//                System.out.println("question " + question);
+//                System.out.println("type" + type);
+//                System.out.println("description" + description);
+//                System.out.println("options " + opts);
+//                System.out.println("\n\n");
                 /**/
 
                 if (type.equals("choice")){
@@ -81,18 +93,11 @@ public class FetchData {
                     checkBox.setChoices(choices);
                     //添加到Page.elements
                     elements.add(checkBox);
-                } else if (type.equals("table")) {//multi-text
-//                    MatrixDropdown matrixDropdown = new MatrixDropdown("question" + num_quest, question);
-//                    //todo
-//                    int size = opts!=null && opts.contains(",") ? opts.split(",").length : -1;
-//                    if (description != null) matrixDropdown.setDescription(description);
-//                    if (size != -1){//多列
-//
-//                    }
+                } else if (type.equals("table")) {
 
-//                    elements.add(matrixDropdown);
                     MatrixDynamic matrixDynamic = new MatrixDynamic("question" + num_quest, question);
-
+                    AssembleMatrixDynamic(matrixDynamic, description, opts);
+                    elements.add(matrixDynamic);
 
                 } else if (type.equals("blank")) {
                     //todo:判断是text还是multipletext
@@ -145,12 +150,12 @@ public class FetchData {
                 e.printStackTrace();
             }
         }
-
-        System.out.println(JSONObject.toJSONString(surveyJson));
-
-
+        logger.info(JSONObject.toJSONString(surveyJson));
+        return JSONObject.toJSONString(surveyJson);
     }
     public static List<Choice> addChoices(String opts){
+        if (opts == null || opts.equals(""))
+            return new ArrayList<>();
         //拆分选项
         String[] options = opts.split(",");
         List<Choice> choices = new ArrayList<>();
@@ -162,6 +167,8 @@ public class FetchData {
         return choices;
     }
     public static List<Item> addItems(String opts){
+        if (opts == null || opts.equals(""))
+            return new ArrayList<>();
         String[] options = opts.split(";");
         int size = options.length;
         List<Item> items = new ArrayList<>();
@@ -186,29 +193,43 @@ public class FetchData {
 
     }
     public static void AssembleMatrixDynamic(MatrixDynamic matrixDynamic, String description, String opts){
-        if (description != null){
+        if (description != null)
             matrixDynamic.setDescription(description);
-        }
-        String[] splits = opts.split(",");
+
+        String[] splits = opts.split("，");
         List<Column> columns = new ArrayList<>();
         int index = 0;
         for (String split:splits){
-            String item = split.substring(0, split.indexOf("（"));//阶段（小学、中学、大学、硕士、博士）,开始时间（XX年）,结束时间（XX年）,地点（XX省XX市/县）,邮编
+            String name;
+            if (split.contains("（"))
+                name = split.substring(0, split.indexOf("（"));//阶段（小学、中学、大学、硕士、博士）,开始时间（XX年）,结束时间（XX年）,地点（XX省XX市/县）,邮编
+            else name = split;
+
             Column column = new Column();
-            column.setName(item);
-            if (index != 0){
-                column.setCellType("text");
-                column.setName(item.substring(item.indexOf("（"), item.indexOf("）")));//XX年
+
+            if (split.startsWith("d")){
+                //remove d from split
+                split = split.substring(1);
+                System.out.println(split);
+                if (index++ != 0){
+                    column.setCellType("text");
+                    column.setName(name);//XX年
+                }else {
+                    column.setCellType("dropdown");
+                    List<String> choices = new ArrayList<>();
+                    String choice = split.substring(split.indexOf("（") + 1, split.indexOf("）"));
+
+                    for (String c : choice.split("、"))
+                        choices.add(c);
+
+                    column.setChoices(choices);
+                }
             }else {
-                column.setCellType("dropdown");
-                List<String> choices = new ArrayList<>();
-                String choice = item.substring(item.indexOf("（") + 1, item.indexOf("）"));
-
-                for (String c:choice.split("、"))
-                    choices.add(c);
-
-                column.setChoices(choices);
+                column.setCellType("text");
+                column.setName(name);//XX年
             }
+            column.setName(name);
+            matrixDynamic.getColumns().add(column);
         }
     }
     public void output(String JSONString){

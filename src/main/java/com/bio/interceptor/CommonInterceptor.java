@@ -23,7 +23,6 @@ public class CommonInterceptor implements HandlerInterceptor {
             "/admin/update",
             "/displayUses"
     };
-    //todo: 唯一表示管理员的session id
 //    https://blog.csdn.net/tonytfjing/article/details/39207551
 //    https://blog.csdn.net/huangjp_hz/article/details/73614314
     @Override

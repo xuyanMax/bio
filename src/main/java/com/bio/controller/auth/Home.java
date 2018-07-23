@@ -1,5 +1,6 @@
 package com.bio.controller.auth;
 
+import com.JsonGenerator.FetchData;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Admin;
@@ -9,10 +10,12 @@ import com.bio.service.IAdminService;
 import com.bio.service.ICenterService;
 import com.bio.service.ILoginService;
 import com.bio.service.IPersonService;
+import com.jcraft.jsch.JSchException;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -134,6 +137,29 @@ public class Home {
         modelMap.addAttribute("user", person);
         return mv;
 
+    }
+    //todo: 显示调查问卷页面
+    @RequestMapping("/user/survey")
+    public ModelAndView generateSurveyJSON(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/jsp/questionaire/question");
+        String surveyJSON = null;
+        try {
+            surveyJSON = FetchData.getSurveyJSON();
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
+        mv.addObject("surveyJSON", surveyJSON);
+        return mv;
+    }
+
+
+    @RequestMapping("user/surveyUpload")
+    public ModelAndView surveyReceive(String surveyJSON){
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("views/success");
+        return mv;
     }
     @RequestMapping("/logout")
     public String logout(@ModelAttribute("user") Person person,

@@ -2,6 +2,7 @@ package com.wechat.thread;
 
 import com.wechat.model.AccessToken;
 import com.wechat.utils.AccessTokenUtil;
+import org.apache.log4j.Logger;
 
 public class TokenThread implements Runnable {
     //微信公众号的凭证和秘钥
@@ -9,6 +10,7 @@ public class TokenThread implements Runnable {
     public static final String appID = "wxb92b6517e66c5eda";
     public static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";
     public static AccessToken access_token=null;
+    private static Logger logger = Logger.getLogger(TokenThread.class);
 
     @Override
     public void run() {
@@ -18,6 +20,7 @@ public class TokenThread implements Runnable {
                 access_token=AccessTokenUtil.getAccessToken(appID, appSecret);
                 if(null != access_token.getToken()){
                     System.out.println("accessToken获取成功： " + access_token.getToken());//7000秒之后重新进行获取
+                    logger.info("accessToken获取成功： " + access_token.getToken());
                     Thread.sleep((access_token.getExpiresIn()-200)*1000);
                 }else{//获取失败时，60秒之后尝试重新获取
                     Thread.sleep(60*1000);
