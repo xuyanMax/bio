@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Item {
     String name;
-    String title;//显示的
+    String title;//显示
     List<Validator> Validators = new ArrayList<>();
 
     public String getName() {

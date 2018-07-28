@@ -41,7 +41,7 @@ public class FetchData {
 
         //单独跑main()方法连接远程库时候需要本句，连接本地库不需要
         //配合SpringMVC使用，则注释下掉该句
-        SSHConnection sshConnection = new SSHConnection();
+//        SSHConnection sshConnection = new SSHConnection();
         Connection conn = null;
         Statement statement = null;
         ResultSet rs = null;

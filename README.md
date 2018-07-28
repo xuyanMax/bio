@@ -3,7 +3,7 @@ README
 该文件记录开发过程中的部分配置文件和测试方法。
 
 
-Author|Bright, Xu, zcy, zy 
+Author|Bright, Xu, xjq, zcy, zy 
 :---:|:---:
 Email|xuyanpeter0619@gmail.com
 
@@ -145,6 +145,9 @@ Email|xuyanpeter0619@gmail.com
         1. 半角为英文的标点符号
         1. 全角为中文的标点符号
 1. __更新服务器日志记录功能__
+
+
+
 jdk
 ------
 java version "1.8.0_101"
@@ -182,7 +185,7 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 
 ssh连接
 ------
-
+1. `SSHConnection`和`MyContextListener`
  
 登陆
 ------
