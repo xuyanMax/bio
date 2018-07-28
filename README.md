@@ -144,7 +144,7 @@ Email|xuyanpeter0619@gmail.com
     1. 说明，什么是半角/全角？
         1. 半角为英文的标点符号
         1. 全角为中文的标点符号
-
+1. __更新服务器日志记录功能__
 jdk
 ------
 java version "1.8.0_101"
@@ -159,11 +159,13 @@ tomcat
 `版本号9.0.46`
     
 **服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
-1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
-  `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
-2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
-3. 先删除`ROOT`和老的`questionaire`, 重命名新生成的`questionaire`为`ROOT`. `mv questionaire ROOT`
-4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
+1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录，涉及指令如下  
+1. `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`复制文件
+2. `rm -rf questionaire.war`，待编译完成`questionaire`文件夹后，删除war包
+3. `./shutdown.sh`关闭tomcat，关闭服务器
+4. `rm -rf ROOT`，删除ROOT文件夹
+5. `mv questionaire ROOT`，更名为ROOT
+6. `./startup.sh`，重启服务器
     
 数据库
 -----
