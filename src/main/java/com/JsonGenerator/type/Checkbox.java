@@ -1,9 +1,8 @@
 package com.JsonGenerator.type;
 
 
-import com.JsonGenerator.Choice;
+import com.JsonGenerator.element.Choice;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Checkbox extends BaseQuestion {

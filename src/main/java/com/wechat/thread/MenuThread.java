@@ -4,20 +4,26 @@ import com.wechat.model.*;
 import com.wechat.model.button.*;
 import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatUtils;
+import org.apache.log4j.Logger;
 
 public class MenuThread implements Runnable {
     private static final String appID = "wxb92b6517e66c5eda";//wx0f81f68f813bd68d
     private static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";//c9d7f54ec1d0642d187141636ba69af2
     private static AccessToken access_token=null;
+    private static Logger logger = Logger.getLogger(MenuThread.class);
     @Override
     public void run() {
         access_token = AccessTokenUtil.getAccessToken(appID, appSecret);
         if (access_token != null){
             int result = WeChatUtils.createMenu(getMenu(), access_token.getToken());
-            if(result == 0)
+            if(result == 0) {
                 System.out.println("菜单创建成功");
-            else
-                System.out.println("菜单创建失败, 错误码: "+result);
+                logger.info("菜单创建成功");
+            }
+            else {
+                System.out.println("菜单创建失败, 错误码: " + result);
+                logger.warn("菜单创建失败, 错误码: " + result);
+            }
         }
     }
     public static Menu getMenu(){
@@ -52,7 +58,7 @@ public class MenuThread implements Runnable {
         btn22.setKey("22");
 
         CommonButton btn23 = new CommonButton();
-        btn23.setName("美女电台");
+        btn23.setName("电台");
         btn23.setType("click");
         btn23.setKey("23");
 

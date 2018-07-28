@@ -1,6 +1,6 @@
 package com.JsonGenerator.type;
 
-import com.JsonGenerator.Column;
+import com.JsonGenerator.element.Column;
 
 import java.util.ArrayList;
 import java.util.List;

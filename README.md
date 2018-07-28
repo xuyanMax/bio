@@ -15,6 +15,7 @@ Email|xuyanpeter0619@gmail.com
 * [maven版本](#maven)
 * [Tomcat配置](#tomcat)
 * [DB配置](#数据库)
+* [ssh连接配置](#ssh连接)
 * [登陆说明](#登陆)
 * [上传文件](#上传文件)
 * [问题交流区](#问题交流)
@@ -109,11 +110,40 @@ Email|xuyanpeter0619@gmail.com
 
 **week 8** 
 1.  测试通过`JsonGenerator`，存在问题:`table`表格类型题目确定输入行数
+    1. 最终解决方法，使用类型为`matrixdynamic`工具，动态插入不定行数的表格题
 
 **week 10**
 1. 微信公众号二维码扫码登陆
 1. 修改`table`表格类，使用`matrixdynamic`组件，设置第一栏为dropdown，其余为input field
-1. 
+1. 二维码登陆权限申请成功
+
+**week11**
+1. 部署问卷页面`/user/survey`，从远程/本地数据库读取
+1. __添加管理员注册功能__
+    1. 关注公众号
+    1. 从用户注册入口进入，输入姓名、身份证等信息
+    1. 系统向预留的手机号发送验证码，输入验证码
+    1. 绑定单位管理员个人微信
+    1. 注册成功
+1. __问卷调查__
+    1. 规范题目中的正则表达式规则，以^开始$结束(^XXXX$).
+    1. 处理用户提交的问卷答案信息
+    1. 添加每一道题目的错误提示(根据正则判断错误后给出的提示): 在`question`中以`#text`形式表示
+        1. 例题： `您的身份证号码为：_^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9x]$#请输入合法18位身份证号_`
+    1. 数据库`options`列逗号半角、全角使用规则
+        1. 例子：`否，未曾患良性乳腺疾病`,`乳腺增生`,`结节`,`导管扩张`,`良性纤维腺瘤`,`感染`,`囊肿`,`其他良性乳腺疾病`
+        1. 如上，半角逗号用于隔断选项
+    1. 数据库`question`列分号半角使用规则
+        1. 半角(英文)用于分割`question`中的`blank`类多项填空题中的每一个问题
+    1. `多项选择题`中填空名称的截取规则: 
+        1. 填空名称(text)后为填空区域
+        1. 填空名称可以在`question`列中，以`#填空名称#`的形式截取。当前并没有修改数据库，有待探讨。
+    1. 表格`table`类型题目，第一列需要制作下拉菜单的，在`options`中表示表格首列名称前加一个字母`d`
+        1. 例子:`关系（d父母、同父母的兄弟姐妹、子女）,癌肿,患癌时间（XX年）`
+        1. 如上，dropdown列，用顿号隔开选项. 表格的不同列用半角逗号隔开选项
+    1. 说明，什么是半角/全角？
+        1. 半角为英文的标点符号
+        1. 全角为中文的标点符号
 
 jdk
 ------
@@ -132,7 +162,7 @@ tomcat
 1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录    
   `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`
 2. 删除当前目录`~/apache-tomcat-9.0.8/webapps/`下的`ROOT`文件目录 `rm -r ROOT`
-3. 先删除`ROOT`, 重命名新生成的`questionaire`为`ROOT`. `mv questionaire ROOT`
+3. 先删除`ROOT`和老的`questionaire`, 重命名新生成的`questionaire`为`ROOT`. `mv questionaire ROOT`
 4. 关闭并重启 _tomcat_ 服务器 `.\startup.sh` 
     
 数据库
@@ -146,6 +176,10 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 反之，连接远程数据库，需要:
 1. 对`src/main/resources/jdbc.properties`文件中，释掉本地数据库的连接信息，反注释远程连接信息
 2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，去除注释`@WebListener`
+
+
+ssh连接
+------
 
  
 登陆
@@ -234,7 +268,7 @@ db测试，连接本地数据库，不对远程数据库进行操作。
     1. 服务器在国外，访问速度慢
 2. 优势
     1. 提供公网80端口到内网任意端口的映射机制
-    2. 遍于测试
+    2. 便于测试
 
 **微信公众测试号**
 1. 微信公众测试号, 接口配置`token`验证,涉及请求参数`token`, `timestamp`, `nonce`, `signature`
@@ -254,19 +288,31 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 
 **向微信特定地址发起GET请求**
 
+**SERVERE:Could not contact localhost:8005. Tomcat may not be running. Connection refused**
+
+1. 运行./shutdown停止tomcat报错
+    1. 可能是tomcat没完全开启就关闭，kill掉进程后重启
+        1. netstat -aon
+    1. 也可能找到jdk的bug，找到`jdk1.8.xx` 的安装路径，修改其子目录 /jre/lib/security/ 下的 “java.security” 文件中的 “securerandom.source=file:/dev/random” 为 “securerandom.source=file:/dev/./urandom “ (参考)[https://stackoverflow.com/questions/36566401/severe-could-not-contact-localhost8005-tomcat-may-not-be-running-error-while]
+        1. `cd $JAVA_HOME/jre/lib/security`
+        1. 管理员修改权限，`chmod 777 java.security`, 原权限为`chmod 644 java.security`
+    1. 也可能，是tomcat内存不够 
+        1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
 
 **小程序**
 
-**待解决问题**
+**待(已)解决问题**
 1. 管理员扫码登陆，短信验证
 1. 下载队列模版更新
 1. 问卷调查，题目制作
 1. 小程序开发
 1. 自动初始化题目数量
 1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗
+1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误
+1. 合理设置记录log到服务器，用于debug
+1. 微信公众号，发送信息服务错误
+    1. 问题：微信端调试，不便捷
 
-
-**TIRED**
 
 
 

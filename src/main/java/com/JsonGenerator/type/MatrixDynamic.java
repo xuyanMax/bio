@@ -1,20 +1,28 @@
 package com.JsonGenerator.type;
 
-import com.JsonGenerator.Column;
+import com.JsonGenerator.element.Column;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MatrixDynamic extends BaseQuestion {
-    private static int rowCount = 1;
+    private int rowCount = 1;
     private String addRowLocation;
+    private List<Column> columns = new ArrayList<>();
 
-    public static int getRowCount() {
+    public MatrixDynamic(String name, String title) {
+        super(name, title);
+        this.addRowLocation = "bottom";
+        this.type = "matrixdynamic";
+
+    }
+
+    public int getRowCount() {
         return rowCount;
     }
 
-    public static void setRowCount(int rowCount) {
-        MatrixDynamic.rowCount = rowCount;
+    public void setRowCount(int rowCount) {
+        this.rowCount = rowCount;
     }
 
     public String getAddRowLocation() {
@@ -32,15 +40,6 @@ public class MatrixDynamic extends BaseQuestion {
     public void setColumns(List<Column> columns) {
         this.columns = columns;
     }
-
-    private List<Column> columns = new ArrayList<>();
-
-    public MatrixDynamic(String name, String title) {
-        super(name, title);
-        this.addRowLocation = "bottom";
-        this.type = "matrixdynamic";
-    }
-
     @Override
     public String toString() {
         return "MatrixDynamic{" +

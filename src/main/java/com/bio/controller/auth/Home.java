@@ -142,6 +142,9 @@ public class Home {
     @RequestMapping("/user/survey")
     public ModelAndView generateSurveyJSON(){
         ModelAndView mv = new ModelAndView();
+
+        logger.warn("Inside /user/survey");
+
         mv.setViewName("/jsp/questionaire/question");
         String surveyJSON = null;
         try {

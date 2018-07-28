@@ -14,6 +14,8 @@ public class SSHConnection {
     public static final int DB_REMOTE_PORT = 3306;
     public static final int DB_LOCAL_PORT = 3306;
     public static final int REMOTE_SSH_PORT = 10061;
+    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String JDBC_URL = "jdbc:mysql://localhost:3306/cdcDev";
 
     private Session session;
     // open connection

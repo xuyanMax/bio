@@ -1,7 +1,7 @@
 package com.JsonGenerator.type;
 
 
-import com.JsonGenerator.Validator;
+import com.JsonGenerator.element.Validator;
 
 public class Text extends BaseQuestion {
     Validator validators;
