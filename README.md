@@ -145,7 +145,7 @@ Email|xuyanpeter0619@gmail.com
         1. 半角为英文的标点符号
         1. 全角为中文的标点符号
 1. __更新服务器日志记录功能__
-
+1. 测试上传服务器
 
 
 jdk
@@ -179,14 +179,26 @@ db测试，连接本地数据库，不对远程数据库进行操作。
 2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，按代码提示，注释掉`//@WebListener`
 
 反之，连接远程数据库，需要:
-1. 对`src/main/resources/jdbc.properties`文件中，释掉本地数据库的连接信息，反注释远程连接信息
+1. 对`src/main/resources/jdbc.properties`，释掉本地数据库的连接信息，反注释远程连接信息
 2. 对`src/main/java/com/bio/Utils/MyContextListener.java`，去除注释`@WebListener`
 
 
 ssh连接
 ------
-1. `SSHConnection`和`MyContextListener`
- 
+
+### 创建SSH连接
+1. 添加`Jcraft` Libarary 到pom.xml
+1. 创建一个`SSHConnection.java`类用于连接SSH服务器
+1. 定义一个`MyContextListener.java`实现了ServletContextListener的监听器，当程序启动时，创建一个ssh连接，关闭时，关闭ssh连接
+1. `jdbc.properties`文件中指定ssh服务器的端口号3306，并更新文件中数据库服务器用户名及密码
+
+### 调查问卷
+调查问卷功能涉及代码在`src/main/java/com/JsonGenerator`，调用第三方(surveyjs)[https://surveyjs.io] 生成多种问卷题目，调用(fastJson)[https://github.com/alibaba/fastjson] 生成可供`surveyjs`识别的`JSON`数据.
+1. 本地测试
+    测试FetchData.java下的main函数
+1. 部署到服务器 
+
+
 登陆
 ------
     

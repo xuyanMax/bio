@@ -172,9 +172,11 @@ public class Home {
         //返回登陆页面
         return "views/auth/login";
     }
-    @RequestMapping("/signup")
+    //todo:注册
+    @RequestMapping("/signupPage")
     public ModelAndView signUp(){
         ModelAndView mv = new ModelAndView();
+        mv.setViewName("/jsp/users/SignUp");
         return mv;
     }
 

@@ -74,6 +74,9 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
+        <div class="form-group">
+            <a href="/signupPage" class="btn btn-primary btn-block">注册</a>
+        </div>
         <%--<div class="clearfix">
             <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
             <a href="#" class="pull-right">Forgot Password?</a>

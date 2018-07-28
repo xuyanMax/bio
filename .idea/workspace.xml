@@ -7,13 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/SignUp.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/JsonGenerator/FetchData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/JsonGenerator/FetchData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/404.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/404.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,112 +45,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FetchData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="42" column="31" lean-forward="true" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="936">
+              <caret line="52" column="50" selection-start-line="52" selection-start-column="50" selection-end-line="52" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Validator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Validator.java">
+      <file leaf-file-name="login.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="306">
+              <caret line="17" column="3" selection-start-line="16" selection-start-column="6" selection-end-line="47" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SSHConnection.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/SSHConnection.java">
+      <file leaf-file-name="manualInsertion.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="34" column="8" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+            <state relative-caret-position="95">
+              <caret line="165" column="41" lean-forward="true" selection-start-line="165" selection-start-column="41" selection-end-line="165" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyContextListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/MyContextListener.java">
+      <file leaf-file-name="404.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/404.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state relative-caret-position="612">
+              <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultipleText.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java">
+      <file leaf-file-name="Home.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#341#342#0" expanded="true" />
-                <element signature="e#374#375#0" expanded="true" />
-                <element signature="e#435#436#0" expanded="true" />
-                <element signature="e#479#480#0" expanded="true" />
-                <element signature="e#440#441#0" expanded="true" />
-                <element signature="e#474#475#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2718">
+              <caret line="176" column="33" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseQuestion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/BaseQuestion.java">
+      <file leaf-file-name="SignUp.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/SignUp.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spring-mvc.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Item.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-107">
-              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-              <folding>
-                <element signature="e#787#788#0" expanded="true" />
-                <element signature="e#820#821#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatrixDynamic.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDynamic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="23" column="43" lean-forward="true" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#605#606#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="94" column="202" selection-start-line="94" selection-start-column="202" selection-end-line="94" selection-end-column="202" />
             </state>
           </provider>
         </entry>
@@ -162,15 +106,13 @@
       <list>
         <option value="Interface" />
         <option value="HTML File" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>====</find>
-      <find>info</find>
       <find>ajax</find>
       <find>菜单</find>
       <find>access</find>
@@ -199,6 +141,8 @@
       <find>items</find>
       <find>matrixdy</find>
       <find>bbb</find>
+      <find>MyContext</find>
+      <find>Jackson</find>
     </findStrings>
     <replaceStrings>
       <replace>small</replace>
@@ -235,9 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/ProjectConstants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/WeChatUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/DBUtils.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/uploadMultiFiles.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/download/downloadFiles.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/uploadFiles.jsp" />
@@ -249,7 +190,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/success.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/model/OAuthInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/personList.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/MyX509TrustManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/admin/FileUploadController.java" />
@@ -278,14 +218,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/thread/TokenThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/thread/MenuThread.java" />
         <option value="$PROJECT_DIR$/logs/ssm.log" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/SSHConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Item.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDynamic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/404.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/SignUp.jsp" />
       </list>
     </option>
   </component>
@@ -342,8 +286,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -455,6 +397,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
+              <item name="element" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="wechat" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -478,6 +430,64 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="errors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -555,6 +565,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -897,7 +909,9 @@
       <workItem from="1531845469221" duration="2798000" />
       <workItem from="1531918338049" duration="21639000" />
       <workItem from="1532411152620" duration="6423000" />
-      <workItem from="1532615004403" duration="13461000" />
+      <workItem from="1532615004403" duration="13872000" />
+      <workItem from="1532780676128" duration="2286000" />
+      <workItem from="1532793788846" duration="32000" />
     </task>
     <servers />
   </component>
@@ -934,7 +948,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="370467000" />
+    <option name="totallyTimeSpent" value="373196000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -950,30 +964,29 @@
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.509299" side_tool="true" weight="0.33333334" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="14" sideWeight="0.509299" side_tool="true" visible="true" weight="0.33333334" />
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49928468" weight="0.32848486" />
       <window_info anchor="right" id="Maven Projects" order="11" weight="0.3297568" />
-      <window_info anchor="right" id="CDI" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="CDI" order="8" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Database" order="6" weight="0.16738197" />
-      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
       <window_info id="Structure" order="1" sideWeight="0.18525897" side_tool="true" weight="0.5078684" />
+      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24964234" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="1.0" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32969698" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.490701" visible="true" weight="0.28363636" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.490701" weight="0.28363636" />
       <window_info anchor="bottom" id="Spring" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32969698" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.24320458" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.25035766" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
       <window_info id="Web" order="6" sideWeight="0.38878843" side_tool="true" weight="0.2274678" />
       <window_info anchor="right" id="SciView" order="12" />
@@ -984,6 +997,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24964234" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -997,23 +1011,22 @@
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.490701" visible="true" weight="0.28363636" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24964234" />
+      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32969698" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.32969698" />
-      <window_info anchor="right" id="JSF" order="5" weight="0.3297568" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.509299" side_tool="true" weight="0.33333334" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32848486" />
       <window_info anchor="bottom" id="TODO" order="6" weight="1.0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24964234" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32969698" />
       <window_info anchor="right" id="Maven Projects" order="11" weight="0.3297568" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.814741" visible="true" weight="0.24320458" />
       <window_info anchor="right" id="SciView" order="12" />
       <window_info anchor="right" id="Database" order="6" weight="0.16738197" />
@@ -1025,8 +1038,9 @@
       <window_info anchor="right" id="CDI" order="8" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Coverage" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1068,49 +1082,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/utils/CoreService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="110" column="41" selection-start-line="110" selection-start-column="39" selection-end-line="110" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/utils/MyX509TrustManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Page.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/SurveyJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDropdown.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#517#518#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1118,13 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#342#343#0" expanded="true" />
-            <element signature="e#372#373#0" expanded="true" />
-            <element signature="e#424#425#0" expanded="true" />
-            <element signature="e#462#463#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1139,27 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#348#349#0" expanded="true" />
-            <element signature="e#378#379#0" expanded="true" />
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="27" column="48" lean-forward="true" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1830">
-          <caret line="186" column="35" lean-forward="true" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1318,9 +1265,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2646">
           <caret line="164" column="18" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1328,13 +1272,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1818">
           <caret line="119" column="1" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="150" selection-start-line="150" selection-end-line="150" />
         </state>
       </provider>
     </entry>
@@ -1349,19 +1286,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-230">
           <caret line="1701" column="14" lean-forward="true" selection-start-line="1701" selection-start-column="14" selection-end-line="1701" selection-end-column="14" />
-          <folding>
-            <element signature="e#62860#62861#0" expanded="true" />
-            <element signature="e#62916#62917#0" expanded="true" />
-            <element signature="e#66457#66458#0" expanded="true" />
-            <element signature="e#66495#66496#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1383,15 +1307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
           <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#374#375#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#440#441#0" expanded="true" />
-            <element signature="e#474#475#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1399,10 +1314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-107">
           <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-          <folding>
-            <element signature="e#787#788#0" expanded="true" />
-            <element signature="e#820#821#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1422,50 +1333,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MatrixDynamic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="23" column="43" lean-forward="true" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#605#606#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="324">
+          <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/MyContextListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/SSHConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
-          <caret line="34" column="8" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="42" column="31" lean-forward="true" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+        <state relative-caret-position="328">
+          <caret line="36" column="32" lean-forward="true" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/MyContextListener.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state relative-caret-position="2718">
+          <caret line="176" column="33" selection-start-line="176" selection-start-column="33" selection-end-line="176" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/404.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+        <state relative-caret-position="612">
+          <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state relative-caret-position="262">
+          <caret line="36" column="36" lean-forward="true" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="52" column="50" selection-start-line="52" selection-start-column="50" selection-end-line="52" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="3" selection-start-line="16" selection-start-column="6" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="165" column="41" lean-forward="true" selection-start-line="165" selection-start-column="41" selection-end-line="165" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/SignUp.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="94" column="202" selection-start-line="94" selection-start-column="202" selection-end-line="94" selection-end-column="202" />
         </state>
       </provider>
     </entry>
