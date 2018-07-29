@@ -15,7 +15,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -176,7 +175,7 @@ public class Home {
     @RequestMapping("/signupPage")
     public ModelAndView signUp(){
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/jsp/users/SignUp");
+        mv.setViewName("jsp/users/signup");
         return mv;
     }
 

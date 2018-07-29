@@ -44,34 +44,18 @@
 <body>
 <div class="login-form">
     <form name="dataInputForm" action="/admin/manualInsertion" method="post">
-        <h2 class="text-center">填写用户数据</h2>
+        <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="name_div">
-            <input type="text" class="form-control" placeholder="姓名" required="required" name="name">
+            <input type="text" class="form-control" placeholder="姓名" required="required" name="name">  d
             <small class="help-block" id="name-error"></small>
         </div>
         <div class="form-group" id="ID_code_div">
             <input type="text" onchange="checkID();" class="form-control" placeholder="身份证号" required="required" name="ID_code" id="ID_code">
             <small class="help-block" id="ID-error"></small>
         </div>
-        <div class="form-group" id="email_div">
-            <input type="text" class="form-control" placeholder="邮箱" name="email" id="email">
-            <small class="help-block" id="email-error"></small>
-        </div>
         <div class="form-group" id="sn_div">
             <input type="text" class="form-control" placeholder="单位内编号(工号)" required="required" name="sn_in_center" id="sn_in_center">
             <small class="help-block" id="sn-error"></small>
-        </div>
-        <div class="form-group" id="bar_div">
-            <input type="text" class="form-control" placeholder="条形码" required="required" name="barcode" id="barcode">
-            <small class="help-block" id="bar-error"></small>
-        </div>
-        <div class="form-control" id="relative">
-            <label class="checkbox inline">
-                <input type="checkbox" id="inlineCheckbox1" name="relative" value="0"> 职员
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" id="inlineCheckbox2" name="relative" value="1"> 家属
-            </label>
         </div>
         <div class="form-group" id="tel1_div">
             <input type="text" class="form-control" placeholder="电话1" name="tel1" id="tel1">
@@ -82,7 +66,7 @@
             <small class="help-block" id="tel2-error"></small>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">上传数据</button>
+            <button type="submit" class="btn btn-primary btn-block">提交注册</button>
         </div>
         <%--<div class="clearfix">
             <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
