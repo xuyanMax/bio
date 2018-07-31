@@ -134,8 +134,7 @@ Email|xuyanpeter0619@gmail.com
         1. 例子：`否，未曾患良性乳腺疾病`,`乳腺增生`,`结节`,`导管扩张`,`良性纤维腺瘤`,`感染`,`囊肿`,`其他良性乳腺疾病`
         1. 如上，半角逗号用于隔断选项
     1. 数据库`question`列分号半角使用规则
-        1. 半角(英文)用于分割`question`中的`blank`类多项填空题中的每一个问题  .,mnbvcxzc  n qazwsxefvrv tgb yhnujm,8ik,.ol.0p;/['  `q]\    GHJKL;'
-        Zxcvbhn     .
+        1. 半角(英文)用于分割`question`中的`blank`类多项填空题中的每一个问题.
     1. `多项选择题`中填23空名称的截取规则: 
         1. 填空名称(text)后为填空区域
         1. 填空名称可以在`question`列中，以`#填空名称#`的形式截取。当前并没有修改数据库，有待探讨。
@@ -145,12 +144,19 @@ Email|xuyanpeter0619@gmail.com
     1. 说明，什么是半角/全角？
         1. 半角为英文的标点符号
         1. 全角为中文的标点符号
-1. __更新服务器日志记录功能__
+1. __程序中添加服务器日志记录功能__
 1. 测试上传服务器
+1. 短信验证码登录注册功能实现
+    1. 再加上使用cookie防止刷新页面导致倒计时失效的代码
 
+**week12**
+1. Ajax
+1. 短信验证
+1. 测试问卷，修改存储逻辑
 
 jdk
 ------
+
 java version "1.8.0_101"
 
 maven
@@ -321,21 +327,21 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
         1. 管理员修改权限，`chmod 777 java.security`, 原权限为`chmod 644 java.security`
     1. 也可能，是tomcat内存不够 
         1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
-
+http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F449826F9980CA&aimcodes=15151528348&content=zidingyi【CHGC南方中心】&dataType=string
 **小程序**
 
 **待(已)解决问题**
 1. 管理员扫码登陆，短信验证 _not started_
-1. 下载队列模版更新 done
-1. 问卷调查，题目制作 done
-1. 小程序开发 in progress
-1. 自动初始化题目数量 done
 1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗
-1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _not started_
-1. 微信公众号，发送信息服务错误
-    1. 问题：微信端调试，不便捷
-1. __AJAX发送JSON数据到后台__ _in progress_
+1. 微信公众号，发送信息服务错误 _undone_
+1. 小程序开发 _in progress_
+1. 自动初始化题目数量 _done_
 
+1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _not started_
+
+1. __AJAX发送JSON数据到后台__ _in progress_
+1. 上传Excel文件后，人员信息存入两次 _undone_
+    1. DEBUG模式，输出返回的
 
 
 

@@ -4,6 +4,7 @@ import com.bio.Utils.DBUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Person;
 import com.bio.service.IPersonService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public class FileUploadController{
     @Autowired
     private IPersonService personService;
-
+    private static Logger logger = Logger.getLogger(FileUploadController.class);
     // 上传多个文件
     @RequestMapping(value = "/uploadMultiFiles")
     public ModelAndView uploadMultiFiles(@ModelAttribute("username") String username){
@@ -51,14 +52,11 @@ public class FileUploadController{
 
             //1. 插入文件中数据到db前，调取数据库中的现有person
 //            List<Person> allPersons = personService.findAllPersons();
-
-            // test
-//            System.out.println("数据库中user数量: " + allPersons.size());
             System.out.println("等待上传的user: /n" + readXls(request, files));
-
+            logger.info("等待上传的user:" + readXls(request, files));
             //2. 插入数据库的数据，返回的数据全部从上传到server文件中获得
             List<Person> personsToUpload = readXls(request, files);
-            //set age, gender这类需要原身份证号的信息
+            //set age, gender
             personsToUpload.stream().forEach(p->{
                 p.setGender(PersonInfoUtils.getGender(p.getOriginal_ID_code()));
                 p.setAge(PersonInfoUtils.getAge(p.getOriginal_ID_code()));
@@ -70,9 +68,8 @@ public class FileUploadController{
             // add persons to model
             mv.addObject("persons", personsToUpload);
             mv.addObject("message", "successfully uploaded " + files.length + " files");
-            /*test*/
-            System.out.println("creating excel sheet..");
-            /**/
+
+            logger.info("creating an Excel sheet.");
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createExcelSheet(personsToUpload);
@@ -93,7 +90,7 @@ public class FileUploadController{
             // 1. read the xls file
             String path = request.getServletContext().getRealPath("/data/");
             String fileName = file.getOriginalFilename();
-            System.out.println(path + fileName);
+            logger.info("Reading excel file: " + path + fileName);
             try {
                 //从Server读取files
                 List<Person> persons = DBUtils.readXls(path + fileName);

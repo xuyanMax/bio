@@ -1,3 +1,4 @@
+package com.bio;
 import com.bio.Utils.PersonInfoUtils;
 
 import java.util.Scanner;

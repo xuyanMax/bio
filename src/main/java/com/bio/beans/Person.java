@@ -16,7 +16,7 @@ public class Person {
 
     private String email;
 
-    private String barcode;///长度依据数据库有限制...
+    private String barcode;///长度依据数据库限制...
 
     private int relative;
 

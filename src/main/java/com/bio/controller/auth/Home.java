@@ -11,6 +11,7 @@ import com.bio.service.ICenterService;
 import com.bio.service.ILoginService;
 import com.bio.service.IPersonService;
 import com.jcraft.jsch.JSchException;
+import com.sms.SmsBase;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,7 @@ public class Home {
         if (idcenter != null){
             /*测试*/
             System.out.println("在关联内");
+            logger.info("登陆用于在单位管理员范围内" + pname);
             //通过idcenter判断，该用户是否在centers表中，在则是单位管理员，否则不是单位管理员，可能为普通用户或系统管理员
             int cnt = centerService.findPersonInCentersByCenterid(idcenter);
             System.out.println("cnt = " + cnt);
@@ -163,6 +165,72 @@ public class Home {
         mv.setViewName("views/success");
         return mv;
     }
+
+
+    //验证手机短信是否发送成功
+    @RequestMapping("register/sms")
+    public int registerSms(HttpServletRequest request, HttpServletResponse response,
+                              ModelMap map){
+        String vcode = request.getParameter("vcode");
+        logger.info("手机号码为:");
+        logger.info("手机验证码为:");
+
+        /** 短信验证码存入session(session的默认失效时间30分钟) */
+        map.addAttribute("vcode", vcode);
+
+        String res = SmsBase.httpRequest(SmsBase.URL_SMS, "POST", null);
+        logger.info("请求第三方发送短信验证码: " + vcode);
+        if (res != null && !res.equals("")){
+            if (res.startsWith("1"))//success
+                return 1;
+            else if (res.startsWith("0"))//failure
+                return 0;
+        }
+        return 0;//failure
+    }
+    @RequestMapping("register/checkVcode")
+    public int registerCheckVcode(HttpServletResponse response,
+                                  HttpServletRequest request,
+                                  ModelMap map){
+        ModelAndView mv = new ModelAndView();
+        String vcode = request.getParameter("vcode");
+        // 获取session中存放的手机短信验证码
+        String sessionVcode = (String) map.get("vcode");
+        if (sessionVcode!=null && vcode!=null){
+            if  (sessionVcode != vcode && !sessionVcode.equalsIgnoreCase(vcode))
+                return 0;
+            else
+                return 1;//success
+        }
+        return 0;//fail
+    }
+
+    @RequestMapping("/register")
+    public ModelAndView register(String name, String ID_code){
+        ModelAndView mv = new ModelAndView();
+        Person person = personService.findPersonByID_code(name, ID_code);
+        //todo: 判别是否为单位管理员
+        if (person != null){
+            Integer idcenter = person.getIdcenter();
+
+            if (idcenter != null){
+                int cnt = centerService.findPersonInCentersByCenterid(idcenter);
+                if (cnt > 0) {
+                    logger.info(person.getName() + "为: 本地管理员管理员注册");
+                    mv.setViewName("");
+                    return mv;
+                }
+                else logger.info(person.getName() + "为：普通用户注册");
+            }else logger.warn("注册用户为: 普通用户");
+        }else{
+            logger.warn("注册用户为普通用户");
+        }
+        //todo: 判断普通用户的身份证号是否在单位管理员提交的身份证号列表中
+        mv.setViewName("views/success");
+        return mv;
+    }
+
+
     @RequestMapping("/logout")
     public String logout(@ModelAttribute("user") Person person,
                          SessionStatus sessionStatus){

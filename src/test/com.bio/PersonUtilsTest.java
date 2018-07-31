@@ -1,4 +1,6 @@
+package com.bio;
 import com.bio.Utils.PersonInfoUtils;
+import com.bio.beans.Person;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,5 +23,8 @@ public class PersonUtilsTest {
           Assert.assertEquals(PersonInfoUtils.getGender("13010419920518241X"), "1");
           Assert.assertEquals(PersonInfoUtils.getGender("13010419920518242X"), "2");
       }
-
+    @Test
+    public void md5(){
+        System.out.println(PersonInfoUtils.md5("123qweasd"));
+    }
 }

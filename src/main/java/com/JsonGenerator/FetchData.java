@@ -137,7 +137,7 @@ public class FetchData {
             }
         }
         logger.info(JSONObject.toJSONString(surveyJson));
-        return JSONObject.toJSONString(surveyJson);
+        return JSONObject.toJSONString(surveyJson).replace("//", "/");
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
         Text text = new Text("question" + num_quest, question.substring(0, question.indexOf('_')) + "_" + question.substring(question.lastIndexOf('_')));
