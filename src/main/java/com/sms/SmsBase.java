@@ -9,9 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SmsBase {
-    public static String USERNAME="15151528348"; //注册时用户名（最好用英文，中文名字没测试。）
-    public static String PSSD="123qweasd";	      //注册时密码//{123qweasd:57BA172A6BE125CCA2F449826F9980CA}
-    public static String SIGNATURE = "人类基因组南方中心";
+    private static String USERNAME="15151528348"; //注册时用户名（最好用英文，中文名字没测试。）
+    private static String PSSD="123qweasd";	      //注册时密码//{123qweasd:57BA172A6BE125CCA2F449826F9980CA}
+    private static String SIGNATURE = "人类基因组南方中心";
     public static String URL_SMS = "http://www.lx598.com/sdk/send?accName="
             + USERNAME
             +"&accPwd="+PersonInfoUtils.md5(PSSD)

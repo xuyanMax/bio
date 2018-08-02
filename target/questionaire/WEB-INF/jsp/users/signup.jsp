@@ -149,9 +149,11 @@
                 success: function (data) {
                     if (data.result == 1) {
                         vcode = data.result;
-                        alert("验证成功!")
+                        alert("验证成功!");
+                        window.location.assign(window.location.origin+"/login");
                     } else if (data.result == 0){
-                        alert("验证失败")
+                        alert("验证失败");
+                        window.location.assign(window.location.origin+"/login");
                     }
                 }
             });
@@ -161,8 +163,6 @@
     });
 
     function checkOnSignUp() {
-        //id wrong, return
-        if(!checkID()) return;
         //clear
         document.getElementById('tel-error').innerText = "";
         var phone = document.getElementById("phone").value;
@@ -187,12 +187,12 @@
             id_code.className += ' is-invalid';
             id_code_err.className +=' text-danger';
             id_code_err.innerText="请输入18位合法身份证";
-            return false;
+            return;
         }
-        return true;
+        return;
     }
     function checkVCode() {
-        return $("#vcode").val() == vcode?true:flase;
+        return $("#vcode").val() == vcode?true:false;
     }
 
 </script>

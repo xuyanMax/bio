@@ -359,3 +359,4 @@ http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F4498
 1.  _Server returned HTTP response code: 400 for URL_
 1. Java make http/https request
     1. OutputStrem vs. InputStream
+1. preventDefault()
