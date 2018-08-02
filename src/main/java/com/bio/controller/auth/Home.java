@@ -22,10 +22,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "sysAdmin"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 public class Home {
 //    todo: Logger
     private static Logger logger = Logger.getLogger(Home.class.getName());
@@ -168,41 +170,56 @@ public class Home {
 
 
     //验证手机短信是否发送成功
+    //1;发送成功!;1;0;1;70;7440;
+    //0;
     @RequestMapping("register/sms")
-    public int registerSms(HttpServletRequest request, HttpServletResponse response,
-                              ModelMap map){
-        String vcode = request.getParameter("vcode");
-        logger.info("手机号码为:");
-        logger.info("手机验证码为:");
+    @ResponseBody
+    public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
+                                           ModelMap map,
+                                           String vcode,
+                                           String phone){
+        Map<String, Object> resMap = new HashMap<>();
+        logger.info("手机号码为:" + phone);
+        logger.info("手机验证码为:" + vcode);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         map.addAttribute("vcode", vcode);
 
-        String res = SmsBase.httpRequest(SmsBase.URL_SMS, "POST", null);
+        String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
+        String res = SmsBase.httpRequest(requestUrl, "POST", null, vcode);
+
         logger.info("请求第三方发送短信验证码: " + vcode);
+        logger.info("HTTP返回信息: " + res);
         if (res != null && !res.equals("")){
-            if (res.startsWith("1"))//success
-                return 1;
-            else if (res.startsWith("0"))//failure
-                return 0;
-        }
-        return 0;//failure
+            if (res.startsWith("1")){//success
+                resMap.put("result", "1");
+            }
+            else if (res.startsWith("0")) {//failure
+                resMap.put("result", "0");
+            }
+        } else resMap.put("result", "0");
+        return resMap;
     }
     @RequestMapping("register/checkVcode")
-    public int registerCheckVcode(HttpServletResponse response,
+    @ResponseBody
+    public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                   HttpServletRequest request,
-                                  ModelMap map){
+                                  ModelMap map,
+                                  String vcode){
+        logger.info("sessionVCode="+map.get("vcode"));
+        logger.info("Actual vcode="+vcode);
+
         ModelAndView mv = new ModelAndView();
-        String vcode = request.getParameter("vcode");
+        Map<String, Object> resMap = new HashMap<>();
         // 获取session中存放的手机短信验证码
         String sessionVcode = (String) map.get("vcode");
         if (sessionVcode!=null && vcode!=null){
-            if  (sessionVcode != vcode && !sessionVcode.equalsIgnoreCase(vcode))
-                return 0;
+            if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode))
+                resMap.put("result", 1);
             else
-                return 1;//success
-        }
-        return 0;//fail
+                resMap.put("result", 0);
+        } else resMap.put("result", 0);
+        return resMap;
     }
 
     @RequestMapping("/register")

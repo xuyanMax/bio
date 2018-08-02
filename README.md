@@ -150,6 +150,7 @@ Email|xuyanpeter0619@gmail.com
     1. 再加上使用cookie防止刷新页面导致倒计时失效的代码
 
 **week12**
+1. 注册功能
 1. Ajax
 1. 短信验证
 1. 测试问卷，修改存储逻辑
@@ -343,7 +344,18 @@ http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F4498
 1. 上传Excel文件后，人员信息存入两次 _undone_
     1. DEBUG模式，输出返回的
 
-
-
-    
-   
+## AJAX开发注意点
+1. Jquery 完整版不需要slim版本
+1. Jackson 引入三个库    
+    1. jackson-core
+    1. jackson-databind
+    1. jackson-annotations
+1. `$(document).ready(function(){})`中引入`$.ajax()`, 否则报错
+1. `spring-mvc.xml`中加入关于 _json格式数据转换的配置_
+1. Ajax向Controller发送String或JSON数据
+1. Controller接受值，解析值，处理后返回HASHMAP对象
+1. `@ResponseB`不能省略
+1. _contentType : 'application/json; charset=utf-8'_何时使用/省略？_
+1.  _Server returned HTTP response code: 400 for URL_
+1. Java make http/https request
+    1. OutputStrem vs. InputStream
