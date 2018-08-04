@@ -5,6 +5,7 @@ import com.wechat.model.message.response.Article;
 import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
 import com.wechat.thread.TokenThread;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.Map;
  * reference: https://blog.csdn.net/lyq8479/article/details/8952173
  */
 public class CoreService {
+    private static Logger logger = Logger.getLogger(CoreService.class);
     /**
      * 处理微信发来的请求
      *
@@ -54,7 +56,7 @@ public class CoreService {
             * 获得openId, 获取用户信息
             * */
             WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
-            System.out.println("通过回复信息获取到的用户是: " + user);
+            logger.info("通过回复信息获取到的用户是: " + user);
 
             // 文本消息
             List<Article> articles = new ArrayList<>();
@@ -130,7 +132,7 @@ public class CoreService {
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
                     String url = WeChatUtils.url_snsapi_userinfo.replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL);
                     url = url.replace("APPID", TokenThread.appID);
-                    System.out.println("redirect_url = " + url);
+                    logger.info("Redirect url " + url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
 
                     // 将文本消息对象转换成xml字符串
@@ -160,7 +162,7 @@ public class CoreService {
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 // 事件类型
                 String eventType = requestMap.get("Event");
-                System.out.println("事件推送");
+                logger.info("事件推送");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     respContent = "谢谢您的关注！";

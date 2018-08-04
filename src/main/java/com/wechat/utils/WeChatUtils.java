@@ -24,7 +24,7 @@ import java.security.NoSuchProviderException;
  * https://blog.csdn.net/lyq8479/article/details/9841371
  */
 public class WeChatUtils {
-    private static final Logger log = Logger.getLogger(WeChatUtils.class.getName());
+    private static final Logger logger = Logger.getLogger(WeChatUtils.class.getName());
 
     //微信token的获取
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
@@ -55,7 +55,7 @@ public class WeChatUtils {
             } catch (JSONException e) {
                 accessToken = null;
                 // 获取token失败
-                log.error("获取token失败 errcode:{} errmsg:{}"+ jsonObject.getIntValue("errcode")+ jsonObject.getString("errmsg"));
+                logger.error("获取token失败 errcode:{} errmsg:{}"+ jsonObject.getIntValue("errcode")+ jsonObject.getString("errmsg"));
             }
         }
         return accessToken;
@@ -152,17 +152,15 @@ public class WeChatUtils {
         String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
         // 将菜单对象转换成json字符串
         String jsonMenu = JSONObject.toJSONString(menu);
-        /*测试*/
-        System.out.println(jsonMenu);
-        /*测试*/
+        logger.info("jsonMenu: " + jsonMenu);
         // 调用接口创建菜单
         JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
 
         if (null != jsonObject) {
-            System.out.println(jsonObject);
+            logger.info("JSONObject: " + jsonObject.toJSONString());
             if (0 != jsonObject.getIntValue("errcode")) {
                 result = jsonObject.getIntValue("errcode");
-                log.error("创建菜单失败 errcode:{} errmsg:{}");
+                logger.error("创建菜单失败 errcode:{} errmsg:{}");
             }
         }
 
@@ -183,10 +181,7 @@ public class WeChatUtils {
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
         if (jsonObject != null) {
-            /**/
-            System.out.println(jsonObject);
-            /**/
-
+            logger.info("JSONObject="+jsonObject.toJSONString());
             WeChatUser user = null;
             // 组装一个WeChatUser
             user = new WeChatUser();
@@ -199,15 +194,13 @@ public class WeChatUtils {
             user.setSubscribeTime(jsonObject.getString("subscribe_time"));
             user.setSex(jsonObject.getIntValue("sex"));
 
-            /**/
-            System.out.println("getWeChatUser()->openId=" + openId);
-            System.out.println(jsonObject.getString("openid"));
-            /**/
+            logger.info("getWeChatUser()->openId=" + openId);
+            logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
 
             return user;
         }
         else{
-            System.out.println("inside WeChatUtils->getWeChatUser(), 返回JSONObject == null");
+            logger.warn("返回JSONObject=Null");
             return null;
         }
     }
@@ -265,10 +258,9 @@ public class WeChatUtils {
         user.setHeadImgUrl(jsonObject.getString("headimgurl"));
         user.setUnionId(jsonObject.getString("unionId"));
 
-        /*测试*/
-        System.out.println("getWeChatUser()->openId=" + user.getOpenId());
-        System.out.println(jsonObject.getString("openid"));
-        /**/
+        logger.info("composeWeChatUser()->openId=" + user.getOpenId());
+        logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
+
         return user;
     }
     public static OAuthInfo composeAuthInfo(JSONObject jsonObject){
@@ -279,7 +271,7 @@ public class WeChatUtils {
         authInfo.setRefresh_token(jsonObject.getString("refresh_token"));
         authInfo.setScope(jsonObject.getString("scope"));
         authInfo.setUnionid(jsonObject.getString("unionid"));
-        System.out.println(authInfo);
+        logger.info("OAuthInfoObject=" + authInfo);
         return authInfo;
     }
 }

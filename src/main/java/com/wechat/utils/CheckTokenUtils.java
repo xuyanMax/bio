@@ -1,11 +1,14 @@
 package com.wechat.utils;
 
+import org.apache.log4j.Logger;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class CheckTokenUtils {
     private static String ACCESS_TOKEN = "brbxyxzyz";
+    private static Logger logger = Logger.getLogger(CheckTokenUtils.class);
     /*
     * 验证签名
     * */
@@ -24,12 +27,9 @@ public class CheckTokenUtils {
                                         getBytes()), true));
         // 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
         if (signature.equals(sign)) {
-            System.out.println(TOKEN);
+            logger.info("获取加密字符串与微信:"+signature+"对比一致.");
             return true;
         }
-        System.out.println("false");
-        System.out.println(sign);
-        System.out.println(signature);
         return false;
     }
 }
