@@ -63,7 +63,6 @@
 
             <input type="text" id="vcode" class="form-control" placeholder="输入手机验证码" required>
             <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled="disabled"/>
-            <span id="phoneTip"></span>
             <small class="help-block" id="vcode-error"></small>
         </div>
         <div class="form-group">
@@ -93,13 +92,13 @@
             //产生验证码
             for ( var i=0; i<codeLength; i++)
                 vcode += parseInt(Math.random()*9).toString();
-            alert(vcode);
+            // alert(vcode);
             // 向后台发送处理数据
             var upload={};
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
             $.ajax({
-                async:false,
+                // async:false,//todo 异步变同步
                 type: "POST", //用POST方式传输
                 dataType: "json", //数据格式:JSON
                 url: "register/sms", //目标地址
@@ -153,7 +152,6 @@
                         window.location.assign(window.location.origin+"/login");
                     } else if (data.result == 0){
                         alert("验证失败");
-                        window.location.assign(window.location.origin+"/login");
                     }
                 }
             });

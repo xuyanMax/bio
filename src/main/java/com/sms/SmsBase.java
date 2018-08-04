@@ -2,7 +2,6 @@ package com.sms;
 import com.bio.Utils.PersonInfoUtils;
 import org.apache.log4j.Logger;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -18,7 +17,7 @@ public class SmsBase {
             +"&aimcodes=AIMCODES&content=CONTENT【"
             +SIGNATURE
             +"】&dataType=DATATYPE";
-    public static String content = "您好，短信验证码是${6}, 2分钟内有效，请勿告知他人。";
+    public static String content = "您好，短信验证码是${6}， 2分钟内有效，请勿告知他人。";
     public static String Json = "json";
     public static String STRING = "string";
     public static Logger logger = Logger.getLogger(SmsBase.class);

@@ -144,16 +144,23 @@ Email|xuyanpeter0619@gmail.com
     1. 说明，什么是半角/全角？
         1. 半角为英文的标点符号
         1. 全角为中文的标点符号
-1. __程序中添加服务器日志记录功能__
-1. 测试上传服务器
-1. 短信验证码登录注册功能实现
-    1. 再加上使用cookie防止刷新页面导致倒计时失效的代码
+1. __程序中添加服务器日志记录功能__ _done_
+1. 测试上传服务器 _done_
+1. 短信验证码登录注册功能实现 _done_
+    1. 再加上使用cookie防止刷新页面导致倒计时失效的代码 _not started_
 
 **week12**
 1. 注册功能
-1. Ajax
-1. 短信验证
-1. 测试问卷，修改存储逻辑
+    1. Ajax向后台发送六位随机数，存储在Session中，默认30分钟后过期
+    1. 修复服务器log日志中文显示乱码
+        1. 备份catalina.sh到~目录
+        1. [参考](https://blog.csdn.net/guolongpu/article/details/53383362)
+        1. 修改后，重启tomcat
+1. 测试问卷，修改数据存储逻辑
+1. 微信扫码登录功能
+1. 
+
+
 
 jdk
 ------
@@ -201,7 +208,7 @@ ssh连接
 1. `jdbc.properties`文件中指定ssh服务器的端口号3306，并更新文件中数据库服务器用户名及密码
 
 ### 调查问卷
-调查问卷功能涉及代码在`src/main/java/com/JsonGenerator`，调用第三方(surveyjs)[https://surveyjs.io] 生成多种问卷题目，调用(fastJson)[https://github.com/alibaba/fastjson] 生成可供`surveyjs`识别的`JSON`数据.
+调查问卷功能涉及代码在`src/main/java/com/JsonGenerator`，调用第三方[surveyjs(https://surveyjs.io) 生成多种问卷题目，调用[fastJson](https://github.com/alibaba/fastjson) 生成可供`surveyjs`识别的`JSON`数据.
 1. 本地测试
     测试FetchData.java下的main函数
 1. 部署到服务器 
@@ -323,12 +330,13 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 1. 运行./shutdown停止tomcat报错
     1. 可能是tomcat没完全开启就关闭，kill掉进程后重启
         1. netstat -aon
+        1. kill -9 pid
     1. 也可能找到jdk的bug，找到`jdk1.8.xx` 的安装路径，修改其子目录 /jre/lib/security/ 下的 “java.security” 文件中的 “securerandom.source=file:/dev/random” 为 “securerandom.source=file:/dev/./urandom “ (参考)[https://stackoverflow.com/questions/36566401/severe-could-not-contact-localhost8005-tomcat-may-not-be-running-error-while]
         1. `cd $JAVA_HOME/jre/lib/security`
         1. 管理员修改权限，`chmod 777 java.security`, 原权限为`chmod 644 java.security`
     1. 也可能，是tomcat内存不够 
         1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
-http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F449826F9980CA&aimcodes=15151528348&content=zidingyi【CHGC南方中心】&dataType=string
+
 **小程序**
 
 **待(已)解决问题**
@@ -337,14 +345,12 @@ http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F4498
 1. 微信公众号，发送信息服务错误 _undone_
 1. 小程序开发 _in progress_
 1. 自动初始化题目数量 _done_
-
-1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _not started_
-
-1. __AJAX发送JSON数据到后台__ _in progress_
+1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _done_
+1. __AJAX发送JSON数据到后台__ _done_
 1. 上传Excel文件后，人员信息存入两次 _undone_
     1. DEBUG模式，输出返回的
 
-## AJAX开发注意点
+## AJAX注意点
 1. Jquery 完整版不需要slim版本
 1. Jackson 引入三个库    
     1. jackson-core
@@ -354,9 +360,31 @@ http://www.lx598.com/sdk/send?accName=15151528348&accPwd=57BA172A6BE125CCA2F4498
 1. `spring-mvc.xml`中加入关于 _json格式数据转换的配置_
 1. Ajax向Controller发送String或JSON数据
 1. Controller接受值，解析值，处理后返回HASHMAP对象
-1. `@ResponseB`不能省略
+1. `@ResponseBody`不能省略
 1. _contentType : 'application/json; charset=utf-8'_何时使用/省略？_
 1.  _Server returned HTTP response code: 400 for URL_
 1. Java make http/https request
     1. OutputStrem vs. InputStream
-1. preventDefault()
+1. preventDefault()作用
+1. async:false将关闭异步效果
+1. 原理
+
+
+## 服务器log日志
+1. log4j三个基本概念
+    1. Logger日志输出器
+    1. Appender日志目的地
+        1. ConsoleAppender
+        1. FileAppender
+        1. RollingFileAppender
+    1. PatternLayout日志格式
+1. 配置文件 `log4j.properties`
+1. `web.xml`中添加`org.springframework.web.util.Log4jConfigListener`
+1. 服务器log存储位置: _~/apache-tomcat-9.0.8/bin/logs/ssm.log_
+1. 遇到的问题
+    1. 部署后返回0，原因是，发送的HTTP请求url出现问题，可能是中文字符的转译问题，或者是url中包含了" "空格，需要替换为"" 
+    1. tomcat服务器日志记录乱码
+    1. log第一行是左对齐，第二行开始后都不是
+    1. 服务器日志`conf/logs/`下的`catlina.out`记录了本地测试Console中的全部内容
+
+

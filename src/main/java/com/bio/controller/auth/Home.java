@@ -171,7 +171,7 @@ public class Home {
 
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;
-    //0;
+    //0;失败...
     @RequestMapping("register/sms")
     @ResponseBody
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,

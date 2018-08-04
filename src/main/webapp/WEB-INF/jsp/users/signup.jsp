@@ -63,7 +63,6 @@
 
             <input type="text" id="vcode" class="form-control" placeholder="输入手机验证码" required>
             <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled="disabled"/>
-            <span id="phoneTip"></span>
             <small class="help-block" id="vcode-error"></small>
         </div>
         <div class="form-group">
@@ -99,7 +98,7 @@
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
             $.ajax({
-                async:false,
+                // async:false,//todo 异步变同步
                 type: "POST", //用POST方式传输
                 dataType: "json", //数据格式:JSON
                 url: "register/sms", //目标地址
@@ -138,7 +137,7 @@
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
             $.ajax({
-                async:false,
+                // async:false,
                 type: "POST",
                 dataType: "json",
                 url: "register/checkVcode",
