@@ -42,10 +42,13 @@ Email|xuyanpeter0619@gmail.com
 3. 微信注册和登陆机制研究
 
 **week 4**
-1. `xu`注册个人订阅号(用于熟悉微信接口功能)/企业服务号(申请中)
+1. `xu`注册个人订阅号(用于熟悉微信接口功能)/`Bright`企业服务号(申请中)
     1. 订阅号
         1. `appId=wx0f81f68f813bd68d`
         1. `secret=c9d7f54ec1d0642d187141636ba6XXXX`
+    1. 服务号
+        1. `appid = wxb92b6517e66c5eda`
+        1. `secret = 7953a4803072b35c8e41ed27933f****`
 2. `zy`更新`数据库表头说明`，并更新`jdbc.properties`
 3. 更新用户登陆逻辑(添加本地管理员/系统管理员)
     

@@ -5,7 +5,11 @@ import com.wechat.model.button.*;
 import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
-
+/*
+* 服务号
+* appid: wxb92b6517e66c5eda
+* secret: 7953a4803072b35c8e41ed27933f0ecb
+* */
 public class MenuThread implements Runnable {
     private static final String appID = "wxb92b6517e66c5eda";//wx0f81f68f813bd68d
     private static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";//c9d7f54ec1d0642d187141636ba69af2
@@ -17,11 +21,9 @@ public class MenuThread implements Runnable {
         if (access_token != null){
             int result = WeChatUtils.createMenu(getMenu(), access_token.getToken());
             if(result == 0) {
-                System.out.println("菜单创建成功");
                 logger.info("菜单创建成功");
             }
             else {
-                System.out.println("菜单创建失败, 错误码: " + result);
                 logger.warn("菜单创建失败, 错误码: " + result);
             }
         }
