@@ -386,8 +386,43 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 1. 服务器log存储位置: _~/apache-tomcat-9.0.8/bin/logs/ssm.log_
 1. 遇到的问题
     1. 部署后返回0，原因是，发送的HTTP请求url出现问题，可能是中文字符的转译问题，或者是url中包含了" "空格，需要替换为"" 
-    1. tomcat服务器日志记录乱码
+        1. `html 中因为一些非标准的做法，将+ 等同于空格进行处理`
+    1. tomcat服务器日志记录乱码 _partially done_
     1. log第一行是左对齐，第二行开始后都不是
     1. 服务器日志`conf/logs/`下的`catlina.out`记录了本地测试Console中的全部内容
+
+## 网站应用微信登录开发
+
+**准备工作**
+拥有一个已审核通过的网站应用，并获得相应的AppID和AppSecret，申请微信登录且通过审核后，可开始接入流程
+
+**授权流程**      
+
+1. 第三方发起微信授权登录请求，微信用户允许授权第三方应用后，微信会拉起应用或重定向到第三方网站，并且带上授权临时票据code参数；
+2. 通过code参数加上AppID和AppSecret等，通过API换取access_token；
+3. 通过access_token进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
+4. 什么是授权临时票据（code）
+5. 什么是授权作用域（scope）
+
+## 网站将微信登录二维码内嵌到自己页面中，用户使用微信扫码授权后通过JS将code返回给网站。
+
+JS微信登录主要用途：网站希望用户在网站内就能完成登录，无需跳转到微信域下登录后再返回，提升微信登录的流畅性与成功率。 
+
+**二维码微信登录JS实现办法：**
+
+1. 步骤1：在页面中先引入如下JS文件（支持https）：
+http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
+1. 步骤2：在需要使用微信登录的地方实例以下JS对象：
+```js
+ var obj = new WxLogin({
+ self_redirect:true,
+ id:"login_container", 
+ appid: "", 
+ scope: "", 
+ redirect_uri: "",
+  state: "",
+ style: "",
+ href: ""
+ });
 
 

@@ -6,25 +6,26 @@ import com.wechat.model.AccessToken;
 import com.wechat.model.OAuthInfo;
 import com.wechat.model.WeChatUser;
 import com.wechat.model.button.Menu;
-import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import java.io.*;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 /**
  * 公众平台通用接口工具类
- * https://blog.csdn.net/lyq8479/article/details/9841371
+ * 参考: https://blog.csdn.net/lyq8479/article/details/9841371
  */
 public class WeChatUtils {
     private static final Logger logger = Logger.getLogger(WeChatUtils.class.getName());
+    private static String APPID_URL = "wx73e0725a818a8ccb";
+    private static String SECRET_URL = "570d28bcda358b8c8d7021e8ee18f184";
 
     //微信token的获取
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
@@ -34,7 +35,7 @@ public class WeChatUtils {
     public static String url_snsapi_userinfo = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
             + "REDIRECT_URL&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 
-    public static String REDIRECT_URL = "http://population.chgc.sh.cn:10080/user/info";
+    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/info";
 
     // 通过扫描微信二维码登陆
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
@@ -67,7 +68,7 @@ public class WeChatUtils {
      * @param requestUrl    请求地址
      * @param requestMethod 请求方式（GET、POST）
      * @param outputStr     提交的数据
-     * @return JSONObject(通过JSONObject.get ( key)的方式获取json对象的属性值)
+     * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
      */
     public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
 
@@ -130,11 +131,6 @@ public class WeChatUtils {
         }
         return jsonObject;
     }
-    /*
-     * 1）39~48行：解决https请求的问题，很多人问题就出在这里；
-     * 2）53~57行：兼容GET、POST两种方式；
-     * 3）59~65行：兼容有数据提交、无数据提交两种情况，也有相当一部分人不知道如何POST提交数据；
-     * */
 
     // 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
@@ -171,8 +167,7 @@ public class WeChatUtils {
             "access_token=ACCESS_TOKEN&" +
             "openid=OPENID&lang=zh_CN";
     /*
-     * 通过关注公众号的用户发送消息，获取用户部分信息
-     * todo:
+     * 关注公众号的用户发送消息，获取用户部分信息
      * */
     public static WeChatUser getWeChatUser(String openId, String accessToken){
         //1.
@@ -214,14 +209,15 @@ public class WeChatUtils {
             "state=s";
 
     /**
+     * 通过code获取Access_Token
      * @param code
      * @return  OAuthInfo
      * */
-    public static OAuthInfo getOpenId(String code){
+    public static OAuthInfo getOAuthInfoByCode(String code){
 
         String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
 
-        url = url.replace("APPID", TokenThread.appID).replace("APP_SECRET", TokenThread.appSecret);
+        url = url.replace("APPID", APPID_URL).replace("APP_SECRET", SECRET_URL);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
@@ -238,8 +234,13 @@ public class WeChatUtils {
         JSONObject jsonObject = httpRequest(url_get_user, "GET", null);
 
         if (jsonObject != null){
-            WeChatUser user = composeWeChatUser(jsonObject);
-            return user;
+            if (jsonObject.getString("errcode") != null) {
+                logger.info("通过access_token="+access_token+", openid="+openid+"获取了有效微信用户信息.");
+                WeChatUser user = composeWeChatUser(jsonObject);
+                return user;
+            }else{
+                logger.error("通过access_token="+access_token+", openid="+openid+"没能获取微信用户信息.");
+            }
         }
         return null;
     }
@@ -273,5 +274,19 @@ public class WeChatUtils {
         authInfo.setUnionid(jsonObject.getString("unionid"));
         logger.info("OAuthInfoObject=" + authInfo);
         return authInfo;
+    }
+
+
+    //微信二维码登陆
+    public static JSONObject wxLoginUrl(){
+        JSONObject jsonObject = null;
+        try {
+            String url = scan_auth_url.replace("APPID", APPID_URL).replace("REDIRECT_URI", URLEncoder.encode(REDIRECT_URL, "utf-8"));
+            jsonObject = httpRequest(url, "POST", null);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }

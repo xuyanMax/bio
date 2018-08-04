@@ -1,29 +1,29 @@
 package com.bio.controller.token;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.OAuthInfo;
 import com.wechat.model.WeChatUser;
-import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.CheckTokenUtils;
 import com.bio.Utils.ClientInfoUtils;
 import com.wechat.utils.CoreService;
 import com.wechat.utils.WeChatUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import javax.annotation.Resource;
+import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 // references: https://blog.csdn.net/jx2931455/article/details/72833797
 @Controller
 public class WeChat {
     private static String ACCESS_TOKEN = "brbxyxzyz";
+    private static Logger logger = Logger.getLogger(WeChat.class);
 
     /**
      * 确认请求来自微信服务器
@@ -93,28 +93,47 @@ public class WeChat {
      * @return
      */
     @RequestMapping("/user/info")
-    public String getOpenId(HttpServletRequest request,
-                            HttpServletResponse response){
+    public ModelAndView getOpenId(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  ModelMap map){
+        ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
-        OAuthInfo authInfo = new OAuthInfo();
-        WeChatUser user;
-        String openId = authInfo.getOpenid();
+        if (code == null || code.equals("")){
+            logger.error("用户未授权登陆");
+            //todo:??
+            mv.setViewName("views/errors/error");
+            return mv;
+        }
 
-        /**
-         * 进行获取openId，必须的一个参数，这个是当进行了授权页面的时候，再重定向了我们自己的一个页面的时候，
-         * 会在request页面中，新增这个字段信息，
-         */
+        OAuthInfo authInfo = new OAuthInfo();
+        WeChatUser user = null;
+        String openId = null;
+
         if (code != null & !code.equals("")){
             //1. 通过code参数获取access_token
-            authInfo = WeChatUtils.getOpenId(code);
+            authInfo = WeChatUtils.getOAuthInfoByCode(code);
+
+            openId = authInfo.getOpenid();
+
             if (openId != null && !openId.equals("")) {
                 //2. 通过access_token获取用户的基本信息
-                user = WeChatUtils.getWeChatUser(authInfo.getAccess_token(), authInfo.getOpenid());
-                if (user != null)
-                    System.out.println("wechat user: " + user);
+                user = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), authInfo.getOpenid());
+                //todo
+                mv.setViewName("views/success");
+                map.addAttribute("wxUser", user);
+            }else{
+                logger.warn("获取的openId无效");
             }
-
+        }else {
+            mv.setViewName("views/errors/error");
         }
-        return  openId;
+        return mv;
+    }
+    @RequestMapping("wx/login")
+    public void wxLogin(HttpServletRequest request,
+                          HttpServletResponse response,
+                          ModelMap map){
+        //send a http request, wx QR login page
+        JSONObject object = WeChatUtils.wxLoginUrl();
     }
 }
