@@ -160,9 +160,16 @@ Email|xuyanpeter0619@gmail.com
         1. [参考](https://blog.csdn.net/guolongpu/article/details/53383362)
         1. 修改后，重启tomcat
 1. 测试问卷，修改数据存储逻辑
-1. 微信扫码登录功能
-1. 
+1. 实现微信扫码登录功能
 
+
+**week13**
+1. 测试:本地/服务器二维码登陆
+1. 完善: 注册/扫码登陆逻辑
+1. 查询：测试公众号更好的方法
+1. 注册处，添加`知情同意书`
+    1. 需要用户手写签名并存储
+1. 
 
 
 jdk
@@ -248,6 +255,122 @@ ssh连接
 **下载表格模版**
 进入`上传文件`页面，点击导航栏的`下载表格模版`,模版自动下载到`Downloads`文件夹下
     
+## AJAX注意点
+1. __什么叫异步__
+    1. 当前页面发送一个请求给服务器，当前页面不需要等待服务器响应才能操作网页。发送完请求之后，当前页面可以继续浏览，操作。
+1. 概念
+    1.AJAX = 异步 JavaScript 和 XML。
+    2.AJAX 是一种用于创建快速动态网页的技术。
+    3.通过在后台与服务器进行少量数据交换，可以使网页实现异步更新。
+    4.可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
+1. AJAX实现方式
+    1. Step1.JavaScrpit发送异步请求
+    1. Step2.服务端查询数据库，返回数据
+    1. Step3.服务端返回Response
+    1. Step4.客户端根据返回的Response，来用JavaScript操作DOM
+1. 优势
+    1.使用异步方式与服务器通信，页面不需要重新加载，页面无刷新
+    2.按需取数据，减少服务器的负担
+    3.使得Web应用程序更为迅捷地响应用户交互
+    4.AJAX基于标准化的并被广泛支持的技术，不需要下载浏览器插件或者小程序，但需要客户允许JavaScript在浏览器上执行
+    5.浏览器的内容和服务端代码进行分离。页面的内容全部由JavaScript来控制，服务端负责逻辑的校验和从数据库中拿数据。
+1. 缺点
+    1.安全问题：将服务端的方法暴露出来，黑客可利用这一点进行攻击
+    2.大量JS代码，容易出错
+    3.Ajax的无刷新重载，由于页面的变化没有刷新重载那么明显，所以容易给用户带来困扰——用户不太清楚现在的数据是新的还是已经更新过的；现有的解决有：在相关位置提示、数据更新的区域设计得比较明显、数据更新后给用户提示等
+    4.可能破坏浏览器后退按钮的正常行为； 
+    5.一些手持设备（如手机、PAD等）自带的浏览器现在还不能很好的支持Ajax
+
+1. 应用场景
+    1.对数据进行过滤和操纵相关数据的场景
+
+    2.添加/删除树节点
+
+    3.添加/删除列表中的某一行记录
+
+    4.切换下拉列表item
+
+    5.注册用户名重名的校验
+1. 不适用场景
+    1.整个页面内容的保存
+
+    2.导航
+
+1. Jquery 完整版不需要slim版本
+1. Jackson 引入三个库    
+    1. jackson-core
+    1. jackson-databind
+    1. jackson-annotations
+1. `$(document).ready(function(){})`中引入`$.ajax()`, 否则报错
+1. `spring-mvc.xml`中加入关于 _json格式数据转换的配置_
+1. Ajax向Controller发送String或JSON数据
+1. Controller接受值，解析值，处理后返回HASHMAP对象
+1. `@ResponseBody`不能省略
+1. _contentType : 'application/json; charset=utf-8'_何时使用/省略？_
+1.  _Server returned HTTP response code: 400 for URL_
+1. Java make http/https request
+    1. OutputStrem vs. InputStream
+1. preventDefault()作用
+1. async:false将关闭异步效果
+1. 原理
+
+
+## 服务器log日志
+1. log4j三个基本概念
+    1. Logger日志输出器
+    1. Appender日志目的地
+        1. ConsoleAppender
+        1. FileAppender
+        1. RollingFileAppender
+    1. PatternLayout日志格式
+1. 配置文件 `log4j.properties`
+1. `web.xml`中添加`org.springframework.web.util.Log4jConfigListener`
+1. 服务器log存储位置: _~/apache-tomcat-9.0.8/bin/logs/ssm.log_
+1. 遇到的问题
+    1. 部署后返回0，原因是，发送的HTTP请求url出现问题，可能是中文字符的转译问题，或者是url中包含了" "空格，需要替换为"" 
+        1. `html 中因为一些非标准的做法，将+ 等同于空格进行处理`
+    1. tomcat服务器日志记录乱码 _partially done_
+    1. log第一行是左对齐，第二行开始后都不是
+    1. 服务器日志`conf/logs/`下的`catlina.out`记录了本地测试Console中的全部内容
+
+## 网站应用微信登录开发
+
+**准备工作**
+
+1. 提交网站应用审核，拥有一个已审核通过的网站应用，并获得相应的网页应用AppID和AppSecret，并配置回调域名
+
+**授权流程**      
+
+1. 第三方发起微信授权登录请求，微信用户允许授权第三方应用后，微信会拉起应用或重定向到第三方网站，并且带上授权临时票据code参数；
+2. 通过code参数加上AppID和AppSecret等，通过API换取access_token；
+3. 通过access_token进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
+4. 什么是授权临时票据（code）
+5. 什么是授权作用域（scope）
+
+## 网站将微信登录二维码内嵌到自己页面中，用户使用微信扫码授权后通过JS将code返回给网站。
+
+JS微信登录主要用途：网站希望用户在网站内就能完成登录，无需跳转到微信域下登录后再返回，提升微信登录的流畅性与成功率。 
+
+**二维码微信登录JS实现办法：**
+
+1. 步骤1：在页面中先引入如下JS文件（支持https）：
+http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
+1. 步骤2：在需要使用微信登录的地方实例以下JS对象：
+```js
+ var obj = new WxLogin({
+ self_redirect:true,
+ id:"login_container", 
+ appid: "", 
+ scope: "", 
+ redirect_uri: "",
+  state: "",
+ style: "",
+ href: ""
+ });
+
+```
+
+##  OAuth2.0开放授权
 
 问题交流
 ------
@@ -340,89 +463,17 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 也可能，是tomcat内存不够 
         1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
 
-**小程序**
 
-**待(已)解决问题**
-1. 管理员扫码登陆，短信验证 _not started_
+
+## 待(已)解决问题
+1. 管理员扫码登陆，短信验证 _in progress_
 1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗
-1. 微信公众号，发送信息服务错误 _undone_
+1. 微信公众号，发送信息服务错误 _done_
 1. 小程序开发 _in progress_
 1. 自动初始化题目数量 _done_
 1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _done_
 1. __AJAX发送JSON数据到后台__ _done_
-1. 上传Excel文件后，人员信息存入两次 _undone_
+1. 上传Excel文件后，人员信息存入两次 _not started_
     1. DEBUG模式，输出返回的
-
-## AJAX注意点
-1. Jquery 完整版不需要slim版本
-1. Jackson 引入三个库    
-    1. jackson-core
-    1. jackson-databind
-    1. jackson-annotations
-1. `$(document).ready(function(){})`中引入`$.ajax()`, 否则报错
-1. `spring-mvc.xml`中加入关于 _json格式数据转换的配置_
-1. Ajax向Controller发送String或JSON数据
-1. Controller接受值，解析值，处理后返回HASHMAP对象
-1. `@ResponseBody`不能省略
-1. _contentType : 'application/json; charset=utf-8'_何时使用/省略？_
-1.  _Server returned HTTP response code: 400 for URL_
-1. Java make http/https request
-    1. OutputStrem vs. InputStream
-1. preventDefault()作用
-1. async:false将关闭异步效果
-1. 原理
-
-
-## 服务器log日志
-1. log4j三个基本概念
-    1. Logger日志输出器
-    1. Appender日志目的地
-        1. ConsoleAppender
-        1. FileAppender
-        1. RollingFileAppender
-    1. PatternLayout日志格式
-1. 配置文件 `log4j.properties`
-1. `web.xml`中添加`org.springframework.web.util.Log4jConfigListener`
-1. 服务器log存储位置: _~/apache-tomcat-9.0.8/bin/logs/ssm.log_
-1. 遇到的问题
-    1. 部署后返回0，原因是，发送的HTTP请求url出现问题，可能是中文字符的转译问题，或者是url中包含了" "空格，需要替换为"" 
-        1. `html 中因为一些非标准的做法，将+ 等同于空格进行处理`
-    1. tomcat服务器日志记录乱码 _partially done_
-    1. log第一行是左对齐，第二行开始后都不是
-    1. 服务器日志`conf/logs/`下的`catlina.out`记录了本地测试Console中的全部内容
-
-## 网站应用微信登录开发
-
-**准备工作**
-拥有一个已审核通过的网站应用，并获得相应的AppID和AppSecret，申请微信登录且通过审核后，可开始接入流程
-
-**授权流程**      
-
-1. 第三方发起微信授权登录请求，微信用户允许授权第三方应用后，微信会拉起应用或重定向到第三方网站，并且带上授权临时票据code参数；
-2. 通过code参数加上AppID和AppSecret等，通过API换取access_token；
-3. 通过access_token进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
-4. 什么是授权临时票据（code）
-5. 什么是授权作用域（scope）
-
-## 网站将微信登录二维码内嵌到自己页面中，用户使用微信扫码授权后通过JS将code返回给网站。
-
-JS微信登录主要用途：网站希望用户在网站内就能完成登录，无需跳转到微信域下登录后再返回，提升微信登录的流畅性与成功率。 
-
-**二维码微信登录JS实现办法：**
-
-1. 步骤1：在页面中先引入如下JS文件（支持https）：
-http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
-1. 步骤2：在需要使用微信登录的地方实例以下JS对象：
-```js
- var obj = new WxLogin({
- self_redirect:true,
- id:"login_container", 
- appid: "", 
- scope: "", 
- redirect_uri: "",
-  state: "",
- style: "",
- href: ""
- });
-
+1. __完善微信二维码登陆逻辑梳理__ _in progress_
 

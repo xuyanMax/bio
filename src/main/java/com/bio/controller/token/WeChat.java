@@ -135,5 +135,6 @@ public class WeChat {
                           ModelMap map){
         //send a http request, wx QR login page
         JSONObject object = WeChatUtils.wxLoginUrl();
+        logger.info("正在微信网页扫码登陆");
     }
 }
