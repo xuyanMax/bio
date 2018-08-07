@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-/*used for jdbc JUnit test*/
-/*used for Spring, must have a implementation of service*/
+/*could be used for jdbc JUnit test*/
+/*could be used for Spring, must have a implementation of service*/
 @Service
 public class PersonImpl implements IPersonService{
 

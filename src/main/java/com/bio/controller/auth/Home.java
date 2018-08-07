@@ -59,12 +59,6 @@ public class Home {
                               HttpServletRequest request,
                               HttpServletResponse response){
         ModelAndView mv = null;
-        /*测试*/
-        System.out.println(ID_code);
-        System.out.println(name);
-        System.out.println("----");
-        System.out.println(PersonInfoUtils.md5(ID_code));
-        /*测试结束*/
 
         /*根据身份证号和姓名, 获取person对象*/
         Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code), name);
@@ -76,9 +70,7 @@ public class Home {
             logger.info("非法用户尝试登陆!");
             return mv;
         }
-        /*测试*/
-        System.out.println(person);
-        /*测试结束*/
+        logger.info(person);
 
         /*组装login item*/
         LoginItem loginItem = new LoginItem();
@@ -93,23 +85,18 @@ public class Home {
         Integer idcenter = person.getIdcenter();
         String pname = person.getName();
 
-        /*测试*/
-        System.out.println("idcenter: " + idcenter);
-        System.out.println("name " + pname);
-        /*测试结束*/
+        logger.info("login user's idcenter="+idcenter);
+        logger.info("login user's name="+pname);
 
          /*关联关系查询*/
         if (idcenter != null){
-            /*测试*/
-            System.out.println("在关联内");
-            logger.info("登陆用于在单位管理员范围内" + pname);
+            logger.info("Checking if login user's authority is local admin");
             //通过idcenter判断，该用户是否在centers表中，在则是单位管理员，否则不是单位管理员，可能为普通用户或系统管理员
             int cnt = centerService.findPersonInCentersByCenterid(idcenter);
-            System.out.println("cnt = " + cnt);
-            /*测试结束*/
+            logger.info("return findPersonInCentersByCenterid()="+cnt);
             // todo: 本单位内查重??
             if (cnt > 0) {// 说明其sn_in_center在centers表中存在
-
+                logger.info("login user's authority IS local admin");
                 mv = new ModelAndView("redirect:/home");
                 mv.addObject("user", person);
                 mv.addObject("username", person.getName());
@@ -128,6 +115,7 @@ public class Home {
         Admin admin  = adminService.selectAdminUser(person.getIdperson());
         if (admin !=null && admin.getIdperson() == person.getIdperson()){
             // go to sysAdmin home page
+            logger.info("Checking if login user's authority IS system admin");
             mv = new ModelAndView("/jsp/sys_admin/sys");
             modelMap.addAttribute("username", person.getName());
             mv.addObject("user", person);
@@ -138,6 +126,7 @@ public class Home {
         mv = new ModelAndView("/jsp/users/userHomePage");
         modelMap.addAttribute("username", person.getName());
         modelMap.addAttribute("user", person);
+        logger.info("Checking if login user's authority IS normal user");
         return mv;
 
     }

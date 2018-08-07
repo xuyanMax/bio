@@ -12,7 +12,7 @@ import java.util.List;
 */
 //@Repository
 public interface IPersonDao {
-    void insertPerson(Person person );
+    void insertPerson(Person person);
 
     //删除指定IdPerson
     void deletePersonByIdPerson(int idPerson);

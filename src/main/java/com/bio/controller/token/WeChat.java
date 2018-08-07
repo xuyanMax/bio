@@ -1,16 +1,24 @@
 package com.bio.controller.token;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bio.beans.Admin;
+import com.bio.beans.Person;
+import com.bio.service.IAdminService;
+import com.bio.service.ICenterService;
+import com.bio.service.IPersonService;
+import com.bio.service.IWeChatUserService;
 import com.wechat.model.OAuthInfo;
-import com.wechat.model.WeChatUser;
+import com.bio.beans.WeChatUser;
 import com.wechat.utils.CheckTokenUtils;
 import com.bio.Utils.ClientInfoUtils;
 import com.wechat.utils.CoreService;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +28,23 @@ import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
 // references: https://blog.csdn.net/jx2931455/article/details/72833797
+@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 @Controller
 public class WeChat {
     private static String ACCESS_TOKEN = "brbxyxzyz";
     private static Logger logger = Logger.getLogger(WeChat.class);
+
+    @Autowired
+    IWeChatUserService iWeChatUserService;
+
+    @Autowired
+    IPersonService iPersonService;
+
+    @Autowired
+    ICenterService iCenterService;
+
+    @Autowired
+    IAdminService iAdminService;
 
     /**
      * 确认请求来自微信服务器
@@ -34,9 +55,8 @@ public class WeChat {
 
         request.setCharacterEncoding("UTF-8");// 将请求、响应的编码均设置为UTF-8（防止中文乱码)
         response.setCharacterEncoding("UTF-8");
-        /*测试*/
-        System.out.println("访问Controller: wx/token/get: " + request.getRequestURL().toString());
-        System.out.println("@Controller: WeChat, 请求使用的方法: " + request.getMethod());
+
+        logger.info("http request: wx/token/get: " + request.getRequestURL().toString());
 
         if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET
             //微信加密签名
@@ -56,17 +76,15 @@ public class WeChat {
                     printWriter.print(echostr);
                     printWriter.flush();
                     printWriter.close();
-                    System.out.println("TOKEN验证: 确认SHI来自微信的请求!");
+                    logger.info("token verification: A REQUEST FROM WECHAT!" );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            /*测试获取ip地址*/
-            System.out.println("验证失败!!!");
-            System.out.println("微信服务器地址: " + ClientInfoUtils.getIpAddr(request));
-            /*测试结束*/
+            logger.error("WeChat token verification failed!");
+            logger.error("WeChat server address: " + ClientInfoUtils.getIpAddr(request));
         }else {
-            System.out.println(request.getContextPath());
+            logger.warn(request.getContextPath());
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }
@@ -86,7 +104,7 @@ public class WeChat {
 
     }
     /**
-     * 进行网页授权，便于获取到用户的绑定的内容
+     * 进行网页授权，便于获取到用户的绑定内容
      * 此为回调页面
      * reference: https://blog.csdn.net/cs_hnu_scw/article/details/79103129
      * @param request
@@ -95,12 +113,12 @@ public class WeChat {
     @RequestMapping("/user/info")
     public ModelAndView getOpenId(HttpServletRequest request,
                                   HttpServletResponse response,
-                                  ModelMap map){
+                                  ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
         if (code == null || code.equals("")){
             logger.error("用户未授权登陆");
-            //todo:??
+            mv.addObject("error", "not authorized.");
             mv.setViewName("views/errors/error");
             return mv;
         }
@@ -118,13 +136,42 @@ public class WeChat {
             if (openId != null && !openId.equals("")) {
                 //2. 通过access_token获取用户的基本信息
                 user = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), authInfo.getOpenid());
-                //todo
-                mv.setViewName("views/success");
-                map.addAttribute("wxUser", user);
+                if (user != null) {
+                    if (user.getOpenId() != null && !user.getOpenId().equals("")) {
+                        WeChatUser curr = iWeChatUserService.findWxUserByOpenId(user.getOpenId());
+                        if (curr != null) {//存在该用户，那么直接登陆
+                            //todo: 判断身份[可以单拎出来]
+                            //1. 判断是否为单位管理员
+                            //2. 是否为系统管理员
+                            //3. 是普通用户
+                            Person p = iPersonService.findPersonById(user.getIdperson());
+                            return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
+                        }
+                    }
+                }else{ //从微信服务器获取的用户为空
+                    //添加用户
+                    Person p = new Person();
+
+                    //todo:
+                    p.setID_code(user.getOpenId());
+                    p.setName(user.getNickname());
+
+                    iPersonService.addPerson(p);
+
+                    p = iPersonService.findPersonByID_code(p.getID_code(), p.getName());
+
+                    user.setIdperson(p.getIdperson());
+
+                    iWeChatUserService.addWxUser(user);
+
+                  // 判断用户权限
+                  return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
+                }
             }else{
                 logger.warn("获取的openId无效");
             }
         }else {
+
             mv.setViewName("views/errors/error");
         }
         return mv;
@@ -136,5 +183,36 @@ public class WeChat {
         //send a http request, wx QR login page
         JSONObject object = WeChatUtils.wxLoginUrl();
         logger.info("正在微信网页扫码登陆");
+
+    }
+    public ModelAndView authorityCheck(Integer idcenter, ModelAndView mv, Person p, ModelMap modelMap, WeChatUser user){
+        if (idcenter != null){
+            int cnt = iCenterService.findPersonInCentersByCenterid(p.getIdcenter());
+            if (cnt > 0){
+                logger.info("user[name="+p.getName()+"]=local admin");
+                mv.setViewName("redirect:/home");
+                mv.addObject("user", user);
+                modelMap.addAttribute("username", p.getName());
+                modelMap.addAttribute("snAdmin", "snAdmin");
+                return mv;
+            }
+        }
+        // 判断sysAdmin身份
+        Admin admin  = iAdminService.selectAdminUser(p.getIdperson());
+        if (admin != null){
+            logger.info("Checking if login user's authority IS system admin");
+            mv = new ModelAndView("/jsp/sys_admin/sys");
+            modelMap.addAttribute("username", p.getName());
+            mv.addObject("user", user);
+            modelMap.addAttribute("sysAdmin",  admin.getIdadmin());
+            return mv;
+        }
+        /*否则, 为普通用户*/
+        mv = new ModelAndView("/jsp/users/userHomePage");
+        modelMap.addAttribute("username", p.getName());
+        modelMap.addAttribute("user", user);
+        logger.info("IS a normal user");
+        return mv;
+
     }
 }

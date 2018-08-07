@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.AccessToken;
 import com.wechat.model.OAuthInfo;
-import com.wechat.model.WeChatUser;
+import com.bio.beans.WeChatUser;
 import com.wechat.model.button.Menu;
 import org.apache.log4j.Logger;
 import javax.net.ssl.HttpsURLConnection;

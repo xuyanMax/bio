@@ -30,7 +30,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <% if (request.getAttribute("username") != null) {
+    <% if (request.getAttribute("username") != null && request.getParameter("snAdmin") != null) {
     %>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">

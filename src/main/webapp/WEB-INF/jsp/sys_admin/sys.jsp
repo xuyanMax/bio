@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>系统管理员界面</title>
+    <p>欢迎${user.nickname}</p>
 </head>
 <body>
 

@@ -8,7 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>用户首页</title>
+    <title>普通用户首页</title>
+    <p>欢迎${user.nickname}</p>
 </head>
 <body>
 

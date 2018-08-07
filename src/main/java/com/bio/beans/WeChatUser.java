@@ -1,4 +1,4 @@
-package com.wechat.model;
+package com.bio.beans;
 
 public class WeChatUser {
     // 用户的标识
@@ -23,6 +23,16 @@ public class WeChatUser {
     private String headImgUrl;
     //只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
     private String unionId;
+
+    private int idperson;
+
+    public int getIdperson() {
+        return idperson;
+    }
+
+    public void setIdperson(int idperson) {
+        this.idperson = idperson;
+    }
 
     public String getUnionId() {
         return unionId;
@@ -114,16 +124,16 @@ public class WeChatUser {
 
     @Override
     public String toString() {
-        return "WeChatUser=[openId="+openId
-                +", subscribe="+subscribe
-                +", nickname="+nickname
-                +", subscribe_time"+subscribeTime
-                +", sex="+sex
-                +", country="+country
-                +", province="+province
-                +", city="+city
-                +", language="+language
-                +", headImgUrl="+headImgUrl
-                +"]";
+        return "WeChatUser=[openId=" + openId
+                + ", subscribe=" + subscribe
+                + ", nickname=" + nickname
+                + ", subscribe_time" + subscribeTime
+                + ", sex=" + sex
+                + ", country=" + country
+                + ", province=" + province
+                + ", city=" + city
+                + ", language=" + language
+                + ", headImgUrl=" + headImgUrl
+                + "]";
     }
 }

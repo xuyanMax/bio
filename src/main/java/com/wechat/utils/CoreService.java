@@ -1,6 +1,6 @@
 package com.wechat.utils;
 
-import com.wechat.model.WeChatUser;
+import com.bio.beans.WeChatUser;
 import com.wechat.model.message.response.Article;
 import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
