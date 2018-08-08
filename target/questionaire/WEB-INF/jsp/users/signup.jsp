@@ -137,7 +137,7 @@
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
             $.ajax({
-                async:false,
+                // async:false,
                 type: "POST",
                 dataType: "json",
                 url: "register/checkVcode",

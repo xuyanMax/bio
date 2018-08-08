@@ -164,7 +164,7 @@ public class WeChat {
 
                     iWeChatUserService.addWxUser(user);
 
-                  // 判断用户权限
+                  // todo: 判断用户权限
                   return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
                 }
             }else{
