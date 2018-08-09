@@ -325,6 +325,15 @@ ssh连接
         1. FileAppender
         1. RollingFileAppender
     1. PatternLayout日志格式
+1. %d: 显示日志记录时间，{<日期格式>}使用ISO8601定义的日期格式
+1. %F: 显示调用logger的源文件名
+1. %l: 输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数
+1. %L: 显示调用logger的代码行
+1. $p: 显示该条日志的优先级
+1. %t: 输出产生该日志事件的线程名
+1. %c; %C: 列出logger名字空间的全称; 列出调用logger的类的全名（包含包路径）
+1. %m:  显示输出消息
+
 1. 配置文件 `log4j.properties`
 1. `web.xml`中添加`org.springframework.web.util.Log4jConfigListener`
 1. 服务器log存储位置: _~/apache-tomcat-9.0.8/bin/logs/ssm.log_
@@ -480,6 +489,10 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 
 
 **发起http(s)请求**
+1. 发起http与https请求原理区别
+1. Java实现区别
+1. 项目中用到的地方有
+
 
 
 ## 待(已)解决问题
@@ -493,3 +506,8 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 1. 上传Excel文件后，人员信息存入两次 _not started_
     1. DEBUG模式，输出返回的
 1. __完善微信二维码登陆逻辑梳理__ _in progress_
+1. __tomcat启动网页后错误__ __not started__
+    1. HTTP Status 404 – Not Found
+    1. Type Status Report
+    1. Message Not found
+    1. Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
