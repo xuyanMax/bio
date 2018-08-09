@@ -168,8 +168,8 @@ public class Home {
                                            String vcode,
                                            String phone){
         Map<String, Object> resMap = new HashMap<>();
-        logger.info("手机号码为:" + phone);
-        logger.info("手机验证码为:" + vcode);
+        logger.info("phone number:" + phone);
+        logger.info("vcode to be sent to phone:" + vcode);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         map.addAttribute("vcode", vcode);
@@ -177,8 +177,8 @@ public class Home {
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "POST", null, vcode);
 
-        logger.info("请求第三方发送短信验证码: " + vcode);
-        logger.info("HTTP返回信息: " + res);
+        logger.info("vcode sent to client: " + vcode);
+        logger.info("http response: " + res);
         if (res != null && !res.equals("")){
             if (res.startsWith("1")){//success
                 resMap.put("result", "1");

@@ -55,7 +55,7 @@ public class UpdatePerson {
         mv.setViewName("views/success");
         return mv;
     }
-    @RequestMapping("/displayUsers")
+//    @RequestMapping("/displayUsers")
     public ModelAndView displayAllUsers(){
         ModelAndView mv = new ModelAndView();
         List<Person> personList = personService.findAllPersons();

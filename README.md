@@ -169,7 +169,9 @@ Email|xuyanpeter0619@gmail.com
 1. 查询：测试公众号更好的方法
 1. 注册处，添加`知情同意书`
     1. 需要用户手写签名并存储
-1. 
+1. MP_verify…….txt
+    1. 将此MP_verify…….txt文件放到项目的webapp下
+    1. 放入后，重启项目。浏览器可以访问成功此txt文件 
 
 
 jdk
@@ -464,6 +466,20 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 也可能，是tomcat内存不够 
         1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
 
+**HttpServletRequest vs. HttpServletResponse**
+1. __重定向与请求转发区别__
+    1. 重定向，是服务器向浏览器重新发送了一个`response`命令,让游览器再次向url2发送请求，以获取url2的资源
+    1. 而请求转发，类似于是服务器自己向自己发了一个跳转，然后将结果直接给浏览器，这也是问什么游览器会不改变url地址
+1. request.getRequestDispather(url).forward(request, response)  
+    1. 服务器跳转，url保持不变
+    1. 只能定位到服务器资源，不能转发到此WEB外
+1. response.sendRedirect(url)  
+    1. 浏览器跳转，url改变
+    1. 能跳转到任意网址
+    1. 跳转到指定页面后，上一个页面的request对象消亡，数据丢失
+
+
+**发起http(s)请求**
 
 
 ## 待(已)解决问题
@@ -477,4 +493,3 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 1. 上传Excel文件后，人员信息存入两次 _not started_
     1. DEBUG模式，输出返回的
 1. __完善微信二维码登陆逻辑梳理__ _in progress_
-

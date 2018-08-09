@@ -38,8 +38,10 @@ public class FileUploadController{
     public ModelAndView upMultiFiles(HttpServletRequest request,
                                @RequestParam("files") MultipartFile[] files){
         ModelAndView mv = new ModelAndView();
-        List<MultipartFile> nonEmptyFiles = Arrays.stream(files).
-                                            filter((f)->(!f.isEmpty())).collect(Collectors.toList());
+        List<MultipartFile> nonEmptyFiles = Arrays
+                                                .stream(files)
+                                                .filter((f)->(!f.isEmpty()))
+                                                .collect(Collectors.toList());
         // 存在空的上传文件
         if(nonEmptyFiles.size() != files.length) {
             mv.addObject("message", "错误, 存在空文件！");

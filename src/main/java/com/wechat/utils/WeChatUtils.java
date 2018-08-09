@@ -11,6 +11,8 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -38,7 +40,7 @@ public class WeChatUtils {
     public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/info";
 
     // 通过扫描微信二维码登陆
-    public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+    public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect";
 
     /*getAccessToken + httpRequest == AccessTokenUtil*/
     // 获取access_token的接口地址（GET） 限200（次/天）
@@ -112,6 +114,7 @@ public class WeChatUtils {
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
+            logger.info(buffer.toString());
             bufferedReader.close();
             inputStreamReader.close();
             // 释放资源
@@ -278,15 +281,17 @@ public class WeChatUtils {
 
 
     //微信二维码登陆
-    public static JSONObject wxLoginUrl(){
+    public static void wxLoginUrl(HttpServletRequest request,
+                                  HttpServletResponse response){
         JSONObject jsonObject = null;
         try {
             String url = scan_auth_url.replace("APPID", APPID_URL).replace("REDIRECT_URI", URLEncoder.encode(REDIRECT_URL, "utf-8"));
-            jsonObject = httpRequest(url, "POST", null);
-
+            logger.info("wechat scan web url=" +url);
+            response.sendRedirect(url);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return jsonObject;
     }
 }
