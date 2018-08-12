@@ -308,5 +308,15 @@
               </configuration>
           </plugin>
       </plugins>
+    <!--  强制将xml文件打到war包中 -->
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
   </build>
 </project>
