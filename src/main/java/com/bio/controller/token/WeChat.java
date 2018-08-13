@@ -84,7 +84,6 @@ public class WeChat {
             logger.error("WeChat token verification failed!");
             logger.error("WeChat server address: " + ClientInfoUtils.getIpAddr(request));
         }else {
-            logger.warn(request.getContextPath());
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }

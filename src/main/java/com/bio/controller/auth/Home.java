@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -43,8 +44,17 @@ public class Home {
     IAdminService adminService;
 
     @RequestMapping("/home")
-    public String index(){
-        return "../index";
+    public ModelAndView index(ModelMap map){
+        ModelAndView mv = new ModelAndView("../index");
+        if (map.get("username") != null) {
+            mv.addObject("username", map.get("username"));
+            logger.info(map.get("username"));
+        }
+        if (map.get("snAdmin") != null) {
+            mv.addObject("snAdmin", map.get("snAdmin"));
+            logger.info(map.get("snAdmin"));
+        }
+        return mv;
     }
 
     @RequestMapping("/login")
@@ -100,6 +110,7 @@ public class Home {
                 mv = new ModelAndView("redirect:/home");
                 mv.addObject("user", person);
                 mv.addObject("username", person.getName());
+                mv.addObject("snAdmin", "snAdmin");
                 /*添加session attribute*/
                 modelMap.addAttribute("user", person);
                 modelMap.addAttribute("username", person.getName());

@@ -1,5 +1,6 @@
 package com.bio.interceptor;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,6 +13,7 @@ public class CommonInterceptor implements HandlerInterceptor {
     /*session attributes*/
     private static final String USERNAME = "username";
     private static final String USER = "user";
+    private static Logger logger = Logger.getLogger(CommonInterceptor.class);
 
     private static String[] INTERCEPTOR_URL= {
             "/home",
@@ -31,25 +33,23 @@ public class CommonInterceptor implements HandlerInterceptor {
         String url = httpServletRequest.getRequestURL().toString();
         String username = (String) httpServletRequest.getSession().getAttribute(USERNAME);
 
-        /*测试*/
-        System.out.println("=====interceptor======");
-        System.out.println("username = " + username);
-        System.out.println("snAdmin = "+ (String) httpServletRequest.getSession().getAttribute("snAdmin"));
-        System.out.println("inside pre-handle\n");
-        /*测试结束*/
+        logger.info("=====interceptor begins======");
+        logger.info("username = " + username);
+        logger.info("snAdmin = "+ (String) httpServletRequest.getSession().getAttribute("snAdmin"));
+
         if (url.contains("logout")){
             if (username != null){
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
-                System.out.println("=====interceptor end======");
+                logger.info("=====interceptor ends======");
             }else
                 return true;
         }
          /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
         if (url.contains("login")){
             if (username != null) {
-                System.out.println("inside login");
+                logger.info(username + "has logged in.");
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
-                System.out.println("=====interceptor end======");
+                logger.info("=====interceptor ends======");
             } else
                 return true;
         }
@@ -58,8 +58,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             return true;
 
         //最后的情况就是进入登录页面
-        System.out.println("login last");
-        System.out.println("=====interceptor end======");
+        logger.warn("goes to login page");
+        logger.info("=====interceptor end======");
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         return false;//重定向
     }
