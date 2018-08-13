@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServlet;
 public class GetAccessTokenServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
-        new Thread(new TokenThread()).start();
-        new Thread(new MenuThread()).start();
+        Thread token = new Thread(new TokenThread());
+        token.setDaemon(true);
+        Thread menu = new Thread(new MenuThread());
+        token.setDaemon(true);
+        token.start();
+        menu.start();
     }
 }

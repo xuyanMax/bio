@@ -197,6 +197,7 @@ tomcat
 5. `mv questionaire ROOT`，更名为ROOT
 6. `./startup.sh`，重启服务器
     
+2. 
 数据库
 -----
 ## 本地测试与远程数据库切换
