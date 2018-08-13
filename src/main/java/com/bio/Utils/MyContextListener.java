@@ -1,6 +1,7 @@
 package com.bio.Utils;
 
 import com.jcraft.jsch.JSchException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -11,15 +12,15 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class MyContextListener implements ServletContextListener {
     private SSHConnection sshConnection;
-
+    private Logger logger = Logger.getLogger(MyContextListener.class);
     public MyContextListener() {
         super();
     }
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        System.out.println("=====Context initialized====");
-        System.out.println("如果为本地数据库测试，请注释掉@WebListener");
+        logger.info("=====Context initialized====");
+        logger.warn("如果测试本地数据库，请注释掉@WebListener");
         try {
             sshConnection = new SSHConnection(); // make a connection
         } catch (JSchException e) {
@@ -28,7 +29,7 @@ public class MyContextListener implements ServletContextListener {
     }
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        System.out.println("=====Context destroyed=====");
+        logger.info("=====Context destroyed=====");
         sshConnection.closeSSH();// disconnect
     }
 }
