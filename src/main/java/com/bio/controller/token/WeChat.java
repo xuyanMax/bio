@@ -109,14 +109,14 @@ public class WeChat {
      * @param request
      * @return
      */
-    @RequestMapping("/user/info")
+    @RequestMapping("/user/inf")
     public ModelAndView getOpenId(HttpServletRequest request,
                                   HttpServletResponse response,
                                   ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
         if (code == null || code.equals("")){
-            logger.error("用户未授权登陆");
+            logger.error("unauthorized user ");
             mv.addObject("error", "not authorized.");
             mv.setViewName("views/errors/error");
             return mv;
