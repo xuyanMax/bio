@@ -61,7 +61,7 @@ public class Home {
         ModelAndView mv = null;
 
         /*根据身份证号和姓名, 获取person对象*/
-        Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code), name);
+        Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code));
 
         if (person == null){
             mv = new ModelAndView("views/auth/login");
@@ -214,7 +214,7 @@ public class Home {
     @RequestMapping("/register")
     public ModelAndView register(String name, String ID_code){
         ModelAndView mv = new ModelAndView();
-        Person person = personService.findPersonByID_code(name, ID_code);
+        Person person = personService.findPersonByID_code(name);
         //todo: 判别是否为单位管理员
         if (person != null){
             Integer idcenter = person.getIdcenter();

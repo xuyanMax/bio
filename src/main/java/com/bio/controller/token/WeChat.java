@@ -158,7 +158,7 @@ public class WeChat {
 
                     iPersonService.addPerson(p);
 
-                    p = iPersonService.findPersonByID_code(p.getID_code(), p.getName());
+                    p = iPersonService.findPersonByID_code(p.getID_code());
 
                     user.setIdperson(p.getIdperson());
 

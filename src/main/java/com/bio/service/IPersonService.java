@@ -10,6 +10,6 @@ public interface IPersonService {
     void modifyPerson(Person person);
     List<Person> findAllPersons();
     Person findPersonById(int id);
-    Person findPersonByID_code(String ID_code, String name);
+    Person findPersonByID_code(String ID_code);
 
 }

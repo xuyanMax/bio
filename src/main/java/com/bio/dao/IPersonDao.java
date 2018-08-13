@@ -23,6 +23,6 @@ public interface IPersonDao {
 
     //按照IdPerson获取
     Person selectPersonByIdPerson(int idPerson);
-    Person selectPersonByID_code(String ID_code, String name);
+    Person selectPersonByID_code(String ID_code);
 
 }

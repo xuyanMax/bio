@@ -27,7 +27,7 @@ public class DBTest {
     @Test
     public void test2(){
         String id = "13010419920518241X";
-        Person person = personService.findPersonByID_code(PersonInfoUtils.md5(id), "sasa");
+        Person person = personService.findPersonByID_code(PersonInfoUtils.md5(id));
         Person person1 = personService.findPersonById(1);
         System.out.println(person1);
         System.out.println(person);

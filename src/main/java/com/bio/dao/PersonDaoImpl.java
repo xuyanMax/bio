@@ -39,8 +39,8 @@ public class PersonDaoImpl extends JdbcDaoSupport implements IPersonDao {
     }
 
     @Override
-    public Person selectPersonByID_code(String ID_code, String name) {
-        String sql = "select * from persons where ID_code = ? and name = ? limit 1";
-        return this.getJdbcTemplate().queryForObject(sql, new PersonRowMapper(), ID_code, name);
+    public Person selectPersonByID_code(String ID_code) {
+        String sql = "select * from persons where ID_code = ? limit 1";
+        return this.getJdbcTemplate().queryForObject(sql, new PersonRowMapper(), ID_code);
     }
 }

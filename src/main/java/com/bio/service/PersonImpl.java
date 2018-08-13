@@ -58,7 +58,7 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
-    public Person findPersonByID_code(String ID_code, String name) {
-        return personDao.selectPersonByID_code(ID_code, name);
+    public Person findPersonByID_code(String ID_code) {
+        return personDao.selectPersonByID_code(ID_code);
     }
 }

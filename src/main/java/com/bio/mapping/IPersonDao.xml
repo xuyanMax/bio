@@ -24,6 +24,6 @@
 	</select>
 
     <select id="selectPersonByID_code" resultType="com.bio.beans.Person">
-		select * from persons where ID_code=#{0} and name=#{1} limit 1
+		select * from persons where ID_code=#{xxx} limit 1
 	</select>
 </mapper>
