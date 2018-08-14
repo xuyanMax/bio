@@ -142,13 +142,12 @@ public class Home {
 
     }
     //todo: 显示调查问卷页面
-    @RequestMapping("/user/survey")
+    @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
         ModelAndView mv = new ModelAndView();
 
-        logger.warn("Inside /user/survey");
-
-        mv.setViewName("/jsp/questionaire/question");
+        logger.info("正在调用调查问卷");
+        mv.setViewName("jsp/questionaire/question");
         String surveyJSON = null;
         try {
             surveyJSON = FetchData.getSurveyJSON();
@@ -156,15 +155,6 @@ public class Home {
             e.printStackTrace();
         }
         mv.addObject("surveyJSON", surveyJSON);
-        return mv;
-    }
-
-
-    @RequestMapping("user/surveyUpload")
-    public ModelAndView surveyReceive(String surveyJSON){
-        ModelAndView mv = new ModelAndView();
-
-        mv.setViewName("views/success");
         return mv;
     }
 

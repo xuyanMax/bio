@@ -64,7 +64,6 @@ public class FetchData {
             int num_quest = 0;
             List<BaseQuestion> elements = null;
             while (rs.next()) {
-//                logger.info(num_quest);
 
                 if (num_quest % NUM_PER_PAGE == 0){
                     Page page = new Page();
