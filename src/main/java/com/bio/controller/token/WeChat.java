@@ -84,6 +84,7 @@ public class WeChat {
             logger.error("WeChat token verification failed!");
             logger.error("WeChat server address: " + ClientInfoUtils.getIpAddr(request));
         }else {
+            logger.info("message request from wechat.");
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }
@@ -115,9 +116,11 @@ public class WeChat {
                                   ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
+        logger.info("code="+code);
+        logger.info("state="+request.getParameter("state"));
         if (code == null || code.equals("")){
             logger.error("unauthorized user ");
-            mv.addObject("error", "not authorized.");
+            mv.addObject("error", "Not Authorized.");
             mv.setViewName("views/errors/error");
             return mv;
         }
@@ -180,6 +183,7 @@ public class WeChat {
                           HttpServletResponse response,
                           ModelMap map){
         //send a http request, wx QR login page
+        logger.info("Start scanning authorization");
         WeChatUtils.wxLoginUrl(request, response);
 
         logger.info("正在微信网页扫码登陆");

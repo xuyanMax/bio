@@ -190,14 +190,14 @@ tomcat
     
 **服务器 _tomcat_ 部署 _questionaire.war_ 步骤**:
 1. 将编译好的war包或码云Flup项目下的`bio/target/questionaire.war`包拷贝到服务器`/home/chgc/apache-tomcat-9.0.8/webapps/`下, 运行中的tomcat会将`questionaire.war`自动编译生成`questionaire`文件目录，涉及指令如下  
-1. `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`复制文件
-2. `rm -rf questionaire.war`，待编译完成`questionaire`文件夹后，删除war包
-3. `./shutdown.sh`关闭tomcat，关闭服务器
-4. `rm -rf ROOT`，删除ROOT文件夹
-5. `mv questionaire ROOT`，更名为ROOT
-6. `./startup.sh`，重启服务器
-    
-2. 
+    1. `scp -P 10061  /Users/apple/Documents/workspace/bio/target/questionaire.war chgc@202.127.7.29:/home/chgc/apache-tomcat-9.0.8/webapps/`复制文件
+    2. `rm -rf questionaire.war`，待编译完成`questionaire`文件夹后，删除war包
+    3. `./shutdown.sh`关闭tomcat，关闭服务器
+    4. `rm -rf ROOT`，删除ROOT文件夹
+    5. `mv questionaire ROOT`，更名为ROOT
+    6. `./startup.sh`，重启服务器    
+2. `ps -ef | grep tomcat`查看tomcat实例pid，请确保只有一个tomcat实例在运行
+    1. 在tomcat中启动的线程，要设置为守护线程，否则通过`shutdown.sh`无法彻底关闭tomcat，需要借助`kill -9 pid`
 数据库
 -----
 ## 本地测试与远程数据库切换

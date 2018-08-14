@@ -37,7 +37,7 @@ public class WeChatUtils {
     public static String url_snsapi_userinfo = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
             + "REDIRECT_URL&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 
-    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/info";
+    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/inf";
 
     // 通过扫描微信二维码登陆
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect";
@@ -114,7 +114,7 @@ public class WeChatUtils {
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
-            logger.info(buffer.toString());
+            logger.info("http response" + buffer.toString());
             bufferedReader.close();
             inputStreamReader.close();
             // 释放资源
@@ -245,6 +245,7 @@ public class WeChatUtils {
                 logger.error("通过access_token="+access_token+", openid="+openid+"没能获取微信用户信息.");
             }
         }
+        logger.warn("NO Access Token Get!");
         return null;
     }
 
@@ -283,10 +284,9 @@ public class WeChatUtils {
     //微信二维码登陆
     public static void wxLoginUrl(HttpServletRequest request,
                                   HttpServletResponse response){
-        JSONObject jsonObject = null;
         try {
             String url = scan_auth_url.replace("APPID", APPID_URL).replace("REDIRECT_URI", URLEncoder.encode(REDIRECT_URL, "utf-8"));
-            logger.info("wechat scan web url=" +url);
+            logger.info("URL:" + url);
             response.sendRedirect(url);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

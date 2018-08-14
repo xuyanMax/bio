@@ -18,14 +18,16 @@ public class MenuThread implements Runnable {
     @Override
     public void run() {
         access_token = AccessTokenUtil.getAccessToken(appID, appSecret);
-        if (access_token != null){
+        if (access_token.getToken() != null){
             int result = WeChatUtils.createMenu(getMenu(), access_token.getToken());
             if(result == 0) {
-                logger.info("菜单创建成功");
+                logger.info("Menu created successfully");
             }
             else {
-                logger.warn("菜单创建失败, 错误码: " + result);
+                logger.warn("Menu failed to create, error code: " + result);
             }
+        }else {
+            logger.error("Access Token did not get");
         }
     }
     public static Menu getMenu(){

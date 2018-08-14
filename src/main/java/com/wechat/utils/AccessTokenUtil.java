@@ -2,6 +2,7 @@ package com.wechat.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.AccessToken;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -10,7 +11,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.io.InputStream;
+
 public class AccessTokenUtil {
+    private static Logger logger = Logger.getLogger(AccessTokenUtil.class);
 
     /**
      * 获取access_token: 公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。
@@ -18,7 +21,6 @@ public class AccessTokenUtil {
      * @param appSecret 微信公众号凭证秘钥
      * @return
      */
-
     public static AccessToken getAccessToken(String appID, String appSecret) {
         AccessToken token = new AccessToken();
         // 访问微信服务器
@@ -43,6 +45,7 @@ public class AccessTokenUtil {
             is.read(b);
 
             String message = new String(b, "UTF-8");
+            logger.info("response:"+message);
             JSONObject json = JSONObject.parseObject(message);
             token.setToken(json.getString("access_token"));
             token.setExpiresIn(new Integer(json.getIntValue("expires_in")));
