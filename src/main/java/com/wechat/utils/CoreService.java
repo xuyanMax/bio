@@ -78,7 +78,7 @@ public class CoreService {
                     article.setTitle("测试");
                     article.setDescription("务正业");
                     article.setPicUrl("http://population.chgc.sh.cn/images/login.png");
-                    article.setUrl("http://population.chgc.sh.cn/login");
+                    article.setUrl("http://population.chgc.sh.cn");
                     articles.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articles.size());
@@ -95,7 +95,7 @@ public class CoreService {
                     article.setDescription("Flup -> Puss");
                     // 将图片置为空
                     article.setPicUrl("");
-                    article.setUrl("http://population.chgc.sh.cn/login");
+                    article.setUrl("http://population.chgc.sh.cn");
                     articles.add(article);
                     newsMessage.setArticleCount(articles.size());
                     newsMessage.setArticles(articles);
@@ -107,19 +107,19 @@ public class CoreService {
                     article1.setTitle("好说的");
                     article1.setDescription("");
                     article1.setPicUrl("http://population.chgc.sh.cn/images/login.png");
-                    article1.setUrl("http://population.chgc.sh.cn//login");
+                    article1.setUrl("http://population.chgc.sh.cn");
 
                     Article article2 = new Article();
                     article2.setTitle("事情");
                     article2.setDescription("");
-                    article2.setPicUrl("http://57792978.ngrok.io/images/lucky.png");
-                    article2.setUrl("http://57792978.ngrok.io/login");
+                    article2.setPicUrl("http://population.chgc.sh.cn");
+                    article2.setUrl("http://population.chgc.sh.cn");
 
                     Article article3 = new Article();
                     article3.setTitle("告诉你");
                     article3.setDescription("");
                     article3.setPicUrl("http://population.chgc.sh.cn/images/lucky.png");
-                    article3.setUrl("http://population.chgc.sh.cn/login");
+                    article3.setUrl("http://population.chgc.sh.cn");
 
                     articles.add(article1);
                     articles.add(article2);

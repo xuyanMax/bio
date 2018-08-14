@@ -157,7 +157,8 @@ Email|xuyanpeter0619@gmail.com
     1. Ajax向后台发送六位随机数，存储在Session中，默认30分钟后过期
     1. 修复服务器log日志中文显示乱码
         1. 备份catalina.sh到~目录
-        1. [参考](https://blog.csdn.net/guolongpu/article/details/53383362)
+        1. 解决办法：bin/catalina.sh 文件添加如下配置：
+        `JAVA_OPTS="-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8"[参考](https://blog.csdn.net/guolongpu/article/details/53383362)`
         1. 修改后，重启tomcat
 1. 测试问卷，修改数据存储逻辑
 1. 实现微信扫码登录功能
