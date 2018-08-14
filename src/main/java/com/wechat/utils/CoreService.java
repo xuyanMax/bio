@@ -28,6 +28,7 @@ public class CoreService {
      * @return
      */
     public static String processRequest(HttpServletRequest request) {
+        logger.info("处理来自微信用户发送的信息");
         String respMessage = null;
         try {
             // 默认返回的文本消息内容
@@ -61,6 +62,7 @@ public class CoreService {
             // 文本消息
             List<Article> articles = new ArrayList<>();
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
+                logger.info("发送的是文本信息");
                 respContent = "您发送的是文本消息！";
                 String content = requestMap.get("Content");
 
@@ -130,9 +132,10 @@ public class CoreService {
                     return respMessage;
                 } else if (content.equals("Flup")){
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
-                    String url = WeChatUtils.url_snsapi_userinfo.replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL);
-                    url = url.replace("APPID", TokenThread.appID);
-                    logger.info("Redirect url " + url);
+                    String url = WeChatUtils.url_snsapi_userinfo
+                            .replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL)
+                            .replace("APPID", TokenThread.appID);
+                    logger.info("访问主页:"+url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
 
                     // 将文本消息对象转换成xml字符串
@@ -144,36 +147,43 @@ public class CoreService {
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
+                logger.info(user.getNickname()+" 发送的是图片消息！");
                 respContent = "您发送的是图片消息！";
             }
             // 地理位置消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
+                logger.info(user.getNickname()+" 发送的是地理位置消息！");
                 respContent = "您发送的是地理位置消息！";
             }
             // 链接消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
+                logger.info(user.getNickname()+" 发送的是链接消息！");
                 respContent = "您发送的是链接消息！";
             }
             // 音频消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
+                logger.info(user.getNickname()+" 发送的是音频消息！");
                 respContent = "您发送的是音频消息！";
             }
             // 事件推送
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 // 事件类型
+                logger.info(user.getNickname()+"发送的是事件推送");
                 String eventType = requestMap.get("Event");
-                logger.info("事件推送");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+                    logger.info(user.getNickname()+"关注了公众号");
                     respContent = "谢谢您的关注！";
                 }
                 // 取消订阅
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                     // TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
+                    logger.info(user.getNickname()+"取消了关注");
                 }
                 // 自定义菜单点击事件
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
+                    logger.info(user.getNickname()+"触发自定义菜单点击事件");
                 }
             }
             textMessage.setContent(respContent);
