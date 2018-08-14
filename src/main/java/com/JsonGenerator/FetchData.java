@@ -136,10 +136,11 @@ public class FetchData {
             }
         }
         logger.info(JSONObject.toJSONString(surveyJson));
-        return JSONObject.toJSONString(surveyJson).replace("//", "/");
+        return JSONObject.toJSONString(surveyJson).replace("\\\\", "\\");
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
-        Text text = new Text("question" + num_quest, question.substring(0, question.indexOf('_')) + "_" + question.substring(question.lastIndexOf('_')));
+        Text text = new Text("question" + num_quest,
+                question.substring(0, question.indexOf('_')) + "_");
         //添加正则判断
         if (question.contains(REG_START) && question.contains(REG_END)) {
             int first = question.indexOf(REG_START);
@@ -203,7 +204,7 @@ public class FetchData {
                 int first = options[i].indexOf(REG_START);
                 int second = options[i].indexOf(REG_END);
                 String regex = options[i].substring(first, second+1);
-                ValidatorRegex validatorRegex = new ValidatorRegex(regex);
+                ValidatorRegex validatorRegex = new ValidatorRegex(regex.replace("\\\\", "\\"));
 
                 if (options[i].contains(HASH)) {//添加错误提示
                     String text = options[i].substring(options[i].indexOf(HASH) + 1);

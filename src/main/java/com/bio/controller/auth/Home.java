@@ -158,6 +158,17 @@ public class Home {
         return mv;
     }
 
+    //todo:
+    @RequestMapping("/survey/upload")
+    @ResponseBody
+    public Map<String, Object> processJSONSurvey(HttpServletResponse response,
+                                          HttpServletRequest request){
+        Map<String, Object> map = new HashMap<>();
+        logger.info("Process JSONSurvey in Controller");
+
+        return map;
+    }
+
 
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;
