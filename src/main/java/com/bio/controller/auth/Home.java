@@ -16,7 +16,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -71,7 +70,10 @@ public class Home {
         ModelAndView mv = null;
 
         /*根据身份证号和姓名, 获取person对象*/
-        Person person = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code));
+        Person person = personService
+                                    .findPersonByID_code(
+                                            PersonInfoUtils.md5(ID_code.toLowerCase())
+                                    );
 
         if (person == null){
             mv = new ModelAndView("views/auth/login");
@@ -215,8 +217,18 @@ public class Home {
         // 获取session中存放的手机短信验证码
         String sessionVcode = (String) map.get("vcode");
         if (sessionVcode!=null && vcode!=null){
-            if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode))
+            if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
+                // todo: 注册用户到数据库
+                String id_code = (String) map.get("id");
+                String name = (String) map.get("name");
+                String phone = (String) map.get("phone");
+                Person person = new Person();
+                person.setID_code(PersonInfoUtils.md5(id_code.toLowerCase()));
+                person.setName(name);
+                person.setTel1(phone);
+//                personService.addPerson(person);
                 resMap.put("result", 1);
+            }
             else
                 resMap.put("result", 0);
         } else resMap.put("result", 0);
@@ -260,8 +272,7 @@ public class Home {
     //todo:注册
     @RequestMapping("/signupPage")
     public ModelAndView signUp(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("jsp/users/signup");
+        ModelAndView mv = new ModelAndView("jsp/users/signup");
         return mv;
     }
 

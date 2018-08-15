@@ -204,6 +204,57 @@ tomcat
     6. `./startup.sh`，重启服务器    
 2. `ps -ef | grep tomcat`查看tomcat实例pid，请确保只有一个tomcat实例在运行
     1. 在tomcat中启动的线程，要设置为守护线程，否则通过`shutdown.sh`无法彻底关闭tomcat，需要借助`kill -9 pid`
+3. tomcat日志中文乱码
+修改 tomcat 的启动脚本 tomcat_dir/bin/catclina.sh  
+找到
+
+```linux
+
+if [ -z "$LOGGING_MANAGER" ]; then
+  JAVA_OPTS="$JAVA_OPTS -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"
+else 
+  JAVA_OPTS="$JAVA_OPTS $LOGGING_MANAGER"
+fi
+
+```
+
+替换为
+
+```linux
+if [ -z "$LOGGING_MANAGER" ]; then
+  JAVA_OPTS="$JAVA_OPTS -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dfile.encoding=UTF-8"
+else 
+  JAVA_OPTS="$JAVA_OPTS $LOGGING_MANAGER -Dfile.encoding=UTF-8"
+fi
+```
+
+4. mac的终端下中文乱码
+
+```linux
+vim  ~./bash_profile
+```
+添加内容
+
+```linux
+export  LC_ALL=zh_CN.UTF-8
+```
+
+终端执行locale命令查看一下修改后的文字编码格式
+
+```linux
+Hallelujay:bio xu$ locale
+LANG=
+LC_COLLATE="zh_CN.UTF-8"
+LC_CTYPE="zh_CN.UTF-8"
+LC_MESSAGES="zh_CN.UTF-8"
+LC_MONETARY="zh_CN.UTF-8"
+LC_NUMERIC="zh_CN.UTF-8"
+LC_TIME="zh_CN.UTF-8"
+LC_ALL="zh_CN.UTF-8"
+davidmacbookair:~ apple$ 
+```
+注意LANG是空的，如果把LANG设置成别的编码容易出现中文乱码
+
 数据库
 -----
 ## 本地测试与远程数据库切换

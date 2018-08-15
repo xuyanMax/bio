@@ -27,4 +27,11 @@ public class PersonUtilsTest {
     public void md5(){
         System.out.println(PersonInfoUtils.md5("123qweasd"));
     }
+    @Test
+    public void testIdToLowerCase(){
+          String id = "123X";
+          String id2 = "123x";
+        Assert.assertEquals(id2, id.toLowerCase());
+        Assert.assertEquals(PersonInfoUtils.md5(id2), PersonInfoUtils.md5(id.toLowerCase()));
+    }
 }

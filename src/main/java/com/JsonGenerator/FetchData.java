@@ -136,7 +136,7 @@ public class FetchData {
             }
         }
         logger.info(JSONObject.toJSONString(surveyJson));
-        return JSONObject.toJSONString(surveyJson).replace("\\\\", "\\");
+        return JSONObject.toJSONString(surveyJson);
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
         Text text = new Text("question" + num_quest,

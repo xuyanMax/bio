@@ -1,4 +1,6 @@
 package com.bio;
+import com.JsonGenerator.element.ValidatorRegex;
+import com.JsonGenerator.type.Text;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
@@ -87,5 +89,17 @@ public class JsonGenerate {
         public String[] getTools() {
             return tools;
         }
+    }
+    @Test
+    public void testRegText(){
+        Text text = new Text("question" ,
+                "asdasd");
+        String regex = "^[\\u4e00-\\u9fa5]{2-4}$";
+        ValidatorRegex validatorRegex = new ValidatorRegex(regex);
+
+        validatorRegex.setText("错误");//错误提示
+
+        text.setValidators(validatorRegex);
+        System.out.println(JSONObject.toJSONString(text));
     }
 }

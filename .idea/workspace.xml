@@ -5,18 +5,11 @@
       <artifact name="bio:war" />
     </artifacts-to-build>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java" line="34" mnemonic="1" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/ssm.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/ssm.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/JsonGenerator/FetchData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/JsonGenerator/FetchData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-    </list>
+    <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,43 +49,43 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="23" />
-          <entry key="java" value="208" />
+          <entry key="java" value="211" />
           <entry key="js" value="3" />
-          <entry key="jsp" value="40" />
-          <entry key="log" value="6" />
+          <entry key="jsp" value="42" />
+          <entry key="log" value="7" />
           <entry key="md" value="1" />
           <entry key="properties" value="11" />
-          <entry key="ts" value="3" />
+          <entry key="ts" value="4" />
           <entry key="xml" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="23" />
-          <entry key="JAVA" value="208" />
-          <entry key="JSP" value="40" />
+          <entry key="JAVA" value="211" />
+          <entry key="JSP" value="42" />
           <entry key="JavaScript" value="3" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="PLAIN_TEXT" value="7" />
           <entry key="Properties" value="11" />
-          <entry key="TypeScript" value="3" />
+          <entry key="TypeScript" value="4" />
           <entry key="XML" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="10707" />
+          <entry key="java" value="11260" />
           <entry key="jsp" value="3272" />
-          <entry key="log" value="1" />
+          <entry key="log" value="2" />
           <entry key="properties" value="51" />
           <entry key="xml" value="542" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10707" />
+          <entry key="JAVA" value="11260" />
           <entry key="JSP" value="3272" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Properties" value="51" />
           <entry key="SQL" value="1" />
           <entry key="XML" value="541" />
@@ -105,13 +98,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="160" column="11" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
+            <state relative-caret-position="484">
+              <caret line="216" column="31" lean-forward="true" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#9909#9910#0" expanded="true" />
+                <element signature="e#9950#9951#0" expanded="true" />
+                <element signature="e#10017#10018#0" expanded="true" />
+                <element signature="e#10058#10059#0" expanded="true" />
+                <element signature="e#10149#10150#0" expanded="true" />
+                <element signature="e#10190#10191#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,17 +119,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="142" column="35" selection-start-line="142" selection-start-column="35" selection-end-line="142" selection-end-column="35" />
+            <state relative-caret-position="161">
+              <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="212" column="61" lean-forward="true" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
+            <state relative-caret-position="282">
+              <caret line="145" column="52" lean-forward="true" selection-start-line="145" selection-start-column="52" selection-end-line="145" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,28 +138,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/shiro/ShiroDbRealm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/com.bio/JsonGenerate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="370">
+              <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/ValidatorRegex.java">
+        <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/com.bio/MD5.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="370">
+              <caret line="34" column="76" selection-start-line="34" selection-start-column="76" selection-end-line="34" selection-end-column="76" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -171,39 +170,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/com.bio/TestLog4j.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            <state relative-caret-position="252">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/Text.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-              <folding>
-                <element signature="e#292#293#0" expanded="true" />
-                <element signature="e#325#326#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="198">
+              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Validator.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+            <state relative-caret-position="191">
+              <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -222,8 +208,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</find>
-      <find>get_</find>
       <find>lang</find>
       <find>connect</find>
       <find>bio.</find>
@@ -241,7 +225,6 @@
       <find>session</find>
       <find>httpre</find>
       <find>fast</find>
-      <find>login</find>
       <find>请求处理</find>
       <find>msg</find>
       <find>user/survey</find>
@@ -252,6 +235,9 @@
       <find>HASH</find>
       <find>check</find>
       <find>upload</find>
+      <find>login</find>
+      <find>signup</find>
+      <find>register</find>
     </findStrings>
     <replaceStrings>
       <replace>small</replace>
@@ -292,10 +278,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/StringToJsonSerializer.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/ValidatorRegex.java" />
-        <option value="$PROJECT_DIR$/src/test/com.bio/JsonGenerate.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/Java8DateTest.java" />
-        <option value="$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/CheckTokenUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/thread/MessageThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/WeChatConstants.java" />
@@ -335,11 +318,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/AccessTokenUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/GetAccessTokenServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/CoreService.java" />
-        <option value="$PROJECT_DIR$/logs/ssm.log" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/MD5.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/TestLog4j.java" />
+        <option value="$PROJECT_DIR$/logs/ssm.log" />
+        <option value="$PROJECT_DIR$/src/test/com.bio/JsonGenerate.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" />
+        <option value="$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
       </list>
     </option>
   </component>
@@ -449,7 +435,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -458,8 +444,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
-              <item name="element" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -468,8 +454,39 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="JsonGenerator" type="462c0819:PsiDirectoryNode" />
-              <item name="type" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="token" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="sms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -573,7 +590,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/apple/Documents/workspace/bio/src/main/resources/spring-mvc.xml" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534264381811" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534344176774" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -611,7 +628,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.index.jsp">
+  <component name="RunManager" selected="JUnit.PersonUtilsTest.testIdToLowerCase">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -652,7 +669,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DBTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonGenerate.testRegText" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bio" />
       <extension name="coverage">
         <pattern>
@@ -661,13 +678,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.bio" />
-      <option name="MAIN_CLASS_NAME" value="com.bio.DBTest" />
+      <option name="MAIN_CLASS_NAME" value="com.bio.JsonGenerate" />
+      <option name="METHOD_NAME" value="testRegText" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DBTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonUtilsTest.testIdToLowerCase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bio" />
       <extension name="coverage">
         <pattern>
@@ -676,8 +695,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.bio" />
-      <option name="MAIN_CLASS_NAME" value="com.bio.DBTest" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="MAIN_CLASS_NAME" value="com.bio.PersonUtilsTest" />
+      <option name="METHOD_NAME" value="testIdToLowerCase" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -837,17 +856,17 @@
     <list>
       <item itemvalue="Tomcat Server.index.jsp" />
       <item itemvalue="Application.TestLog4j" />
-      <item itemvalue="JUnit.DBTest.test2" />
-      <item itemvalue="JUnit.DBTest" />
       <item itemvalue="Application.MD5" />
+      <item itemvalue="JUnit.JsonGenerate.testRegText" />
+      <item itemvalue="JUnit.PersonUtilsTest.testIdToLowerCase" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PersonUtilsTest.testIdToLowerCase" />
         <item itemvalue="Tomcat Server.index.jsp" />
+        <item itemvalue="JUnit.JsonGenerate.testRegText" />
         <item itemvalue="Application.TestLog4j" />
         <item itemvalue="Application.MD5" />
-        <item itemvalue="JUnit.DBTest" />
-        <item itemvalue="JUnit.DBTest.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -924,26 +943,11 @@
       <workItem from="1533220085249" duration="31989000" />
       <workItem from="1533564275992" duration="1976000" />
       <workItem from="1533567691878" duration="11113000" />
-      <workItem from="1534152417063" duration="19395000" />
+      <workItem from="1534152417063" duration="26091000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JsonGenerate_test1 - 2018.07.04 at 23h 05m 29s.xml">
-      <configuration name="JsonGenerate.test1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonGenerate_test1 - 2018.07.29 at 15h 52m 36s.xml">
-      <configuration name="JsonGenerate.test1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonGenerate_test1 - 2018.07.30 at 12h 51m 20s.xml">
-      <configuration name="JsonGenerate.test1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PersonUtilsTest_md5 - 2018.07.31 at 12h 33m 12s.xml">
-      <configuration name="PersonUtilsTest.md5" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DBTest_test2 - 2018.08.12 at 21h 18m 20s.xml">
-      <configuration name="DBTest.test2" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="DBTest_test2 - 2018.08.12 at 21h 18m 38s.xml">
       <configuration name="DBTest.test2" configurationId="JUnit" />
     </history-entry>
@@ -959,9 +963,24 @@
     <history-entry file="DBTest - 2018.08.14 at 23h 48m 23s.xml">
       <configuration name="DBTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="JsonGenerate_testRegText - 2018.08.15 at 10h 21m 17s.xml">
+      <configuration name="JsonGenerate.testRegText" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonGenerate_testRegText - 2018.08.15 at 10h 23m 36s.xml">
+      <configuration name="JsonGenerate.testRegText" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonGenerate_testRegText - 2018.08.15 at 10h 23m 51s.xml">
+      <configuration name="JsonGenerate.testRegText" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PersonUtilsTest_testIdToLowerCase - 2018.08.15 at 21h 06m 32s.xml">
+      <configuration name="PersonUtilsTest.testIdToLowerCase" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PersonUtilsTest_testIdToLowerCase - 2018.08.15 at 21h 07m 22s.xml">
+      <configuration name="PersonUtilsTest.testIdToLowerCase" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="497226000" />
+    <option name="totallyTimeSpent" value="503922000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -974,8 +993,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.66885966" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.66885966" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.19444445" side_tool="true" weight="0.2539342" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -985,7 +1005,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49027777" visible="true" weight="0.46415982" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49027777" weight="0.46415982" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.48766157" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1010,7 +1030,7 @@
       <window_info anchor="right" id="CDI" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
-      <window_info anchor="right" id="Maven Projects" order="11" visible="true" weight="0.20625" />
+      <window_info anchor="right" id="Maven Projects" order="11" weight="0.20625" />
       <window_info anchor="right" id="SciView" order="12" />
       <window_info anchor="right" id="Coverage" order="13" side_tool="true" />
     </layout>
@@ -1021,7 +1041,7 @@
       <window_info id="Image Layers" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
-      <window_info id="Web" order="6" sideWeight="0.33114034" side_tool="true" visible="true" weight="0.25" />
+      <window_info id="Web" order="6" sideWeight="0.33114034" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32969698" />
@@ -1112,12 +1132,6 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java</url>
-          <line>42</line>
-          <properties />
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp</url>
           <line>131</line>
           <properties />
@@ -1131,20 +1145,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/target/classes/com/bio/mapping/IPersonDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="104" selection-start-line="6" selection-start-column="104" selection-end-line="6" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/classes/com/bio/mapping/IWeChatUserDao.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1201,16 +1201,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/IPersonService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -1225,13 +1215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
           <caret line="88" column="34" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
-          <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1281,13 +1264,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-197">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1418,9 +1394,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logs/ssm.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/MultipleText.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1453,13 +1426,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/ValidatorRegex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
@@ -1467,27 +1433,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="142" column="35" selection-start-line="142" selection-start-column="35" selection-end-line="142" selection-end-column="35" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/logs/ssm.log">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/ValidatorRegex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="160" column="11" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="306">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/com.bio/MD5.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="198">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1496,24 +1455,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/com.bio/TestLog4j.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com.bio/JsonGenerate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="252">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="212" column="61" lean-forward="true" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
+        <state relative-caret-position="282">
+          <caret line="145" column="52" lean-forward="true" selection-start-line="145" selection-start-column="52" selection-end-line="145" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com.bio/JsonGenerate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/shiro/ShiroDbRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="34" column="76" selection-start-line="34" selection-start-column="76" selection-end-line="34" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9399" column="4" selection-start-line="9399" selection-start-column="4" selection-end-line="9399" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="136" column="28" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="216" column="31" lean-forward="true" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9909#9910#0" expanded="true" />
+            <element signature="e#9950#9951#0" expanded="true" />
+            <element signature="e#10017#10018#0" expanded="true" />
+            <element signature="e#10058#10059#0" expanded="true" />
+            <element signature="e#10149#10150#0" expanded="true" />
+            <element signature="e#10190#10191#0" expanded="true" />
           </folding>
         </state>
       </provider>
