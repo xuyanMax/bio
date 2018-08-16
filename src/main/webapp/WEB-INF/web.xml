@@ -72,7 +72,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
-    <!-- 此处可以配置成*.do，对应struts的后缀习惯 错误: /*-->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <!--获取微信Access_Token的Servlet-->

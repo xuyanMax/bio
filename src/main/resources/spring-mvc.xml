@@ -50,10 +50,8 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />
     </bean>
-    <!--shiro 缓存-->
-
+    <!--<mvc:default-servlet-handler/>-->
     <mvc:resources mapping="/images/**" location="/images/" />
-    <!--<mvc:resources mapping="/wx/**" location="/images/" />-->
 
     <!--配置拦截器-0607-管理员登陆验证设定, 未来Shiro框架替代-->
     <mvc:interceptors>

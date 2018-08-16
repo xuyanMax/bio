@@ -1,6 +1,7 @@
 package com.bio.controller.auth;
 
 import com.JsonGenerator.FetchData;
+import com.JsonGenerator.element.SurveyJson;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Admin;
@@ -275,6 +276,16 @@ public class Home {
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         return mv;
     }
+    @RequestMapping("/user/process/survey")
+    @ResponseBody
+    public Map<String, Object> processSurvey(HttpServletRequest request,
+                                             HttpServletResponse response,
+                                             @RequestBody SurveyJson surveyJson
+                                             ){
+        Map<String, Object> map = new HashMap<>();
+        System.out.println(surveyJson);
+        return map;
+    }
 
     @RequestMapping("/user/preferences")
     public String preference(){
@@ -288,7 +299,8 @@ public class Home {
 
     /*404 Page Not Found*/
     @RequestMapping("*")
-    public String _404PageNotFound(){
+    public String _404PageNotFound(HttpServletRequest request){
+        logger.warn(request.getRequestURL());
         return "views/errors/404";
     }
 }

@@ -131,16 +131,18 @@ Email|xuyanpeter0619@gmail.com
 1. __问卷调查__
     1. 规范题目中的正则表达式规则，以^开始$结束(^XXXX$).
     1. 处理用户提交的问卷答案信息
-    1. 添加每一道题目的错误提示(根据正则判断错误后给出的提示): 在`question`中以`#text`形式表示
-        1. 例题： `您的身份证号码为：_^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9x]$#请输入合法18位身份证号_`
+    1. 添加每一道填空题目的错误提示(根据正则判断错误后给出的提示): 
+        1. 在单项填空中`question`中以`#text`形式表示
+            1. 例题： `您的身份证号码为：_^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9x]$#请输入合法18位身份证号_`    
+        1. 多项填空中，`question`中以
     1. 数据库`options`列逗号半角、全角使用规则
         1. 例子：`否，未曾患良性乳腺疾病`,`乳腺增生`,`结节`,`导管扩张`,`良性纤维腺瘤`,`感染`,`囊肿`,`其他良性乳腺疾病`
         1. 如上，半角逗号用于隔断选项
     1. 数据库`question`列分号半角使用规则
         1. 半角(英文)用于分割`question`中的`blank`类多项填空题中的每一个问题.
-    1. `多项选择题`中填23空名称的截取规则: 
+    1. `多项选择题`中填名称的截取规则: 
         1. 填空名称(text)后为填空区域
-        1. 填空名称可以在`question`列中，以`#填空名称#`的形式截取。当前并没有修改数据库，有待探讨。
+        1. 填空名称可以在`question`列中，以`%填空名称%`的形式截取，如涉及输入提示，使用`#提示`标记。当前并没有修改数据库，有待探讨。
     1. 表格`table`类型题目，第一列需要制作下拉菜单的，在`options`中表示表格首列名称前加一个字母`d`
         1. 例子:`关系（d父母、同父母的兄弟姐妹、子女）,癌肿,患癌时间（XX年）`
         1. 如上，dropdown列，用顿号隔开选项. 表格的不同列用半角逗号隔开选项
@@ -206,6 +208,7 @@ tomcat
     1. 在tomcat中启动的线程，要设置为守护线程，否则通过`shutdown.sh`无法彻底关闭tomcat，需要借助`kill -9 pid`
 3. tomcat日志中文乱码
 修改 tomcat 的启动脚本 tomcat_dir/bin/catclina.sh  
+
 找到
 
 ```linux
@@ -470,7 +473,7 @@ http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
 **404PageNotFound**
 __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方式”__
 1. 定义一个拦截所有url的规则`@requestMapping("*")`，那么实际上不存在找不到的页面了，也就是永远不会进入noHandlerFound方法体内
-1. 为别的请求都配置上@requestMapping, 那么请求过来，要么进入精确匹配的method（也就是找的到的），要么进入@requestMapping("*)拦截的方法体内（也就是找不到的), 那么我们只要让@requestMapping("*)拦截的这个方法返回一个自定义的404界面就OK了
+1. 为别的请求都配置上@requestMapping, 那么请求过来，要么进入精确匹配的method（也就是找的到的），要么进入@requestMapping("*“)拦截的方法体内（也就是找不到的), 那么我们只要让@requestMapping("*)拦截的这个方法返回一个自定义的404界面就OK了
 
 **拦截器**
 
@@ -527,7 +530,7 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 可能是tomcat没完全开启就关闭，kill掉进程后重启
         1. netstat -aon
         1. kill -9 pid
-    1. 也可能找到jdk的bug，找到`jdk1.8.xx` 的安装路径，修改其子目录 /jre/lib/security/ 下的 “java.security” 文件中的 “securerandom.source=file:/dev/random” 为 “securerandom.source=file:/dev/./urandom “ (参考)[https://stackoverflow.com/questions/36566401/severe-could-not-contact-localhost8005-tomcat-may-not-be-running-error-while]
+    1. 也可能找到jdk的bug，找到`jdk1.8.xx` 的安装路径，修改其子目录 /jre/lib/security/ 下的 “java.security” 文件中的 “securerandom.source=file:/dev/random” 为 “securerandom.source=file:/dev/./urandom “ [参考](https://stackoverflow.com/questions/36566401/severe-could-not-contact-localhost8005-tomcat-may-not-be-running-error-while)
         1. `cd $JAVA_HOME/jre/lib/security`
         1. 管理员修改权限，`chmod 777 java.security`, 原权限为`chmod 644 java.security`
     1. 也可能，是tomcat内存不够 
@@ -565,7 +568,7 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 没有必做题
     1. __填空题__ 的输入会经由正则表达式判断，如果输入不符合要求，会弹出提示
     1. 问卷调查的最后一页，点击 __提交__
-1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` [正在]
+1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` [正在开发...]
 
 
 

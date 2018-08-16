@@ -26,6 +26,7 @@ public class FetchData {
     private static String COMMA = ",";//分割选项
     private static String HASH = "#";
     private static String DUNHAO = "、";
+    private static String PERCENTAGE = "%";
 
 
     //参考 www.cnblogs.com/guodefu909/p/5805667.html
@@ -62,12 +63,13 @@ public class FetchData {
 
             //获取数据
             int num_quest = 0;
+            Page page;
             List<BaseQuestion> elements = null;
             while (rs.next()) {
 
                 if (num_quest % NUM_PER_PAGE == 0){
-                    Page page = new Page();
-                    page.setName("page"+num_quest / NUM_PER_PAGE + "");
+                    page = new Page();
+                    page.setName("page" + num_quest / NUM_PER_PAGE);
                     elements = new ArrayList<>();
                     page.setElements(elements);
                     surveyJson.getPages().add(page);
@@ -75,9 +77,10 @@ public class FetchData {
                 num_quest++;
                 String question = rs.getString("question");
                 String type = rs.getString("types");
-                String description = rs.getString("note");
                 String opts= rs.getString("options");
+                String description = rs.getString("note");
                 String section = rs.getString("section");
+                String supporting = rs.getString("supporting");
                 //todo: 按照Section显示
                 if (type.equals("choice")){
 
@@ -108,7 +111,7 @@ public class FetchData {
                     if (size < 0) {
                         Text text = generateSingleText(num_quest, question, opts);
                         elements.add(text);
-                    }else { //size > 0 multipletext
+                    }else {
 
                         MultipleText multipleText = new MultipleText("question" + num_quest, generateMultiTextTitle(question));
 
@@ -140,18 +143,17 @@ public class FetchData {
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
         Text text = new Text("question" + num_quest,
-                question.substring(0, question.indexOf('_')) + "_");
+                question.substring(0, question.indexOf('_')) + question.substring(question.lastIndexOf('_'), question.indexOf(HASH)));
         //添加正则判断
         if (question.contains(REG_START) && question.contains(REG_END)) {
             int first = question.indexOf(REG_START);
             int sec = question.lastIndexOf(REG_END);//类似^[1-5]\d{1}$|^[1-9]$|^\/$
-            //正则截取包含起止^$符号
 
             String regex = question.substring(first, sec + 1);
             ValidatorRegex validatorRegex = new ValidatorRegex(regex);
 
-            if (opts.contains(HASH)) //添加错误提示
-                validatorRegex.setText(opts.substring(opts.indexOf(HASH) + 1));//错误提示
+            if (question.contains(HASH)) //添加错误提示
+                validatorRegex.setText(question.substring(opts.indexOf(HASH) + 1));//错误提示
 
             text.setValidators(validatorRegex);
         }
@@ -172,7 +174,6 @@ public class FetchData {
     }
     public static String generateMultiTextTitle(String question){
         String[] split = question.split(SEMI_COLUMN);
-        //todo: generate multitext title
         StringBuilder builder = new StringBuilder();
         for (int i=0; i<split.length; i++){
             builder.
@@ -185,7 +186,7 @@ public class FetchData {
     public static void generateMultiTextValidators(MultipleText multipleText, String question){
         String[] split = question.split(SEMI_COLUMN);
         for (int i=0; i<split.length; i++){
-            String regex = split[i].substring(split[i].indexOf(REG_START), split[i].indexOf(REG_END) + 1);
+            String regex = split[i].substring(split[i].indexOf(REG_START), split[i].lastIndexOf(REG_END) + 1);
             ValidatorRegex validator = new ValidatorRegex(regex);
             multipleText.getValidators().add(validator);
         }
@@ -193,21 +194,23 @@ public class FetchData {
     public static List<Item> multiTextAddItems(String question){
         if (question == null || question.equals(""))
             return new ArrayList<>();
-        String[] options = question.split(SEMI_COLUMN);
-        int size = options.length;
+        String[] subqustions = question.split(SEMI_COLUMN);
+        int size = subqustions.length;
         List<Item> items = new ArrayList<>();
-        //todo:获取title
+
         for (int i=0; i<size; i++) {
-            items.add(new Item("", ""));//设置名字为空
+            //todo:获取title
+            String name = subqustions[i].substring(subqustions[i].indexOf(PERCENTAGE), subqustions[i].lastIndexOf(PERCENTAGE));
+            items.add(new Item(name, name));//设置名字
 
-            if (options[i].contains(REG_START) && options[i].contains(REG_END)) {//添加正则表达
-                int first = options[i].indexOf(REG_START);
-                int second = options[i].indexOf(REG_END);
-                String regex = options[i].substring(first, second+1);
-                ValidatorRegex validatorRegex = new ValidatorRegex(regex.replace("\\\\", "\\"));
+            if (subqustions[i].contains(REG_START) && subqustions[i].contains(REG_END)) {//添加正则表达
+                int first = subqustions[i].indexOf(REG_START);
+                int second = subqustions[i].lastIndexOf(REG_END);
+                String regex = subqustions[i].substring(first, second+1);
+                ValidatorRegex validatorRegex = new ValidatorRegex(regex);
 
-                if (options[i].contains(HASH)) {//添加错误提示
-                    String text = options[i].substring(options[i].indexOf(HASH) + 1);
+                if (subqustions[i].contains(HASH)) {//添加错误提示
+                    String text = subqustions[i].substring(subqustions[i].indexOf(HASH) + 1);
                     validatorRegex.setText(text);//错误提示
                 }
                 items.get(i).getValidators().add(validatorRegex);
@@ -250,25 +253,5 @@ public class FetchData {
             column.setName(name);
             matrixDynamic.getColumns().add(column);
         }
-    }
-    public void output(String JSONString){
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/Users/apple/Downloads/json.txt")));
-            writer.write(JSONString);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                if (writer != null)
-                    writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 }

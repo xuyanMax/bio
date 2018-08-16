@@ -72,7 +72,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
             }
         %>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            <button type="submit" class="btn btn-primary btn-block">登陆</button>
         </div>
         <div class="form-group">
             <a href="/signupPage" class="btn btn-primary btn-block">注册</a>
