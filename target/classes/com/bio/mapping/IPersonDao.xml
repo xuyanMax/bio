@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bio.dao.IPersonDao">
+    <insert id="insertPerson">
+		insert into persons (name, gender, age, ID_code, sn_in_center, email, relative, tel1, tel2, global_sn, barcode) values (#{name}, #{gender}, #{age}, #{ID_code}, #{sn_in_center}, #{email}, #{relative}, #{tel1}, #{tel2}, #{global_sn}, #{barcode});
+	</insert>
+
+    <delete id="deletePersonByIdPerson">
+		delete from persons where idperson=#{xxx}
+	</delete>
+
+    <update id="updatePerson">
+		update persons set name=#{name}, age=#{age}, gender=#{gender}, tel1=#{tel1}, email=#{email}, barcode = #{barcode}, sn_in_center = #{sn_in_center}, global_sn = #{global_sn} where id=#{id}
+	</update>
+
+    <select id="selectAllPersons" resultType="com.bio.beans.Person">
+		select * from persons order by idperson desc
+	</select>
+
+    <select id="selectPersonByIdPerson" resultType="com.bio.beans.Person">
+		select * from persons where idperson=#{xxx}
+	</select>
+
+    <select id="selectPersonByID_code" resultType="com.bio.beans.Person">
+		select * from persons where ID_code=#{xxx} limit 1
+	</select>
+</mapper>

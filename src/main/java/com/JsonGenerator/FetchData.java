@@ -27,6 +27,7 @@ public class FetchData {
     private static String HASH = "#";
     private static String DUNHAO = "、";
     private static String PERCENTAGE = "%";
+    private static String UNDERSCORE ="_";
 
 
     //参考 www.cnblogs.com/guodefu909/p/5805667.html
@@ -142,8 +143,20 @@ public class FetchData {
         return JSONObject.toJSONString(surveyJson);
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
-        Text text = new Text("question" + num_quest,
-                question.substring(0, question.indexOf('_')) + question.substring(question.lastIndexOf('_'), question.indexOf(HASH)));
+        //todo: to check
+        String title;
+        if (question.lastIndexOf(UNDERSCORE) < question.length()-1
+            && question.indexOf(HASH) != question.lastIndexOf(UNDERSCORE) + 1){
+            title = question.substring(0, question.indexOf(UNDERSCORE)) + question.substring(question.lastIndexOf(UNDERSCORE), question.indexOf(HASH));
+        }else {
+            //todo: 数据库更新后，只需要这一句就够
+//            title = question.substring(0, question.indexOf(REG_START));
+            title = question.substring(0, question.indexOf(UNDERSCORE) + 1);
+        }
+        Text text = new Text(
+                "question" + num_quest,
+                title
+        );
         //添加正则判断
         if (question.contains(REG_START) && question.contains(REG_END)) {
             int first = question.indexOf(REG_START);
@@ -199,7 +212,7 @@ public class FetchData {
         List<Item> items = new ArrayList<>();
 
         for (int i=0; i<size; i++) {
-            //todo:获取title
+
             String name = subqustions[i].substring(subqustions[i].indexOf(PERCENTAGE), subqustions[i].lastIndexOf(PERCENTAGE));
             items.add(new Item(name, name));//设置名字
 
