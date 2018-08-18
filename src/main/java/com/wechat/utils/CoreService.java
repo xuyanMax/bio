@@ -130,7 +130,7 @@ public class CoreService {
                     newsMessage.setArticles(articles);
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
                     return respMessage;
-                } else if (content.equals("Flup")){
+                } else if (content.equalsIgnoreCase("flup")){
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
                     String url = WeChatUtils.url_snsapi_userinfo
                             .replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL)

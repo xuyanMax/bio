@@ -2,7 +2,7 @@ package com.bio.beans;
 
 public class WeChatUser {
     // 用户的标识
-    private String openId;
+    private String openid;
     // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
     private int subscribe;
     // 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
@@ -11,8 +11,6 @@ public class WeChatUser {
     private String nickname;
     // 用户的性别（1是男性，2是女性，0是未知）
     private int sex;
-    // 用户所在国家
-    private String country;
     // 用户所在省份
     private String province;
     // 用户所在城市
@@ -22,7 +20,7 @@ public class WeChatUser {
     // 用户头像
     private String headImgUrl;
     //只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
-    private String unionId;
+    private String unionid;
 
     private int idperson;
 
@@ -34,20 +32,20 @@ public class WeChatUser {
         this.idperson = idperson;
     }
 
-    public String getUnionId() {
-        return unionId;
+    public String getUnionid() {
+        return unionid;
     }
 
-    public void setUnionId(String unionId) {
-        this.unionId = unionId;
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
     }
 
-    public String getOpenId() {
-        return openId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public int getSubscribe() {
@@ -80,14 +78,6 @@ public class WeChatUser {
 
     public void setSex(int sex) {
         this.sex = sex;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getProvince() {
@@ -124,12 +114,11 @@ public class WeChatUser {
 
     @Override
     public String toString() {
-        return "WeChatUser=[openId=" + openId
+        return "WeChatUser=[openid=" + openid
                 + ", subscribe=" + subscribe
                 + ", nickname=" + nickname
                 + ", subscribe_time" + subscribeTime
                 + ", sex=" + sex
-                + ", country=" + country
                 + ", province=" + province
                 + ", city=" + city
                 + ", language=" + language

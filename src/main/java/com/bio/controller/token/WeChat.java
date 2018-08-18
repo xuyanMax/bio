@@ -110,7 +110,7 @@ public class WeChat {
      * @param request
      * @return
      */
-    @RequestMapping("/user/inf")
+    @RequestMapping("/info")
     public ModelAndView getOpenId(HttpServletRequest request,
                                   HttpServletResponse response,
                                   ModelMap modelMap){
@@ -129,33 +129,31 @@ public class WeChat {
         WeChatUser user = null;
         String openId = null;
 
-        if (code != null & !code.equals("")){
-            //1. 通过code参数获取access_token
-            authInfo = WeChatUtils.getOAuthInfoByCode(code);
+        //1. 通过code参数获取access_token
+        authInfo = WeChatUtils.getOAuthInfoByCode(code);
 
-            openId = authInfo.getOpenid();
+        openId = authInfo.getOpenid();
 
-            if (openId != null && !openId.equals("")) {
-                //2. 通过access_token获取用户的基本信息
-                user = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), authInfo.getOpenid());
-                if (user != null) {
-                    if (user.getOpenId() != null && !user.getOpenId().equals("")) {
-                        WeChatUser curr = iWeChatUserService.findWxUserByOpenId(user.getOpenId());
-                        if (curr != null) {//存在该用户，那么直接登陆
-                            //todo: 判断身份[可以单拎出来]
-                            //1. 判断是否为单位管理员
-                            //2. 是否为系统管理员
-                            //3. 是普通用户
-                            Person p = iPersonService.findPersonById(user.getIdperson());
-                            return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
-                        }
-                    }
-                }else{ //从微信服务器获取的用户为空
-                    //添加用户
+        if (openId != null && !openId.equals("")) {
+            //2. 通过access_token获取用户的基本信息
+            user = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openId);
+            logger.info(user);
+            if (user != null && user.getOpenid() != null && !user.getOpenid().equals("")) {
+                //todo: unionid | openid
+                WeChatUser currUser = iWeChatUserService.findWxUserByOpenId(user.getOpenid());
+                logger.info(currUser);
+                if (currUser != null) {//db存在该用户，那么直接登陆
+                    //todo: 判断身份[可以单拎出来]
+                    //1. 判断是否为单位管理员
+                    //2. 是否为系统管理员
+                    //3. 是普通用户
+                    Person p = iPersonService.findPersonById(user.getIdperson());
+                    return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
+                }else{//没在数据库中, 新注册用户，如何处理？？
                     Person p = new Person();
 
                     //todo:
-                    p.setID_code(user.getOpenId());
+                    p.setID_code(user.getOpenid());
                     p.setName(user.getNickname());
 
                     iPersonService.addPerson(p);
@@ -164,18 +162,23 @@ public class WeChat {
 
                     user.setIdperson(p.getIdperson());
 
+
                     iWeChatUserService.addWxUser(user);
 
-                  // todo: 判断用户权限
-                  return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
+                    // todo: 判断用户权限
+                    return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
                 }
-            }else{
-                logger.warn("获取的openId无效");
-            }
-        }else {
 
-            mv.setViewName("views/errors/error");
+            }else{ //从微信服务器获取的用户数据为空
+                logger.error("从微信服务器获取的用户数据为空");
+                mv.setViewName("views/errors/error");
+                return mv;
+            }
+        }else{
+            logger.warn("获取的openId无效");
         }
+        mv.setViewName("views/errors/error");
+        mv.addObject("error", "openid获取为null或者空!!!");
         return mv;
     }
     @RequestMapping("wx/login")

@@ -2,11 +2,13 @@ package com.bio.service;
 
 import com.bio.beans.WeChatUser;
 import com.bio.dao.IWeChatUserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class WeChatUserImp implements IWeChatUserService {
+    @Autowired
     private IWeChatUserDao iWeChatUserDao;
     @Override
     public void addWxUser(WeChatUser user) {
@@ -30,7 +32,7 @@ public class WeChatUserImp implements IWeChatUserService {
 
     @Override
     public WeChatUser findWxUserByOpenId(String openid) {
-        return iWeChatUserDao.selectWxUserByOpenId(openid);
+        return iWeChatUserDao.selectWxUserByOpenid(openid);
     }
 
     @Override

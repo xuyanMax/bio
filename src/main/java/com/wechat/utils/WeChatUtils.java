@@ -183,9 +183,8 @@ public class WeChatUtils {
             WeChatUser user = null;
             // 组装一个WeChatUser
             user = new WeChatUser();
-            user.setOpenId(jsonObject.getString("openid"));
+            user.setOpenid(jsonObject.getString("openid"));
             user.setCity(jsonObject.getString("city"));
-            user.setCountry(jsonObject.getString("country"));
             user.setProvince(jsonObject.getString("province"));
             user.setLanguage(jsonObject.getString("language"));
             user.setNickname(jsonObject.getString("nickname"));
@@ -218,9 +217,9 @@ public class WeChatUtils {
      * */
     public static OAuthInfo getOAuthInfoByCode(String code){
 
-        String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
+//        "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
 
-        url = url.replace("APPID", APPID_URL).replace("APP_SECRET", SECRET_URL);
+        String url = WeChatConstants.GET_WEBAUTH_URL.replace("CODE",code).replace("APPID", APPID_URL).replace("APP_SECRET", SECRET_URL);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
@@ -233,15 +232,16 @@ public class WeChatUtils {
     public static String url_get_user = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
 
     public static WeChatUser getUserByAccessTokenAndOpenId(String access_token, String openid){
-        url_get_user = url_get_user.replace("ACCESS_TOKEN", access_token).replace("OPENID", openid);
-        JSONObject jsonObject = httpRequest(url_get_user, "GET", null);
+        String url = url_get_user.replace("ACCESS_TOKEN", access_token).replace("OPENID", openid);
+        JSONObject jsonObject = httpRequest(url, "GET", null);
 
         if (jsonObject != null){
-            if (jsonObject.getString("errcode") != null) {
-                logger.info("通过access_token="+access_token+", openid="+openid+"获取了有效微信用户信息.");
+            if (jsonObject.getString("errcode") == null) {
+                logger.info("通过access_token=" + access_token + ", openid="+openid+"获取了有效微信用户信息.");
                 WeChatUser user = composeWeChatUser(jsonObject);
                 return user;
             }else{
+                logger.error(jsonObject.getString("errcode"));
                 logger.error("通过access_token="+access_token+", openid="+openid+"没能获取微信用户信息.");
             }
         }
@@ -254,16 +254,15 @@ public class WeChatUtils {
 
         WeChatUser user = new WeChatUser();
 
-        user.setOpenId(jsonObject.getString("openid"));
+        user.setOpenid(jsonObject.getString("openid"));
         user.setNickname(jsonObject.getString("nickname"));
         user.setSex(jsonObject.getIntValue("sex"));
         user.setProvince(jsonObject.getString("province"));
         user.setCity(jsonObject.getString("city"));
-        user.setCountry(jsonObject.getString("country"));
         user.setHeadImgUrl(jsonObject.getString("headimgurl"));
-        user.setUnionId(jsonObject.getString("unionId"));
+        user.setUnionid(jsonObject.getString("unionId"));
 
-        logger.info("composeWeChatUser()->openId=" + user.getOpenId());
+        logger.info("composeWeChatUser()->openId=" + user.getOpenid());
         logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
 
         return user;

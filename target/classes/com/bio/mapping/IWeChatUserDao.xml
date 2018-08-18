@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bio.dao.IWeChatUserDao">
     <insert id="insertWxUser">
-		insert into wechat (openid, unionid, sex, country, province, city, nickname, headImgUrl, language, subscribe, subscribe_time, idperson) values (#{openid}, #{unionid}, #{sex}, #{country}, #{province}, #{city}, #{nickname}, #{headImgUrl}, #{language}, #{subscribe}, #{subscribeTime}, #{idperson});
+		insert into wechat (openid, unionid, sex, province, city, nickname, headImgUrl, language, subscribe, subscribe_time, idperson) values (#{openid}, #{unionid}, #{sex}, #{province}, #{city}, #{nickname}, #{headImgUrl}, #{language}, #{subscribe}, #{subscribeTime}, #{idperson});
 	</insert>
 
     <delete id="deleteWxUserByOpenid">
@@ -12,7 +12,7 @@
 	</delete>
 
     <update id="updateWxUser">
-		update wechat set openid=#{openid}, sex=#{sex}, country=#{country}, city=#{city}, nickname=#{nickname}, headImgUrl = #{headImgUrl}, language = #{language}, subscribe = #{subscribe}, subscribe_time=#{subscribeTime} where idperson=#{idperson}
+		update wechat set openid=#{openid}, sex=#{sex}, city=#{city}, nickname=#{nickname}, headImgUrl = #{headImgUrl}, language = #{language}, subscribe = #{subscribe}, subscribe_time=#{subscribeTime} where idperson=#{idperson}
 	</update>
 
     <select id="selectAllWxUsers" resultType="com.bio.beans.WeChatUser">

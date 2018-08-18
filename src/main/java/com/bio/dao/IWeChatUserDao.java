@@ -14,7 +14,7 @@ public interface IWeChatUserDao {
 
     List<WeChatUser> selectAllWxUsers();
 
-    WeChatUser selectWxUserByOpenId(String openid);
+    WeChatUser selectWxUserByOpenid(String openid);
 
     WeChatUser selectWxUserByUnionid(String unionid);
     WeChatUser selectWxUserByIdwechat(int idwechat);
