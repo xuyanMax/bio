@@ -12,6 +12,7 @@ import com.bio.beans.WeChatUser;
 import com.wechat.utils.CheckTokenUtils;
 import com.bio.Utils.ClientInfoUtils;
 import com.wechat.utils.CoreService;
+import com.wechat.utils.WeChatConstants;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,43 @@ public class WeChat {
         pw.close();
 
     }
+    @RequestMapping("/auth")
+    public ModelAndView processCodeAndStateAndGetWxUserByAuthorization(HttpServletRequest request,
+                                                                       HttpServletResponse response,
+                                                                       ModelMap map){
+        ModelAndView mv = new ModelAndView();
+        String code = request.getParameter("code");
+        String url = WeChatConstants.GET_WEBAUTH_URL
+                .replace("APPID", WeChatConstants.appID)
+                .replace("SECRET", WeChatConstants.appSecret)
+                .replace("CODE", code);
+        JSONObject jsonObject = WeChatUtils.httpRequest(url, "GET", null);
+
+        if (jsonObject.getString("errcode") != null){
+            mv.setViewName("views/errors/error");
+            mv.addObject("error", jsonObject.getString("errmsg"));
+        }
+
+        String access_token = jsonObject.getString("access_token");
+        String openid = jsonObject.getString("openid");
+
+        String url2 = WeChatConstants.GET_WECHAT_USER_URI
+                .replace("ACCESS_TOKEN", access_token)
+                .replace("OPENID", openid);
+        jsonObject = WeChatUtils.httpRequest(url2, "GET", null);
+
+        if (jsonObject.getString("errcode") != null){
+            mv.setViewName("views/errors/error");
+            mv.addObject("error", jsonObject.getString("errmsg"));
+        }
+        WeChatUser user = WeChatUtils.composeWeChatUser(jsonObject);
+        logger.info(user);
+        //类似 /info
+
+
+
+        return mv;
+    }
     /**
      * 进行网页授权，便于获取到用户的绑定内容
      * 此为回调页面
@@ -111,9 +149,9 @@ public class WeChat {
      * @return
      */
     @RequestMapping("/info")
-    public ModelAndView getOpenId(HttpServletRequest request,
-                                  HttpServletResponse response,
-                                  ModelMap modelMap){
+    public ModelAndView processCodeAndStateAndFetchAccessTokenAndOpenidAndGetWxUser(HttpServletRequest request,
+                                                                                    HttpServletResponse response,
+                                                                                    ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
         logger.info("code="+code);

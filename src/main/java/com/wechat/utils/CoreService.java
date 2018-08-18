@@ -132,8 +132,8 @@ public class CoreService {
                     return respMessage;
                 } else if (content.equalsIgnoreCase("flup")){
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
-                    String url = WeChatUtils.url_snsapi_userinfo
-                            .replace("REDIRECT_URL", WeChatUtils.REDIRECT_URL)
+                    String url = WeChatConstants.Get_WEIXINPAGE_Code
+                            .replace("REDIRECT_URL", WeChatConstants.REDIRECT_URI_Auth)
                             .replace("APPID", TokenThread.appID);
                     logger.info("访问主页:"+url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");

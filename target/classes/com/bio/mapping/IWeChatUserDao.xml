@@ -19,7 +19,7 @@
 		select * from wechat order by idwechat desc
 	</select>
 
-    <select id="selectWxUserByOpenId" resultType="com.bio.beans.WeChatUser">
+    <select id="selectWxUserByOpenid" resultType="com.bio.beans.WeChatUser">
 		select * from wechat where openid=#{xxx}
 	</select>
 

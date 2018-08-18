@@ -219,7 +219,10 @@ public class WeChatUtils {
 
 //        "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
 
-        String url = WeChatConstants.GET_WEBAUTH_URL.replace("CODE",code).replace("APPID", APPID_URL).replace("APP_SECRET", SECRET_URL);
+        String url = WeChatConstants.GET_WEBAUTH_URL
+                                    .replace("CODE",code)
+                                    .replace("APPID", APPID_URL)
+                                    .replace("APP_SECRET", SECRET_URL);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
 

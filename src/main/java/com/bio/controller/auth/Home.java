@@ -276,7 +276,7 @@ public class Home {
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         return mv;
     }
-    @RequestMapping("/user/process/survey")
+    @RequestMapping("/process/survey")
     @ResponseBody
     public Map<String, Object> processSurvey(HttpServletRequest request,
                                              HttpServletResponse response,
@@ -287,7 +287,7 @@ public class Home {
         return map;
     }
 
-    @RequestMapping("/user/preferences")
+    @RequestMapping("/preferences")
     public String preference(){
         return "views/errors/404";
     }
