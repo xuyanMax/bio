@@ -1,6 +1,7 @@
 package com.bio.dao;
 
 import com.bio.beans.WeChatUser;
+import com.wechat.utils.WeChatUtils;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface IWeChatUserDao {
     WeChatUser selectWxUserByOpenid(String openid);
 
     WeChatUser selectWxUserByUnionid(String unionid);
+
     WeChatUser selectWxUserByIdwechat(int idwechat);
+
+    WeChatUser selectWxUserByIdperson(int idperson);
 
 }

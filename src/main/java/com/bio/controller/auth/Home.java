@@ -7,10 +7,8 @@ import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Admin;
 import com.bio.beans.LoginItem;
 import com.bio.beans.Person;
-import com.bio.service.IAdminService;
-import com.bio.service.ICenterService;
-import com.bio.service.ILoginService;
-import com.bio.service.IPersonService;
+import com.bio.beans.WeChatUser;
+import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
 import org.apache.ibatis.annotations.Param;
@@ -30,7 +28,6 @@ import java.util.Map;
 @Controller
 @SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 public class Home {
-//    todo: Logger
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
     private static final String ACCESS_TOKEN = "brbxyxzyz";
@@ -42,6 +39,8 @@ public class Home {
     ILoginService loginService;// need a @Service at LoginImpl.class
     @Autowired
     IAdminService adminService;
+    @Autowired
+    IWeChatUserService weChatUserService;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap map){
@@ -144,7 +143,6 @@ public class Home {
         return mv;
 
     }
-    //todo: 显示调查问卷页面
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
         ModelAndView mv = new ModelAndView();
@@ -189,11 +187,30 @@ public class Home {
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         map.addAttribute("vcode", vcode);
 
+        Person p = personService
+                .findPersonByID_code(
+                        PersonInfoUtils
+                                .md5(request
+                                        .getParameter("id_code")
+                                        .toLowerCase())
+                );
+        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
+
+        //todo: 添加openid, unionid处理
+        if (user.getOpenid() != null && !user.getOpenid().equals("")) {
+        }else{
+
+        }
+        if (p.getOpenid() != null )
+        if (p == null || p.getID_code() == null){
+            resMap.put("result", "-1");//idcode不匹配
+            return resMap;
+        }
+
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "POST", null, vcode);
-
-        logger.info("vcode sent to client: " + vcode);
         logger.info("http response: " + res);
+
         if (res != null && !res.equals("")){
             if (res.startsWith("1")){//success
                 resMap.put("result", "1");
@@ -236,32 +253,6 @@ public class Home {
         return resMap;
     }
 
-    @RequestMapping("/register")
-    public ModelAndView register(String name, String ID_code){
-        ModelAndView mv = new ModelAndView();
-        Person person = personService.findPersonByID_code(name);
-        //todo: 判别是否为单位管理员
-        if (person != null){
-            Integer idcenter = person.getIdcenter();
-
-            if (idcenter != null){
-                int cnt = centerService.findPersonInCentersByCenterid(idcenter);
-                if (cnt > 0) {
-                    logger.info(person.getName() + "为: 本地管理员管理员注册");
-                    mv.setViewName("");
-                    return mv;
-                }
-                else logger.info(person.getName() + "为：普通用户注册");
-            }else logger.warn("注册用户为: 普通用户");
-        }else{
-            logger.warn("注册用户为普通用户");
-        }
-        //todo: 判断普通用户的身份证号是否在单位管理员提交的身份证号列表中
-        mv.setViewName("views/success");
-        return mv;
-    }
-
-
     @RequestMapping("/logout")
     public String logout(@ModelAttribute("user") Person person,
                          SessionStatus sessionStatus){
@@ -270,7 +261,7 @@ public class Home {
         //返回登陆页面
         return "views/auth/login";
     }
-    //todo:注册
+
     @RequestMapping("/signupPage")
     public ModelAndView signUp(){
         ModelAndView mv = new ModelAndView("jsp/users/signup");
@@ -283,7 +274,7 @@ public class Home {
                                              @RequestBody SurveyJson surveyJson
                                              ){
         Map<String, Object> map = new HashMap<>();
-        System.out.println(surveyJson);
+        logger.info(surveyJson);
         return map;
     }
 

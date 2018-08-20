@@ -19,7 +19,7 @@ public class WeChatUser {
     private String language;
     // 用户头像
     private String headImgUrl;
-    //只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+    // 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
     private String unionid;
 
     private int idperson;

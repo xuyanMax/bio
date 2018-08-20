@@ -97,6 +97,7 @@
             var upload={};
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
+            upload.idcode = $("#id_code").val();
             $.ajax({
                 // async:false,//todo 异步变同步
                 type: "POST", //用POST方式传输
@@ -113,6 +114,10 @@
                         document.getElementById("vcode-error").className=' text-danger';
                         document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新发送";
                         alert("失败");
+                    }else if (data.result == '-1'){
+                        document.getElementById("id_code").className=' is-valid';
+                        document.getElementById("id-error").className=' text-danger';
+                        document.getElementById("id-error").innerText="没有您的预申请信息，请联系专属管理员。";
                     }
                 } //请求成功时执行的函数
             });

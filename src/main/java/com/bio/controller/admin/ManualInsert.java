@@ -49,7 +49,6 @@ public class ManualInsert {
             //list all uploaded users
             List<Person> persons = personService.findAllPersons();
             //测试输出：当前插入对象
-//            System.out.println(person);
             mv.addObject("message", "上传成功，请继续添加");
             mv.addObject("persons",persons);
         }

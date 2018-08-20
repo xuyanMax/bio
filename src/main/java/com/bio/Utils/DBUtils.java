@@ -1,9 +1,11 @@
 package com.bio.Utils;
 
 import com.bio.beans.Person;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBUtils {
+    private static Logger logger = Logger.getLogger(DBUtils.class);
     private static final int CONSTANT = 6;
     private static String sheetName = "下载队列成员信息表";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -122,10 +125,10 @@ public class DBUtils {
         String path = request.getServletContext().getRealPath("/data/");
 
         //测试: 上传文件名
-        System.out.println(path);
+        logger.info(path);
 
         String fileName = multipartFile.getOriginalFilename();
-        System.out.println(fileName);
+        logger.info(fileName);
         File filePath = new File(path, fileName);
         //判断路径是否存在，不存在则创建
         if (!filePath.getParentFile().exists()) {
@@ -139,7 +142,7 @@ public class DBUtils {
     }
     // output an excel file, containing all person's essential info
     public static void createExcelSheet(List<Person> persons) {
-        System.out.println(persons.size());
+        logger.info(persons.size());
         //1. 创建workbook，对应一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
         //2. 添加一个sheet
@@ -201,12 +204,12 @@ public class DBUtils {
         // 第六步，存储下载文件到指定位置
         // for macos: /Users/"你的用户"/Downloads/
         String path = System.getProperty("user.home")+"/Downloads/";
-        System.out.println(path);
+        logger.info(path);
         // todo: for mac
         try {
             FileOutputStream os = new FileOutputStream(path + FILE_NAME);
             workbook.write(os);//导出
-            System.out.println("已导出: " + FILE_NAME);
+            logger.info("已导出: " + FILE_NAME);
             os.close();//关闭输出流
         } catch (FileNotFoundException e) {
             e.printStackTrace();

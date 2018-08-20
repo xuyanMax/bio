@@ -2,6 +2,7 @@ package com.bio.controller.admin;
 
 import com.bio.beans.Person;
 import com.bio.service.IPersonService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +19,17 @@ public class UpdatePerson {
 
     @Autowired
     private IPersonService personService;
+    private static Logger logger = Logger.getLogger(UpdatePerson.class);
 
     @RequestMapping(value = "/update")
     public ModelAndView update(@RequestParam("idperson") int idperson){
-        System.out.println(idperson);
+        logger.info(idperson);
         ModelAndView mv = new ModelAndView();
 
         Person person = personService.findPersonById(idperson);
         mv.addObject("person", person);
 
-        //todo: updateUser.jsp page
-        System.out.println(person);
+        logger.info(person);
         mv.setViewName("jsp/upload/updatePerson");
         return mv;
     }
@@ -37,7 +38,7 @@ public class UpdatePerson {
                                      Person person){
         ModelAndView mv = new ModelAndView();
         //test
-        System.out.println(person);
+        logger.info(person);
         personService.modifyPerson(person);
         mv.addObject("message", "updated user "+ person);
         mv.setViewName("/views/success");
@@ -49,7 +50,7 @@ public class UpdatePerson {
         ModelAndView mv = new ModelAndView();
         Person person = personService.findPersonById(idperson);
         //test
-        System.out.println(person);
+        logger.info(person);
         mv.addObject("person", person);
         personService.removeById(idperson);
         mv.setViewName("views/success");
@@ -62,7 +63,7 @@ public class UpdatePerson {
         mv.addObject("persons", personList);
 
         //测试
-        System.out.println(personList);
+        logger.info(personList);
 
         mv.setViewName("views/personList");
         return mv;

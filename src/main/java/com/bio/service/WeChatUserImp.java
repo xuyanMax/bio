@@ -41,6 +41,11 @@ public class WeChatUserImp implements IWeChatUserService {
     }
 
     @Override
+    public WeChatUser findWxUserByIdperson(int idperson) {
+        return iWeChatUserDao.selectWxUserByIdperson(idperson);
+    }
+
+    @Override
     public WeChatUser findWxUserByIdwechat(int idwechat) {
         return iWeChatUserDao.selectWxUserByIdwechat(idwechat);
     }

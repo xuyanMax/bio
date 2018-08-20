@@ -49,12 +49,10 @@ public class FileUploadController{
         }
         else {
             // 0. 多文件逐个上传到服务器，不上传到db
-            // todo:如果不需要上传，则略过这一步
             Arrays.stream(files).forEach((f) -> DBUtils.uploadSingleFile(request, f));
 
             //1. 插入文件中数据到db前，调取数据库中的现有person
 //            List<Person> allPersons = personService.findAllPersons();
-            System.out.println("等待上传的user: /n" + readXls(request, files));
             logger.info("等待上传的user:" + readXls(request, files));
             //2. 插入数据库的数据，返回的数据全部从上传到server文件中获得
             List<Person> personsToUpload = readXls(request, files);
@@ -63,9 +61,6 @@ public class FileUploadController{
                 p.setGender(PersonInfoUtils.getGender(p.getOriginal_ID_code()));
                 p.setAge(PersonInfoUtils.getAge(p.getOriginal_ID_code()));
             });
-
-            //调用返回下载队列成员信息表的Controller页面
-            //返回信息中的原ID
 
             // add persons to model
             mv.addObject("persons", personsToUpload);

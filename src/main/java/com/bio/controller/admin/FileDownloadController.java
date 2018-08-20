@@ -1,6 +1,8 @@
 package com.bio.controller.admin;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.pattern.LogEvent;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,8 +23,8 @@ import java.util.Arrays;
 @Controller
 public class FileDownloadController {
 
+    private static Logger logger = Logger.getLogger(FileDownloadController.class);
     //下载数据库中包含所有person的Excel文件
-    // todo:
     @RequestMapping("/download")
     public ResponseEntity<byte[]> downloadFiles(
             HttpServletRequest request,
@@ -37,7 +39,7 @@ public class FileDownloadController {
         String downloadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
         //通知浏览器以attachment（下载方式）打开图片
         headers.setContentDispositionFormData("attachment", downloadFileName);
-        //application/octet-stream ： 二进制流数据（最常见的文件下载）。
+        //application/octet-stream F： 二进制流数据（最常见的文件下载）。
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
@@ -48,19 +50,19 @@ public class FileDownloadController {
     //reference: https://zhidao.baidu.com/question/54064551.html
     @RequestMapping(value = "/list")
     public ModelAndView listFiles(HttpServletRequest request){
-        System.out.println(request!=null);
+        logger.info(request!=null);
 
         ModelAndView mv = new ModelAndView();
         String filesPath = request.getSession().getServletContext().getRealPath("/data");
 
-        System.out.println(filesPath);
+        logger.info(filesPath);
 
         File file = new File(filesPath);
-        System.out.println(file.isDirectory());
+        logger.info(file.isDirectory());
         File[] files = file.listFiles();
 
         //test
-        System.out.println(files);
+        logger.info(files);
 
         String[] filesNames = file.list();
         Arrays.stream(filesNames).forEach(System.out::println);

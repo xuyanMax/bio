@@ -30,4 +30,8 @@
     <select id="selectWxUserByIdwechat" resultType="com.bio.beans.WeChatUser">
         select * from wechat where idwechat=#{0}
 	</select>
+
+	<select id="selectWxUserByIdperson" resultType="com.bio.beans.WeChatUser">
+        select * from wechat where idperson=#{0}
+	</select>
 </mapper>

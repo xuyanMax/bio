@@ -145,6 +145,7 @@ public class WeChat {
      * 进行网页授权，便于获取到用户的绑定内容
      * 此为回调页面
      * reference: https://blog.csdn.net/cs_hnu_scw/article/details/79103129
+     * https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
      * @param request
      * @return
      */
@@ -180,17 +181,15 @@ public class WeChat {
                 //todo: unionid | openid
                 WeChatUser currUser = iWeChatUserService.findWxUserByOpenId(user.getOpenid());
                 logger.info(currUser);
-                if (currUser != null) {//db存在该用户，那么直接登陆
-                    //todo: 判断身份[可以单拎出来]
+                if (currUser != null
+                        && currUser.getOpenid().equals(user.getOpenid())) {//db存在该用户，那么直接登陆
                     //1. 判断是否为单位管理员
                     //2. 是否为系统管理员
                     //3. 是普通用户
                     Person p = iPersonService.findPersonById(user.getIdperson());
                     return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
-                }else{//没在数据库中, 新注册用户，如何处理？？
+                }else{//todo: 没在数据库中, 新注册用户，如何处理？？
                     Person p = new Person();
-
-                    //todo:
                     p.setID_code(user.getOpenid());
                     p.setName(user.getNickname());
 
@@ -200,10 +199,8 @@ public class WeChat {
 
                     user.setIdperson(p.getIdperson());
 
-
                     iWeChatUserService.addWxUser(user);
 
-                    // todo: 判断用户权限
                     return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
                 }
 
