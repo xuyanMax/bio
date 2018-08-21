@@ -2,6 +2,7 @@ package com.bio.controller.token;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bio.beans.Admin;
+import com.bio.beans.Center;
 import com.bio.beans.Person;
 import com.bio.service.IAdminService;
 import com.bio.service.ICenterService;
@@ -36,16 +37,16 @@ public class WeChat {
     private static Logger logger = Logger.getLogger(WeChat.class);
 
     @Autowired
-    IWeChatUserService iWeChatUserService;
+    static IWeChatUserService iWeChatUserService;
 
     @Autowired
-    IPersonService iPersonService;
+    static IPersonService iPersonService;
 
     @Autowired
-    ICenterService iCenterService;
+    static ICenterService iCenterService;
 
     @Autowired
-    IAdminService iAdminService;
+    static IAdminService iAdminService;
 
     /**
      * 确认请求来自微信服务器
@@ -158,14 +159,14 @@ public class WeChat {
         logger.info("code="+code);
         logger.info("state="+request.getParameter("state"));
         if (code == null || code.equals("")){
-            logger.error("unauthorized user ");
+            logger.error("unauthorized wxUser ");
             mv.addObject("error", "Not Authorized.");
             mv.setViewName("views/errors/error");
             return mv;
         }
 
         OAuthInfo authInfo = new OAuthInfo();
-        WeChatUser user = null;
+        WeChatUser wxUser = null;
         String openId = null;
 
         //1. 通过code参数获取access_token
@@ -174,87 +175,81 @@ public class WeChat {
         openId = authInfo.getOpenid();
 
         if (openId != null && !openId.equals("")) {
-            //2. 通过access_token获取用户的基本信息
-            user = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openId);
-            logger.info(user);
-            if (user != null && user.getOpenid() != null && !user.getOpenid().equals("")) {
-                //todo: unionid | openid
-                WeChatUser currUser = iWeChatUserService.findWxUserByOpenId(user.getOpenid());
+            wxUser = iWeChatUserService.findWxUserByOpenId(openId);
+
+            //openid与WeChat表匹配, 登陆成功
+            if (wxUser != null && wxUser.getOpenid().equals(openId)){
+                //todo
+                return authorityCheck(wxUser.getIdperson(), mv, modelMap);
+            }
+            //不匹配
+            //2. 通过access_token获取微信用户的基本信息
+            wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openId);
+
+            logger.info(wxUser);
+
+            if (wxUser != null && wxUser.getUnionid() != null && !wxUser.getUnionid().equals("")) {
+                //todo: unionid
+                WeChatUser currUser = iWeChatUserService.findWxUserByUnionid(wxUser.getUnionid());
                 logger.info(currUser);
                 if (currUser != null
-                        && currUser.getOpenid().equals(user.getOpenid())) {//db存在该用户，那么直接登陆
-                    //1. 判断是否为单位管理员
-                    //2. 是否为系统管理员
-                    //3. 是普通用户
-                    Person p = iPersonService.findPersonById(user.getIdperson());
-                    return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
-                }else{//todo: 没在数据库中, 新注册用户，如何处理？？
-                    Person p = new Person();
-                    p.setID_code(user.getOpenid());
-                    p.setName(user.getNickname());
+                        && currUser.getUnionid().equals(wxUser.getUnionid())) {//db存在该用户，那么直接登陆
 
-                    iPersonService.addPerson(p);
-
-                    p = iPersonService.findPersonByID_code(p.getID_code());
-
-                    user.setIdperson(p.getIdperson());
-
-                    iWeChatUserService.addWxUser(user);
-
-                    return authorityCheck(p.getIdcenter(), mv, p, modelMap, user);
+                    //update wechat user's openid
+                    iWeChatUserService.modifyWxUser(wxUser);
+                    return authorityCheck(wxUser.getIdperson(), mv, modelMap);
+                }else{//todo: unionid不匹配，进入注册页面
+                    mv.setViewName("jsp/users/signup");
+                    return mv;
                 }
-
             }else{ //从微信服务器获取的用户数据为空
                 logger.error("从微信服务器获取的用户数据为空");
                 mv.setViewName("views/errors/error");
+                mv.addObject("error", "从微信服务器获取的用户数据为空");
                 return mv;
             }
         }else{
-            logger.warn("获取的openId无效");
+            logger.warn("获取的openid无效");
+            mv.setViewName("views/errors/error");
+            mv.addObject("error", "openid获取为null或者空!!!");
+            return mv;
         }
-        mv.setViewName("views/errors/error");
-        mv.addObject("error", "openid获取为null或者空!!!");
-        return mv;
     }
     @RequestMapping("wx/login")
     public void wxLogin(HttpServletRequest request,
                           HttpServletResponse response,
                           ModelMap map){
-        //send a http request, wx QR login page
-        logger.info("Start scanning authorization");
+        logger.info("正在尝试微信网页扫码登陆");
         WeChatUtils.wxLoginUrl(request, response);
 
-        logger.info("正在微信网页扫码登陆");
-
     }
-    public ModelAndView authorityCheck(Integer idcenter, ModelAndView mv, Person p, ModelMap modelMap, WeChatUser user){
-        if (idcenter != null){
-            int cnt = iCenterService.findPersonInCentersByCenterid(p.getIdcenter());
-            if (cnt > 0){
-                logger.info("user[name="+p.getName()+"]=local admin");
-                mv.setViewName("redirect:/home");
-                mv.addObject("user", user);
-                modelMap.addAttribute("username", p.getName());
-                modelMap.addAttribute("snAdmin", "snAdmin");
-                return mv;
-            }
-        }
-        // 判断sysAdmin身份
-        Admin admin  = iAdminService.selectAdminUser(p.getIdperson());
-        if (admin != null){
-            logger.info("Checking if login user's authority IS system admin");
-            mv = new ModelAndView("/jsp/sys_admin/sys");
-            modelMap.addAttribute("username", p.getName());
-            mv.addObject("user", user);
-            modelMap.addAttribute("sysAdmin",  admin.getIdadmin());
+
+    public static ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map){
+        Center center = iCenterService.findPersonInCentersByIdperson(idperson);
+        Person person = iPersonService.findPersonById(idperson);
+        logger.info(center);
+        logger.info(person);
+        if (center != null || center.getIdperson() == idperson){
+            mv.addObject("username", person.getName());
+            mv.addObject("user", person);
+            mv.addObject("snsAdmin", "snsAdmin");
+            mv.setViewName("../index");
             return mv;
         }
-        /*否则, 为普通用户*/
-        mv = new ModelAndView("/jsp/users/userHomePage");
-        modelMap.addAttribute("username", p.getName());
-        modelMap.addAttribute("user", user);
-        logger.info("IS a normal user");
-        return mv;
 
+        Admin admin = iAdminService.findAdminUser(idperson);
+        logger.info(admin);
+        if (admin != null && admin.getIdperson() == idperson){
+            mv.setViewName("/jsp/sys_admin/sys");
+            mv.addObject("user", person);
+            mv.addObject("username", person.getName());
+            mv.addObject("sys_admin", "sys_admin");
+            return mv;
+        }
+        //todo: 参加人员界面
+        mv.setViewName("/jsp/users/userHomePage");
+        mv.addObject("msg", "参加人临时员界面");
+
+        return mv;
     }
 }

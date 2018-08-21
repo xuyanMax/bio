@@ -52,7 +52,7 @@
     文件上传
     </a> <br/>
     <a href="admin/manualInsertPage" class="list-group-item list-group-item-action">手动输入用户信息</a><br/>
-    <a href="admin/displayUsers" class="list-group-item list-group-item-action">Display all persons</a><br/>
+    <%--<a href="admin/displayUsers" class="list-group-item list-group-item-action">Display all persons</a><br/>--%>
     <%--<a href="list" class="list-group-item list-group-item-action disabled" disabled="true">List uploaded files</a><br/>--%>
 </div>
 <%

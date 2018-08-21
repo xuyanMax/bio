@@ -8,6 +8,7 @@ import com.bio.beans.Admin;
 import com.bio.beans.LoginItem;
 import com.bio.beans.Person;
 import com.bio.beans.WeChatUser;
+import com.bio.controller.token.WeChat;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
@@ -72,76 +73,24 @@ public class Home {
         /*根据身份证号和姓名, 获取person对象*/
         Person person = personService
                                     .findPersonByID_code(
-                                            PersonInfoUtils.md5(ID_code.toLowerCase())
+                                            PersonInfoUtils.md5(ID_code.toUpperCase())
                                     );
 
         if (person == null){
             mv = new ModelAndView("views/auth/login");
-            mv.addObject("error", "非合法用户!!!");
-            /*logger*/
-            logger.info("非法用户尝试登陆!");
+            mv.addObject("error", "请先完成注册!");
+            logger.info("未来注册用户");
             return mv;
         }
         logger.info(person);
 
-        /*组装login item*/
         LoginItem loginItem = new LoginItem();
         loginItem.setIdperson(person.getIdperson());
         loginItem.setIp(ClientInfoUtils.getIpAddr(request));
         loginItem.setTime(ClientInfoUtils.getCurrDatetime());
         loginService.addLoginItem(loginItem);
-        /*组装结束*/
 
-        /*首先, 判断登陆用户是否为单位管理员*/
-        /*关联关系查询 sn_in_center在表centers中存在*/
-        Integer idcenter = person.getIdcenter();
-        String pname = person.getName();
-
-        logger.info("login user's idcenter="+idcenter);
-        logger.info("login user's name="+pname);
-
-         /*关联关系查询*/
-        if (idcenter != null){
-            logger.info("Checking if login user's authority is local admin");
-            //通过idcenter判断，该用户是否在centers表中，在则是单位管理员，否则不是单位管理员，可能为普通用户或系统管理员
-            int cnt = centerService.findPersonInCentersByCenterid(idcenter);
-            logger.info("return findPersonInCentersByCenterid()="+cnt);
-            // todo: 本单位内查重??
-            if (cnt > 0) {// 说明其sn_in_center在centers表中存在
-                logger.info("login user's authority IS local admin");
-                mv = new ModelAndView("redirect:/home");
-                mv.addObject("user", person);
-                mv.addObject("username", person.getName());
-                mv.addObject("snAdmin", "snAdmin");
-                /*添加session attribute*/
-                modelMap.addAttribute("user", person);
-                modelMap.addAttribute("username", person.getName());
-                modelMap.addAttribute("snAdmin", "snAdmin");
-                //前往snAdmin主页面
-                return mv;
-            }
-        }
-        /**
-        * 接下来, 判断用户是否为系统管理员
-        * */
-        //关联关系查询 idperson是否在表admin中存在
-        Admin admin  = adminService.selectAdminUser(person.getIdperson());
-        if (admin !=null && admin.getIdperson() == person.getIdperson()){
-            // go to sysAdmin home page
-            logger.info("Checking if login user's authority IS system admin");
-            mv = new ModelAndView("/jsp/sys_admin/sys");
-            modelMap.addAttribute("username", person.getName());
-            mv.addObject("user", person);
-            modelMap.addAttribute("sysAdmin",  admin.getIdadmin());
-            return mv;
-        }
-        /*否则, 为普通用户*/
-        mv = new ModelAndView("/jsp/users/userHomePage");
-        modelMap.addAttribute("username", person.getName());
-        modelMap.addAttribute("user", person);
-        logger.info("Checking if login user's authority IS normal user");
-        return mv;
-
+        return WeChat.authorityCheck(person.getIdperson(), mv, modelMap);
     }
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
@@ -170,7 +119,31 @@ public class Home {
         return map;
     }
 
+    @RequestMapping("/signupPage")
+    public ModelAndView signUp(){
+        ModelAndView mv = new ModelAndView("jsp/users/signupIdCode");
+        return mv;
+    }
 
+    @RequestMapping("signupPageFollowed")
+    public ModelAndView signUpFollowed(HttpServletRequest request,
+                                       String idcode){
+        ModelAndView mv = new ModelAndView("jsp/users/signup");
+        mv.addObject("idcode", idcode);
+        return mv;
+    }
+    @RequestMapping("register/idcheck")
+    @ResponseBody
+    public Map<String, Object> registerIdcodeCheck(HttpServletRequest request,
+                                                   String idcode){
+        String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
+        Person p = personService.findPersonByID_code(md5);
+        Map<String, Object> result = new HashMap<>();
+        if (p != null && p.getID_code().equals(md5))
+            result.put("result", "1");
+        else result.put("result", "0");
+        return result;
+    }
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;
     //0;失败...
@@ -179,10 +152,12 @@ public class Home {
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
                                            ModelMap map,
                                            String vcode,
-                                           String phone){
+                                           String phone,
+                                           String idcode){
         Map<String, Object> resMap = new HashMap<>();
         logger.info("phone number:" + phone);
         logger.info("vcode to be sent to phone:" + vcode);
+        logger.info("national id:" + idcode);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         map.addAttribute("vcode", vcode);
@@ -190,18 +165,16 @@ public class Home {
         Person p = personService
                 .findPersonByID_code(
                         PersonInfoUtils
-                                .md5(request
-                                        .getParameter("id_code")
-                                        .toLowerCase())
+                                .md5(idcode.toUpperCase())
                 );
         WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
 
         //todo: 添加openid, unionid处理
         if (user.getOpenid() != null && !user.getOpenid().equals("")) {
+
         }else{
 
         }
-        if (p.getOpenid() != null )
         if (p == null || p.getID_code() == null){
             resMap.put("result", "-1");//idcode不匹配
             return resMap;
@@ -241,7 +214,7 @@ public class Home {
                 String name = (String) map.get("name");
                 String phone = (String) map.get("phone");
                 Person person = new Person();
-                person.setID_code(PersonInfoUtils.md5(id_code.toLowerCase()));
+                person.setID_code(PersonInfoUtils.md5(id_code.toUpperCase()));
                 person.setName(name);
                 person.setTel1(phone);
 //                personService.addPerson(person);
@@ -260,12 +233,6 @@ public class Home {
         sessionStatus.setComplete();
         //返回登陆页面
         return "views/auth/login";
-    }
-
-    @RequestMapping("/signupPage")
-    public ModelAndView signUp(){
-        ModelAndView mv = new ModelAndView("jsp/users/signup");
-        return mv;
     }
     @RequestMapping("/process/survey")
     @ResponseBody

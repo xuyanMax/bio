@@ -10,7 +10,7 @@ public class AdminService implements IAdminService {
     @Autowired
     IAdminDao adminDao;
     @Override
-    public Admin selectAdminUser(int idperson) {
-        return adminDao.findAdminUser(idperson);
+    public Admin findAdminUser(int idperson) {
+        return adminDao.selectAdminUser(idperson);
     }
 }

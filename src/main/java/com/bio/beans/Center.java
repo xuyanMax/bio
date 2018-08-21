@@ -3,6 +3,15 @@ package com.bio.beans;
 public class Center {
     private int centerid;
     private String center;
+    private int idperson;
+
+    public int getIdperson() {
+        return idperson;
+    }
+
+    public void setIdperson(int idperson) {
+        this.idperson = idperson;
+    }
 
     public String getCenter() {
         return center;
@@ -77,14 +86,16 @@ public class Center {
 
     @Override
     public String toString() {
-        return "center [center_id=" +centerid
-                +", center="+center
-                +", postcode="+postcode
-                +", local_num="+local_num
-                +", admin_name="+admin_name
-                +", admin_tel="+admin_tel
-                +", sup2="+sup2
-                +", sup3="+sup3
-                +"]";
+        return "Center{" +
+                "centerid=" + centerid +
+                ", center='" + center + '\'' +
+                ", idperson=" + idperson +
+                ", postcode=" + postcode +
+                ", local_num=" + local_num +
+                ", admin_name='" + admin_name + '\'' +
+                ", admin_tel='" + admin_tel + '\'' +
+                ", sup2=" + sup2 +
+                ", sup3='" + sup3 + '\'' +
+                '}';
     }
 }

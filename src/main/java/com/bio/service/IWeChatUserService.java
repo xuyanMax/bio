@@ -21,6 +21,4 @@ public interface IWeChatUserService {
 
     WeChatUser findWxUserByIdperson(int idperson);
 
-
-
 }
