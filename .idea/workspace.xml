@@ -5,61 +5,17 @@
       <artifact name="bio:war" />
     </artifacts-to-build>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" line="219" mnemonic="1" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/beans/Center.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/Center.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/dao/IAdminDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/dao/IAdminDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/dao/ICenterDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/dao/ICenterDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IAdminDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IAdminDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/mapping/ICenterDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/ICenterDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/service/CenterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/CenterImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/service/IAdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/IAdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/service/ICenterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/ICenterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/service/IWeChatUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/IWeChatUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/beans/Center.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/beans/Center.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/beans/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/beans/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/token/WeChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/token/WeChat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/dao/IAdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/dao/IAdminDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/dao/ICenterDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/dao/ICenterDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/dao/IWeChatUserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/dao/IWeChatUserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/mapping/IAdminDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/mapping/IAdminDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/mapping/ICenterDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/mapping/ICenterDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/mapping/IWeChatUserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/mapping/IWeChatUserDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/AdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/CenterImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/CenterImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/IAdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/IAdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/ICenterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/ICenterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/IWeChatUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/IWeChatUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/WeChatUserImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/WeChatUserImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/beans/Center.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/beans/Center.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/beans/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/beans/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/token/WeChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/token/WeChat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IAdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IAdminDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/ICenterDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/ICenterDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IWeChatUserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IWeChatUserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IAdminDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IAdminDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/ICenterDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/ICenterDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IWeChatUserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IWeChatUserDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/AdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/CenterImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/CenterImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IAdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IAdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/ICenterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/ICenterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IWeChatUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IWeChatUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/WeChatUserImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/WeChatUserImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/userHomePage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/userHomePage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -102,47 +58,47 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="24" />
-          <entry key="java" value="282" />
+          <entry key="java" value="285" />
           <entry key="js" value="4" />
-          <entry key="jsp" value="55" />
+          <entry key="jsp" value="58" />
           <entry key="log" value="7" />
           <entry key="md" value="2" />
           <entry key="properties" value="12" />
-          <entry key="ts" value="4" />
-          <entry key="xml" value="56" />
+          <entry key="ts" value="5" />
+          <entry key="xml" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="24" />
-          <entry key="JAVA" value="282" />
-          <entry key="JSP" value="55" />
+          <entry key="JAVA" value="285" />
+          <entry key="JSP" value="58" />
           <entry key="JavaScript" value="4" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="Properties" value="12" />
-          <entry key="TypeScript" value="4" />
-          <entry key="XML" value="56" />
+          <entry key="TypeScript" value="5" />
+          <entry key="XML" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="4" />
-          <entry key="java" value="16234" />
-          <entry key="jsp" value="4095" />
+          <entry key="java" value="17513" />
+          <entry key="jsp" value="4643" />
           <entry key="log" value="2" />
           <entry key="properties" value="51" />
-          <entry key="xml" value="657" />
+          <entry key="xml" value="658" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="16234" />
-          <entry key="JSP" value="4095" />
+          <entry key="JAVA" value="17513" />
+          <entry key="JSP" value="4643" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="Properties" value="51" />
           <entry key="SQL" value="1" />
-          <entry key="XML" value="656" />
+          <entry key="XML" value="657" />
         </counts>
       </usages-collector>
     </session>
@@ -155,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="224" column="5" lean-forward="true" selection-start-line="224" selection-start-column="5" selection-end-line="224" selection-end-column="5" />
+            <state relative-caret-position="356">
+              <caret line="199" column="50" selection-start-line="199" selection-start-column="50" selection-end-line="199" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,18 +120,47 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
+            <state relative-caret-position="502">
+              <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8798#8799#0" expanded="true" />
-                <element signature="e#8839#8840#0" expanded="true" />
-                <element signature="e#8906#8907#0" expanded="true" />
-                <element signature="e#8947#8948#0" expanded="true" />
+                <element signature="e#766#767#0" expanded="true" />
+                <element signature="e#796#797#0" expanded="true" />
+                <element signature="e#1096#1097#0" expanded="true" />
+                <element signature="e#1146#1147#0" expanded="true" />
+                <element signature="e#1188#1189#0" expanded="true" />
+                <element signature="e#1547#1548#0" expanded="true" />
+                <element signature="e#1573#1574#0" expanded="true" />
+                <element signature="e#1611#1612#0" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-640" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -183,17 +168,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
+            <state relative-caret-position="414">
               <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="104" column="34" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="34" />
+            <state relative-caret-position="263">
+              <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="139" column="26" lean-forward="true" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="131" column="21" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -201,20 +207,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="101" column="97" lean-forward="true" selection-start-line="101" selection-start-column="97" selection-end-line="101" selection-end-column="97" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="172">
-                <caret line="490" column="8" selection-start-line="490" selection-start-column="8" selection-end-line="490" selection-end-column="8" />
-              </first_editor>
-              <second_editor />
+            <state relative-caret-position="99">
+              <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -233,13 +227,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>请求</find>
-      <find>/auth</find>
-      <find>getOpenId</find>
-      <find>getOpenid</find>
-      <find>regist</find>
-      <find>registre</find>
-      <find>sms</find>
       <find>re</find>
       <find>read</find>
       <find>readXls</find>
@@ -255,14 +242,21 @@
       <find>survey</find>
       <find>sign</find>
       <find>check</find>
-      <find>toLower</find>
       <find>toLow</find>
       <find>/signup</find>
       <find>register</find>
       <find>Upper</find>
+      <find>toLower</find>
+      <find>Login</find>
       <find>signup</find>
-      <find>login</find>
       <find>/sms</find>
+      <find>/Login</find>
+      <find>login</find>
+      <find>authority</find>
+      <find>wechat`</find>
+      <find>checkV</find>
+      <find>idcheck</find>
+      <find>disable</find>
     </findStrings>
     <replaceStrings>
       <replace>small</replace>
@@ -304,7 +298,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/PersonDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/jdbc.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/MyContextListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/thread/TokenThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/thread/MenuThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/AccessTokenUtil.java" />
@@ -317,12 +310,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/FetchData.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors/error.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/CoreService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/WeChatConstants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/admin/FileUploadController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/admin/UpdatePerson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/admin/FileDownloadController.java" />
@@ -348,10 +339,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bio/service/IWeChatUserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/IWeChatUserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" />
       </list>
     </option>
   </component>
@@ -519,6 +513,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="interceptor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
               <item name="mapping" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -530,6 +534,16 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="bio" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -693,7 +707,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/apple/Documents/workspace/bio/src/main/java/com/bio/controller/token/WeChat.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534815001616" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534862749716" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -1051,7 +1065,7 @@
       <workItem from="1534440133558" duration="2459000" />
       <workItem from="1534481545729" duration="19074000" />
       <workItem from="1534644962434" duration="319000" />
-      <workItem from="1534701202297" duration="21505000" />
+      <workItem from="1534701202297" duration="35551000" />
     </task>
     <servers />
   </component>
@@ -1088,7 +1102,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="559544000" />
+    <option name="totallyTimeSpent" value="573590000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1112,7 +1126,7 @@
       <window_info id="Web" order="6" sideWeight="0.33114034" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" visible="true" weight="0.32902467" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32902467" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49027777" weight="0.44770858" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.48766157" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -1152,8 +1166,8 @@
       <window_info id="Web" order="6" sideWeight="0.33114034" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32902467" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49027777" visible="true" weight="0.44770858" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" visible="true" weight="0.32902467" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49027777" weight="0.44770858" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.48766157" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1178,7 +1192,7 @@
       <window_info anchor="right" id="CDI" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.3297568" />
-      <window_info anchor="right" id="Maven Projects" order="11" visible="true" weight="0.07569444" />
+      <window_info anchor="right" id="Maven Projects" order="11" weight="0.07569444" />
       <window_info anchor="right" id="SciView" order="12" />
       <window_info anchor="right" id="Coverage" order="13" side_tool="true" />
     </layout-to-restore>
@@ -1235,27 +1249,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/PersonImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/LoginImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/thread/MessageThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/utils/WeChatConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1277,13 +1270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/model/AccessToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -1298,24 +1284,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="178" column="35" lean-forward="true" selection-start-line="178" selection-start-column="35" selection-end-line="178" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bootstrap-3.3.7-dist/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="1575" column="30" selection-start-line="1575" selection-start-column="30" selection-end-line="1575" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -1397,13 +1369,6 @@
             <element signature="e#2226#2227#0" expanded="true" />
             <element signature="e#2262#2263#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1590,13 +1555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1607,41 +1565,102 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="224" column="5" lean-forward="true" selection-start-line="224" selection-start-column="5" selection-end-line="224" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="173">
+          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-640" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="101" column="97" lean-forward="true" selection-start-line="101" selection-start-column="97" selection-end-line="101" selection-end-column="97" />
+        <state relative-caret-position="99">
+          <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="104" column="34" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="34" />
+        <state relative-caret-position="197646">
+          <caret line="11056" column="4" selection-start-line="11056" selection-start-column="4" selection-end-line="11056" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/upload/manualInsertion.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="139" column="26" lean-forward="true" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/WeChatUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+          <folding>
+            <element signature="e#766#767#0" expanded="true" />
+            <element signature="e#796#797#0" expanded="true" />
+            <element signature="e#1096#1097#0" expanded="true" />
+            <element signature="e#1146#1147#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1547#1548#0" expanded="true" />
+            <element signature="e#1573#1574#0" expanded="true" />
+            <element signature="e#1611#1612#0" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="199" column="50" selection-start-line="199" selection-start-column="50" selection-end-line="199" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
+        <state relative-caret-position="472">
+          <caret line="131" column="21" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8798#8799#0" expanded="true" />
-            <element signature="e#8839#8840#0" expanded="true" />
-            <element signature="e#8906#8907#0" expanded="true" />
-            <element signature="e#8947#8948#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
         </state>
       </provider>
     </entry>

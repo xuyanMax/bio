@@ -4,7 +4,6 @@ import com.JsonGenerator.FetchData;
 import com.JsonGenerator.element.SurveyJson;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
-import com.bio.beans.Admin;
 import com.bio.beans.LoginItem;
 import com.bio.beans.Person;
 import com.bio.beans.WeChatUser;
@@ -27,7 +26,7 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode", "idcode"})/*单位管理员，系统管理员*/
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -90,7 +89,7 @@ public class Home {
         loginItem.setTime(ClientInfoUtils.getCurrDatetime());
         loginService.addLoginItem(loginItem);
 
-        return WeChat.authorityCheck(person.getIdperson(), mv, modelMap);
+        return WeChat.authorityCheck(person.getIdperson(), mv, modelMap, null);
     }
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
@@ -108,7 +107,7 @@ public class Home {
         return mv;
     }
 
-    //todo:
+    //todo:not in use
     @RequestMapping("/survey/upload")
     @ResponseBody
     public Map<String, Object> processJSONSurvey(HttpServletResponse response,
@@ -125,11 +124,13 @@ public class Home {
         return mv;
     }
 
-    @RequestMapping("signupPageFollowed")
+    @RequestMapping("/signupPageFollowed")
     public ModelAndView signUpFollowed(HttpServletRequest request,
-                                       String idcode){
+                                       String idcode,
+                                       ModelMap map){
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", idcode);
+        map.put("idcode", idcode);
         return mv;
     }
     @RequestMapping("register/idcheck")
@@ -167,22 +168,26 @@ public class Home {
                         PersonInfoUtils
                                 .md5(idcode.toUpperCase())
                 );
+        logger.info(p);
+
+        //单位选择按钮disable
+        if (p == null || p.getID_code() == null){
+            resMap.put("openid", "0");//idcode不匹配
+            return resMap;
+        }
+
         WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
 
+        logger.info(user);
+
         //todo: 添加openid, unionid处理
-        if (user.getOpenid() != null && !user.getOpenid().equals("")) {
-
-        }else{
-
-        }
-        if (p == null || p.getID_code() == null){
-            resMap.put("result", "-1");//idcode不匹配
-            return resMap;
+        if (user.getOpenid() == null || user.getOpenid().equals("")) {
+            logger.error("user.openid="+user.getOpenid());
         }
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "POST", null, vcode);
-        logger.info("http response: " + res);
+        logger.info("http =" + res);
 
         if (res != null && !res.equals("")){
             if (res.startsWith("1")){//success
@@ -199,7 +204,10 @@ public class Home {
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                   HttpServletRequest request,
                                   ModelMap map,
-                                  String vcode){
+                                  String vcode, String openid, String unionid, String headImgUrl,
+                                  String city, String province, int idperson,
+                                  String nickname, String subscribe, String subscribeTime,
+                                                  String sex, String language){
         logger.info("sessionVCode="+map.get("vcode"));
         logger.info("Actual vcode="+vcode);
 
@@ -209,15 +217,24 @@ public class Home {
         String sessionVcode = (String) map.get("vcode");
         if (sessionVcode!=null && vcode!=null){
             if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
-                // todo: 注册用户到数据库
-                String id_code = (String) map.get("id");
-                String name = (String) map.get("name");
-                String phone = (String) map.get("phone");
-                Person person = new Person();
-                person.setID_code(PersonInfoUtils.md5(id_code.toUpperCase()));
-                person.setName(name);
-                person.setTel1(phone);
-//                personService.addPerson(person);
+                // 添加注册用户到wechat表
+                WeChatUser weChatUser = new WeChatUser();
+                weChatUser.setIdperson(idperson);
+                weChatUser.setOpenid(openid);
+                weChatUser.setUnionid(unionid);
+                weChatUser.setCity(city);
+                weChatUser.setNickname(nickname);
+                weChatUser.setProvince(province);
+                weChatUser.setSex(sex);
+                weChatUser.setHeadImgUrl(headImgUrl);
+                weChatUser.setLanguage(language);
+                weChatUser.setSubscribeTime(subscribeTime);
+                weChatUser.setSubscribe(subscribe);
+
+                logger.info(weChatUser);
+
+                weChatUserService.addWxUser(weChatUser);
+
                 resMap.put("result", 1);
             }
             else

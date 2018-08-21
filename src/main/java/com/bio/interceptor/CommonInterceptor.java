@@ -47,10 +47,16 @@ public class CommonInterceptor implements HandlerInterceptor {
          /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
         if (url.contains("login")){
             if (username != null) {
-                logger.info(username + "has logged in.");
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
                 logger.info("=====interceptor ends======");
             } else
+                return true;
+        }
+        //todo: contains idcode
+        if (url.contains("signupPageFollowed")) {
+            if (httpServletRequest.getSession().getAttribute("idcode") == null){
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/signupPage");
+            }else
                 return true;
         }
         //其他情况判断session中是否有key，有的话继续用户的操作
@@ -58,7 +64,6 @@ public class CommonInterceptor implements HandlerInterceptor {
             return true;
 
         //最后的情况就是进入登录页面
-        logger.warn("goes to login page");
         logger.info("=====interceptor end======");
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
         return false;//重定向

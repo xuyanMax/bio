@@ -57,6 +57,17 @@
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
             <small class="help-block" id="id-error"></small>
         </div>
+        <div class="form-group" id="unit_div">
+            <label class="">
+                <input type="radio" class="form-control" required id="unit1" name="unit_select" id="unit1" value="0">单位1
+            </label>
+            <label class="">
+                <input type="radio" class="form-control" required id="unit2" name="unit_select" id="unit2" value="1">单位2
+            </label>
+            <label class="">
+                <input type="radio" class="form-control" required id="unit3" name="unit_select" id="unit3" value="2">单位3
+            </label>
+        </div>
         <div class="form-group" id="tel_div">
             <input type="text" onchange="checkOnSignUp()" class="form-control" placeholder="手机号码" name="phone" id="phone" required>
             <small class="help-block" id="tel-error"></small>
@@ -93,13 +104,12 @@
             for ( var i=0; i<codeLength; i++)
                 vcode += parseInt(Math.random()*9).toString();
             // alert(vcode);
-            // 向后台发送处理数据
+
             var upload={};
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
             upload.idcode = $("#id_code").val();
             $.ajax({
-                // async:false,//todo 异步变同步
                 type: "POST", //用POST方式传输
                 dataType: "json", //数据格式:JSON
                 url: "register/sms", //目标地址
@@ -141,8 +151,18 @@
             upload.phone = $("#phone").val();
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
+            upload.opd = ${wxuser.openid}
+            upload.uid = ${wxuser.unionid};
+            upload.subs = ${wxuser.subscribe};
+            upload.sub_time = ${wxuser.subscribeTime};
+            upload.city = ${wxuser.city};
+            upload.nickname = ${wxuser.nickname};
+            upload.headImgUrl = ${wxuser.headImgUrl};
+            upload.province = ${wxuser.province};
+            upload.sex = ${wxuser.sex}
+            upload.language = ${wxuser.language};
+
             $.ajax({
-                // async:false,
                 type: "POST",
                 dataType: "json",
                 url: "register/checkVcode",
@@ -160,8 +180,6 @@
                     }
                 }
             });
-            // ev.preventDefault();
-
         });
     });
 

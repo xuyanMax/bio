@@ -137,9 +137,6 @@ public class WeChat {
         WeChatUser user = WeChatUtils.composeWeChatUser(jsonObject);
         logger.info(user);
         //类似 /info
-
-
-
         return mv;
     }
     /**
@@ -180,7 +177,7 @@ public class WeChat {
             //openid与WeChat表匹配, 登陆成功
             if (wxUser != null && wxUser.getOpenid().equals(openId)){
                 //todo
-                return authorityCheck(wxUser.getIdperson(), mv, modelMap);
+                return authorityCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
             }
             //不匹配
             //2. 通过access_token获取微信用户的基本信息
@@ -189,7 +186,7 @@ public class WeChat {
             logger.info(wxUser);
 
             if (wxUser != null && wxUser.getUnionid() != null && !wxUser.getUnionid().equals("")) {
-                //todo: unionid
+                //ByUnionid
                 WeChatUser currUser = iWeChatUserService.findWxUserByUnionid(wxUser.getUnionid());
                 logger.info(currUser);
                 if (currUser != null
@@ -197,9 +194,11 @@ public class WeChat {
 
                     //update wechat user's openid
                     iWeChatUserService.modifyWxUser(wxUser);
-                    return authorityCheck(wxUser.getIdperson(), mv, modelMap);
-                }else{//todo: unionid不匹配，进入注册页面
+                    return authorityCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
+                }else{// unionid不匹配，进入注册页面
+                    //todo: 添加
                     mv.setViewName("jsp/users/signup");
+                    mv.addObject("wxuser", wxUser);
                     return mv;
                 }
             }else{ //从微信服务器获取的用户数据为空
@@ -224,7 +223,8 @@ public class WeChat {
 
     }
 
-    public static ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map){
+    public static ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
+
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
         Person person = iPersonService.findPersonById(idperson);
         logger.info(center);
@@ -233,6 +233,14 @@ public class WeChat {
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
             mv.addObject("snsAdmin", "snsAdmin");
+            if (user!=null) {
+                user.setIdperson(person.getIdperson());
+                mv.addObject("wxuser", user);
+            }
+
+            map.put("username", person.getName());
+            map.put("snsAdmin", "sysAdmin");
+            map.put("user", person);
             mv.setViewName("../index");
             return mv;
         }
@@ -244,11 +252,26 @@ public class WeChat {
             mv.addObject("user", person);
             mv.addObject("username", person.getName());
             mv.addObject("sys_admin", "sys_admin");
+
+            if (user!=null) {
+                user.setIdperson(person.getIdperson());
+                mv.addObject("wxuser", user);
+            }
+
+            map.addAttribute("username", person.getName());
+            map.addAttribute("user", person);
+            map.addAttribute("sys_admin", "sys_admin");
             return mv;
         }
         //todo: 参加人员界面
         mv.setViewName("/jsp/users/userHomePage");
+        mv.addObject("username", person.getName());
+        mv.addObject("user", person);
         mv.addObject("msg", "参加人临时员界面");
+        if (user!=null) {
+            user.setIdperson(person.getIdperson());
+            mv.addObject("wxuser", user);
+        }
 
         return mv;
     }
