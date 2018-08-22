@@ -45,7 +45,7 @@ public class AccessTokenUtil {
             is.read(b);
 
             String message = new String(b, "UTF-8");
-            logger.info("response:"+message);
+            logger.info("response: "+message);
             JSONObject json = JSONObject.parseObject(message);
             token.setToken(json.getString("access_token"));
             token.setExpiresIn(new Integer(json.getIntValue("expires_in")));

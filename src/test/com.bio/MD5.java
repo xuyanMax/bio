@@ -14,7 +14,8 @@ public class MD5 {
                 //输出md5 身份证号
                 ID_code = scanner.next();
                 System.out.print(ID_code+"经md5编码后: ");
-                System.out.println(PersonInfoUtils.md5(ID_code));
+                System.out.println(PersonInfoUtils.md5(ID_code.toUpperCase()));
+                System.out.println(PersonInfoUtils.md5(ID_code.toLowerCase()));
                 System.out.print("\n\n输入18位身份证: ");
             }
     }

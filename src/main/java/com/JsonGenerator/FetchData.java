@@ -82,7 +82,6 @@ public class FetchData {
                 String description = rs.getString("note");
                 String section = rs.getString("section");
                 String supporting = rs.getString("supporting");
-                //todo: 按照Section显示
                 if (type.equals("choice")){
 
                     RadioGroup radioGroup = new RadioGroup("question" + num_quest, question);
@@ -212,9 +211,9 @@ public class FetchData {
         List<Item> items = new ArrayList<>();
 
         for (int i=0; i<size; i++) {
-
+            //todo
             String name = subqustions[i].substring(subqustions[i].indexOf(PERCENTAGE), subqustions[i].lastIndexOf(PERCENTAGE));
-            items.add(new Item(name, name));//设置名字
+            items.add(new Item("", ""));//设置名字
 
             if (subqustions[i].contains(REG_START) && subqustions[i].contains(REG_END)) {//添加正则表达
                 int first = subqustions[i].indexOf(REG_START);

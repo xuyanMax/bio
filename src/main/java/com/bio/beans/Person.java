@@ -2,7 +2,7 @@ package com.bio.beans;
 
 public class Person {
 
-    private int idperson;
+    private Integer idperson;
     private String name;
     private String gender;
     private int age;
@@ -136,25 +136,24 @@ public class Person {
         return ID_code;
     }
 
+
     @Override
     public String toString() {
-        return "person["
-                +"name=" + name
-                +", gender=" + gender
-                +", age=" + age
-                +", original_ID_code="+original_ID_code
-                +", ID_code=" + ID_code
-                +", sn_in_center=" + sn_in_center
-                +", global_sn=" + global_sn
-                +", idcenter=" + idcenter
-                +", barcode=" + barcode
-                +", tel1=" + tel1
-                +", tel2=" + tel2
-                +", email=" + email
-                +", relative=" + relative
-                +"\n]";
+        return "Person{" +
+                "idperson=" + idperson +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", original_ID_code='" + original_ID_code + '\'' +
+                ", ID_code='" + ID_code + '\'' +
+                ", sn_in_center='" + sn_in_center + '\'' +
+                ", global_sn='" + global_sn + '\'' +
+                ", idcenter=" + idcenter +
+                ", email='" + email + '\'' +
+                ", barcode='" + barcode + '\'' +
+                ", relative=" + relative +
+                ", tel1='" + tel1 + '\'' +
+                ", tel2='" + tel2 + '\'' +
+                '}';
     }
-
-
-
 }

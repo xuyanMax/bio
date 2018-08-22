@@ -196,7 +196,7 @@ Email|xuyanpeter0619@gmail.com
 1. 完善 __注册登录流程图文档__
 2. 修改公众号菜单项
 1. 完成微信回调文件部署，及目录下index文件带参数跳转到指定url
-
+1. WeChat->subscribe_time更正
 
 
 jdk
@@ -586,6 +586,11 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. __填空题__ 的输入会经由正则表达式判断，如果输入不符合要求，会弹出提示
     1. 问卷调查的最后一页，点击 __提交__
 1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` [正在开发...]
+1. 测试注册
+    1. centers表必须含有本地管理员的idperson
+    1. wechat表必须
+    1. AJAX向后台传递对象Object数据
+    1. js前端页面判断，session中的wxuser是否存在
 
 
 

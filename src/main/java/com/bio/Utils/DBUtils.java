@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -16,7 +15,6 @@ import java.util.List;
 
 public class DBUtils {
     private static Logger logger = Logger.getLogger(DBUtils.class);
-    private static final int CONSTANT = 6;
     private static String sheetName = "下载队列成员信息表";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final String FILE_EXTENSION = ".xls";

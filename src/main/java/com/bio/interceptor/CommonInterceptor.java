@@ -41,6 +41,7 @@ public class CommonInterceptor implements HandlerInterceptor {
             if (username != null){
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
                 logger.info("=====interceptor ends======");
+                return false;
             }else
                 return true;
         }
@@ -49,16 +50,27 @@ public class CommonInterceptor implements HandlerInterceptor {
             if (username != null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
                 logger.info("=====interceptor ends======");
+                return false;
             } else
                 return true;
         }
         //todo: contains idcode
-        if (url.contains("signupPageFollowed")) {
-            if (httpServletRequest.getSession().getAttribute("idcode") == null){
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/signupPage");
-            }else
-                return true;
-        }
+//        if (url.contains("signupPageFollowed")) {
+//            if (httpServletRequest.getSession().getAttribute("idcode") == null ){
+////                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
+//                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/signupPage");
+//                logger.info("=====interceptor end======");
+//                return false;
+//            }else
+//                return true;
+//        }
+//        if (url.contains("signupPage")){
+//            if (httpServletRequest.getSession().getAttribute("wxuser") == null){
+//                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
+//                logger.info("=====interceptor end======");
+//                return false;
+//            }else return true;
+//        }
         //其他情况判断session中是否有key，有的话继续用户的操作
         if (username != null)
             return true;

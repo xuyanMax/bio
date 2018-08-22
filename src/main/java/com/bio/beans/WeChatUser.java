@@ -6,7 +6,7 @@ public class WeChatUser {
     // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
     private String subscribe;
     // 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
-    private String subscribeTime;
+    private String subscribe_time;
     // 昵称
     private String nickname;
     // 用户的性别（1是男性，2是女性，0是未知）
@@ -23,6 +23,36 @@ public class WeChatUser {
     private String unionid;
 
     private int idperson;
+
+    private String remark;
+
+    private String groupid;
+
+    private String tagid_list;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(String groupid) {
+        this.groupid = groupid;
+    }
+
+    public String getTagid_list() {
+        return tagid_list;
+    }
+
+    public void setTagid_list(String tagid_list) {
+        this.tagid_list = tagid_list;
+    }
 
     public int getIdperson() {
         return idperson;
@@ -56,12 +86,12 @@ public class WeChatUser {
         this.subscribe = subscribe;
     }
 
-    public String getSubscribeTime() {
-        return subscribeTime;
+    public String getSubscribe_time() {
+        return subscribe_time;
     }
 
-    public void setSubscribeTime(String subscribeTime) {
-        this.subscribeTime = subscribeTime;
+    public void setSubscribe_time(String subscribe_time) {
+        this.subscribe_time = subscribe_time;
     }
 
     public String getNickname() {
@@ -114,15 +144,21 @@ public class WeChatUser {
 
     @Override
     public String toString() {
-        return "WeChatUser=[openid=" + openid
-                + ", subscribe=" + subscribe
-                + ", nickname=" + nickname
-                + ", subscribe_time" + subscribeTime
-                + ", sex=" + sex
-                + ", province=" + province
-                + ", city=" + city
-                + ", language=" + language
-                + ", headImgUrl=" + headImgUrl
-                + "]";
+        return "WeChatUser{" +
+                "openid='" + openid + '\'' +
+                ", subscribe='" + subscribe + '\'' +
+                ", subscribe_time='" + subscribe_time + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", sex='" + sex + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", language='" + language + '\'' +
+                ", headImgUrl='" + headImgUrl + '\'' +
+                ", unionid='" + unionid + '\'' +
+                ", idperson=" + idperson +
+                ", remark='" + remark + '\'' +
+                ", groupid='" + groupid + '\'' +
+                ", tagid_list='" + tagid_list + '\'' +
+                '}';
     }
 }

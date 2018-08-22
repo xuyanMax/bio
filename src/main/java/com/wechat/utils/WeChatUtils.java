@@ -188,8 +188,8 @@ public class WeChatUtils {
             user.setProvince(jsonObject.getString("province"));
             user.setLanguage(jsonObject.getString("language"));
             user.setNickname(jsonObject.getString("nickname"));
-            user.setSubscribeTime(jsonObject.getString("subscribe_time"));
-            user.setSex(jsonObject.getIntValue("sex"));
+            user.setSubscribe_time(jsonObject.getString("subscribe_time"));
+            user.setSex(jsonObject.getString("sex"));
 
             logger.info("getWeChatUser()->openId=" + openId);
             logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
@@ -259,7 +259,7 @@ public class WeChatUtils {
 
         user.setOpenid(jsonObject.getString("openid"));
         user.setNickname(jsonObject.getString("nickname"));
-        user.setSex(jsonObject.getIntValue("sex"));
+        user.setSex(jsonObject.getString("sex"));
         user.setProvince(jsonObject.getString("province"));
         user.setCity(jsonObject.getString("city"));
         user.setHeadImgUrl(jsonObject.getString("headimgurl"));

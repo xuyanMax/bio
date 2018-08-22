@@ -22,11 +22,16 @@ public class TokenThread implements Runnable {
                     logger.info("accessToken获取成功： " + access_token.getToken());//7000秒之后重新进行获取
                     Thread.sleep((access_token.getExpiresIn()-200)*1000);
                 }else{//获取失败时，60秒之后尝试重新获取
-                    Thread.sleep(60*1000);
+                    Thread.sleep(60000);
                     logger.warn("Currently trying to get access token every 60 seconds");
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                    e.printStackTrace();
+                }
             }
         }
     }

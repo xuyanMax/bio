@@ -61,7 +61,8 @@
             <mvc:mapping path="/auth/**"/>
             <mvc:mapping path="/login"/>
             <mvc:mapping path="/logout"/>
-            <mvc:mapping path="/signupPageFollowed"/>
+            <!--<mvc:mapping path="/signupPage"/>-->
+            <!--<mvc:mapping path="/signupPageFollowed"/>-->
             <bean class="com.bio.interceptor.CommonInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

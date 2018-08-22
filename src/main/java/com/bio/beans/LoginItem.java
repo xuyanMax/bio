@@ -42,4 +42,14 @@ public class LoginItem {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    @Override
+    public String toString() {
+        return "LoginItem{" +
+                "idlogin=" + idlogin +
+                ", idperson=" + idperson +
+                ", time='" + time + '\'' +
+                ", ip='" + ip + '\'' +
+                '}';
+    }
 }

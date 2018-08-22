@@ -30,7 +30,7 @@ import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
 // references: https://blog.csdn.net/jx2931455/article/details/72833797
-@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user","username", "wxuser", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 @Controller
 public class WeChat {
     private static String ACCESS_TOKEN = "brbxyxzyz";
@@ -224,6 +224,9 @@ public class WeChat {
     }
 
     public static ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
+        logger.info(idperson);
+        logger.info(mv == null);
+        logger.info(map == null);
 
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
         Person person = iPersonService.findPersonById(idperson);
@@ -241,6 +244,7 @@ public class WeChat {
             map.put("username", person.getName());
             map.put("snsAdmin", "sysAdmin");
             map.put("user", person);
+            map.put("wxuser", user);
             mv.setViewName("../index");
             return mv;
         }

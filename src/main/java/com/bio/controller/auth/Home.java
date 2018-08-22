@@ -2,12 +2,10 @@ package com.bio.controller.auth;
 
 import com.JsonGenerator.FetchData;
 import com.JsonGenerator.element.SurveyJson;
+import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
-import com.bio.beans.LoginItem;
-import com.bio.beans.Person;
-import com.bio.beans.WeChatUser;
-import com.bio.controller.token.WeChat;
+import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
@@ -19,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "sysAdmin", "vcode", "idcode"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode"})/*单位管理员，系统管理员*/
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -67,7 +66,7 @@ public class Home {
                               ModelMap modelMap,
                               HttpServletRequest request,
                               HttpServletResponse response){
-        ModelAndView mv = null;
+        ModelAndView mv = new ModelAndView();
 
         /*根据身份证号和姓名, 获取person对象*/
         Person person = personService
@@ -78,7 +77,7 @@ public class Home {
         if (person == null){
             mv = new ModelAndView("views/auth/login");
             mv.addObject("error", "请先完成注册!");
-            logger.info("未来注册用户");
+            logger.info("未注册用户");
             return mv;
         }
         logger.info(person);
@@ -89,7 +88,9 @@ public class Home {
         loginItem.setTime(ClientInfoUtils.getCurrDatetime());
         loginService.addLoginItem(loginItem);
 
-        return WeChat.authorityCheck(person.getIdperson(), mv, modelMap, null);
+        logger.info(loginItem);
+
+        return authorityCheck(person.getIdperson(), mv, modelMap);
     }
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
@@ -136,12 +137,19 @@ public class Home {
     @RequestMapping("register/idcheck")
     @ResponseBody
     public Map<String, Object> registerIdcodeCheck(HttpServletRequest request,
-                                                   String idcode){
+                                                   HttpServletResponse response,
+                                                   String idcode,
+                                                   String name,
+                                                   ModelMap map){
+        logger.info(idcode);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
         Person p = personService.findPersonByID_code(md5);
+        logger.info(p);
         Map<String, Object> result = new HashMap<>();
-        if (p != null && p.getID_code().equals(md5))
+        if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
             result.put("result", "1");
+            map.put("idcode", idcode);
+        }
         else result.put("result", "0");
         return result;
     }
@@ -175,18 +183,28 @@ public class Home {
             resMap.put("openid", "0");//idcode不匹配
             return resMap;
         }
+        //todo 替换为以下
+//        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
+        //测试
+        WeChatUser user = weChatUserService.findWxUserByIdperson(3);
 
-        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
+
+        //todo: 测试，需要删除
+        map.addAttribute("wxuser", JSONObject.toJSON(user));
+        System.out.println(JSONObject.toJSON(user));
+        resMap.put("aaa", "aaa");
+        resMap.put("wxuser", JSONObject.toJSONString(user));
 
         logger.info(user);
 
         //todo: 添加openid, unionid处理
-        if (user.getOpenid() == null || user.getOpenid().equals("")) {
-            logger.error("user.openid="+user.getOpenid());
+        if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
+            logger.error("return");
+            resMap.put("result", 0);
         }
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
-        String res = SmsBase.httpRequest(requestUrl, "POST", null, vcode);
+        String res = SmsBase.httpRequest(requestUrl, "GET", null, vcode);
         logger.info("http =" + res);
 
         if (res != null && !res.equals("")){
@@ -204,12 +222,13 @@ public class Home {
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                   HttpServletRequest request,
                                   ModelMap map,
-                                  String vcode, String openid, String unionid, String headImgUrl,
-                                  String city, String province, int idperson,
-                                  String nickname, String subscribe, String subscribeTime,
+                                  String vcode, String opd, String uid, String headImgUrl,
+                                  String city, String province, Integer idperson,
+                                  String nickname, String subs, String sub_time,
                                                   String sex, String language){
         logger.info("sessionVCode="+map.get("vcode"));
         logger.info("Actual vcode="+vcode);
+
 
         ModelAndView mv = new ModelAndView();
         Map<String, Object> resMap = new HashMap<>();
@@ -217,19 +236,20 @@ public class Home {
         String sessionVcode = (String) map.get("vcode");
         if (sessionVcode!=null && vcode!=null){
             if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
-                // 添加注册用户到wechat表
+//                // 添加注册用户到wechat表
                 WeChatUser weChatUser = new WeChatUser();
                 weChatUser.setIdperson(idperson);
-                weChatUser.setOpenid(openid);
-                weChatUser.setUnionid(unionid);
+                weChatUser.setOpenid(opd);
+                weChatUser.setUnionid(uid);
                 weChatUser.setCity(city);
                 weChatUser.setNickname(nickname);
                 weChatUser.setProvince(province);
                 weChatUser.setSex(sex);
                 weChatUser.setHeadImgUrl(headImgUrl);
                 weChatUser.setLanguage(language);
-                weChatUser.setSubscribeTime(subscribeTime);
-                weChatUser.setSubscribe(subscribe);
+                weChatUser.setSubscribe_time(sub_time);
+                weChatUser.setSubscribe(subs);
+                weChatUser.setIdperson(idperson);
 
                 logger.info(weChatUser);
 
@@ -276,6 +296,51 @@ public class Home {
     @RequestMapping("*")
     public String _404PageNotFound(HttpServletRequest request){
         logger.warn(request.getRequestURL());
+        logger.warn(request.getRequestURI());
+        logger.warn(request.getServletPath());
         return "views/errors/404";
+    }
+    public ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map){
+        logger.info(idperson);
+        logger.info(mv == null);
+        logger.info(map == null);
+
+        Center center = centerService.findPersonInCentersByIdperson(idperson);
+        Person person = personService.findPersonById(idperson);
+        logger.info(center);
+        logger.info(person);
+        if (center != null || center.getIdperson() == idperson){
+            mv.addObject("username", person.getName());
+            mv.addObject("user", person);
+            mv.addObject("snAdmin", "snAdmin");
+
+            map.put("username", person.getName());
+            map.put("snAdmin", "syAdmin");
+            map.put("user", person);
+            mv.setViewName("../index");
+            return mv;
+        }
+
+        Admin admin = adminService.findAdminUser(idperson);
+        logger.info(admin);
+        if (admin != null && admin.getIdperson() == idperson){
+            mv.setViewName("/jsp/sys_admin/sys");
+            mv.addObject("user", person);
+            mv.addObject("username", person.getName());
+            mv.addObject("sys_admin", "sys_admin");
+
+
+            map.addAttribute("username", person.getName());
+            map.addAttribute("user", person);
+            map.addAttribute("sys_admin", "sys_admin");
+            return mv;
+        }
+        //todo: 参加人员界面
+        mv.setViewName("/jsp/users/userHomePage");
+        mv.addObject("username", person.getName());
+        mv.addObject("user", person);
+        mv.addObject("msg", "参加人临时员界面");
+
+        return mv;
     }
 }
