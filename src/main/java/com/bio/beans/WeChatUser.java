@@ -2,6 +2,16 @@ package com.bio.beans;
 
 public class WeChatUser {
     // 用户的标识
+    private Integer idwechat;
+
+    public int getIdwechat() {
+        return idwechat;
+    }
+
+    public void setIdwechat(int idwechat) {
+        this.idwechat = idwechat;
+    }
+
     private String openid;
     // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
     private String subscribe;
@@ -22,7 +32,7 @@ public class WeChatUser {
     // 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
     private String unionid;
 
-    private int idperson;
+    private Integer idperson;
 
     private String remark;
 
@@ -145,7 +155,8 @@ public class WeChatUser {
     @Override
     public String toString() {
         return "WeChatUser{" +
-                "openid='" + openid + '\'' +
+                "idwechat=" + idwechat +
+                ", openid='" + openid + '\'' +
                 ", subscribe='" + subscribe + '\'' +
                 ", subscribe_time='" + subscribe_time + '\'' +
                 ", nickname='" + nickname + '\'' +

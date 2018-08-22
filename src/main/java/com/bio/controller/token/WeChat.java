@@ -37,16 +37,16 @@ public class WeChat {
     private static Logger logger = Logger.getLogger(WeChat.class);
 
     @Autowired
-    static IWeChatUserService iWeChatUserService;
+    IWeChatUserService iWeChatUserService;
 
     @Autowired
-    static IPersonService iPersonService;
+    IPersonService iPersonService;
 
     @Autowired
-    static ICenterService iCenterService;
+    ICenterService iCenterService;
 
     @Autowired
-    static IAdminService iAdminService;
+    IAdminService iAdminService;
 
     /**
      * 确认请求来自微信服务器
@@ -164,24 +164,25 @@ public class WeChat {
 
         OAuthInfo authInfo = new OAuthInfo();
         WeChatUser wxUser = null;
-        String openId = null;
+
 
         //1. 通过code参数获取access_token
         authInfo = WeChatUtils.getOAuthInfoByCode(code);
 
-        openId = authInfo.getOpenid();
+        String openid = authInfo.getOpenid();
 
-        if (openId != null && !openId.equals("")) {
-            wxUser = iWeChatUserService.findWxUserByOpenId(openId);
-
+        if (openid != null && !openid.equals("")) {
+            logger.info(openid);
+            wxUser = iWeChatUserService.findWxUserByOpenId(openid);
+            logger.info(wxUser);
             //openid与WeChat表匹配, 登陆成功
-            if (wxUser != null && wxUser.getOpenid().equals(openId)){
+            if (wxUser != null && wxUser.getOpenid().equals(openid)){
                 //todo
                 return authorityCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
             }
             //不匹配
             //2. 通过access_token获取微信用户的基本信息
-            wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openId);
+            wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openid);
 
             logger.info(wxUser);
 
@@ -223,7 +224,7 @@ public class WeChat {
 
     }
 
-    public static ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
+    public  ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
         logger.info(idperson);
         logger.info(mv == null);
         logger.info(map == null);
@@ -278,5 +279,14 @@ public class WeChat {
         }
 
         return mv;
+    }
+
+    //===================todo: 单元测试
+    @RequestMapping("test")
+    public ModelAndView test(ModelMap map){
+        ModelAndView mv = new ModelAndView();
+        WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");
+        logger.info(user);
+        return authorityCheck(user.getIdperson(), mv, map, user);
     }
 }

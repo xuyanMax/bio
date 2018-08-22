@@ -45,7 +45,7 @@ public class OAuthInfo {
     }
 
     public String getOpenid() {
-        return openid;
+        return this.openid;
     }
 
     public void setOpenid(String openid) {

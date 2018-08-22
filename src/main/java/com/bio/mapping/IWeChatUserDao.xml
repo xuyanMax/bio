@@ -20,7 +20,7 @@
 	</select>
 
     <select id="selectWxUserByOpenid" resultType="com.bio.beans.WeChatUser">
-		select * from wechat where openid=#{xxx}
+		select * from wechat where openid=#{###}
 	</select>
 
     <select id="selectWxUserByUnionid" resultType="com.bio.beans.WeChatUser">
