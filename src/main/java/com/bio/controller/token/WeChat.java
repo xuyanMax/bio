@@ -243,7 +243,7 @@ public class WeChat {
             }
 
             map.put("username", person.getName());
-            map.put("snsAdmin", "sysAdmin");
+            map.put("snAdmin", "syAdmin");
             map.put("user", person);
             map.put("wxuser", user);
             mv.setViewName("../index");
@@ -286,6 +286,7 @@ public class WeChat {
     public ModelAndView test(ModelMap map){
         ModelAndView mv = new ModelAndView();
         WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");
+        iWeChatUserService.addWxUser(user);
         logger.info(user);
         return authorityCheck(user.getIdperson(), mv, map, user);
     }

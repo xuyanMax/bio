@@ -196,7 +196,8 @@ Email|xuyanpeter0619@gmail.com
 1. 完善 __注册登录流程图文档__
 2. 修改公众号菜单项
 1. 完成微信回调文件部署，及目录下index文件带参数跳转到指定url
-1. WeChat->subscribe_time更正
+1. WeChat类->subscribe_time字段更正
+1. headImgUrl表字段更正
 
 
 jdk

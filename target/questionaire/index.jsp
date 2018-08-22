@@ -30,8 +30,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <% if ( (request.getAttribute("username") != null)
-            && (request.getAttribute("snAdmin") != null)) {
+    <% if ( (request.getSession().getAttribute("username") != null)
+            && (request.getSession().getAttribute("snAdmin") != null)) {
     %>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
