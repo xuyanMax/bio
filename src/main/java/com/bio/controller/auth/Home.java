@@ -183,19 +183,18 @@ public class Home {
             resMap.put("openid", "0");//idcode不匹配
             return resMap;
         }
-        //todo 替换为以下
-//        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
+        //todo 替换
+        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
         //测试
-        WeChatUser user = weChatUserService.findWxUserByIdperson(3);
+//        WeChatUser user = weChatUserService.findWxUserByIdperson(3);
 
+        logger.info(user);
 
         //todo: 测试，需要删除
         map.addAttribute("wxuser", JSONObject.toJSON(user));
-        System.out.println(JSONObject.toJSON(user));
-        resMap.put("aaa", "aaa");
-        resMap.put("wxuser", JSONObject.toJSONString(user));
+        logger.info(JSONObject.toJSON(user));
 
-        logger.info(user);
+        resMap.put("wxuser", JSONObject.toJSONString(user));
 
         //todo: 添加openid, unionid处理
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {

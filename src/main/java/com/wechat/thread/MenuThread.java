@@ -43,7 +43,7 @@ public class MenuThread implements Runnable {
         ViewButton center = new ViewButton();
         center.setName("科研合作Flup");
         center.setType("view");
-        center.setUrl("population.chgc.sh.cn");
+        center.setUrl("http://population.chgc.sh.cn");
 
         ViewButton right = new ViewButton();
         right.setName("新闻动态");
