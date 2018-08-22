@@ -197,7 +197,13 @@ Email|xuyanpeter0619@gmail.com
 2. 修改公众号菜单项
 1. 完成微信回调文件部署，及目录下index文件带参数跳转到指定url
 1. WeChat类->subscribe_time字段更正
-1. headImgUrl表字段更正
+
+
+### 数据库变动
+1. `wechat`表`headimgurl`字段更为`headImgUrl`
+1. centers表添加本地管理员权限
+    1. 将`idperson=308`加入到`centers`表第一行
+
 
 
 jdk
@@ -586,10 +592,22 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 没有必做题
     1. __填空题__ 的输入会经由正则表达式判断，如果输入不符合要求，会弹出提示
     1. 问卷调查的最后一页，点击 __提交__
-1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` 
-1. 测试注册逻辑测试
-    1. 第一步进入`/signupPage`
-    1. 第二步进入`/signupPageFollowed`
+
+### 测试扫码登陆
+
+1. 测试单位管理员、系统管理员、参加人员扫码登陆
+1. [/wx/login](http://population.chgc.sh.cn/wx/login), [/signupPage](http://population.chgc.sh.cn/signupPage), [/signupPageFollowed](http://population.chgc.sh.cn/signupPageFollowed) 三个连接都指向网页二维码
+1. 单位管理员扫码测试
+    1. 需要本人`idperson`出现在`centers`表中其中一行(仅出现一次)数据的idperson字段
+    1. 测试1 流程图中的`openid`匹配
+    1. 测试2 流程图中的`openid`不匹配情况下
+        1. `unionid`不匹配，则需注册
+        1. `unionid`匹配，则鉴权进入指定页面
+1. 系统管理员测试
+    1. 需要本人`idperson`出现在`admin`表中其中一行(仅出现一次)数据的`idperson`字段
+1. 参加人员测试
+    1. openid匹配或unionid匹配满足之一，避免进入注册页面
+    1. 参加人员的idperon值不出现在centers和admin表数据中
 
     
 

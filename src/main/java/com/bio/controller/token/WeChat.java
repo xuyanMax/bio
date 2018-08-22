@@ -271,7 +271,7 @@ public class WeChat {
         //todo: 参加人员界面
         mv.setViewName("/jsp/users/userHomePage");
         mv.addObject("username", person.getName());
-        mv.addObject("user", person);
+        mv.addObject("user", user);
         mv.addObject("msg", "参加人临时员界面");
         if (user!=null) {
             user.setIdperson(person.getIdperson());
@@ -282,7 +282,7 @@ public class WeChat {
     }
 
     //===================todo: 单元测试
-    @RequestMapping("test")
+    @RequestMapping("testLocal")
     public ModelAndView test(ModelMap map){
         ModelAndView mv = new ModelAndView();
         WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");

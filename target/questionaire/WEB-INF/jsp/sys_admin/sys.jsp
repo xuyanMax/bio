@@ -10,6 +10,8 @@
 <head>
     <title>系统管理员界面</title>
     <p>欢迎${user.nickname}</p>
+    <p>idcenter: ${user.idcenter}</p>
+    <p>idperson: ${user.idperson}</p>
 </head>
 <body>
 
