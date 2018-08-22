@@ -585,12 +585,12 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 没有必做题
     1. __填空题__ 的输入会经由正则表达式判断，如果输入不符合要求，会弹出提示
     1. 问卷调查的最后一页，点击 __提交__
-1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` [正在开发...]
-1. 测试注册
-    1. centers表必须含有本地管理员的idperson
-    1. wechat表必须
-    1. AJAX向后台传递对象Object数据
-    1. js前端页面判断，session中的wxuser是否存在
+1. 微信扫码登陆页面 `http://population.chgc.sh.cn/wx/login` 
+1. 测试注册逻辑测试
+    1. 第一步进入`/signupPage`
+    1. 第二步进入`/signupPageFollowed`
+
+    
 
 
 

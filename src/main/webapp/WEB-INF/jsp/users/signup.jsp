@@ -193,7 +193,9 @@
             upload.phone = $("#phone").val();
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
+
             alert(upload.vcode);
+
             if ( user != "" ) {
                 upload.opd = user.openid;
                 upload.uid = user.unionid;
@@ -206,10 +208,9 @@
                 upload.sex = user.sex;
                 upload.language = user.language;
                 upload.idperson = user.idperson;
-                // alert(user.sex);
 
             }
-            alert(upload);
+            // alert(upload);
 
             $.ajax({
                 type: "POST",
