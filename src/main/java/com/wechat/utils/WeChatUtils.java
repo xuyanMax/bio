@@ -263,10 +263,9 @@ public class WeChatUtils {
         user.setProvince(jsonObject.getString("province"));
         user.setCity(jsonObject.getString("city"));
         user.setHeadImgUrl(jsonObject.getString("headimgurl"));
-        user.setUnionid(jsonObject.getString("unionId"));
-
-        logger.info("composeWeChatUser()->openId=" + user.getOpenid());
-        logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
+        user.setUnionid(jsonObject.getString("unionid"));
+        user.setSubscribe(jsonObject.getString("subscribe"));
+        user.setSubscribe_time(jsonObject.getString("subscribe_time"));
 
         return user;
     }
@@ -278,7 +277,7 @@ public class WeChatUtils {
         authInfo.setRefresh_token(jsonObject.getString("refresh_token"));
         authInfo.setScope(jsonObject.getString("scope"));
         authInfo.setUnionid(jsonObject.getString("unionid"));
-        logger.info("OAuthInfoObject=" + authInfo);
+        logger.info(authInfo);
         return authInfo;
     }
 

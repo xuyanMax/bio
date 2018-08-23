@@ -164,7 +164,7 @@ public class WeChat {
 
         OAuthInfo authInfo = new OAuthInfo();
         WeChatUser wxUser = null;
-
+        Integer idperson = null;
 
         //1. 通过code参数获取access_token
         authInfo = WeChatUtils.getOAuthInfoByCode(code);
@@ -174,6 +174,8 @@ public class WeChat {
         if (openid != null && !openid.equals("")) {
             logger.info(openid);
             wxUser = iWeChatUserService.findWxUserByOpenId(openid);
+            //todo
+            idperson = wxUser.getIdperson();
             logger.info(wxUser);
             //openid与WeChat表匹配, 登陆成功
             if (wxUser != null && wxUser.getOpenid().equals(openid)){
@@ -183,6 +185,8 @@ public class WeChat {
             //不匹配
             //2. 通过access_token获取微信用户的基本信息
             wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openid);
+
+            if (idperson != null) wxUser.setIdperson(idperson);
 
             logger.info(wxUser);
 
