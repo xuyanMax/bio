@@ -58,7 +58,6 @@
         <mvc:interceptor>
             <mvc:mapping path="/signup"/>
             <mvc:mapping path="/admin/**"/>
-            <mvc:mapping path="/auth/**"/>
             <mvc:mapping path="/login"/>
             <mvc:mapping path="/logout"/>
             <mvc:mapping path="/signupPage"/>

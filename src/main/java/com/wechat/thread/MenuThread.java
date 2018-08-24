@@ -41,16 +41,20 @@ public class MenuThread implements Runnable {
         left.setUrl("http://www.chgc.sh.cn/page60");
 
         ViewButton center = new ViewButton();
-        center.setName("科研合作Flup");
+        center.setName("职业人群项目");
         center.setType("view");
         center.setUrl("http://population.chgc.sh.cn");
+
+        ParentButton parentCenter = new ParentButton();
+        parentCenter.setName("科研合作");
+        parentCenter.setSub_button(new Button[]{center});
 
         ViewButton right = new ViewButton();
         right.setName("新闻动态");
         right.setUrl("http://www.chgc.sh.cn/page104");
         right.setType("view");
 
-        menu.setButton(new Button[] {left, center, right});
+        menu.setButton(new Button[] {left, parentCenter, right});
 
         return menu;
     }

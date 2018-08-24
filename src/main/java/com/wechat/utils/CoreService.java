@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -133,8 +134,9 @@ public class CoreService {
                 } else if (content.equalsIgnoreCase("flup")){
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
                     String url = WeChatConstants.Get_WEIXINPAGE_Code
-                            .replace("REDIRECT_URL", WeChatConstants.REDIRECT_URI_Auth)
-                            .replace("APPID", TokenThread.appID);
+                            .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
+                            .replace("APPID", TokenThread.appID)
+                            .replace("STATE", "AUTH");
                     logger.info("访问主页:"+url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
 
@@ -142,7 +144,7 @@ public class CoreService {
                     // 默认回复消息
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
-                }
+                } 
 
             }
             // 图片消息

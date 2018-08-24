@@ -17,14 +17,15 @@ public class WeChatConstants {
      * 获取openId的接口相结合
      * 注意：参数REDIRECT_URI 表示的是当授权成功后，跳转到的自己设定的页面，所以这个要根据自己的需要进行修改
      */
-    public static String Get_WEIXINPAGE_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
-            + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+            + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
-    public static String REDIRECT_URI = "http://population.chgc.sh.cn/user/inf";
+    public static String CALL_BACK = "http://population.chgc.sh.cn/user/inf";
+    public static String REDIRECT_URI_SCAN = "http://population.chgc.sh.cn/info";
     public static String REDIRECT_URI_Auth = "http://population.chgc.sh.cn/auth";
 
+
     // 通过扫描微信二维码登陆
-    public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+    public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE&uri=URI#wechat_redirect";
 
     //用于获取当前与微信公众号交互的用户信息的接口（一般是用第一个接口地址）
     private static String get_openId_url_msg = "https://api.weixin.qq.com/cgi-bin/user/info?" +

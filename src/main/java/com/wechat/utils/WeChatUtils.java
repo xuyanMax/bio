@@ -188,11 +188,11 @@ public class WeChatUtils {
             user.setProvince(jsonObject.getString("province"));
             user.setLanguage(jsonObject.getString("language"));
             user.setNickname(jsonObject.getString("nickname"));
+            user.setHeadImgUrl(jsonObject.getString("headimgurl"));
+            user.setRemark(jsonObject.getString("remark"));
             user.setSubscribe_time(jsonObject.getString("subscribe_time"));
             user.setSex(jsonObject.getString("sex"));
-
-            logger.info("getWeChatUser()->openId=" + openId);
-            logger.info("jsonObject.getString(\"openid\")" + jsonObject.getString("openid"));
+            logger.info(user);
 
             return user;
         }
@@ -240,12 +240,12 @@ public class WeChatUtils {
 
         if (jsonObject != null){
             if (jsonObject.getString("errcode") == null) {
-                logger.info("通过access_token=" + access_token + ", openid="+openid+"获取了有效微信用户信息.");
+                logger.info("通过access_token=" + access_token + ", openid="+openid+" 成功获取微信用户信息");
                 WeChatUser user = composeWeChatUser(jsonObject);
                 return user;
             }else{
                 logger.error(jsonObject.getString("errcode"));
-                logger.error("通过access_token="+access_token+", openid="+openid+"没能获取微信用户信息.");
+                logger.error("通过access_token="+access_token+", openid="+openid+" 没能获取微信用户信息.");
             }
         }
         logger.warn("NO Access Token Get!");
@@ -286,8 +286,11 @@ public class WeChatUtils {
     public static void wxLoginUrl(HttpServletRequest request,
                                   HttpServletResponse response){
         try {
-            String url = scan_auth_url.replace("APPID", APPID_URL).replace("REDIRECT_URI", URLEncoder.encode(REDIRECT_URL, "utf-8"));
-            logger.info("URL:" + url);
+            String url = scan_auth_url
+                    .replace("APPID", APPID_URL)
+                    .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
+                    .replace("STATE", "SCAN");
+            logger.info("URL=:" + url);
             response.sendRedirect(url);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

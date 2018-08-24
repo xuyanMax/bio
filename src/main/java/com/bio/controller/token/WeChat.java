@@ -111,32 +111,42 @@ public class WeChat {
                                                                        ModelMap map){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
+        logger.info(code);
         String url = WeChatConstants.GET_WEBAUTH_URL
                 .replace("APPID", WeChatConstants.appID)
-                .replace("SECRET", WeChatConstants.appSecret)
+                .replace("APP_SECRET", WeChatConstants.appSecret)
                 .replace("CODE", code);
-        JSONObject jsonObject = WeChatUtils.httpRequest(url, "GET", null);
+        logger.info(url);
+        JSONObject JsonWxUser = WeChatUtils.httpRequest(url, "GET", null);
 
-        if (jsonObject.getString("errcode") != null){
+        if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
-            mv.addObject("error", jsonObject.getString("errmsg"));
+            mv.addObject("error", JsonWxUser.getString("errmsg"));
         }
 
-        String access_token = jsonObject.getString("access_token");
-        String openid = jsonObject.getString("openid");
+        String access_token = JsonWxUser.getString("access_token");
+        String openid = JsonWxUser.getString("openid");
 
         String url2 = WeChatConstants.GET_WECHAT_USER_URI
                 .replace("ACCESS_TOKEN", access_token)
                 .replace("OPENID", openid);
-        jsonObject = WeChatUtils.httpRequest(url2, "GET", null);
+        JsonWxUser = WeChatUtils.httpRequest(url2, "GET", null);
 
-        if (jsonObject.getString("errcode") != null){
+        if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
-            mv.addObject("error", jsonObject.getString("errmsg"));
+            mv.addObject("error", JsonWxUser.getString("errmsg"));
         }
-        WeChatUser user = WeChatUtils.composeWeChatUser(jsonObject);
+        WeChatUser user = WeChatUtils.composeWeChatUser(JsonWxUser);
         logger.info(user);
-        //类似 /info
+
+        //todo
+        mv.setViewName("../index");
+        mv.addObject("username", user.getNickname());
+        mv.addObject("snAdmin", "snAdmin");
+
+        map.addAttribute("username", user.getNickname());
+        map.addAttribute("snAdmin", "snAdmin");
+
         return mv;
     }
     /**
@@ -153,8 +163,11 @@ public class WeChat {
                                                                                     ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
+
         logger.info("code="+code);
         logger.info("state="+request.getParameter("state"));
+        logger.info(request.getParameter("uri"));
+
         if (code == null || code.equals("")){
             logger.error("unauthorized wxUser ");
             mv.addObject("error", "Not Authorized.");

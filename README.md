@@ -199,12 +199,15 @@ Email|xuyanpeter0619@gmail.com
 1. 代码及数据库更改
     1. `WeChat`类->subscribe_time字段更正
     1. `wechat`表`headimgurl`字段更为`headImgUrl`
+1. 自动回复`openid`回复微信用户信息
 
 ### 数据库变动
 1. `wechat`表`headimgurl`字段更为`headImgUrl`
 1. `centers`表添加本地管理员权限
     1. 将`idperson=308`加入到`centers`表第一行
-
+1. 从微信用户获取到openid后，此时并没有idperon的数据。要回到person表中，找到是否存在对应的idperson,这样才能更新wechat表,有没有必要在person表中加入一个openid字段??
+1. 依据state=AUTH, state=SCAN设置动态回调页面
+1. 扫码登陆或授权登陆后，？？
 
 
 jdk
