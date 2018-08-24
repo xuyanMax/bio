@@ -178,9 +178,10 @@ public class Home {
                 );
         logger.info(p);
 
-        //单位选择按钮disable
+        //todo 单位选择按钮disable
         if (p == null || p.getID_code() == null){
-            resMap.put("openid", "0");//idcode不匹配
+            resMap.put("result", "-1");
+//            resMap.put("openid", "0");//idcode不匹配
             return resMap;
         }
         //todo 替换
@@ -221,6 +222,7 @@ public class Home {
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                   HttpServletRequest request,
                                   ModelMap map,
+                                  String id,
                                   String vcode, String opd, String uid, String headImgUrl,
                                   String city, String province, Integer idperson,
                                   String nickname, String subs, String sub_time,
@@ -233,6 +235,8 @@ public class Home {
         Map<String, Object> resMap = new HashMap<>();
         // 获取session中存放的手机短信验证码
         String sessionVcode = (String) map.get("vcode");
+        //获取idperson by id_code
+        Person p = personService.findPersonByID_code(PersonInfoUtils.md5(id.toUpperCase()));
         if (sessionVcode!=null && vcode!=null){
             if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
 //                // 添加注册用户到wechat表
@@ -248,7 +252,8 @@ public class Home {
                 weChatUser.setLanguage(language);
                 weChatUser.setSubscribe_time(sub_time);
                 weChatUser.setSubscribe(subs);
-                weChatUser.setIdperson(idperson);
+
+                if (p != null && p.getIdperson() != null) weChatUser.setIdperson(idperson);
 
                 logger.info(weChatUser);
 

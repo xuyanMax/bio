@@ -100,7 +100,7 @@ public class Person {
         this.idperson = idperson;
     }
 
-    public int getIdperson() {
+    public Integer getIdperson() {
         return idperson;
     }
 

@@ -17,6 +17,7 @@ public class WeChatConstants {
      * 获取openId的接口相结合
      * 注意：参数REDIRECT_URI 表示的是当授权成功后，跳转到的自己设定的页面，所以这个要根据自己的需要进行修改
      */
+    public static String Get_WEIXINPAGE_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?"+"appid=APPID&redirect_uri="
             + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
     public static String CALL_BACK = "http://population.chgc.sh.cn/user/inf";

@@ -58,7 +58,7 @@ public class WeChat {
         request.setCharacterEncoding("UTF-8");// 将请求、响应的编码均设置为UTF-8（防止中文乱码)
         response.setCharacterEncoding("UTF-8");
 
-        logger.info("http request: wx/token/get: " + request.getRequestURL().toString());
+        logger.info("Request from WeChat=" + request.getRequestURL().toString());
 
         if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET
             //微信加密签名

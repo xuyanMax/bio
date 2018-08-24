@@ -58,7 +58,6 @@ public class CoreService {
             * 获得openId, 获取用户信息
             * */
             WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
-            logger.info("通过回复信息获取到的用户是: " + user);
 
             // 文本消息
             List<Article> articles = new ArrayList<>();
@@ -144,7 +143,12 @@ public class CoreService {
                     // 默认回复消息
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
-                } 
+                } else if (content.matches(".*openid.*")){
+                    logger.info(user.getNickname()+" inputs openid");
+                    textMessage.setContent(user.toString());
+                    respMessage = MessageUtil.textMessageToXml(textMessage);
+                    return respMessage;
+                }
 
             }
             // 图片消息

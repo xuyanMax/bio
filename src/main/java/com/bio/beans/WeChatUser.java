@@ -4,7 +4,7 @@ public class WeChatUser {
     // 用户的标识
     private Integer idwechat;
 
-    public int getIdwechat() {
+    public Integer getIdwechat() {
         return idwechat;
     }
 
@@ -15,6 +15,7 @@ public class WeChatUser {
     private String openid;
     // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
     private String subscribe;
+
     // 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
     private String subscribe_time;
     // 昵称
@@ -40,44 +41,8 @@ public class WeChatUser {
 
     private String tagid_list;
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getGroupid() {
-        return groupid;
-    }
-
-    public void setGroupid(String groupid) {
-        this.groupid = groupid;
-    }
-
-    public String getTagid_list() {
-        return tagid_list;
-    }
-
-    public void setTagid_list(String tagid_list) {
-        this.tagid_list = tagid_list;
-    }
-
-    public int getIdperson() {
-        return idperson;
-    }
-
-    public void setIdperson(int idperson) {
-        this.idperson = idperson;
-    }
-
-    public String getUnionid() {
-        return unionid;
-    }
-
-    public void setUnionid(String unionid) {
-        this.unionid = unionid;
+    public void setIdwechat(Integer idwechat) {
+        this.idwechat = idwechat;
     }
 
     public String getOpenid() {
@@ -150,6 +115,46 @@ public class WeChatUser {
 
     public void setHeadImgUrl(String headImgUrl) {
         this.headImgUrl = headImgUrl;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public Integer getIdperson() {
+        return idperson;
+    }
+
+    public void setIdperson(Integer idperson) {
+        this.idperson = idperson;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(String groupid) {
+        this.groupid = groupid;
+    }
+
+    public String getTagid_list() {
+        return tagid_list;
+    }
+
+    public void setTagid_list(String tagid_list) {
+        this.tagid_list = tagid_list;
     }
 
     @Override
