@@ -3,13 +3,13 @@ package com.bio.beans;
 public class Center {
     private int centerid;
     private String center;
-    private int idperson;
+    private Integer idperson;
 
-    public int getIdperson() {
+    public Integer getIdperson() {
         return idperson;
     }
 
-    public void setIdperson(int idperson) {
+    public void setIdperson(Integer idperson) {
         this.idperson = idperson;
     }
 

@@ -9,7 +9,7 @@ public interface IWeChatUserService {
 
     void removeWxUserByOpenid(String openid);
 
-    void modifyWxUser(WeChatUser user);
+    void modifyWxUserByUnionid(WeChatUser user);
 
     List<WeChatUser> selectAllWxUsers();
 

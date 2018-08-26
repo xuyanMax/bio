@@ -11,7 +11,7 @@ public interface IWeChatUserDao {
     //删除指定IdPerson
     void deleteWxUserByOpenid(String openid);
     //更新某Person
-    void updateWxUser(WeChatUser user);
+    void updateWxUserByUnionid(WeChatUser user);
 
     List<WeChatUser> selectAllWxUsers();
 

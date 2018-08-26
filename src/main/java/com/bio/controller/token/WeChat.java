@@ -166,7 +166,6 @@ public class WeChat {
 
         logger.info("code="+code);
         logger.info("state="+request.getParameter("state"));
-        logger.info(request.getParameter("uri"));
 
         if (code == null || code.equals("")){
             logger.error("unauthorized wxUser ");
@@ -175,48 +174,54 @@ public class WeChat {
             return mv;
         }
 
-        OAuthInfo authInfo = new OAuthInfo();
+        OAuthInfo authInfo = null;
         WeChatUser wxUser = null;
         Integer idperson = null;
 
-        //1. 通过code参数获取access_token
+        //1. 通过code参数获取access_token={openid:, access_token:, unionid:, ...}
         authInfo = WeChatUtils.getOAuthInfoByCode(code);
 
         String openid = authInfo.getOpenid();
-
+        //测试openid是否匹配
         if (openid != null && !openid.equals("")) {
             logger.info(openid);
             wxUser = iWeChatUserService.findWxUserByOpenId(openid);
-            //todo
-            idperson = wxUser.getIdperson();
-            logger.info(wxUser);
-            //openid与WeChat表匹配, 登陆成功
+
+            //openid匹配, 登陆
             if (wxUser != null && wxUser.getOpenid().equals(openid)){
-                //todo
-                return authorityCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
+                logger.info(wxUser);
+                logger.info("扫码登陆openid匹配");
+                return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
             }
-            //不匹配
+            //由于openid不匹配
+            //因此测试unionid是否匹配
             //2. 通过access_token获取微信用户的基本信息
             wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openid);
 
-            if (idperson != null) wxUser.setIdperson(idperson);
-
-            logger.info(wxUser);
-
             if (wxUser != null && wxUser.getUnionid() != null && !wxUser.getUnionid().equals("")) {
-                //ByUnionid
-                WeChatUser currUser = iWeChatUserService.findWxUserByUnionid(wxUser.getUnionid());
-                logger.info(currUser);
-                if (currUser != null
-                        && currUser.getUnionid().equals(wxUser.getUnionid())) {//db存在该用户，那么直接登陆
+
+                //获取得到的wxuser信息，idperson暂为空
+                logger.info(wxUser);
+
+                WeChatUser dbUser = iWeChatUserService.findWxUserByUnionid(wxUser.getUnionid());
+                //unionid匹配，更新wechat数据，登陆
+                if (dbUser != null
+                        && dbUser.getUnionid().equals(wxUser.getUnionid())) {//db存在该用户，那么直接登陆
+
+                    logger.info(dbUser);
 
                     //update wechat user's openid
-                    iWeChatUserService.modifyWxUser(wxUser);
-                    return authorityCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
+                    logger.info("扫码登陆unionid匹配!");
+                    iWeChatUserService.modifyWxUserByUnionid(wxUser);
+                    return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
                 }else{// unionid不匹配，进入注册页面
                     //todo: 添加
-                    mv.setViewName("jsp/users/signup");
+                    logger.info("扫码登陆openid和unionid不匹配，即将进入注册页");
+                    mv.setViewName("jsp/users/signupIdCode");
+
                     mv.addObject("wxuser", wxUser);
+                    modelMap.addAttribute("wxuser", wxUser);
+
                     return mv;
                 }
             }else{ //从微信服务器获取的用户数据为空
@@ -241,7 +246,7 @@ public class WeChat {
 
     }
 
-    public  ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
+    public  ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
         logger.info(idperson);
         logger.info(mv == null);
         logger.info(map == null);
@@ -305,6 +310,6 @@ public class WeChat {
         WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");
         iWeChatUserService.addWxUser(user);
         logger.info(user);
-        return authorityCheck(user.getIdperson(), mv, map, user);
+        return loginAuthCheck(user.getIdperson(), mv, map, user);
     }
 }

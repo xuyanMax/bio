@@ -33,5 +33,6 @@ public class PersonUtilsTest {
           String id2 = "123x";
         Assert.assertEquals(id2, id.toLowerCase());
         Assert.assertEquals(PersonInfoUtils.md5(id2), PersonInfoUtils.md5(id.toLowerCase()));
+        Assert.assertEquals(PersonInfoUtils.md5("42052919941216002X"), "561B989D99F58CB94BAD201F2E9CC4F0");
     }
 }

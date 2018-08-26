@@ -144,6 +144,7 @@ public class Home {
         logger.info(idcode);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
         Person p = personService.findPersonByID_code(md5);
+
         logger.info(p);
         Map<String, Object> result = new HashMap<>();
         if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
@@ -299,9 +300,7 @@ public class Home {
     /*404 Page Not Found*/
     @RequestMapping("*")
     public String _404PageNotFound(HttpServletRequest request){
-        logger.warn(request.getRequestURL());
-        logger.warn(request.getRequestURI());
-        logger.warn(request.getServletPath());
+        logger.warn("404NotFound");
         return "views/errors/404";
     }
     public ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map){
@@ -313,7 +312,7 @@ public class Home {
         Person person = personService.findPersonById(idperson);
         logger.info(center);
         logger.info(person);
-        if (center != null || center.getIdperson() == idperson){
+        if (center != null && center.getIdperson() != null && center.getIdperson() == idperson){
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
             mv.addObject("snAdmin", "snAdmin");

@@ -11,8 +11,8 @@
 		delete from wechat where openid=#{xxx}
 	</delete>
 
-    <update id="updateWxUser">
-		update wechat set openid=#{openid}, unionid=#{unionid}, sex=#{sex}, city=#{city}, nickname=#{nickname}, headImgUrl=#{headImgUrl}, language=#{language}, subscribe=#{subscribe}, subscribe_time=#{subscribe_time} where idperson=#{idperson}
+    <update id="updateWxUserByUnionid">
+		update wechat set openid=#{openid}, unionid=#{unionid}, sex=#{sex}, city=#{city}, nickname=#{nickname}, headImgUrl=#{headImgUrl}, language=#{language}, subscribe=#{subscribe}, subscribe_time=#{subscribe_time} where unionid=#{unionid}
 	</update>
 
     <select id="selectAllWxUsers" resultType="com.bio.beans.WeChatUser">
