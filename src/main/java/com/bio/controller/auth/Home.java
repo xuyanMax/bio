@@ -165,13 +165,13 @@ public class Home {
                                            String phone,
                                            String idcode){
         Map<String, Object> resMap = new HashMap<>();
-        logger.info("phone number:" + phone);
-        logger.info("vcode to be sent to phone:" + vcode);
-        logger.info("national id:" + idcode);
+        logger.info("接受验证码手机号=" + phone);
+        logger.info("即将发送的验证码=" + vcode);
+        logger.info("身份证号=" + idcode);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         map.addAttribute("vcode", vcode);
-
+        //测试是ok的
         Person p = personService
                 .findPersonByID_code(
                         PersonInfoUtils
@@ -182,7 +182,7 @@ public class Home {
         //todo 单位选择按钮disable
         if (p == null || p.getID_code() == null){
             resMap.put("result", "-1");
-//            resMap.put("openid", "0");//idcode不匹配
+            logger.error("注册用户身份证信息不在表person中");
             return resMap;
         }
         //todo 替换
@@ -190,18 +190,19 @@ public class Home {
         //测试
 //        WeChatUser user = weChatUserService.findWxUserByIdperson(3);
 
-        logger.info(user);
-
-        //todo: 测试，需要删除
-        map.addAttribute("wxuser", JSONObject.toJSON(user));
-        logger.info(JSONObject.toJSON(user));
-
         resMap.put("wxuser", JSONObject.toJSONString(user));
 
         //todo: 添加openid, unionid处理
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
-            logger.error("return");
+            logger.warn("return");
             resMap.put("result", 0);
+            logger.warn("该用户不在表wechat!!");
+            return resMap;
+        }else {
+            logger.info("该用户在表wechat.\n" + user);
+            //todo: 测试，需要删除
+            map.addAttribute("wxuser", JSONObject.toJSON(user));
+            logger.info(JSONObject.toJSON(user));
         }
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);

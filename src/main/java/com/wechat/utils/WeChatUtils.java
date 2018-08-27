@@ -206,8 +206,6 @@ public class WeChatUtils {
      * */
     public static OAuthInfo getOAuthInfoByCode(String code){
 
-//        "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code="+code+"&grant_type=authorization_code";
-
         String url = WeChatConstants.GET_WEBAUTH_URL
                                     .replace("CODE",code)
                                     .replace("APPID", APPID_URL)
