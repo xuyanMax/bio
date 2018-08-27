@@ -210,7 +210,10 @@ Email|xuyanpeter0619@gmail.com
     1. 将`idperson=308`加入到`centers`表第一行
 1. 从微信用户获取到openid后，此时并没有idperon的数据。要回到person表中，找到是否存在对应的idperson,这样才能更新wechat表,有没有必要在person表中加入一个openid字段??
 
+**week16**
 
+## 问题
+    mysql自动断开链接的问题，org.springframework.dao.RecoverableDataAccessException
 
 
 jdk
