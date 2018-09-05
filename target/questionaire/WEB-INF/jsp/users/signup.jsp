@@ -55,7 +55,7 @@
             <small class="help-block" id="name-error"></small>
         </div>
         <div class="form-group" id="ID_CODE_div">
-            <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
+            <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code" value="${idcode}">
             <small class="help-block" id="id-error"></small>
         </div>
         <div class="form-group" id="unit_div">
@@ -160,6 +160,7 @@
                         wxuser = data.wxuser;
                         // alert(wxuser);
                         user = $.parseJSON(wxuser);
+                        alert(user);
                         // alert(user.openid+"return from sms");
                     }else if (data.result == '0'){
                         document.getElementById("vcode-error").className=' text-danger';
@@ -194,7 +195,7 @@
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
 
-            alert(upload.vcode);
+            alert("vcode"+upload.vcode);
 
             if ( user != "" ) {
                 upload.opd = user.openid;
@@ -210,7 +211,7 @@
                 upload.idperson = user.idperson;
 
             }
-            // alert(upload);
+            alert(upload);
 
             $.ajax({
                 type: "POST",

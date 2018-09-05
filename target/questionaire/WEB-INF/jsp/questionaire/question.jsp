@@ -25,38 +25,34 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            sendDataToServer(survey);
-            var complete = new Survey.Survey(json)
-        });
-        Survey.Survey.cssType = "bootstrap";
-        var surveyJSON = ${surveyJSON};
-        var survey = new Survey.Model(surveyJSON);
-
-
-        function sendDataToServer(survey) {
-            //send Ajax request to your web server.
-            $.ajax({
-                type:"POST",
-                url:"user/process/survey",
-                // contentType:"application/json",
-                dataType:"json",
-                data:survey.data,
-                success:function (){
-                    alert("问卷结果：" + JSON.stringify(survey.data));
-                    // alert(surveyJSON);
-                    // alert(JSON.stringify(surveyJSON));
-                }
+            Survey.Survey.cssType = "bootstrap";
+            var surveyJSON = ${surveyJSON};
+            var survey = new Survey.Model(surveyJSON);
+            $("#surveyContainer").Survey({
+                model: survey,
+                onComplete: sendDataToServer
             });
-            // alert("The results are:" + JSON.stringify(survey.data));
-        }
-        $("#surveyContainer").Survey({
-            model: survey,
-            onComplete: sendDataToServer
-        });
+            function sendDataToServer(survey) {
+                //send Ajax request to your web server.
+                $.ajax({
+                    type:"POST",
+                    url:"/process/survey",
+                    // contentType:"application/json",
+                    dataType:"json",
+                    data:survey.data,
+                    success:function (){
+                        alert("问卷结果：" + JSON.stringify(survey.data));
+                        // alert(surveyJSON);
+                        // alert(JSON.stringify(surveyJSON));
+                    }
+                });
+            }
 
+        });
+        // sendDataToServer(survey);
+        // var complete = new Survey.Survey(json)
 
     </script>
-    <%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--%>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>
