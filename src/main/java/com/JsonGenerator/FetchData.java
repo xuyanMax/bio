@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.SSHConnection;
 import com.jcraft.jsch.JSchException;
 import org.apache.log4j.Logger;
-import java.io.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +28,9 @@ public class FetchData {
     private static String DUNHAO = "、";
     private static String PERCENTAGE = "%";
     private static String UNDERSCORE ="_";
+    private static String QUESTIONMARK = "?";
+    private static String AMPERSAND = "&";
+    private static String EQUALSIGN = "=";
 
 
     //参考 www.cnblogs.com/guodefu909/p/5805667.html
@@ -106,16 +109,18 @@ public class FetchData {
                     elements.add(matrixDynamic);
 
                 } else if (type.equals("blank")) {
-                    //todo:判断是text还是multipletext
                     int size = question.contains(SEMI_COLUMN)?question.split(SEMI_COLUMN).length:-1;
                     if (size < 0) {
                         Text text = generateSingleText(num_quest, question, opts);
+                        if (description != null) text.setDescription(description);
                         elements.add(text);
                     }else {
 
                         MultipleText multipleText = new MultipleText("question" + num_quest, generateMultiTextTitle(question));
 
                         multipleText.setItems(multiTextAddItems(question));
+
+                        if (description != null) multipleText.setDescription(description);
                         generateMultiTextValidators(multipleText, question);
                         elements.add(multipleText);
                     }
@@ -142,22 +147,17 @@ public class FetchData {
         return JSONObject.toJSONString(surveyJson);
     }
     public static Text generateSingleText(int num_quest, String question, String opts) {
-        //todo: to check
         String title;
-        if (question.lastIndexOf(UNDERSCORE) < question.length()-1
-            && question.indexOf(HASH) != question.lastIndexOf(UNDERSCORE) + 1){
-            title = question.substring(0, question.indexOf(UNDERSCORE)) + question.substring(question.lastIndexOf(UNDERSCORE), question.indexOf(HASH));
-        }else {
-            //todo: 数据库更新后，只需要这一句就够
-//            title = question.substring(0, question.indexOf(REG_START));
-            title = question.substring(0, question.indexOf(UNDERSCORE) + 1);
-        }
+         //todo: 数据库更新后，只需要这一句就够
+        title = question.substring(0, question.indexOf(REG_START));
+//        logger.info(title);
         Text text = new Text(
                 "question" + num_quest,
                 title
         );
         //添加正则判断
         if (question.contains(REG_START) && question.contains(REG_END)) {
+            System.out.println("\n"+question+"\n");
             int first = question.indexOf(REG_START);
             int sec = question.lastIndexOf(REG_END);//类似^[1-5]\d{1}$|^[1-9]$|^\/$
 
@@ -165,9 +165,9 @@ public class FetchData {
             ValidatorRegex validatorRegex = new ValidatorRegex(regex);
 
             if (question.contains(HASH)) //添加错误提示
-                validatorRegex.setText(question.substring(opts.indexOf(HASH) + 1));//错误提示
+                validatorRegex.setText(question.substring(question.indexOf(HASH) + 1));//错误提示
 
-            text.setValidators(validatorRegex);
+            text.getValidators().add(validatorRegex);
         }
         return text;
     }
@@ -188,10 +188,9 @@ public class FetchData {
         String[] split = question.split(SEMI_COLUMN);
         StringBuilder builder = new StringBuilder();
         for (int i=0; i<split.length; i++){
-            builder.
-                    append(split[i].substring(0, split[i].indexOf(REG_START))).
-                    append(split[i].substring(split[i].lastIndexOf(REG_END)+ 1)).
-                    append(SEMI_COLUMN_);
+            builder
+                    .append(split[i].substring(0, split[i].indexOf(REG_START)))
+                    .append(SEMI_COLUMN_);
         }
         return builder.toString().substring(0, builder.length() - 1);
     }
@@ -211,10 +210,7 @@ public class FetchData {
         List<Item> items = new ArrayList<>();
 
         for (int i=0; i<size; i++) {
-            //todo
-            String name = subqustions[i].substring(subqustions[i].indexOf(PERCENTAGE), subqustions[i].lastIndexOf(PERCENTAGE));
-            items.add(new Item("", ""));//设置名字
-
+            items.add(new Item("",""));
             if (subqustions[i].contains(REG_START) && subqustions[i].contains(REG_END)) {//添加正则表达
                 int first = subqustions[i].indexOf(REG_START);
                 int second = subqustions[i].lastIndexOf(REG_END);
@@ -226,6 +222,19 @@ public class FetchData {
                     validatorRegex.setText(text);//错误提示
                 }
                 items.get(i).getValidators().add(validatorRegex);
+            }
+        }
+
+        if (question.contains(QUESTIONMARK)) {
+            //?text1=**&text2=***
+            List<String> names = Arrays.asList(question
+                    .substring(question.indexOf(QUESTIONMARK) + 1)
+                    .split(AMPERSAND));
+            for (int j=0;  j<names.size(); j++){
+                String name = names.get(j).substring(names.get(j).indexOf(EQUALSIGN) + 1);
+//                logger.warn(name);
+                items.get(j).setName(name);
+                items.get(j).setTitle(name);
             }
         }
         return items;

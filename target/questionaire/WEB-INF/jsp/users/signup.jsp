@@ -154,18 +154,14 @@
                     if (data.result == '1'){
                         document.getElementById("vcode-error").innerText="短信验证码已发送，请查收";
                         alert("成功发送短信到手机");
-                        //获取不到session，如果不刷新页面
-                        <%--var session_wxuser = '${sessionScope.get("wxuser")}';--%>
-                        // wxuser = '\''+data.wxuser+'\'';
                         wxuser = data.wxuser;
-                        // alert(wxuser);
-                        user = $.parseJSON(wxuser);
-                        alert(user);
-                        // alert(user.openid+"return from sms");
+                        alert(wxuser);
+                        //works
+                        user = $.parseJSON(wusxuser);
                     }else if (data.result == '0'){
                         document.getElementById("vcode-error").className=' text-danger';
-                        document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新发送";
-                        alert("失败");
+                        document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新获取";
+                        alert("短信验证码发送失败");
                     }else if (data.result == '-1'){
                         document.getElementById("id_code").className=' is-valid';
                         document.getElementById("id-error").className=' text-danger';
@@ -195,8 +191,6 @@
             upload.id = $("#id_code").val();
             upload.name = $("#name").val();
 
-            alert("vcode"+upload.vcode);
-
             if ( user != "" ) {
                 upload.opd = user.openid;
                 upload.uid = user.unionid;
@@ -211,7 +205,6 @@
                 upload.idperson = user.idperson;
 
             }
-            alert(upload);
 
             $.ajax({
                 type: "POST",

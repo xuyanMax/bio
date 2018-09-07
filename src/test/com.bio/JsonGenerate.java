@@ -99,7 +99,7 @@ public class JsonGenerate {
 
         validatorRegex.setText("错误");//错误提示
 
-        text.setValidators(validatorRegex);
+        text.getValidators().add(validatorRegex);
         System.out.println(JSONObject.toJSONString(text));
     }
 }

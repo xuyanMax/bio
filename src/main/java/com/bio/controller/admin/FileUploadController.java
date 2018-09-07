@@ -51,9 +51,8 @@ public class FileUploadController{
             // 0. 多文件逐个上传到服务器，不上传到db
             Arrays.stream(files).forEach((f) -> DBUtils.uploadSingleFile(request, f));
 
-            //1. 插入文件中数据到db前，调取数据库中的现有person
-//            List<Person> allPersons = personService.findAllPersons();
-            logger.info("等待上传的user:" + readXls(request, files));
+            //1. 等待上传的users
+            logger.info("等待上传的user=" + readXls(request, files));
             //2. 插入数据库的数据，返回的数据全部从上传到server文件中获得
             List<Person> personsToUpload = readXls(request, files);
             //set age, gender
@@ -66,7 +65,7 @@ public class FileUploadController{
             mv.addObject("persons", personsToUpload);
             mv.addObject("message", "successfully uploaded " + files.length + " files");
 
-            logger.info("creating an Excel sheet.");
+            logger.info("creating an Excel sheet now.");
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createExcelSheet(personsToUpload);

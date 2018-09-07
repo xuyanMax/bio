@@ -122,6 +122,7 @@ public class WeChat {
         if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser.getString("errmsg"));
+            return mv;
         }
 
         String access_token = JsonWxUser.getString("access_token");
@@ -135,11 +136,12 @@ public class WeChat {
         if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser.getString("errmsg"));
+            return mv;
         }
         WeChatUser user = WeChatUtils.composeWeChatUser(JsonWxUser);
         logger.info(user);
 
-        //todo
+        //todo: 鉴权
         mv.setViewName("../index");
         mv.addObject("username", user.getNickname());
         mv.addObject("snAdmin", "snAdmin");
@@ -193,9 +195,7 @@ public class WeChat {
                 logger.info("扫码登陆openid匹配");
                 return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
             }
-            //由于openid不匹配
-            //因此测试unionid是否匹配
-            //2. 通过access_token获取微信用户的基本信息
+            //2. 通过access_token获取微信用户的基本信息，  unionid
             wxUser = WeChatUtils.getUserByAccessTokenAndOpenId(authInfo.getAccess_token(), openid);
 
             if (wxUser != null && wxUser.getUnionid() != null && !wxUser.getUnionid().equals("")) {
@@ -221,10 +221,9 @@ public class WeChat {
 
                     mv.addObject("wxuser", wxUser);
                     modelMap.addAttribute("wxuser", wxUser);
-
                     return mv;
                 }
-            }else{ //从微信服务器获取的用户数据为空
+            }else{ //注册
                 logger.error("从微信服务器获取的用户数据为空");
                 mv.setViewName("views/errors/error");
                 mv.addObject("error", "从微信服务器获取的用户数据为空");
@@ -241,7 +240,7 @@ public class WeChat {
     public void wxLogin(HttpServletRequest request,
                           HttpServletResponse response,
                           ModelMap map){
-        logger.info("正在尝试微信网页扫码登陆");
+        logger.info("正在微信网页扫码登陆");
         WeChatUtils.wxLoginUrl(request, response);
 
     }
@@ -311,5 +310,26 @@ public class WeChat {
         iWeChatUserService.addWxUser(user);
         logger.info(user);
         return loginAuthCheck(user.getIdperson(), mv, map, user);
+    }
+    @RequestMapping("testSignup")
+    public ModelAndView testSignup(ModelMap map){
+        WeChatUser wxuser = new WeChatUser();
+        wxuser.setIdwechat(999);
+        wxuser.setUnionid("123");
+        wxuser.setOpenid("abx");
+        wxuser.setSubscribe("1100420");
+        wxuser.setSubscribe_time("123123123123)))");
+        wxuser.setLanguage("zn");
+        wxuser.setHeadImgUrl("http://***.com");
+        wxuser.setNickname("xyx");
+        wxuser.setIdperson(308);
+        wxuser.setSex("男");
+        wxuser.setCity("石家庄");
+        wxuser.setProvince("河北省");
+        map.addAttribute("wxuser", wxuser);
+        ModelAndView mv = new ModelAndView("jsp/users/signupIdCode");
+        return mv;
+
+
     }
 }

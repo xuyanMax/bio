@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//todo: update preHandle logic
 //reference: https://blog.csdn.net/qwe6112071/article/details/51099437
 public class CommonInterceptor implements HandlerInterceptor {
     /*session attributes*/
@@ -46,7 +45,7 @@ public class CommonInterceptor implements HandlerInterceptor {
                 return true;
         }
          /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
-        if (url.contains("login")){
+        if (url.contains("login")) {
             if (username != null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
                 logger.info("=====interceptor ends======");
@@ -54,7 +53,6 @@ public class CommonInterceptor implements HandlerInterceptor {
             } else
                 return true;
         }
-        //todo: contains idcode
         if (url.contains("signupPageFollowed")) {
             if (httpServletRequest.getSession().getAttribute("idcode") == null ){
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");

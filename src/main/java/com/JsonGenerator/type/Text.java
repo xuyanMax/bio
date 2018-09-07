@@ -3,19 +3,22 @@ package com.JsonGenerator.type;
 
 import com.JsonGenerator.element.Validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Text extends BaseQuestion {
-    Validator validators;
+    List<Validator> validators = new ArrayList<>();
 
     public Text(String name, String title) {
         super(name, title);
         this.type = "text";
     }
 
-    public Validator getValidators() {
+    public List<Validator> getValidators() {
         return validators;
     }
 
-    public void setValidators(Validator validators) {
+    public void setValidators(List<Validator> validators) {
         this.validators = validators;
     }
 

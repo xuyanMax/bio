@@ -13,7 +13,7 @@ public class SmsBase {
     private static String SIGNATURE = "人类基因组南方中心";
     public static String URL_SMS = "http://www.lx598.com/sdk/send?accName="
             + USERNAME
-            +"&accPwd="+PersonInfoUtils.md5(PSSD)
+            +"&accPwd="+PersonInfoUtils.md5(PSSD).toUpperCase()
             +"&aimcodes=AIMCODES&content=CONTENT【"
             +SIGNATURE
             +"】&dataType=DATATYPE";

@@ -116,14 +116,7 @@
                 <input type="checkbox" id="inlineCheckbox2" name="relative" value="1"> 家属
             </label>
         </div>
-        <div class="form-group" id="tel1_div">
-            <input type="text" class="form-control" placeholder="电话1" name="tel1" id="tel1">
-            <small class="help-block" id="tel1-error"></small>
-        </div>
-        <div class="form-group" id="tel2_div">
-            <input type="text" class="form-control" placeholder="电话2" name="tel2" id="tel2">
-            <small class="help-block" id="tel2-error"></small>
-        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">上传数据</button>
         </div>

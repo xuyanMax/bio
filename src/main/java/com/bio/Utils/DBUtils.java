@@ -21,13 +21,14 @@ public class DBUtils {
     private static final String FILE_NAME = "队列成员信息表" + LocalDate.now().format(DATE_TIME_FORMATTER) + FILE_EXTENSION;
     private static final String[] COL_NAMES = new String[10];
     private static final String[] PS =  new String[9];
+    private static final String[] COL_C_NAMES = new String[10];
     static {
         COL_NAMES[0] = "项目内序号";
         COL_NAMES[1] = "单位内序号(工号)";
-        COL_NAMES[2] = "姓名";
+        COL_NAMES[2] = "姓名（第一字加*补足长度）";
         COL_NAMES[3] = "性别";
         COL_NAMES[4] = "年龄";
-        COL_NAMES[5] = "身份证号";
+        COL_NAMES[5] = "身份证号末四位";
         COL_NAMES[6] = "编译后身份证号";
         COL_NAMES[7] = "样品条形码(登记流水号)";
         COL_NAMES[8] = "身份";
@@ -42,6 +43,17 @@ public class DBUtils {
         PS[6] = "样品条形码（登记流水号）”、“身份”、“电话”与输入表相同";
         PS[7] = "本表信息由单位管理员下载并保存，全名和身份证号不会存入系统数据库";
         PS[8] = "下载成功说明队列成员信息已入库，如下载失败须重新上传和下载";
+
+        COL_C_NAMES[0] = "global_sn";
+        COL_C_NAMES[0] = "sn_in_center";
+        COL_C_NAMES[0] = "name";
+        COL_C_NAMES[0] = "gender";
+        COL_C_NAMES[0] = "age";
+        COL_C_NAMES[0] = "ID_code";
+        COL_C_NAMES[0] = "ID_code";
+        COL_C_NAMES[0] = "barcode";
+        COL_C_NAMES[0] = "relative";
+        COL_C_NAMES[0] = "tel1";
     }
     private static int INFO_ROWS = 6;
     /**
@@ -175,17 +187,23 @@ public class DBUtils {
             cell.setCellValue(COL_NAMES[i]);
             cell.setCellStyle(style);
         }
+        HSSFRow row1 = sheet.createRow(1);
+        for (int i=0; i<COL_C_NAMES.length; i++){
+            cell = row1.createCell(i);
+            cell.setCellValue(COL_C_NAMES[i]);
+            cell.setCellStyle(style);
+        }
         // 第五步，创建单元格，并设置值
         HSSFRow row = null;
         int i;
         for ( i=0; i < persons.size(); i++) {
-            row = sheet.createRow(i+1);
+            row = sheet.createRow(i+2);
             // 为数据内容设置特点新单元格样式1 自动换行 上下居中
             style = workbook.createCellStyle();
             //设置单元格边框
             setCellStyle(workbook, style);
             //获取row的输入信息
-            List<String> rowInfo = getColValues(persons.get(i), persons.get(i).getOriginal_ID_code());
+            List<String> rowInfo = getColValuesFromUser(persons.get(i), persons.get(i).getOriginal_ID_code());
             //插入每一列单元格信息
             for (int j = 0; j< COL_NAMES.length; j++){
                 cell = row.createCell(j);
@@ -228,7 +246,7 @@ public class DBUtils {
         style.setBorderRight(BorderStyle.THIN);
         style.setBorderTop(BorderStyle.THIN);
     }
-    public static List<String> getColValues(Person person, String ID){
+    public static List<String> getColValuesFromUser(Person person, String ID){
         if (person == null)
             return new ArrayList<>();
         List<String> res = new ArrayList<>();
@@ -236,7 +254,7 @@ public class DBUtils {
         String global_sn = person.getGlobal_sn();
         String sn_in_center = person.getSn_in_center();
         String name = person.getName();
-        String gender = person.getGender().equals("1")?"男":"女";
+        String gender = person.getGender().equals("男")?"1":"0";
         String age = String.valueOf(person.getAge());
         String ID_code = ID;//原身份证号
         String ID_md5 = person.getID_code();//加密身份证号

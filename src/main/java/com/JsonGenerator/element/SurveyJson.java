@@ -12,7 +12,6 @@ public class SurveyJson {
     String showProgressBar;
     String startSurveyText;
     String pagePrevText;
-    String pageNextTest;
     String completeText;
 
     public SurveyJson() {
@@ -21,7 +20,6 @@ public class SurveyJson {
         this.showPageNumbers = true;
         this.showProgressBar = "top";
         this.pagePrevText = "上一页";
-        this.pageNextTest = "下一页";
         this.completeText = "提交";
         this.startSurveyText = "开始做题";
         this.sendResultOnPageNext = true;
@@ -91,14 +89,6 @@ public class SurveyJson {
         this.pagePrevText = pagePrevText;
     }
 
-    public String getPageNextTest() {
-        return pageNextTest;
-    }
-
-    public void setPageNextTest(String pageNextTest) {
-        this.pageNextTest = pageNextTest;
-    }
-
     public String getCompleteText() {
         return completeText;
     }
@@ -118,7 +108,6 @@ public class SurveyJson {
                 ", showProgressBar='" + showProgressBar + '\'' +
                 ", startSurveyText='" + startSurveyText + '\'' +
                 ", pagePrevText='" + pagePrevText + '\'' +
-                ", pageNextTest='" + pageNextTest + '\'' +
                 ", completeText='" + completeText + '\'' +
                 '}';
     }

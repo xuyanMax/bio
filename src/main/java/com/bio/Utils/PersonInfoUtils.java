@@ -61,17 +61,6 @@ public class PersonInfoUtils {
         return name.getBytes().length == name.length();
     }
 
-
-    //@deprecated 身份证号计算参考: https://blog.csdn.net/dabing69221/article/details/9150819
-    public static boolean isDigital(String str) {
-        return str == null || "".equals(str) ? false : str.matches("^[0-9]*$");
-    }
-    /*@deprecated, 已经被前端替换*/
-    public static boolean isID_code(String ID_code){
-        return ID_code == null || "".equals(ID_code) ? false : Pattern.matches(
-                "(^\\d{15}$)|(\\d{17}(?:\\d|x|X)$)", ID_code);
-    }
-
     //从ID中获取性别
     public static String getGender(String ID_code){
         int size = ID_code.length();
@@ -84,7 +73,6 @@ public class PersonInfoUtils {
 
         return null;
     }
-    //利用ID计算生日
     // 默认18位身份证
     // @return 1: 男, 2: 女
     public static int getAge(String ID_code){
@@ -97,9 +85,6 @@ public class PersonInfoUtils {
         }*/
         return getAgeHelper(ID_code.substring(6,13), 8);
     }
-    // 年龄范围: 1918年到2018年
-    // 通过年，月，日与当前时间做对比，计算实际年龄
-
     //合并处理15位/18位身份证号，计算年龄的问题
     public static int getAgeHelper(String birth, int size){
         Calendar calendar = Calendar.getInstance();
@@ -117,9 +102,4 @@ public class PersonInfoUtils {
         return !relative.equals("参与人")?0:1;
     }
 
-    //判断是否为纯数字组成字符串
-    public static boolean isDigits(String code){
-        Pattern pattern = Pattern.compile("[0-9]*");
-        return pattern.matcher(code).matches();
-    }
 }

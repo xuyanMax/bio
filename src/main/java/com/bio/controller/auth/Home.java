@@ -185,29 +185,23 @@ public class Home {
             logger.error("注册用户身份证信息不在表person中");
             return resMap;
         }
-        //todo 替换
-        WeChatUser user = weChatUserService.findWxUserByIdperson(p.getIdperson());
-        //测试
-//        WeChatUser user = weChatUserService.findWxUserByIdperson(3);
+        WeChatUser user = (WeChatUser) map.get("wxuser");
 
         resMap.put("wxuser", JSONObject.toJSONString(user));
 
         //todo: 添加openid, unionid处理
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
-            logger.warn("return");
-            resMap.put("result", 0);
-            logger.warn("该用户不在表wechat!!");
-            return resMap;
+            logger.warn("该用户不在Session!!");
         }else {
-            logger.info("该用户在表wechat.\n" + user);
+            logger.info("该用户在Session." );
             //todo: 测试，需要删除
             map.addAttribute("wxuser", JSONObject.toJSON(user));
-            logger.info(JSONObject.toJSON(user));
+            logger.info("wxuser=" + JSONObject.toJSON(user));
         }
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "GET", null, vcode);
-        logger.info("http =" + res);
+        logger.info("http=" + res);
 
         if (res != null && !res.equals("")){
             if (res.startsWith("1")){//success
@@ -243,7 +237,7 @@ public class Home {
             if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
 //                // 添加注册用户到wechat表
                 WeChatUser weChatUser = new WeChatUser();
-                weChatUser.setIdperson(idperson);
+                weChatUser.setIdperson(p.getIdperson());
                 weChatUser.setOpenid(opd);
                 weChatUser.setUnionid(uid);
                 weChatUser.setCity(city);
@@ -281,7 +275,7 @@ public class Home {
     @ResponseBody
     public Map<String, Object> processSurvey(HttpServletRequest request,
                                              HttpServletResponse response,
-                                             @RequestBody SurveyJson surveyJson
+                                             @RequestBody String surveyJson
                                              ){
         Map<String, Object> map = new HashMap<>();
         logger.info(surveyJson);
@@ -343,6 +337,7 @@ public class Home {
         mv.setViewName("/jsp/users/userHomePage");
         mv.addObject("username", person.getName());
         mv.addObject("user", person);
+        mv.addObject("nickname", person.getName());
         mv.addObject("msg", "参加人临时员界面");
 
         return mv;

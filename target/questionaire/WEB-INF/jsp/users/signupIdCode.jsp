@@ -47,7 +47,7 @@
 </head>
 <body>
 <div class="login-form">
-    <form name="dataInputForm" action="" method="post" onsubmit="return checkVCode()">
+    <form name="dataInputForm" action="" method="post">
         <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="name_div">
             <input type="text" class="form-control" placeholder="姓名" required="required" name="name" id="name">
@@ -65,11 +65,7 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    function checkVCode() {
-        return $("#vcode").val() == vcode?true:false;
-    }
     function checkID() {
-
         var id_code = document.getElementById("id_code");
         var id_code_err = document.getElementById("id-error");
         id_code_err.innerText="";
@@ -99,7 +95,7 @@
                 },
                 success:function (data) {
                     if (data.result == 0){
-                        alert("失败了")
+                        alert("没有您的预申请信息，请联系专属管理员。")
                     }else if (data.result == 1){
                         alert("身份证号验证成功!");
                         window.location.assign(window.location.origin+"/signupPageFollowed?idcode="+idcode);
