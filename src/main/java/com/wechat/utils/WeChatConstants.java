@@ -29,7 +29,7 @@ public class WeChatConstants {
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE&uri=URI#wechat_redirect";
 
     //用于获取当前与微信公众号交互的用户信息的接口（一般是用第一个接口地址）
-    private static String get_openId_url_msg = "https://api.weixin.qq.com/cgi-bin/user/info?" +
+    public static String GET_WXUSER_BY_OPENID_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/user/info?" +
             "access_token=ACCESS_TOKEN&" +
             "openid=OPENID&lang=zh_CN";
 

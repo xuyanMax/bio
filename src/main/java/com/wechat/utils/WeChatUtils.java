@@ -114,7 +114,6 @@ public class WeChatUtils {
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
-            logger.info("HttpResponse=" + buffer.toString());
             bufferedReader.close();
             inputStreamReader.close();
             // 释放资源
@@ -156,7 +155,7 @@ public class WeChatUtils {
         JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
 
         if (null != jsonObject) {
-            logger.info("JSONObject: " + jsonObject.toJSONString());
+            logger.info("MenuJSONObject=" + jsonObject.toJSONString());
             if (0 != jsonObject.getIntValue("errcode")) {
                 result = jsonObject.getIntValue("errcode");
                 logger.error("创建菜单失败 errcode:{} errmsg:{}");
@@ -179,7 +178,7 @@ public class WeChatUtils {
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
         if (jsonObject != null) {
-            logger.info("JSONObject="+jsonObject.toJSONString());
+            logger.info("WeChatUser="+jsonObject.toJSONString());
             WeChatUser user = composeWeChatUser(jsonObject);
             logger.info(user);
 

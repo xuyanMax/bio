@@ -136,27 +136,44 @@ public class WeChat {
         if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser.getString("errmsg"));
+            logger.error(JsonWxUser);
             return mv;
         }
-        WeChatUser user = WeChatUtils.composeWeChatUser(JsonWxUser);
-        logger.info(user);
+        WeChatUser wxuser = iWeChatUserService.findWxUserByOpenId(JsonWxUser.getString("openid"));
+        if (wxuser != null && wxuser.getIdperson() != null){
+            logger.info(wxuser);
+            return loginAuthCheck(wxuser.getIdperson(), mv, map, wxuser);
+        }else {
 
-        //todo: 鉴权
-        mv.setViewName("../index");
-        mv.addObject("username", user.getNickname());
-        mv.addObject("snAdmin", "snAdmin");
+            String url3 = WeChatConstants.GET_WXUSER_BY_OPENID_ACCESS_TOKEN
+                    .replace("OPENID", openid)
+                    .replace("ACCESS_TOKEN", access_token);
 
-        map.addAttribute("username", user.getNickname());
-        map.addAttribute("snAdmin", "snAdmin");
+            JsonWxUser = WeChatUtils.httpRequest(url3, "GET", null);
+            wxuser = iWeChatUserService.findWxUserByUnionid(JsonWxUser.getString("unionid"));
+            if (wxuser == null || wxuser.getIdperson() == null){
+                if (JsonWxUser.getString("errcode") != null){
+                    mv.addObject("error", JsonWxUser.getString("errmsg"));
+                    mv.setViewName("views/errors/error");
+                    return mv;
+                }else{
+                    logger.info("扫码登录=>openid和unionid不匹配，将进入注册页");
+                    mv.setViewName("jsp/users/signupIdCode");
+                    mv.addObject("wxuser", wxuser);
+                    map.addAttribute("wxuser", wxuser);
+                    return mv;
+                }
+            }else{
+                return loginAuthCheck(wxuser.getIdperson(), mv, map, wxuser);
+            }
+        }
 
-        return mv;
     }
     /**
      * 进行网页授权，便于获取到用户的绑定内容
      * 此为回调页面
      * reference: https://blog.csdn.net/cs_hnu_scw/article/details/79103129
      * https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
-     * @param request
      * @return
      */
     @RequestMapping("/info")
@@ -178,7 +195,6 @@ public class WeChat {
 
         OAuthInfo authInfo = null;
         WeChatUser wxUser = null;
-        Integer idperson = null;
 
         //1. 通过code参数获取access_token={openid:, access_token:, unionid:, ...}
         authInfo = WeChatUtils.getOAuthInfoByCode(code);
@@ -186,10 +202,7 @@ public class WeChat {
         String openid = authInfo.getOpenid();
         //测试openid是否匹配
         if (openid != null && !openid.equals("")) {
-            logger.info(openid);
             wxUser = iWeChatUserService.findWxUserByOpenId(openid);
-
-            //openid匹配, 登陆
             if (wxUser != null && wxUser.getOpenid().equals(openid)){
                 logger.info(wxUser);
                 logger.info("扫码登陆openid匹配");
@@ -200,22 +213,19 @@ public class WeChat {
 
             if (wxUser != null && wxUser.getUnionid() != null && !wxUser.getUnionid().equals("")) {
 
-                //获取得到的wxuser信息，idperson暂为空
+                //idperson暂为空
                 logger.info(wxUser);
-
                 WeChatUser dbUser = iWeChatUserService.findWxUserByUnionid(wxUser.getUnionid());
-                //unionid匹配，更新wechat数据，登陆
+
                 if (dbUser != null
                         && dbUser.getUnionid().equals(wxUser.getUnionid())) {//db存在该用户，那么直接登陆
 
                     logger.info(dbUser);
-
-                    //update wechat user's openid
+                    //update wechat user's openid etc.
                     logger.info("扫码登陆unionid匹配!");
                     iWeChatUserService.modifyWxUserByUnionid(wxUser);
                     return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
                 }else{// unionid不匹配，进入注册页面
-                    //todo: 添加
                     logger.info("扫码登陆openid和unionid不匹配，即将进入注册页");
                     mv.setViewName("jsp/users/signupIdCode");
 
@@ -246,9 +256,7 @@ public class WeChat {
     }
 
     public  ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
-        logger.info(idperson);
-        logger.info(mv == null);
-        logger.info(map == null);
+        logger.info("idperson="+idperson+", mv="+mv+", modelmap="+map);
 
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
         Person person = iPersonService.findPersonById(idperson);
@@ -293,7 +301,7 @@ public class WeChat {
         mv.setViewName("/jsp/users/userHomePage");
         mv.addObject("username", person.getName());
         mv.addObject("user", user);
-        mv.addObject("msg", "参加人临时员界面");
+        mv.addObject("msg", "参加临时人员界面");
         if (user!=null) {
             user.setIdperson(person.getIdperson());
             mv.addObject("wxuser", user);

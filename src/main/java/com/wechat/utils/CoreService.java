@@ -136,7 +136,7 @@ public class CoreService {
                             .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
                             .replace("APPID", TokenThread.appID)
                             .replace("STATE", "AUTH");
-                    logger.info("访问主页:"+url);
+                    logger.info("访问主页="+url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
 
                     // 将文本消息对象转换成xml字符串
@@ -144,7 +144,6 @@ public class CoreService {
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
                 } else if (content.matches(".*openid.*")){
-                    logger.info(user.getNickname()+" inputs openid");
                     textMessage.setContent(user.toString());
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
