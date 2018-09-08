@@ -41,15 +41,15 @@ public class Home {
     IWeChatUserService weChatUserService;
 
     @RequestMapping("/home")
-    public ModelAndView index(ModelMap map){
+    public ModelAndView index(ModelMap session){
         ModelAndView mv = new ModelAndView("../index");
-        if (map.get("username") != null) {
-            mv.addObject("username", map.get("username"));
-            logger.info(map.get("username"));
+        if (session.get("username") != null) {
+            mv.addObject("username", session.get("username"));
+            logger.info(session.get("username"));
         }
-        if (map.get("snAdmin") != null) {
-            mv.addObject("snAdmin", map.get("snAdmin"));
-            logger.info(map.get("snAdmin"));
+        if (session.get("snAdmin") != null) {
+            mv.addObject("snAdmin", session.get("snAdmin"));
+            logger.info(session.get("snAdmin"));
         }
         return mv;
     }
@@ -62,7 +62,7 @@ public class Home {
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public ModelAndView login(@Param("ID_code") String ID_code,
                               @Param("name") String name,
-                              ModelMap modelMap,
+                              ModelMap session,
                               HttpServletRequest request,
                               HttpServletResponse response){
         ModelAndView mv = new ModelAndView();
@@ -89,7 +89,7 @@ public class Home {
 
         logger.info(loginItem);
 
-        return authorityCheck(person.getIdperson(), mv, modelMap);
+        return authorityCheck(person.getIdperson(), mv, session);
     }
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
@@ -107,30 +107,18 @@ public class Home {
         return mv;
     }
 
-    //todo:not in use
-    @RequestMapping("/survey/upload")
-    @ResponseBody
-    public Map<String, Object> processJSONSurvey(HttpServletResponse response,
-                                          HttpServletRequest request){
-        Map<String, Object> map = new HashMap<>();
-        logger.info("Process JSONSurvey in Controller");
-
-        return map;
-    }
-
     @RequestMapping("/signupPage")
     public ModelAndView signUp(){
-        ModelAndView mv = new ModelAndView("jsp/users/signupIdCode");
-        return mv;
+        return new ModelAndView("jsp/users/signupIdCode");
     }
 
     @RequestMapping("/signupPageFollowed")
     public ModelAndView signUpFollowed(HttpServletRequest request,
                                        String idcode,
-                                       ModelMap map){
+                                       ModelMap session){
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", idcode);
-        map.put("idcode", idcode);
+        session.put("idcode", idcode);
         return mv;
     }
     @RequestMapping("register/idcheck")
@@ -306,13 +294,9 @@ public class Home {
     /*404 Page Not Found*/
     @RequestMapping("*")
     public String _404PageNotFound(HttpServletRequest request){
-        logger.warn("404NotFound");
         return "views/errors/404";
     }
-    public ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap map){
-        logger.info(idperson);
-        logger.info(mv == null);
-        logger.info(map == null);
+    public ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap session){
 
         Center center = centerService.findPersonInCentersByIdperson(idperson);
         Person person = personService.findPersonById(idperson);
@@ -323,9 +307,9 @@ public class Home {
             mv.addObject("user", person);
             mv.addObject("snAdmin", "snAdmin");
 
-            map.put("username", person.getName());
-            map.put("snAdmin", "syAdmin");
-            map.put("user", person);
+            session.put("username", person.getName());
+            session.put("snAdmin", "syAdmin");
+            session.put("user", person);
             mv.setViewName("../index");
             return mv;
         }
@@ -339,9 +323,9 @@ public class Home {
             mv.addObject("sys_admin", "sys_admin");
 
 
-            map.addAttribute("username", person.getName());
-            map.addAttribute("user", person);
-            map.addAttribute("sys_admin", "sys_admin");
+            session.addAttribute("username", person.getName());
+            session.addAttribute("user", person);
+            session.addAttribute("sys_admin", "sys_admin");
             return mv;
         }
         //todo: 参加人员界面
