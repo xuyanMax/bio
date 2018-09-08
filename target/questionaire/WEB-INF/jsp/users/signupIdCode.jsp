@@ -57,6 +57,10 @@
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
             <small class="help-block" id="id-error"></small>
         </div>
+        <div class="form-group" id="phone_div">
+            <input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">
+            <small class="help-block" id="phone-error"></small>
+        </div>
         <div class="form-group">
             <button type="submit" id="submit" class="btn btn-primary btn-block">注册查询</button>
         </div>
@@ -65,6 +69,23 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script type="text/javascript">
+    function checkPhone(){
+        var phone = document.getElementById("phone");
+        var reg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+        phone_err.innerText="";
+        phone.innerText="";
+        if (!reg.test(phone.value)){
+            var phone_err = document.getElementById("phone-error");
+            phone.className += ' is-invalid';
+
+            phone_err.className += ' text-danger';
+            phone_err.innerText="请输入正确的手机号码!";
+
+
+            return false;
+        }
+        return true;
+    }
     function checkID() {
         var id_code = document.getElementById("id_code");
         var id_code_err = document.getElementById("id-error");
@@ -74,7 +95,7 @@
         if (!reg.test(id_code.value)){
             id_code.className += ' is-invalid';
             id_code_err.className +=' text-danger';
-            id_code_err.innerText="请输入18位合法身份证";
+            id_code_err.innerText="请输入18位合法身份证!";
             return;
         }
         return;

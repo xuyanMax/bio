@@ -1,7 +1,6 @@
 package com.bio.controller.auth;
 
 import com.JsonGenerator.FetchData;
-import com.JsonGenerator.element.SurveyJson;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
@@ -140,19 +139,31 @@ public class Home {
                                                    HttpServletResponse response,
                                                    String idcode,
                                                    String name,
-                                                   ModelMap map){
-        logger.info(idcode);
+                                                   String phone,
+                                                   ModelMap session){
+        Map<String, Object> resMap = new HashMap<>();
+        logger.info("idcode="+idcode+", name="+name+", phone="+phone);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
         Person p = personService.findPersonByID_code(md5);
 
         logger.info(p);
-        Map<String, Object> result = new HashMap<>();
+
         if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
-            result.put("result", "1");
-            map.put("idcode", idcode);
+            resMap.put("result_id", "1");
+            session.put("idcode", idcode);
         }
-        else result.put("result", "0");
-        return result;
+        else resMap.put("result_id", "0");
+
+        if (p.getTel1() == null || p.getTel1().equals("")) {
+            p.setTel1(phone);
+            personService.modifyPerson(p);
+        }else {
+            if (phone.equals(p.getTel1()))
+                resMap.put("result_ph", "1");
+            else
+                resMap.put("result_ph", "0");
+        }
+        return resMap;
     }
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;

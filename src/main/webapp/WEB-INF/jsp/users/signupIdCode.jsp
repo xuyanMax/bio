@@ -57,6 +57,10 @@
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
             <small class="help-block" id="id-error"></small>
         </div>
+        <div class="form-group" id="phone_div">
+            <input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">
+            <small class="help-block" id="phone-error"></small>
+        </div>
         <div class="form-group">
             <button type="submit" id="submit" class="btn btn-primary btn-block">注册查询</button>
         </div>
@@ -65,6 +69,20 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script type="text/javascript">
+    function checkPhone(){
+        var phone = document.getElementById("phone");
+        var reg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+        var phone_err = document.getElementById("phone-err");
+        phone_err.innerText="";
+        phone.innerText="";
+        if (!reg.test(phone.value)){
+            phone.className += ' is-invalid';
+            phone_err.className += ' text-danger';
+            phone_err.innerText="请输入正确的手机号码!";
+            return false;
+        }
+        return true;
+    }
     function checkID() {
         var id_code = document.getElementById("id_code");
         var id_code_err = document.getElementById("id-error");
@@ -74,7 +92,7 @@
         if (!reg.test(id_code.value)){
             id_code.className += ' is-invalid';
             id_code_err.className +=' text-danger';
-            id_code_err.innerText="请输入18位合法身份证";
+            id_code_err.innerText="请输入18位合法身份证!";
             return;
         }
         return;
@@ -85,6 +103,7 @@
             var upload={};
             upload.idcode = idcode;
             upload.name = $("#name").val();
+            upload.phone = $("#phone").val();
             $.ajax({
                 type:"POST",
                 dataType:"json",
@@ -94,9 +113,11 @@
                     alert("失败");
                 },
                 success:function (data) {
-                    if (data.result == 0){
+                    if (data.result_id == 0) {
                         alert("没有您的预申请信息，请联系专属管理员。")
-                    }else if (data.result == 1){
+                    } else if (data.result_ph == 0){
+                        alert("请核对手机号码")
+                    } else if (data.result_ph == 1){
                         alert("身份证号验证成功!");
                         window.location.assign(window.location.origin+"/signupPageFollowed?idcode="+idcode);
                     }
