@@ -1,7 +1,7 @@
 package com.bio.beans;
 
 public class Center {
-    private int centerid;
+    private int idcenter;
     private String center;
     private Integer idperson;
 
@@ -28,12 +28,12 @@ public class Center {
     private int sup2;
     private String sup3;
 
-    public int getCenterid() {
-        return centerid;
+    public int getIdcenter() {
+        return idcenter;
     }
 
-    public void setCenterid(int centerid) {
-        this.centerid = centerid;
+    public void setIdcenter(int idcenter) {
+        this.idcenter = idcenter;
     }
 
     public int getPostcode() {
@@ -87,7 +87,7 @@ public class Center {
     @Override
     public String toString() {
         return "Center{" +
-                "centerid=" + centerid +
+                "idcenter=" + idcenter +
                 ", center='" + center + '\'' +
                 ", idperson=" + idperson +
                 ", postcode=" + postcode +

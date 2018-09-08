@@ -12,22 +12,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
-<%--todo: 添加jQuery文件上传插件; 解决Bootstrap路径识别问题--%>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="navbar-brand" href="/home">FLUP</a>
             </li>
-            <%--<li class="nav-item">--%>
-            <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
-            <%--<li class="nav-item">--%>
-            <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
-            <%--<li class="nav-item">--%>
-            <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
         </ul>
     </div>
     <div class="mx-auto order-0">
@@ -75,7 +65,6 @@
         var files = document.getElementById("files");
         var span = document.getElementById("fileNames");
         for (i=0; i<files.files.length; i++){
-            // alert(files.files[i].name);
             console.log(files.files[i].name);
             span.innerHTML += "<span class=\"list-group\" id=\"fileNames\">"+files.files[i].name+"</span>";
         }

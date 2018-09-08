@@ -8,8 +8,6 @@ import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
 import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.formula.functions.T;
-import sun.tools.jstat.Token;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

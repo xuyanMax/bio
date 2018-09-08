@@ -11,7 +11,7 @@ public class CenterImpl implements ICenterService {
     private ICenterDao centerDao;
 
     @Override
-    public int findPersonInCentersByCenterid(int idcenter) {
+    public Center findPersonInCentersByCenterid(int idcenter) {
         return centerDao.selectCenterIdById(idcenter);
     }
 

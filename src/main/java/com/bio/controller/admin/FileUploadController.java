@@ -1,12 +1,18 @@
 package com.bio.controller.admin;
 
+import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.DBUtils;
 import com.bio.Utils.PersonInfoUtils;
+import com.bio.beans.Center;
+import com.bio.beans.Exam;
 import com.bio.beans.Person;
+import com.bio.service.ICenterService;
+import com.bio.service.IExamService;
 import com.bio.service.IPersonService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,11 +26,17 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes({"username", "user"})// 此处定义此Controller中将要创建和使用哪些session中的对象名
+@SessionAttributes({"username", "user", "wxuser"})// 此处定义此Controller中将要创建和使用哪些session中的对象名
 public class FileUploadController{
     @Autowired
     private IPersonService personService;
+    @Autowired
+    private ICenterService centerService;
+    @Autowired
+    private IExamService examService;
+
     private static Logger logger = Logger.getLogger(FileUploadController.class);
+    private static String UNDERLINE = "_";
     // 上传多个文件
     @RequestMapping(value = "/uploadMultiFiles")
     public ModelAndView uploadMultiFiles(@ModelAttribute("username") String username){
@@ -36,67 +48,107 @@ public class FileUploadController{
 
     @RequestMapping(value = "/upMultiFiles", method = RequestMethod.POST)
     public ModelAndView upMultiFiles(HttpServletRequest request,
-                               @RequestParam("files") MultipartFile[] files){
+                               @RequestParam("files") MultipartFile[] files, ModelMap session){
         ModelAndView mv = new ModelAndView();
         List<MultipartFile> nonEmptyFiles = Arrays
                                                 .stream(files)
                                                 .filter((f)->(!f.isEmpty()))
                                                 .collect(Collectors.toList());
-        // 存在空的上传文件
         if(nonEmptyFiles.size() != files.length) {
-            mv.addObject("message", "错误, 存在空文件！");
+            mv.addObject("error", "错误, 存在空文件！");
             mv.setViewName("views/errors/error");
         }
         else {
-            // 0. 多文件逐个上传到服务器，不上传到db
-            Arrays.stream(files).forEach((f) -> DBUtils.uploadSingleFile(request, f));
+            Arrays.stream(files).forEach((f) -> DBUtils.uploadAFileToServer(request, f));
 
-            //1. 等待上传的users
-            logger.info("等待上传的user=" + readXls(request, files));
-            //2. 插入数据库的数据，返回的数据全部从上传到server文件中获得
-            List<Person> personsToUpload = readXls(request, files);
-            //set age, gender
-            personsToUpload.stream().forEach(p->{
-                p.setGender(PersonInfoUtils.getGender(p.getOriginal_ID_code()));
-                p.setAge(PersonInfoUtils.getAge(p.getOriginal_ID_code()));
-            });
+            List<Person> personsToUpload = readXlsFromServerAndSaveToDB(request, files, session);
+            logger.info("上传" + personsToUpload);
 
-            // add persons to model
             mv.addObject("persons", personsToUpload);
             mv.addObject("message", "successfully uploaded " + files.length + " files");
 
-            logger.info("creating an Excel sheet now.");
+            logger.info("Creating the Excel Sheet.");
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
-            DBUtils.createExcelSheet(personsToUpload);
-
-            // set view
+            DBUtils.createXlsAndDownload(personsToUpload);
             mv.setViewName("views/success");
         }
 
         return mv;
     }
-    // 1. upload the files
+    // 1. upload the files to server
     // 2. insert person data to db
-
-    public List<Person> readXls(HttpServletRequest request,
-                                MultipartFile[] files){
+    public List<Person> readXlsFromServerAndSaveToDB(HttpServletRequest request,
+                                                     MultipartFile[] files,
+                                                     ModelMap session){
         List<Person> res = new ArrayList<>();
         for (MultipartFile file:files) {
             // 1. read the xls file
             String path = request.getServletContext().getRealPath("/data/");
             String fileName = file.getOriginalFilename();
-            logger.info("Reading excel file: " + path + fileName);
+            logger.info("file=" + path + fileName);
             try {
-                //从Server读取files
-                List<Person> persons = DBUtils.readXls(path + fileName);
+                List<Person> persons = DBUtils.readXlsFromServer(path + fileName);
                 res.addAll(persons);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         //将上传所有文档中的数据逐一插入数据库
-        res.stream().forEach(person -> personService.addPerson(person));
+        personToDB(res, session);
         return res;
+    }
+
+    public void personToDB(List<Person> persons, ModelMap session){
+        Person sn_person = (Person) session.get("user");
+        Person p = null;
+        String global_sn = null;
+        if (sn_person != null){
+            Center center = centerService.findPersonInCentersByCenterid(sn_person.getIdcenter());
+            int number = personService.countPersonsByIdCenter(center.getIdcenter());
+            global_sn = center.getPostcode()
+                            + UNDERLINE
+                            + center.getLocal_num()
+                            + UNDERLINE
+                            + number;
+
+        }else{//todo: 测试session用
+            logger.error("session does not have USER=" + session.get("user"));
+            return;
+        }
+        for (Person person:persons){
+            p = personService.findPersonByID_code(person.getID_code());
+            if (p == null){
+                p = new Person();
+                p.setOriginal_ID_code(p.getOriginal_ID_code());
+                p.setID_code(PersonInfoUtils.md5(person.getOriginal_ID_code()));
+                p.setBarcode(person.getBarcode());
+                p.setName(person.getName());
+                p.setSn_in_center(person.getSn_in_center());
+                p.setRelative(person.getRelative());
+                p.setAge(PersonInfoUtils.getAge(person.getOriginal_ID_code()));
+                p.setGender(PersonInfoUtils.getGender(person.getOriginal_ID_code()));
+                p.setID_code_cut(person.getOriginal_ID_code().substring(15));
+                p.setGlobal_sn(global_sn);
+
+                logger.info(p);
+
+                personService.addPerson(p);
+            }else {
+                global_sn = p.getGlobal_sn();
+                person.setGlobal_sn(global_sn);
+
+                logger.info(person);
+
+                personService.modifyPerson(person);
+            }
+            Exam exam = new Exam();
+            exam.setBarcode(p.getBarcode());
+            exam.setIdperson(p.getIdperson());
+            exam.setInput_date(ClientInfoUtils.getCurrDatetime());
+//            exam.setSup2();
+            logger.info(exam);
+            examService.addExam(exam);
+        }
     }
 }

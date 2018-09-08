@@ -33,20 +33,6 @@ public class PersonImpl implements IPersonService{
         personDao.updatePerson(person);
     }
 
-//    @Override
-//    public List<String> findAllPersonsNames() {
-//        List<String> res = personDao.selectAllPersons().
-//                stream().
-//                map(Person::getName).
-//                collect(Collectors.toList());
-//        return res;
-//    }
-
-//    @Override
-//    public String findPersonNameById(int idPerson) {
-//         return personDao.selectPersonByIdPerson(idPerson).getName();
-//    }
-
     @Override
     public List<Person> findAllPersons() {
         return personDao.selectAllPersons();
@@ -60,5 +46,10 @@ public class PersonImpl implements IPersonService{
     @Override
     public Person findPersonByID_code(String ID_code) {
         return personDao.selectPersonByID_code(ID_code);
+    }
+
+    @Override
+    public int countPersonsByIdCenter(int idcenter) {
+        return personDao.selectPersonsByIdcenter(idcenter);
     }
 }

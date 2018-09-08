@@ -61,7 +61,7 @@ public class DBUtils {
      * * 从服务器端读取上传文件，并获取persons数据
     * @return List<person>
     * */
-    public static List<Person> readXls (String path) throws IOException {
+    public static List<Person> readXlsFromServer(String path) throws IOException {
 
         InputStream is = new FileInputStream(path);
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
@@ -114,29 +114,11 @@ public class DBUtils {
         return res;
     }
 
-    //todo:直接从上传excels文件中读取数据List<persons>
-    public List<Person> readXls(MultipartFile[] files){
-        List<Person> res = new ArrayList<>();
-
-        return res;
-    }
-
-    /**
-     * save to db
-     * only applicable to: 2003 Excel, e.g., *.xls
-     * 1. read xls file from the server
-     * 2. save it to db
-    * */
-    public static void save(String path){
-    }
-    /*upload xls to db*/
-    public static void uploadSingleFile(HttpServletRequest request, MultipartFile multipartFile) {
-        //上传文件路径: bio/target/WEB-INFO/data
+    /*upload xls to server*/
+    public static void uploadAFileToServer(HttpServletRequest request, MultipartFile multipartFile) {
         String path = request.getServletContext().getRealPath("/data/");
-
         //测试: 上传文件名
         logger.info(path);
-
         String fileName = multipartFile.getOriginalFilename();
         logger.info(fileName);
         File filePath = new File(path, fileName);
@@ -151,13 +133,12 @@ public class DBUtils {
         }
     }
     // output an excel file, containing all person's essential info
-    public static void createExcelSheet(List<Person> persons) {
+    public static void createXlsAndDownload(List<Person> persons) {
         logger.info(persons.size());
         //1. 创建workbook，对应一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
         //2. 添加一个sheet
         HSSFSheet sheet = workbook.createSheet(sheetName);
-//        sheet.setDefaultColumnWidth(5);//统一设置列宽度
 
         //3. 添加内容
         // a. 创建标题
@@ -218,7 +199,6 @@ public class DBUtils {
             cell.setCellValue(PS[j]);
         }
         // 第六步，存储下载文件到指定位置
-        // for macos: /Users/"你的用户"/Downloads/
         String path = System.getProperty("user.home")+"/Downloads/";
         logger.info(path);
         // todo: for mac

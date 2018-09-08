@@ -89,7 +89,7 @@ public class Home {
 
         logger.info(loginItem);
 
-        return authorityCheck(person.getIdperson(), mv, session);
+        return loginAuthCheck(person.getIdperson(), mv, session);
     }
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(){
@@ -296,7 +296,7 @@ public class Home {
     public String _404PageNotFound(HttpServletRequest request){
         return "views/errors/404";
     }
-    public ModelAndView authorityCheck(int idperson, ModelAndView mv, ModelMap session){
+    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session){
 
         Center center = centerService.findPersonInCentersByIdperson(idperson);
         Person person = personService.findPersonById(idperson);

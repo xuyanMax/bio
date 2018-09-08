@@ -72,16 +72,13 @@
     function checkPhone(){
         var phone = document.getElementById("phone");
         var reg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+        var phone_err = document.getElementById("phone-err");
         phone_err.innerText="";
         phone.innerText="";
         if (!reg.test(phone.value)){
-            var phone_err = document.getElementById("phone-error");
             phone.className += ' is-invalid';
-
             phone_err.className += ' text-danger';
             phone_err.innerText="请输入正确的手机号码!";
-
-
             return false;
         }
         return true;
@@ -106,6 +103,7 @@
             var upload={};
             upload.idcode = idcode;
             upload.name = $("#name").val();
+            upload.phone = $("#phone").val();
             $.ajax({
                 type:"POST",
                 dataType:"json",
@@ -115,9 +113,11 @@
                     alert("失败");
                 },
                 success:function (data) {
-                    if (data.result == 0){
+                    if (data.result_id == 0) {
                         alert("没有您的预申请信息，请联系专属管理员。")
-                    }else if (data.result == 1){
+                    } else if (data.result_ph == 0){
+                        alert("请核对手机号码")
+                    } else if (data.result_ph == 1){
                         alert("身份证号验证成功!");
                         window.location.assign(window.location.origin+"/signupPageFollowed?idcode="+idcode);
                     }
