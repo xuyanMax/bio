@@ -45,4 +45,8 @@ public class WeChatConstants {
 
     // OAuth2 授权获取用户信息，通过两个参数 access_token and openId
     public static String GET_WECHAT_USER_URI = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+
+    public static String GET_SUBSCRIBERS_BATCH = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN";
+    public static String GET_SUBSCRIBERS_URI = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
+
 }

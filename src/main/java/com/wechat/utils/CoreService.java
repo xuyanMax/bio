@@ -1,11 +1,15 @@
 package com.wechat.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bio.beans.WeChatUser;
+import com.wechat.model.AccessToken;
 import com.wechat.model.message.response.Article;
 import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;
 import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
+import sun.tools.jstat.Token;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -147,6 +151,15 @@ public class CoreService {
                     textMessage.setContent(user.toString());
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
+                } else if (content.matches("showAllUsers")){
+                    if (TokenThread.access_token != null && TokenThread.access_token.getToken() != null) {
+                        String url = WeChatConstants.GET_SUBSCRIBERS_URI.replace("ACCESS_TOKEN", TokenThread.access_token.getToken());
+                        JSONObject JSONSubscribers = WeChatUtils.httpRequest(url, "GET", null);
+
+                        textMessage.setContent(JSONSubscribers.toJSONString());
+                        respMessage = MessageUtil.textMessageToXml(textMessage);
+                        return respMessage;
+                    }
                 }
 
             }

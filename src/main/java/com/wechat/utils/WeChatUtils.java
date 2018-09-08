@@ -1,8 +1,6 @@
 package com.wechat.utils;
 
-import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.model.AccessToken;
 import com.wechat.model.OAuthInfo;
 import com.bio.beans.WeChatUser;
 import com.wechat.model.button.Menu;
@@ -29,40 +27,8 @@ public class WeChatUtils {
     private static String APPID_URL = "wx73e0725a818a8ccb";
     private static String SECRET_URL = "570d28bcda358b8c8d7021e8ee18f184";
 
-    //微信token的获取
-    public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-
-    //当我们点击，每个人都有的按钮, 通过url后面的域名redirect_uri=http://population.chgc.sh.cn/user/info
-    //进入我们的 task/technician/check  这个方法传一个code值过去
-    public static String url_snsapi_userinfo = "https://open.weixin.qq.com/connect/oauth2/authorize?"+ "appid=APPID&redirect_uri="
-            + "REDIRECT_URL&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-
-    public static String REDIRECT_URL = "http://population.chgc.sh.cn/user/inf";
-
     // 通过扫描微信二维码登陆
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect";
-
-    /*getAccessToken + httpRequest == AccessTokenUtil*/
-    // 获取access_token的接口地址（GET） 限200（次/天）
-    public static AccessToken getAccessToken(String appId, String appSecret) {
-        AccessToken accessToken = null;
-
-        String requestUrl = access_token_url.replace("APPID", appId).replace("APPSECRET", appSecret);
-        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-        // 如果请求成功
-        if (null != jsonObject) {
-            try {
-                accessToken = new AccessToken();
-                accessToken.setToken(jsonObject.getString("access_token"));
-                accessToken.setExpiresIn(jsonObject.getIntValue("expires_in"));
-            } catch (JSONException e) {
-                accessToken = null;
-                // 获取token失败
-                logger.error("获取token失败 errcode:{} errmsg:{}"+ jsonObject.getIntValue("errcode")+ jsonObject.getString("errmsg"));
-            }
-        }
-        return accessToken;
-    }
 
     /**
      * 发起https请求并获取结果
@@ -180,8 +146,6 @@ public class WeChatUtils {
         if (jsonObject != null) {
             logger.info("WeChatUser="+jsonObject.toJSONString());
             WeChatUser user = composeWeChatUser(jsonObject);
-            logger.info(user);
-
             return user;
         }
         else{
