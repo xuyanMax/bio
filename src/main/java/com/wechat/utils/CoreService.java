@@ -2,7 +2,6 @@ package com.wechat.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bio.beans.WeChatUser;
-import com.wechat.model.AccessToken;
 import com.wechat.model.message.response.Article;
 import com.wechat.model.message.response.NewsMessage;
 import com.wechat.model.message.response.TextMessage;

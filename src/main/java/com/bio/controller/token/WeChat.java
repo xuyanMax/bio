@@ -340,4 +340,13 @@ public class WeChat {
 
 
     }
+    @RequestMapping("testVcode")
+    public ModelAndView testVcode(ModelMap session){
+        WeChatUser user = iWeChatUserService.findWxUserByOpenId("abx");
+        session.addAttribute("wxuser", user);
+        session.addAttribute("idcode", "13010419920518241X");
+        ModelAndView mv = new ModelAndView("jsp/users/signup");
+        mv.addObject("idcode", "13010419920518241X");
+        return mv;
+    }
 }

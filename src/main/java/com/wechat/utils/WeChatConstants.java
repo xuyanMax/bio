@@ -21,10 +21,6 @@ public class WeChatConstants {
             + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
     public static String CALL_BACK = "http://population.chgc.sh.cn/user/inf";
-    public static String REDIRECT_URI_SCAN = "http://population.chgc.sh.cn/info";
-    public static String REDIRECT_URI_Auth = "http://population.chgc.sh.cn/auth";
-
-
     // 通过扫描微信二维码登陆
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE&uri=URI#wechat_redirect";
 

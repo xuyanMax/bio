@@ -157,7 +157,7 @@
                         wxuser = data.wxuser;
                         alert(wxuser);
                         //works
-                        user = $.parseJSON(wusxuser);
+                        user = $.parseJSON(wxuser);
                     }else if (data.result == '0'){
                         document.getElementById("vcode-error").className=' text-danger';
                         document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新获取";
@@ -188,14 +188,14 @@
             var upload = {};
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
-            upload.id = $("#id_code").val();
+            upload.ID_code = $("#id_code").val();
             upload.name = $("#name").val();
 
             if ( user != "" ) {
-                upload.opd = user.openid;
-                upload.uid = user.unionid;
-                upload.subs = user.subscribe;
-                upload.sub_time = user.subscribe_time;
+                upload.openid = user.openid;
+                upload.unionid = user.unionid;
+                upload.subscirbe = user.subscribe;
+                upload.subscirbe_time = user.subscribe_time;
                 upload.city = user.city;
                 upload.nickname = user.nickname;
                 upload.headImgUrl = user.headImgUrl;
@@ -203,7 +203,6 @@
                 upload.sex = user.sex;
                 upload.language = user.language;
                 upload.idperson = user.idperson;
-
             }
 
             $.ajax({

@@ -8,6 +8,7 @@ import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
+import com.wechat.utils.WeChatUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,11 +141,15 @@ public class Home {
             resMap.put("result_id", "1");
             session.put("idcode", idcode);
         }
-        else resMap.put("result_id", "0");
+        else {
+            resMap.put("result_id", "0");
+            return resMap;
+        }
 
         if (p.getTel1() == null || p.getTel1().equals("")) {
             p.setTel1(phone);
             personService.modifyPerson(p);
+            logger.info(p);
         }else {
             if (phone.equals(p.getTel1()))
                 resMap.put("result_ph", "1");
@@ -178,7 +183,6 @@ public class Home {
                 );
         logger.info(p);
 
-        //todo 单位选择按钮disable
         if (p == null || p.getID_code() == null){
             resMap.put("result", "-1");
             logger.error("注册用户身份证信息不在表person中");
@@ -216,49 +220,43 @@ public class Home {
     @ResponseBody
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                   HttpServletRequest request,
-                                  ModelMap map,
-                                  String id,
-                                  String vcode, String opd, String uid, String headImgUrl,
-                                  String city, String province, Integer idperson,
-                                  String nickname, String subs, String sub_time,
-                                                  String sex, String language){
-        logger.info("sessionVCode="+map.get("vcode"));
+                                  ModelMap session,
+                                  String ID_code,
+                                  String vcode){
+        logger.info("sessionVCode="+session.get("vcode"));
         logger.info("Actual vcode="+vcode);
-
+        logger.info("idcode="+ID_code);
 
         ModelAndView mv = new ModelAndView();
+
         Map<String, Object> resMap = new HashMap<>();
-        // 获取session中存放的手机短信验证码
-        String sessionVcode = (String) map.get("vcode");
-        //获取idperson by id_code
-        Person p = personService.findPersonByID_code(PersonInfoUtils.md5(id.toUpperCase()));
-        if (sessionVcode!=null && vcode!=null){
-            if  (sessionVcode == vcode || sessionVcode.equalsIgnoreCase(vcode)) {
-//                // 添加注册用户到wechat表
+        String sessionVcode = (String) session.get("vcode");
+
+        Person p = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code.toUpperCase()));
+
+        if (sessionVcode!=null && vcode!=null && sessionVcode.equals(vcode)){
                 WeChatUser weChatUser = new WeChatUser();
+                WeChatUser user = (WeChatUser) session.get("wxuser");
                 weChatUser.setIdperson(p.getIdperson());
-                weChatUser.setOpenid(opd);
-                weChatUser.setUnionid(uid);
-                weChatUser.setCity(city);
-                weChatUser.setNickname(nickname);
-                weChatUser.setProvince(province);
-                weChatUser.setSex(sex);
-                weChatUser.setHeadImgUrl(headImgUrl);
-                weChatUser.setLanguage(language);
-                weChatUser.setSubscribe_time(sub_time);
-                weChatUser.setSubscribe(subs);
-
-                if (p != null && p.getIdperson() != null) weChatUser.setIdperson(idperson);
-
-                logger.info(weChatUser);
+                weChatUser.setOpenid(user.getOpenid());
+                weChatUser.setUnionid(user.getUnionid());
+                weChatUser.setCity(user.getCity());
+                weChatUser.setNickname(user.getNickname());
+                weChatUser.setProvince(user.getNickname());
+                weChatUser.setSex(user.getSex());
+                weChatUser.setHeadImgUrl(user.getHeadImgUrl());
+                weChatUser.setLanguage(user.getLanguage());
+                weChatUser.setSubscribe_time(user.getSubscribe_time());
+                weChatUser.setSubscribe(user.getSubscribe());
+                weChatUser.setIdperson(p.getIdperson());
 
                 weChatUserService.addWxUser(weChatUser);
 
                 resMap.put("result", 1);
-            }
-            else
+            } else {
                 resMap.put("result", 0);
-        } else resMap.put("result", 0);
+                logger.info("");
+            }
         return resMap;
     }
 
