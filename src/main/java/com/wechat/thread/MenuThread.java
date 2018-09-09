@@ -8,12 +8,9 @@ import org.apache.log4j.Logger;
 import sun.tools.jstat.Token;
 
 public class MenuThread implements Runnable {
-    private static final String appID = "wxb92b6517e66c5eda";//wx0f81f68f813bd68d
-    private static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";//c9d7f54ec1d0642d187141636ba69af2
     private static Logger logger = Logger.getLogger(MenuThread.class);
     @Override
     public void run() {
-        TokenThread.access_token  = AccessTokenUtil.getAccessToken(appID, appSecret);
         if (TokenThread.access_token.getToken() != null){
             int result = WeChatUtils.createMenu(getMenu(), TokenThread.access_token.getToken());
             if(result == 0) {

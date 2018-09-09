@@ -406,6 +406,8 @@ ssh连接
 1. Ajax向Controller发送String或JSON数据
 1. Controller接受值，解析值，处理后返回HASHMAP对象
 1. `@ResponseBody`不能省略
+1. `@RequestBody`
+1. `@RequestParam`
 1. _contentType : 'application/json; charset=utf-8'_何时使用/省略？_
 1.  _Server returned HTTP response code: 400 for URL_
 1. Java make http/https request

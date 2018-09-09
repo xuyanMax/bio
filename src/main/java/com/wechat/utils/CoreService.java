@@ -58,7 +58,7 @@ public class CoreService {
             *
             * 获得openId, 获取用户信息
             * */
-            WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, AccessTokenUtil.getAccessToken(TokenThread.appID, TokenThread.appSecret).getToken());
+            WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, TokenThread.access_token.getToken());
 
             // 文本消息
             List<Article> articles = new ArrayList<>();
