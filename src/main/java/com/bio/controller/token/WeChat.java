@@ -117,11 +117,14 @@ public class WeChat {
                 .replace("APP_SECRET", WeChatConstants.appSecret)
                 .replace("CODE", code);
         logger.info(url);
+//        OAuthInfo authInfo = WeChatUtils.getOAuthInfoByCode(code);
+//        mv.setViewName("../index");
+//        return mv;
         JSONObject JsonWxUser = WeChatUtils.httpRequest(url, "GET", null);
 
         if (JsonWxUser.getString("errcode") != null){
             mv.setViewName("views/errors/error");
-            mv.addObject("error", JsonWxUser.getString("errmsg"));
+            mv.addObject("error", JsonWxUser);
             return mv;
         }
 
@@ -221,11 +224,11 @@ public class WeChat {
                         && dbUser.getUnionid().equals(wxUser.getUnionid())) {//db存在该用户，那么直接登陆
 
                     logger.info(dbUser);
-                    //update wechat user's openid etc.
                     logger.info("扫码登陆unionid匹配!");
+                    //update wechat user's openid etc.
                     iWeChatUserService.modifyWxUserByUnionid(wxUser);
                     return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
-                }else{// unionid不匹配，进入注册页面
+                }else{
                     logger.info("扫码登陆openid和unionid不匹配，即将进入注册页");
                     mv.setViewName("jsp/users/signupIdCode");
 
@@ -233,7 +236,7 @@ public class WeChat {
                     modelMap.addAttribute("wxuser", wxUser);
                     return mv;
                 }
-            }else{ //注册
+            }else{
                 logger.error("从微信服务器获取的用户数据为空");
                 mv.setViewName("views/errors/error");
                 mv.addObject("error", "从微信服务器获取的用户数据为空");

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bio.dao.IPersonDao">
     <insert id="insertPerson">
-		insert into persons (name, gender, age, ID_code, ID_code_cut, sn_in_center, email, relative, tel1, tel2, global_sn, barcode) values (#{name}, #{gender}, #{age}, #{ID_code}, #{ID_code_cut}, #{sn_in_center}, #{email}, #{relative}, #{tel1}, #{tel2}, #{global_sn}, #{barcode});
+		insert into persons (name, gender, age, ID_code, ID_code_cut, sn_in_center, email, relative, tel1, tel2, global_sn, barcode, idcenter) values (#{name}, #{gender}, #{age}, #{ID_code}, #{ID_code_cut}, #{sn_in_center}, #{email}, #{relative}, #{tel1}, #{tel2}, #{global_sn}, #{barcode}, #{idcenter});
 	</insert>
 
     <delete id="deletePersonByIdPerson">
@@ -16,7 +16,7 @@
 	</update>
 
     <select id="selectAllPersons" resultType="com.bio.beans.Person">
-		select * from persons order by idperson desc
+		select * from persons where ID_code=#{xxx}
 	</select>
 
     <select id="selectPersonByIdPerson" resultType="com.bio.beans.Person">
@@ -26,6 +26,8 @@
     <select id="selectPersonByID_code" resultType="com.bio.beans.Person">
 		select * from persons where ID_code=#{xxx} limit 1
 	</select>
+
+
 	<select id="selectPersonsByIdcenter" resultType="int">
 		select count(*) from persons where idcenter=#{xxx}
 	</select>

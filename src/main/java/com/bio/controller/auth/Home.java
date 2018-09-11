@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -133,6 +134,7 @@ public class Home {
         Map<String, Object> resMap = new HashMap<>();
         logger.info("idcode="+idcode+", name="+name+", phone="+phone);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
+
         Person p = personService.findPersonByID_code(md5);
 
         logger.info(p);
@@ -151,8 +153,12 @@ public class Home {
             personService.modifyPerson(p);
             logger.info(p);
         }else {
-            if (phone.equals(p.getTel1()))
+            if (phone.equals(p.getTel1())) {
+                List<Person> allSamePersons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
+
                 resMap.put("result_ph", "1");
+
+            }
             else
                 resMap.put("result_ph", "0");
         }
@@ -164,7 +170,7 @@ public class Home {
     @RequestMapping("register/sms")
     @ResponseBody
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
-                                           ModelMap map,
+                                           ModelMap session,
                                            String vcode,
                                            String phone,
                                            String idcode){
@@ -174,7 +180,7 @@ public class Home {
         logger.info("身份证号=" + idcode);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
-        map.addAttribute("vcode", vcode);
+        session.addAttribute("vcode", vcode);
         //测试是ok的
         Person p = personService
                 .findPersonByID_code(
@@ -188,7 +194,7 @@ public class Home {
             logger.error("注册用户身份证信息不在表person中");
             return resMap;
         }
-        WeChatUser user = (WeChatUser) map.get("wxuser");
+        WeChatUser user = (WeChatUser) session.get("wxuser");
 
         resMap.put("wxuser", JSONObject.toJSONString(user));
 
@@ -198,7 +204,7 @@ public class Home {
         }else {
             logger.info("该用户在Session." );
             //todo: 测试，需要删除
-            map.addAttribute("wxuser", JSONObject.toJSON(user));
+            session.addAttribute("wxuser", JSONObject.toJSON(user));
             logger.info("wxuser=" + JSONObject.toJSON(user));
         }
 
@@ -236,7 +242,8 @@ public class Home {
 
         if (sessionVcode!=null && vcode!=null && sessionVcode.equals(vcode)){
                 WeChatUser weChatUser = new WeChatUser();
-                WeChatUser user = (WeChatUser) session.get("wxuser");
+                JSONObject jsonObject = (JSONObject) session.get("wxuser");
+                WeChatUser user = WeChatUtils.composeWeChatUser(jsonObject);
                 weChatUser.setIdperson(p.getIdperson());
                 weChatUser.setOpenid(user.getOpenid());
                 weChatUser.setUnionid(user.getUnionid());
@@ -329,6 +336,7 @@ public class Home {
         //todo: 参加人员界面
         mv.setViewName("/jsp/users/userHomePage");
         mv.addObject("username", person.getName());
+        mv.addObject("idperson", person.getIdperson());
         mv.addObject("user", person);
         mv.addObject("nickname", person.getName());
         mv.addObject("msg", "参加人临时员界面");

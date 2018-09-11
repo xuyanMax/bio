@@ -34,8 +34,8 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
-    public List<Person> findAllPersons() {
-        return personDao.selectAllPersons();
+    public List<Person> findAllPersons(String ID_code) {
+        return personDao.selectAllPersons(ID_code);
     }
 
     @Override

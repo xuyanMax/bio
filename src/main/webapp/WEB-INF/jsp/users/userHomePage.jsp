@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>普通用户首页</title>
-    <p>欢迎微信用户: ${user.nickname}</p>
+    <p>欢迎微信用户: ${wxuser.nickname}</p>
     <p>idperson: ${user.idperson}</p>
     <p>${msg}</p>
 </head>

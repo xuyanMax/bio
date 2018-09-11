@@ -1,0 +1,756 @@
+{
+ locale: "zh-cn",
+ title: "调查问卷",
+ pages: [
+  {
+   name: "page0",
+   elements: [
+    {
+     type: "text",
+     name: "question1",
+     title: "您的姓名：_"
+    },
+    {
+     type: "text",
+     name: "question2",
+     title: "您的身份证号码为：_",
+     description: "注意：若最后一位为x请输入小写"
+    },
+    {
+     type: "radiogroup",
+     name: "question3",
+     title: "您的性别",
+     choices: [
+      {
+       value: "0",
+       text: "男"
+      },
+      {
+       value: "1",
+       text: "女"
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question4",
+     title: "您的身高：_厘米。"
+    },
+    {
+     type: "text",
+     name: "question5",
+     title: "您的体重：_千克。",
+     description: "注意：此处问的是kg数，而不是斤数"
+    },
+    {
+     type: "multipletext",
+     name: "question6",
+     title: "您的出生地：_省/直辖市。；居住地是：_省/直辖市。",
+     validators: [
+      {
+       type: "regex",
+       regex: "^[\\u4e00-\\u9fa5]+$"
+      },
+      {
+       type: "regex",
+       regex: "^[\\u4e00-\\u9fa5]+$"
+      }
+     ],
+     items: [
+      {
+       name: "出生地",
+       title: "出生地",
+       validators: [
+        {
+         type: "regex",
+         text: "请输入有效输入，例：上海、湖北",
+         regex: "^[\\u4e00-\\u9fa5]+$"
+        }
+       ]
+      },
+      {
+       name: "居住地",
+       title: "居住地",
+       validators: [
+        {
+         type: "regex",
+         text: "请输入有效输入，例：上海、湖北?text1=出生地&text2=居住地",
+         regex: "^[\\u4e00-\\u9fa5]+$"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question7",
+     title: "您的民族是：_"
+    },
+    {
+     type: "matrixdynamic",
+     name: "question8",
+     title: "您的工作经历",
+     columns: [
+      {
+       name: "开始时间",
+       cellType: "text"
+      },
+      {
+       name: "结束时间",
+       cellType: "text"
+      },
+      {
+       name: "地点",
+       cellType: "text"
+      },
+      {
+       name: "邮编",
+       cellType: "text"
+      }
+     ],
+     rowCount: 1,
+     addRowLocation: "bottom"
+    },
+    {
+     type: "multipletext",
+     name: "question9",
+     title: "您是否携带家属做此次调查？如果携带，家属的姓名为：_；身份证号为：_",
+     description: "注意：如果不携带，此题请均填写‘/’",
+     validators: [
+      {
+       type: "regex",
+       regex: "^[\\u4e00-\\u9fa5]{2,4}$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9xX]$|^\\/$"
+      }
+     ],
+     items: [
+      {
+       name: "姓名",
+       title: "姓名",
+       validators: [
+        {
+         type: "regex",
+         text: "请输入正确的中文名字",
+         regex: "^[\\u4e00-\\u9fa5]{2,4}$|^\\/$"
+        }
+       ]
+      },
+      {
+       name: "省份证号码",
+       title: "省份证号码",
+       validators: [
+        {
+         type: "regex",
+         text: "请输入有效的18位身份证号码?text1=姓名&text2=省份证号码",
+         regex: "^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9xX]$|^\\/$"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     type: "radiogroup",
+     name: "question10",
+     title: "近两年来，您个人新鲜蔬菜（不包括土豆，未烹饪的生重）的每天平均摄入量（可从家庭总量除以人口数计算出个人平均量，每份约100克）？",
+     choices: [
+      {
+       value: "0",
+       text: "从不吃"
+      },
+      {
+       value: "1",
+       text: "1-2份"
+      },
+      {
+       value: "2",
+       text: "3-4份"
+      },
+      {
+       value: "3",
+       text: "5-6份"
+      },
+      {
+       value: "4",
+       text: "7-10份"
+      },
+      {
+       value: "5",
+       text: ">10份"
+      }
+     ]
+    }
+   ],
+   navigationButtonsVisibility: "show"
+  },
+  {
+   name: "page1",
+   elements: [
+    {
+     type: "radiogroup",
+     name: "question11",
+     title: "您是否每天喝咖啡？如果是，每天喝几杯",
+     choices: [
+      {
+       value: "0",
+       text: "否，从不喝"
+      },
+      {
+       value: "1",
+       text: "否，偶尔喝"
+      },
+      {
+       value: "2",
+       text: "是，每天1杯"
+      },
+      {
+       value: "3",
+       text: "是，每天2杯"
+      },
+      {
+       value: "4",
+       text: "是每天3杯及以上"
+      }
+     ]
+    },
+    {
+     type: "multipletext",
+     name: "question12",
+     title: "您开始吸烟的年龄是_岁；如果您正在吸烟或曾吸烟，平均每天吸烟_支,（一两烟叶≈50支卷烟）；扣除戒烟年数，共吸烟_年（不足一年按一年计）；如果您目前已戒烟，这次戒烟持续_年（不足一年按一年计）",
+     description: "如果您从不吸烟，此题目请均填写‘/’;如果您未戒烟，请填写：这次戒烟已持续0年;请填写具体整数，不接受范围",
+     validators: [
+      {
+       type: "regex",
+       regex: "^[1-9]$|^[1-8]\\d{1}$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^\\d{2}$|^[1-9]$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-8]\\d{1}$|^[1-9]$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-8]\\d{1}$|^[0-9]$|^\\/$"
+      }
+     ],
+     items: [
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-9]$|^[1-8]\\d{1}$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^\\d{2}$|^[1-9]$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-8]\\d{1}$|^[1-9]$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-8]\\d{1}$|^[0-9]$|^\\/$"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     type: "multipletext",
+     name: "question13",
+     title: "如果您目前饮酒，到目前为止持续饮酒_年（不足一年按一年计）；如果您现在或曾经持续饮酒，平均每天饮_杯；如果您目前已戒酒，这次戒酒已持续_年（不足一年按一年计）",
+     description: "如果您从不饮酒，此题目请均填写‘/’;如果您未戒酒，请填写：这次戒酒已持续0年;请填写具体整数，不接受范围",
+     validators: [
+      {
+       type: "regex",
+       regex: "^[1-8]\\d{1}$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-8]\\d{1}$|^[1-9]$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-8]\\d{1}$|^[0-9]$|^\\/$"
+      }
+     ],
+     items: [
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-8]\\d{1}$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-8]\\d{1}$|^[1-9]$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-8]\\d{1}$|^[0-9]$|^\\/$"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     type: "radiogroup",
+     name: "question14",
+     title: "您一年中是否有几个月做中等强度以上的运动（中度强度指让你出汗或喘气）？如果有，在这些月份中，您每周运动量为",
+     choices: [
+      {
+       value: "0",
+       text: "没有做中等强度以上的运动"
+      },
+      {
+       value: "1",
+       text: "最多1h"
+      },
+      {
+       value: "2",
+       text: "1-2 h"
+      },
+      {
+       value: "3",
+       text: "2-3 h"
+      },
+      {
+       value: "4",
+       text: "3-4 h"
+      },
+      {
+       value: "5",
+       text: ">4 h"
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question15",
+     title: "您长期居住和\\或工作的环境中，是否长期处于烟尘环境中（比如油烟、PM2.5超标等）？如果是，那么在有烟雾室内环境中，您居住或工作了_年（不足一年按一年计）",
+     description: "如果您没有长期处于烟尘环境中，请填写：您居住或工作了  ‘/’  年"
+    },
+    {
+     type: "radiogroup",
+     name: "question16",
+     title: "您是否有固定排便时间？排便时间为？",
+     choices: [
+      {
+       value: "0",
+       text: "否，没有固定排便时间"
+      },
+      {
+       value: "1",
+       text: "是，早上"
+      },
+      {
+       value: "2",
+       text: "是，中午"
+      },
+      {
+       value: "3",
+       text: "是，下午"
+      },
+      {
+       value: "4",
+       text: "是，晚上"
+      }
+     ]
+    },
+    {
+     type: "radiogroup",
+     name: "question17",
+     title: "您的血压情况",
+     choices: [
+      {
+       value: "0",
+       text: "正常（收缩压<120mmHg，舒张压<80mmHg）"
+      },
+      {
+       value: "1",
+       text: "轻度高血压（收缩压120~139mmHg，舒张压80~89moumHg）"
+      },
+      {
+       value: "2",
+       text: "中度高血压（收缩压160~179mmHg，舒张压90~99mmHg）"
+      },
+      {
+       value: "3",
+       text: "重度高血压（收缩压>180mmHg，舒张压>110mmHg）"
+      },
+      {
+       value: "4",
+       text: "单纯收缩期高血压（收缩压>140mmHg，舒张压<90mmHg）"
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question18",
+     title: "您是否曾被确诊患有任何癌症？如果是，癌种为_。（非黑色素瘤性皮肤癌除外）[\\u4e00-\\u9fa5]|"
+    },
+    {
+     type: "checkbox",
+     name: "question19",
+     title: "经正规医疗机构明确诊断，您是否患有下述慢性呼吸系统疾病（可多选）",
+     description: "注意：选项A不能与其他选项同时勾选",
+     choices: [
+      {
+       value: "0",
+       text: "不患有慢性呼吸系统疾病"
+      },
+      {
+       value: "1",
+       text: "肺结核"
+      },
+      {
+       value: "2",
+       text: "慢性支气管炎"
+      },
+      {
+       value: "3",
+       text: "肺气肿"
+      },
+      {
+       value: "4",
+       text: "哮喘支气管扩张"
+      },
+      {
+       value: "5",
+       text: "矽肺或尘肺"
+      },
+      {
+       value: "6",
+       text: "慢性阻塞肺疾病"
+      },
+      {
+       value: "7",
+       text: "其他慢性呼吸系统疾病"
+      }
+     ]
+    },
+    {
+     type: "multipletext",
+     name: "question20",
+     title: "您是否连续服用过包含阿司匹林的药物？如果是，您连续_月服用包含阿司匹林的药物（例如百服宁等，不包括泰诺）；您每周服用_次包含阿司匹林的药物（按一天一次统计）。",
+     description: "若您不曾连续服用包含阿斯匹林的药物，此题请均填写‘/’",
+     validators: [
+      {
+       type: "regex",
+       regex: "^1\\d{2}$|^[1-9]\\d{1}$|^[1-9]$|^\\/$"
+      },
+      {
+       type: "regex",
+       regex: "^[1-7]$|^\\/$"
+      }
+     ],
+     items: [
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^1\\d{2}$|^[1-9]\\d{1}$|^[1-9]$|^\\/$"
+        }
+       ]
+      },
+      {
+       validators: [
+        {
+         type: "regex",
+         regex: "^[1-7]$|^\\/$"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   navigationButtonsVisibility: "show"
+  },
+  {
+   name: "page2",
+   elements: [
+    {
+     type: "text",
+     name: "question21",
+     title: "您是否连续服用过不包括阿司匹林在内的非甾体抗炎药（此类药包括：布洛芬、尼美舒利、罗非昔布、塞来昔布等；但包括泰诺）？如果是，您连续_月服用包含阿司匹林的非甾体抗炎药",
+     description: "若您不曾连续服用不包含阿司匹林在内的非甾体抗炎药，此题请均填写‘/’"
+    },
+    {
+     type: "matrixdynamic",
+     name: "question22",
+     title: "您的一级亲属(父母、子女以及同父母的兄弟姐妹)中是否有恶性肿瘤患者， 患癌情况：",
+     description: "请您仔细完整填写是否有一级亲属曾患有肿瘤，癌种包括但不限于：结直肠癌、肺癌、胃癌、乳腺癌、宫颈癌、卵巢癌、前列腺癌",
+     columns: [
+      {
+       name: "关系",
+       cellType: "dropdown",
+       choices: [
+        "父母",
+        "同父母的兄弟姐妹",
+        "子女"
+       ]
+      },
+      {
+       name: "癌肿",
+       cellType: "text"
+      },
+      {
+       name: "患癌时间",
+       cellType: "text"
+      }
+     ],
+     rowCount: 1,
+     addRowLocation: "bottom"
+    },
+    {
+     type: "radiogroup",
+     name: "question23",
+     title: "您的首次月经年龄是（周岁）",
+     choices: [
+      {
+       value: "0",
+       text: "7-11岁"
+      },
+      {
+       value: "1",
+       text: "12-13岁"
+      },
+      {
+       value: "2",
+       text: ">=14岁"
+      },
+      {
+       value: "3",
+       text: "不清楚"
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question24",
+     title: "您18岁时的体重大约是_。"
+    },
+    {
+     type: "text",
+     name: "question25",
+     title: "您是否有哺乳史？如果有，共累计哺乳多少个月_（不足一月按一月计）",
+     description: "注意：若没有哺乳史，请填写‘/’个月"
+    },
+    {
+     type: "checkbox",
+     name: "question26",
+     title: "您是否曾患良性乳腺疾病（乳腺增生、结节、导管扩张、良性纤维腺瘤、感染、囊肿等）（可多选）",
+     description: "注意：选项A不能与其他选项同时勾选",
+     choices: [
+      {
+       value: "0",
+       text: "否，未曾患良性乳腺疾病"
+      },
+      {
+       value: "1",
+       text: "乳腺增生"
+      },
+      {
+       value: "2",
+       text: "结节"
+      },
+      {
+       value: "3",
+       text: "导管扩张"
+      },
+      {
+       value: "4",
+       text: "良性纤维腺瘤"
+      },
+      {
+       value: "5",
+       text: "感染"
+      },
+      {
+       value: "6",
+       text: "囊肿"
+      },
+      {
+       value: "7",
+       text: "其他良性乳腺疾病"
+      }
+     ]
+    },
+    {
+     type: "matrixdynamic",
+     name: "question27",
+     title: "您是否接受过孕激素或雌激素绝经激素治疗？治疗持续时长是多少年",
+     columns: [
+      {
+       name: "使用状况",
+       cellType: "dropdown",
+       choices: [
+        "从未使用",
+        "目前使用",
+        "曾经使用"
+       ]
+      },
+      {
+       name: "时长",
+       cellType: "text"
+      }
+     ],
+     rowCount: 1,
+     addRowLocation: "bottom"
+    },
+    {
+     type: "text",
+     name: "question28",
+     title: "您一共做过_",
+     description: "如果没有做过，此题请均填写‘/’"
+    },
+    {
+     type: "radiogroup",
+     name: "question29",
+     title: "您在过去的3-5年内是否接受过巴氏（PAP）试验或PAP+HPV检测吗",
+     choices: [
+      {
+       value: "0",
+       text: "否"
+      },
+      {
+       value: "1",
+       text: "是"
+      },
+      {
+       value: "2",
+       text: "不清楚"
+      }
+     ]
+    },
+    {
+     type: "text",
+     name: "question30",
+     title: "您是否进行过血清PSA(前列腺特异性抗原)检查？如果有，检查结果是 _ng/ml。 ",
+     description: "若您没参加过血清PSA(前列腺特异性抗原)检查，请填写_‘/’_ng/ml"
+    }
+   ],
+   navigationButtonsVisibility: "show"
+  },
+  {
+   name: "page3",
+   elements: [
+    {
+     type: "radiogroup",
+     name: "question31",
+     title: "在过去的一个月里，您多久会有一次在完成排尿后没有完全排空膀胱的感觉",
+     choices: [
+      {
+       value: "0",
+       text: "从来没有这样的感觉（不完全清空）"
+      },
+      {
+       value: "1",
+       text: "5次排尿会有1次这样的感觉"
+      },
+      {
+       value: "2",
+       text: "3次排尿会有1次这样的感觉"
+      },
+      {
+       value: "3",
+       text: "2次排尿会有1次这样的感觉"
+      },
+      {
+       value: "4",
+       text: "3次排尿会有2次这样的感觉"
+      },
+      {
+       value: "5",
+       text: "总是会有这样的感觉"
+      }
+     ]
+    },
+    {
+     type: "radiogroup",
+     name: "question32",
+     title: "您晚上睡觉期间，需要起床小便多少次",
+     choices: [
+      {
+       value: "0",
+       text: "从不起床小便"
+      },
+      {
+       value: "1",
+       text: "一次"
+      },
+      {
+       value: "2",
+       text: "两次"
+      },
+      {
+       value: "3",
+       text: "三次"
+      },
+      {
+       value: "4",
+       text: "四次"
+      },
+      {
+       value: "5",
+       text: "五次及五次以上"
+      }
+     ]
+    },
+    {
+     type: "checkbox",
+     name: "question33",
+     title: "您现在是否会有以下症状（可多选）",
+     description: "注意：选项A不能与其他选项同时勾选",
+     choices: [
+      {
+       value: "0",
+       text: "均无以下症状"
+      },
+      {
+       value: "1",
+       text: "睾丸肿块"
+      },
+      {
+       value: "2",
+       text: "睾丸肿痛"
+      }
+     ]
+    }
+   ],
+   navigationButtonsVisibility: "show"
+  }
+ ],
+ sendResultOnPageNext: true,
+ showPageNumbers: true,
+ showProgressBar: "top",
+ startSurveyText: "开始做题",
+ pagePrevText: "上一页",
+ completeText: "提交"
+}

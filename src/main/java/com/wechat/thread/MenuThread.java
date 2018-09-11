@@ -3,9 +3,13 @@ package com.wechat.thread;
 import com.wechat.model.*;
 import com.wechat.model.button.*;
 import com.wechat.utils.AccessTokenUtil;
+import com.wechat.utils.WeChatConstants;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
 import sun.tools.jstat.Token;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class MenuThread implements Runnable {
     private static Logger logger = Logger.getLogger(MenuThread.class);
@@ -40,7 +44,14 @@ public class MenuThread implements Runnable {
         ViewButton center = new ViewButton();
         center.setName("职业人群项目");
         center.setType("view");
-        center.setUrl("http://population.chgc.sh.cn");
+        try {
+            center.setUrl(WeChatConstants.Get_WEIXINPAGE_Code
+                    .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
+                    .replace("APPID", TokenThread.appID)
+                    .replace("STATE", "AUTH"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         ParentButton parentCenter = new ParentButton();
         parentCenter.setName("科研合作");

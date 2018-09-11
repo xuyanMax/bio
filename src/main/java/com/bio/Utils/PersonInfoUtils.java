@@ -1,5 +1,7 @@
 package com.bio.Utils;
 
+import com.bio.beans.Person;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -97,9 +99,9 @@ public class PersonInfoUtils {
         return res;
     }
 
-    // relative
     public static int relative(String relative){
         return !relative.equals("参与人")?0:1;
     }
+
 
 }

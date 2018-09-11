@@ -101,35 +101,49 @@ public class FileUploadController{
 
     public void personToDB(List<Person> persons, ModelMap session){
         Person sn_person = (Person) session.get("user");
+
+        logger.info(sn_person);
+
         Person p = null;
+        Center center = null;
         String global_sn = null;
+        int number = 0;
         if (sn_person != null){
-            Center center = centerService.findPersonInCentersByCenterid(sn_person.getIdcenter());
-            int number = personService.countPersonsByIdCenter(center.getIdcenter());
-            global_sn = center.getPostcode()
-                            + UNDERLINE
-                            + center.getLocal_num()
-                            + UNDERLINE
-                            + number;
+            center = centerService.findPersonInCentersByCenterid(sn_person.getIdcenter());
+            logger.info(center);
+            number = personService.countPersonsByIdCenter(center.getIdcenter());
 
         }else{//todo: 测试session用
             logger.error("session does not have USER=" + session.get("user"));
             return;
         }
         for (Person person:persons){
+            //todo: ID_code && idcenter 与 单位管理员一致
+            Integer idperon = null;
             p = personService.findPersonByID_code(person.getID_code());
+
+            idperon = p!=null?p.getIdperson():idperon;
+
+            global_sn = center.getPostcode()
+                    + UNDERLINE
+                    + center.getLocal_num()
+                    + UNDERLINE
+                    + ++number;
+
             if (p == null){
                 p = new Person();
                 p.setOriginal_ID_code(p.getOriginal_ID_code());
                 p.setID_code(PersonInfoUtils.md5(person.getOriginal_ID_code()));
                 p.setBarcode(person.getBarcode());
-                p.setName(person.getName());
                 p.setSn_in_center(person.getSn_in_center());
                 p.setRelative(person.getRelative());
                 p.setAge(PersonInfoUtils.getAge(person.getOriginal_ID_code()));
                 p.setGender(PersonInfoUtils.getGender(person.getOriginal_ID_code()));
-                p.setID_code_cut(person.getOriginal_ID_code().substring(15));
+                p.setName(person.getName().substring(0,1) + (p.getGender().equals("男")?"先生":"女士"));
+                p.setID_code_cut(person.getOriginal_ID_code().substring(14));
                 p.setGlobal_sn(global_sn);
+
+                p.setIdcenter(sn_person.getIdcenter());
 
                 logger.info(p);
 
@@ -137,16 +151,18 @@ public class FileUploadController{
             }else {
                 global_sn = p.getGlobal_sn();
                 person.setGlobal_sn(global_sn);
-
                 logger.info(person);
 
                 personService.modifyPerson(person);
             }
             Exam exam = new Exam();
+            if (idperon == null) {
+                p = personService.findPersonByID_code(p.getID_code());
+                idperon = p.getIdperson();
+            }
             exam.setBarcode(p.getBarcode());
-            exam.setIdperson(p.getIdperson());
+            exam.setIdperson(idperon);
             exam.setInput_date(ClientInfoUtils.getCurrDatetime());
-//            exam.setSup2();
             logger.info(exam);
             examService.addExam(exam);
         }

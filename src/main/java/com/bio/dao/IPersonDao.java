@@ -18,7 +18,7 @@ public interface IPersonDao {
     //更新某Person
     void updatePerson(Person person);
 
-    List<Person> selectAllPersons();
+    List<Person> selectAllPersons(String ID_code);
 
     //按照IdPerson获取
     Person selectPersonByIdPerson(int idPerson);

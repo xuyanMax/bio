@@ -4,7 +4,7 @@ public class WeChatConstants {
     private static String ACCESS_TOKEN = "brbxyxzyz";
     //服务号应用
     public static final String appID = "wxb92b6517e66c5eda";
-    public static final String appSecret = "7953a4803072b35c8e41ed27933f0ecb";
+    public static final String appSecret = "53b55b9c5b134efbb7c26fc40eb58106";
     //网页应用
     private static String APPID_URL = "wx73e0725a818a8ccb";
     private static String SECRET_URL = "570d28bcda358b8c8d7021e8ee18f184";
@@ -40,7 +40,7 @@ public class WeChatConstants {
     public static String GET_WEBAUTH_URL="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code=CODE&grant_type=authorization_code";
 
     // OAuth2 授权获取用户信息，通过两个参数 access_token and openId
-    public static String GET_WECHAT_USER_URI = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+    public static String GET_WECHAT_USER_URI = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zn_CN";
 
     public static String GET_SUBSCRIBERS_BATCH = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN";
     public static String GET_SUBSCRIBERS_URI = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";

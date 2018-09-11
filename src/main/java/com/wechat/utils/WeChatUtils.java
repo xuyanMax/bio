@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wechat.model.OAuthInfo;
 import com.bio.beans.WeChatUser;
 import com.wechat.model.button.Menu;
+import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -169,10 +170,11 @@ public class WeChatUtils {
      * */
     public static OAuthInfo getOAuthInfoByCode(String code){
 
+        //todo: 更改appid, secret
         String url = WeChatConstants.GET_WEBAUTH_URL
                                     .replace("CODE",code)
-                                    .replace("APPID", APPID_URL)
-                                    .replace("APP_SECRET", SECRET_URL);
+                                    .replace("APPID", TokenThread.appID)
+                                    .replace("APP_SECRET", TokenThread.appSecret);
 
         JSONObject JSONOAuth = httpRequest(url, "GET", null);
         logger.info(JSONOAuth);

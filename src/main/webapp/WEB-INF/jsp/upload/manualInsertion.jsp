@@ -128,44 +128,6 @@
 
 </div>
 
-<%
-    List<Person> persons = (List<Person>) request.getAttribute("persons");
-    if (persons != null) {
-%>
-    <table border="1" width="100%">
-        <thead>注册用户数据展示</thead>
-        <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>gender</td>
-            <td>邮箱</td>
-            <td>单位内编号(工号)</td>
-            <td>系统内唯一编号</td>
-            <td>身份</td>
-            <td>条形码</td>
-            <td>tel1</td>
-            <td>tel2</td>
-            <td>数据库操作</td>
-        </tr>
-        <%for (Person p:persons){%>
-        <tr>
-            <td><%= p.getIdperson()%></td>
-            <td><%= p.getName()%></td>
-            <td><%= p.getGender()%></td>
-            <td><%= p.getEmail()%></td>
-            <td><%= p.getSn_in_center()%></td>
-            <td><%= p.getGlobal_sn()%></td>
-            <td><%= p.getRelative()%></td>
-            <td><%= p.getBarcode()%></td>
-            <td><%= p.getTel1()%></td>
-            <td><%= p.getTel2()%></td>
-            <td><a href="/admin/updatePerson?idperson=<%=p.getIdperson()%>">更新</a> |
-                <a href="/admin/delete?idperson=<%=p.getIdperson()%>">删除</a> </td>
-        </tr>
-            <%}%><%--persons--%>
-    </table>
-    <%}%><%--if persons not null--%>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <%--todo: validate input fields--%>
