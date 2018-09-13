@@ -25,7 +25,7 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="/login">欢迎单位管理员</a>
+        <a class="navbar-brand mx-auto" href="/login">登录</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -37,7 +37,7 @@
                 $.ajax({
                     type:"POST",
                     url:"/process/survey",
-                    // contentType:"application/json",
+                    contentType:"application/json;charset=UTF-8",
                     dataType:"json",
                     data:survey.data,
                     success:function (){

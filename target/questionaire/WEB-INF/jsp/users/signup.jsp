@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="javax.persistence.criteria.Fetch" %>
+<%@ page import="com.JsonGenerator.FetchData" %><%--
   Created by IntelliJ IDEA.
   User: xu
   Date: 2018/7/28
@@ -48,7 +50,7 @@
 </head>
 <body>
 <div class="login-form">
-    <form name="dataInputForm" action="" method="post" onsubmit="return checkVCode()">
+    <div name="dataInputForm">
         <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="name_div">
             <input type="text" class="form-control" placeholder="姓名" required="required" name="name" id="name">
@@ -58,21 +60,25 @@
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code" value="${idcode}">
             <small class="help-block" id="id-error"></small>
         </div>
+
         <div class="form-group" id="unit_div">
+        <%
+            List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
+            if (centerNames != null){
+                for (String centerName:centerNames){
+        %>
             <label class="">
-                <input type="radio" class="form-control" required id="unit1" name="unit_select" id="unit1" value="0">单位1
+                <input type="radio" class="form-control" required id="unit1" name="unit" id="unit1" value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
             </label>
-            <label class="">
-                <input type="radio" class="form-control" required id="unit2" name="unit_select" id="unit2" value="1">单位2
-            </label>
-            <label class="">
-                <input type="radio" class="form-control" required id="unit3" name="unit_select" id="unit3" value="2">单位3
-            </label>
+        <%
+                }
+            }
+        %>
         </div>
+
         <div class="form-group" id="tel_div">
             <input type="text" onchange="checkOnSignUp()" class="form-control" placeholder="手机号码" name="phone" id="phone" required>
             <small class="help-block" id="tel-error"></small>
-
             <input type="text" id="vcode" class="form-control" placeholder="输入手机验证码" required>
             <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled=""/>
             <small class="help-block" id="vcode-error"></small>
@@ -80,7 +86,7 @@
         <div class="form-group">
             <button type="submit" id="submit" class="btn btn-primary btn-block">提交注册</button>
         </div>
-    </form>
+    </div>
 
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -104,7 +110,7 @@
         }else{
             document.getElementById("phone").className +=' is-invalid';
             document.getElementById("tel-error").className += ' text-danger';
-            document.getElementById('tel-error').innerText = "请输入合法手机号";
+            document.getElementById("tel-error").innerText = "请输入合法手机号";
             btn.attr("disabled", true);
             return;
         }
@@ -121,9 +127,6 @@
             return;
         }
         return;
-    }
-    function checkVCode() {
-        return $("#vcode").val() == vcode?true:false;
     }
 
     $(document).ready(function () {
@@ -144,6 +147,7 @@
             upload.vcode = vcode;
             upload.phone = $("#phone").val();
             upload.idcode = $("#id_code").val();
+            upload.centerName = $('input:radio[name="unit"]:checked').val();
             $.ajax({
                 type: "POST", //用POST方式传输
                 dataType: "json", //数据格式:JSON
@@ -151,21 +155,25 @@
                 data: upload, //post携带数据
                 error: function () {alert("错误提交"); }, //请求错误时的处理函数
                 success: function (data){
-                    if (data.result == '1'){
+                    if (data.result == '-1'){
+                        document.getElementById("id_code").className=' is-valid';
+                        document.getElementById("id-error").className=' text-danger';
+                        document.getElementById("id-error").innerText="没有您的预申请信息，请联系专属管理员。";
+                    }else if (data.result == '-2'){
+                        document.getElementById("phone").className=' is-valid';
+                        document.getElementById("tel-error").className=' text-danger';
+                        document.getElementById("tel-error").innerText="手机号不匹配";
+                    }
+                    else if (data.result == '1'){
                         document.getElementById("vcode-error").innerText="短信验证码已发送，请查收";
                         alert("成功发送短信到手机");
                         wxuser = data.wxuser;
-                        alert(wxuser);
                         //works
                         user = $.parseJSON(wxuser);
                     }else if (data.result == '0'){
                         document.getElementById("vcode-error").className=' text-danger';
                         document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新获取";
                         alert("短信验证码发送失败");
-                    }else if (data.result == '-1'){
-                        document.getElementById("id_code").className=' is-valid';
-                        document.getElementById("id-error").className=' text-danger';
-                        document.getElementById("id-error").innerText="没有您的预申请信息，请联系专属管理员。";
                     }
                 } //请求成功时执行的函数
             });

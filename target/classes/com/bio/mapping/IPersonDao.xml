@@ -16,7 +16,7 @@
 	</update>
 
     <select id="selectAllPersons" resultType="com.bio.beans.Person">
-		select * from persons order by idperson desc
+		select * from persons where ID_code=#{xxx}
 	</select>
 
     <select id="selectPersonByIdPerson" resultType="com.bio.beans.Person">
@@ -26,7 +26,12 @@
     <select id="selectPersonByID_code" resultType="com.bio.beans.Person">
 		select * from persons where ID_code=#{xxx} limit 1
 	</select>
+
 	<select id="selectPersonsByIdcenter" resultType="int">
 		select count(*) from persons where idcenter=#{xxx}
+	</select>
+
+	<select id="selectPersonByIdAndIdcenter" resultType="com.bio.beans.Person">
+		select * from persons where ID_code=#{0} and idcenter=#{1}
 	</select>
 </mapper>

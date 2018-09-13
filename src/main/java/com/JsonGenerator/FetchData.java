@@ -17,6 +17,7 @@ public class FetchData {
     private static int NUM_PER_PAGE = 10;
     private static String SQL_ALL = "SELECT * FROM questions";
     private static String SQL_TABLE = "SELECT * FROM questions where types = \'blank\' limit 2";
+    private static String SQL = "SELECT a.* FROM questions as a, qtnaire_version as b where a.idquestion=b.idquestion and b.version=?";
     private static String LEFT_BRACKET = "（";
     private static String RIGHT_BRACKET = "）";
     private static String REG_START = "^";
@@ -37,18 +38,19 @@ public class FetchData {
     public static void main(String[] args)  {
         try {
             SSHConnection sshConnection = new SSHConnection();
-            getSurveyJSON();
+            getSurveyJSON(4);
         } catch (JSchException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getSurveyJSON() throws JSchException {
+    public static String getSurveyJSON(int num) throws JSchException {
 
         //单独跑main()方法连接远程库时候需要本句，连接本地库不需要
         //配合SpringMVC使用，则注释下掉该句
         Connection conn = null;
         Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         SurveyJson surveyJson = new SurveyJson();
 
@@ -57,10 +59,12 @@ public class FetchData {
             //远程库
             conn = DriverManager.getConnection(SSHConnection.JDBC_URL,SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
             //本地库
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev","root","root");
-            statement = conn.createStatement();
-
-            rs = statement.executeQuery(SQL_ALL);
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev",SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
+//            statement = conn.createStatement();
+            preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, num);
+            rs = preparedStatement.executeQuery();
+//            rs = statement.executeQuery(SQL);
 
             //获取列名
             ResultSetMetaData resultSetMetaData = rs.getMetaData();
@@ -79,6 +83,8 @@ public class FetchData {
                     surveyJson.getPages().add(page);
                 }
                 num_quest++;
+
+                Integer idquestion = rs.getInt("idquestion");
                 String question = rs.getString("question");
                 String type = rs.getString("types");
                 String opts= rs.getString("options");
@@ -87,14 +93,14 @@ public class FetchData {
                 String supporting = rs.getString("supporting");
                 if (type.equals("choice")){
 
-                    RadioGroup radioGroup = new RadioGroup("question" + num_quest, question);
+                    RadioGroup radioGroup = new RadioGroup("" + idquestion, question);
                     //拆分选项,生成选项
                     List<Choice> choices =  addChoices(opts);
                     radioGroup.setChoices(choices);
                     //添加到Page.elements
                     elements.add(radioGroup);
                 } else if (type.equals("double")){
-                    Checkbox checkBox = new Checkbox("question" + num_quest, question);
+                    Checkbox checkBox = new Checkbox("" + idquestion, question);
                     List<Choice> choices = addChoices(opts);
 
                     if (description != null) checkBox.setDescription(description);
@@ -104,19 +110,19 @@ public class FetchData {
                     elements.add(checkBox);
                 } else if (type.equals("table")) {
 
-                    MatrixDynamic matrixDynamic = new MatrixDynamic("question" + num_quest, question);
+                    MatrixDynamic matrixDynamic = new MatrixDynamic("" + idquestion, question);
                     AssembleMatrixDynamic(matrixDynamic, description, opts);
                     elements.add(matrixDynamic);
 
                 } else if (type.equals("blank")) {
                     int size = question.contains(SEMI_COLUMN)?question.split(SEMI_COLUMN).length:-1;
                     if (size < 0) {
-                        Text text = generateSingleText(num_quest, question, opts);
+                        Text text = generateSingleText(idquestion, question, opts);
                         if (description != null) text.setDescription(description);
                         elements.add(text);
                     }else {
 
-                        MultipleText multipleText = new MultipleText("question" + num_quest, generateMultiTextTitle(question));
+                        MultipleText multipleText = new MultipleText("" + idquestion, generateMultiTextTitle(question));
 
                         multipleText.setItems(multiTextAddItems(question));
 
@@ -146,13 +152,13 @@ public class FetchData {
         logger.info(JSONObject.toJSONString(surveyJson));
         return JSONObject.toJSONString(surveyJson);
     }
-    public static Text generateSingleText(int num_quest, String question, String opts) {
+    public static Text generateSingleText(int idquestion, String question, String opts) {
         String title;
          //todo: 数据库更新后，只需要这一句就够
         title = question.substring(0, question.indexOf(REG_START));
 //        logger.info(title);
         Text text = new Text(
-                "question" + num_quest,
+                "" + idquestion,
                 title
         );
         //添加正则判断
