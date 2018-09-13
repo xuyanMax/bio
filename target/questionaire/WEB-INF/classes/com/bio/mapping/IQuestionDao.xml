@@ -6,7 +6,7 @@
     <insert id="insertQuestion">
         insert into questionnaire (idperson, filling_time, qtnaire_version, score) values (#{idperson}, #{filling_time}, #{qtnaire_version}, #{score});
     </insert>
-    <select id="selectQuestion" resultType="com.bio.beans.Question">
-        select * from questionnaire where filling_time=#{xxx}
+    <select id="selectQuestion" resultType="com.bio.beans.Questionnaire">
+        select * from questionnaire where filling_time=#{xxx} limit 1
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.bio;
 import com.JsonGenerator.element.ValidatorRegex;
 import com.JsonGenerator.type.Text;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
@@ -101,5 +102,12 @@ public class JsonGenerate {
 
         text.getValidators().add(validatorRegex);
         System.out.println(JSONObject.toJSONString(text));
+    }
+    @Test
+    public void testJson(){
+        String str = "{\"89\":[{\"关系\":\"父母\",\"癌肿\":\"a\",\"患癌时间\":\"b\"}],\"91\":\"3\"}";
+        JSONObject jsonObject = JSONObject.parseObject(str);
+        System.out.println(jsonObject.get("89"));
+        System.out.println(jsonObject.get("91"));
     }
 }

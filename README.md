@@ -217,7 +217,14 @@ Email|xuyanpeter0619@gmail.com
     mysql自动断开链接的问题，org.springframework.dao.RecoverableDataAccessException
 
 **week18**
+1. 扫码登陆逻辑完善
+1. 扫码等逻辑获取`access_token`利用的`网站应用`的`appSecret`
 
+**week19**
+1. 修改questionnaire:filling_time为varchar类型(代替date)
+1. 测试，数据库增删改查，建议使用`@RequestMapping`单独测试，报错数据准确
+1. `AJAX`传递表单`form`数据出错，替换为`div`。原因见`微信`，`AJAX`异步，`form`刷新表单界面，导致`AJAX`返回值没有得到页面就刷新，因此，始终进入`error`
+1. 
 
 jdk
 ------

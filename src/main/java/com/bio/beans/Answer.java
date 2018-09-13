@@ -1,17 +1,26 @@
 package com.bio.beans;
 
 public class Answer {
-    Integer idanswer;
+    Integer idanswers;
     Integer idperson;
     Integer idquestionnaire;
+    Integer idquestion;
     String answers;
 
-    public Integer getIdanswer() {
-        return idanswer;
+    public Integer getIdquestion() {
+        return idquestion;
     }
 
-    public void setIdanswer(Integer idanswer) {
-        this.idanswer = idanswer;
+    public void setIdquestion(Integer idquestion) {
+        this.idquestion = idquestion;
+    }
+
+    public Integer getIdanswers() {
+        return idanswers;
+    }
+
+    public void setIdanswers(Integer idanswers) {
+        this.idanswers = idanswers;
     }
 
     public Integer getIdperson() {
@@ -36,5 +45,16 @@ public class Answer {
 
     public void setAnswers(String answers) {
         this.answers = answers;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "idanswers=" + idanswers +
+                ", idperson=" + idperson +
+                ", idquestionnaire=" + idquestionnaire +
+                ", idquestion=" + idquestion +
+                ", answers='" + answers + '\'' +
+                '}';
     }
 }

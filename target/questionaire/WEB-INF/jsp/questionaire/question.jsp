@@ -39,11 +39,14 @@
                     url:"/process/survey",
                     contentType:"application/json;charset=UTF-8",
                     dataType:"json",
-                    data:survey.data,
+                    data:JSON.stringify(survey.data),
                     success:function (){
                         alert("问卷结果：" + JSON.stringify(survey.data));
                         // alert(surveyJSON);
                         // alert(JSON.stringify(surveyJSON));
+                    },
+                    error:function () {
+                        alert("提交发送错误!");
                     }
                 });
             }
