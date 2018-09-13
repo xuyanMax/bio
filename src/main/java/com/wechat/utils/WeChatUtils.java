@@ -173,8 +173,8 @@ public class WeChatUtils {
         //todo: 更改appid, secret
         String url = WeChatConstants.GET_WEBAUTH_URL
                                     .replace("CODE",code)
-                                    .replace("APPID", TokenThread.appID)
-                                    .replace("APP_SECRET", TokenThread.appSecret);
+                                    .replace("APPID", WeChatUtils.APPID_URL)
+                                    .replace("APP_SECRET", WeChatUtils.SECRET_URL);
 
         JSONObject JSONOAuth = httpRequest(url, "GET", null);
         logger.info(JSONOAuth);

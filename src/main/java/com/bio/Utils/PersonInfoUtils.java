@@ -81,10 +81,6 @@ public class PersonInfoUtils {
         int size = ID_code.length();
         //报错
         if (ID_code == null || size == 0) return -1;
-        /*switch (size){
-            case 15:return getAgeHelper(ID_code.substring(6,11), 6);
-            case 18:return getAgeHelper(ID_code.substring(6,13), 8);
-        }*/
         return getAgeHelper(ID_code.substring(6,13), 8);
     }
     //合并处理15位/18位身份证号，计算年龄的问题

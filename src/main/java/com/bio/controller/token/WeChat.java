@@ -1,6 +1,7 @@
 package com.bio.controller.token;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Admin;
 import com.bio.beans.Center;
 import com.bio.beans.Person;
@@ -16,9 +17,11 @@ import com.wechat.utils.CoreService;
 import com.wechat.utils.WeChatConstants;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -117,9 +120,6 @@ public class WeChat {
                 .replace("APP_SECRET", WeChatConstants.appSecret)
                 .replace("CODE", code);
         logger.info(url);
-//        OAuthInfo authInfo = WeChatUtils.getOAuthInfoByCode(code);
-//        mv.setViewName("../index");
-//        return mv;
         JSONObject JsonWxUser = WeChatUtils.httpRequest(url, "GET", null);
 
         if (JsonWxUser.getString("errcode") != null){
@@ -265,7 +265,7 @@ public class WeChat {
         Person person = iPersonService.findPersonById(idperson);
         logger.info(center);
         logger.info(person);
-        if (center != null || center.getIdperson() == idperson){
+        if (center != null && center.getIdperson() == idperson){
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
             mv.addObject("snsAdmin", "snsAdmin");
@@ -275,7 +275,7 @@ public class WeChat {
             }
 
             map.put("username", person.getName());
-            map.put("snAdmin", "syAdmin");
+            map.put("snAdmin", "snAdmin");
             map.put("user", person);
             map.put("wxuser", user);
             mv.setViewName("../index");
@@ -305,7 +305,7 @@ public class WeChat {
         mv.addObject("username", person.getName());
         mv.addObject("user", user);
         mv.addObject("msg", "参加临时人员界面");
-        if (user!=null) {
+        if (user != null) {
             user.setIdperson(person.getIdperson());
             mv.addObject("wxuser", user);
         }
@@ -351,5 +351,11 @@ public class WeChat {
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", "13010419920518241X");
         return mv;
+    }
+    @RequestMapping("testGetPeronByIdAndIdcenter")
+    public String testGetPeronByIdAndIdcenter(ModelMap session) {
+        Person p = iPersonService.findPersonByID_codeAndIdcenter(PersonInfoUtils.md5("13010419920518241X"), 1);
+        logger.info(p);
+        return "../index";
     }
 }

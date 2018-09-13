@@ -1,12 +1,9 @@
 package com.wechat.thread;
 
-import com.wechat.model.*;
 import com.wechat.model.button.*;
-import com.wechat.utils.AccessTokenUtil;
 import com.wechat.utils.WeChatConstants;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
-import sun.tools.jstat.Token;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -1,6 +1,7 @@
 package com.bio.controller.auth;
 
 import com.JsonGenerator.FetchData;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
@@ -8,7 +9,6 @@ import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
-import com.wechat.utils.WeChatUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames"})
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -41,6 +45,10 @@ public class Home {
     IAdminService adminService;
     @Autowired
     IWeChatUserService weChatUserService;
+    @Autowired
+    IAnswerService answerService;
+    @Autowired
+    IQuestionService questionService;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap session){
@@ -101,7 +109,7 @@ public class Home {
         mv.setViewName("jsp/questionaire/question");
         String surveyJSON = null;
         try {
-            surveyJSON = FetchData.getSurveyJSON();
+            surveyJSON = FetchData.getSurveyJSON(1);
         } catch (JSchException e) {
             e.printStackTrace();
         }
@@ -128,40 +136,36 @@ public class Home {
     public Map<String, Object> registerIdcodeCheck(HttpServletRequest request,
                                                    HttpServletResponse response,
                                                    String idcode,
-                                                   String name,
-                                                   String phone,
                                                    ModelMap session){
         Map<String, Object> resMap = new HashMap<>();
-        logger.info("idcode="+idcode+", name="+name+", phone="+phone);
+        logger.info("idcode="+idcode);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
 
         Person p = personService.findPersonByID_code(md5);
-
         logger.info(p);
-
+        List<Person> persons = null;
+        List<String> centerNames = null;
+        List<Integer> idcenters = null;
         if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
-            resMap.put("result_id", "1");
-            session.put("idcode", idcode);
-        }
-        else {
-            resMap.put("result_id", "0");
-            return resMap;
-        }
+             persons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
+             centerNames = new ArrayList<>();
+             idcenters = persons.stream().map(Person::getIdcenter).collect(Collectors.toList());
 
-        if (p.getTel1() == null || p.getTel1().equals("")) {
-            p.setTel1(phone);
-            personService.modifyPerson(p);
-            logger.info(p);
-        }else {
-            if (phone.equals(p.getTel1())) {
-                List<Person> allSamePersons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
-
-                resMap.put("result_ph", "1");
-
+            logger.info(idcenters);
+            for (int idcenter : idcenters){
+                Center center = centerService.findPersonInCentersByCenterid(idcenter);
+                logger.info(center);
+                centerNames.add(center.getIdcenter() + "_" + center.getCenter());
             }
-            else
-                resMap.put("result_ph", "0");
-        }
+            for(String str:centerNames)
+                logger.info(str);
+
+            resMap.put("result", "1");
+            session.put("idcode", idcode);
+            logger.info("ok");
+            session.put("centerNames", centerNames);
+        }else resMap.put("result", "0");
+
         return resMap;
     }
     //验证手机短信是否发送成功
@@ -173,20 +177,23 @@ public class Home {
                                            ModelMap session,
                                            String vcode,
                                            String phone,
-                                           String idcode){
+                                           String idcode,
+                                           String centerName){
         Map<String, Object> resMap = new HashMap<>();
         logger.info("接受验证码手机号=" + phone);
         logger.info("即将发送的验证码=" + vcode);
         logger.info("身份证号=" + idcode);
+        logger.info("单位="+centerName);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         session.addAttribute("vcode", vcode);
         //测试是ok的
-        Person p = personService
-                .findPersonByID_code(
-                        PersonInfoUtils
-                                .md5(idcode.toUpperCase())
-                );
+        //todo 通过id_code && idcenter
+
+        int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
+        logger.info(idcenter);
+        Person p = personService.findPersonByID_codeAndIdcenter(PersonInfoUtils
+                        .md5(idcode.toUpperCase()), idcenter);
         logger.info(p);
 
         if (p == null || p.getID_code() == null){
@@ -194,17 +201,21 @@ public class Home {
             logger.error("注册用户身份证信息不在表person中");
             return resMap;
         }
+
+        if (p.getTel1() != null && !p.getTel1().equals(phone)){
+            resMap.put("result", "-2");
+            logger.error("单位管理员，手机号码不匹配");
+            return resMap;
+        }
         WeChatUser user = (WeChatUser) session.get("wxuser");
 
-        resMap.put("wxuser", JSONObject.toJSONString(user));
+        user.setIdperson(p.getIdperson());
 
         //todo: 添加openid, unionid处理
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
             logger.warn("该用户不在Session!!");
         }else {
             logger.info("该用户在Session." );
-            //todo: 测试，需要删除
-            session.addAttribute("wxuser", JSONObject.toJSON(user));
             logger.info("wxuser=" + JSONObject.toJSON(user));
         }
 
@@ -238,32 +249,18 @@ public class Home {
         Map<String, Object> resMap = new HashMap<>();
         String sessionVcode = (String) session.get("vcode");
 
-        Person p = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code.toUpperCase()));
-
         if (sessionVcode!=null && vcode!=null && sessionVcode.equals(vcode)){
-                WeChatUser weChatUser = new WeChatUser();
-                JSONObject jsonObject = (JSONObject) session.get("wxuser");
-                WeChatUser user = WeChatUtils.composeWeChatUser(jsonObject);
-                weChatUser.setIdperson(p.getIdperson());
-                weChatUser.setOpenid(user.getOpenid());
-                weChatUser.setUnionid(user.getUnionid());
-                weChatUser.setCity(user.getCity());
-                weChatUser.setNickname(user.getNickname());
-                weChatUser.setProvince(user.getNickname());
-                weChatUser.setSex(user.getSex());
-                weChatUser.setHeadImgUrl(user.getHeadImgUrl());
-                weChatUser.setLanguage(user.getLanguage());
-                weChatUser.setSubscribe_time(user.getSubscribe_time());
-                weChatUser.setSubscribe(user.getSubscribe());
-                weChatUser.setIdperson(p.getIdperson());
 
-                weChatUserService.addWxUser(weChatUser);
+                WeChatUser user = (WeChatUser) session.get("wxuser");
+                logger.info(user);
+
+                weChatUserService.addWxUser(user);
 
                 resMap.put("result", 1);
-            } else {
-                resMap.put("result", 0);
-                logger.info("");
-            }
+        } else {
+            resMap.put("result", 0);
+            logger.info("");
+        }
         return resMap;
     }
 
@@ -275,14 +272,59 @@ public class Home {
         //返回登陆页面
         return "views/auth/login";
     }
-    @RequestMapping("/process/survey")
+    @RequestMapping(value = "/process/survey", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Map<String, Object> processSurvey(HttpServletRequest request,
                                              HttpServletResponse response,
-                                             @RequestBody String surveyJson
+                                             @RequestBody String surveyJson,
+                                             ModelMap session
                                              ){
         Map<String, Object> map = new HashMap<>();
-        logger.info(surveyJson);
+        try {
+            //https://blog.csdn.net/j080624/article/details/54598734
+            logger.info(URLDecoder.decode(surveyJson, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        JSONObject surveyJSON = JSON.parseObject(surveyJson);
+        Person user = (Person) session.get("user");
+        logger.info(user);
+        logger.info(surveyJSON.getString("1"));
+
+        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
+            logger.info(item.getKey());
+            logger.info(item.getValue());
+
+            Questionnaire questionnaire = new Questionnaire();
+
+            questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
+            questionnaire.setIdperson(user!=null?user.getIdperson():1);
+            //todo 临时
+            String version = (String) session.get("q_version");
+            questionnaire.setQtnaire_version(version!=null?version:"1");
+            questionnaire.setScore(0);
+
+            logger.info(questionnaire);
+
+            String filling_time = questionnaire.getFilling_time();
+            questionService.addQuestionAnswer(questionnaire);
+
+            questionnaire = questionService.findQuestionByFillingTime(filling_time);
+
+            logger.info(questionnaire);
+
+            if (questionnaire != null){
+                Answer answer = new Answer();
+                answer.setIdquestion(Integer.valueOf(item.getKey()));
+                answer.setAnswers(item.getValue().toString());
+                answer.setIdperson(questionnaire.getIdperson());
+                //todo
+                answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
+                logger.info(answer);
+                answerService.addAnswer(answer);
+            }
+
+        }
         return map;
     }
 
@@ -342,5 +384,47 @@ public class Home {
         mv.addObject("msg", "参加人临时员界面");
 
         return mv;
+    }
+
+    @RequestMapping("/testInsertAnswer")
+    public String testInsertAnswer(){
+
+        JSONObject surveyJSON = JSON.parseObject("{\"1\":\"asdasd\",\"3\":\"1\",\"4\":\"190\",\"5\":\"100\",\"35\":\"3\",\"67\":[\"2\",\"4\"],\"89\":[{\"关系\":\"同父母的兄弟姐妹\"}],\"91\":\"0\"}");
+        Person user = new Person();
+        user.setIdperson(2);
+        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
+            logger.info(item.getKey());
+            logger.info(item.getValue());
+
+            Questionnaire questionnaire = new Questionnaire();
+
+            questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
+            questionnaire.setIdperson(user!=null?user.getIdperson():1);
+            //todo 临时
+            questionnaire.setQtnaire_version("1");
+            questionnaire.setScore(0);
+
+            logger.info(questionnaire);
+
+            String filling_time = questionnaire.getFilling_time();
+            questionService.addQuestionAnswer(questionnaire);
+
+            questionnaire = questionService.findQuestionByFillingTime(filling_time);
+
+            logger.info(questionnaire);
+
+            if (questionnaire != null){
+                Answer answer = new Answer();
+                answer.setIdquestion(Integer.valueOf(item.getKey()));
+                answer.setAnswers(item.getValue().toString());
+                answer.setIdperson(questionnaire.getIdperson());
+                //todo
+                answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
+                logger.info(answer);
+                answerService.addAnswer(answer);
+            }
+
+        }
+        return "../index";
     }
 }

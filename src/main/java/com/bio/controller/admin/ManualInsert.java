@@ -55,10 +55,7 @@ public class ManualInsert {
 
             personService.addPerson(person);
 
-            List<Person> persons = personService.findAllPersons();
-
             mv.addObject("message", "上传成功，请继续添加");
-            mv.addObject("persons",persons);
 
             Person p = personService.findPersonByID_code(person.getID_code());
 

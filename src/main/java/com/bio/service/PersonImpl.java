@@ -49,6 +49,11 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
+    public Person findPersonByID_codeAndIdcenter(String ID_code, Integer idcenter) {
+        return personDao.selectPersonByIdAndIdcenter(ID_code, idcenter);
+    }
+
+    @Override
     public int countPersonsByIdCenter(int idcenter) {
         return personDao.selectPersonsByIdcenter(idcenter);
     }

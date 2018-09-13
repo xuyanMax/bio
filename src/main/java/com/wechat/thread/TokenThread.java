@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 public class TokenThread implements Runnable {
     //微信公众号的凭证和秘钥
     public static final String appID = "wxb92b6517e66c5eda";
-    public static final String appSecret = "53b55b9c5b134efbb7c26fc40eb58106";
+    public static final String appSecret = "6f4300688f55cf4a7e4700d683195789";
     public static AccessToken access_token = null;
     private static Logger logger = Logger.getLogger(TokenThread.class);
 
