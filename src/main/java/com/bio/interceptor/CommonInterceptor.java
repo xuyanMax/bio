@@ -75,7 +75,7 @@ public class CommonInterceptor implements HandlerInterceptor {
 
         //最后的情况就是进入登录页面
         logger.info("=====interceptor end======");
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
         return false;//重定向
     }
 

@@ -17,11 +17,9 @@ import com.wechat.utils.CoreService;
 import com.wechat.utils.WeChatConstants;
 import com.wechat.utils.WeChatUtils;
 import org.apache.log4j.Logger;
-import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -262,7 +260,7 @@ public class WeChat {
         logger.info("idperson="+idperson+", mv="+mv+", modelmap="+map);
 
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
-        Person person = iPersonService.findPersonById(idperson);
+        Person person = iPersonService.findPersonByIdperson(idperson);
         logger.info(center);
         logger.info(person);
         if (center != null && center.getIdperson() == idperson){
@@ -278,7 +276,7 @@ public class WeChat {
             map.put("snAdmin", "snAdmin");
             map.put("user", person);
             map.put("wxuser", user);
-            mv.setViewName("../index");
+            mv.setViewName("jsp/sys_admin/sys");
             return mv;
         }
 

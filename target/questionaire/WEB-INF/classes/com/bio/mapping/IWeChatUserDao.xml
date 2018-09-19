@@ -10,6 +10,9 @@
     <delete id="deleteWxUserByOpenid">
 		delete from wechat where openid=#{xxx}
 	</delete>
+	<delete id="deleteWxUserByIdperson">
+		delete from wechat where idperson=#{xxx}
+	</delete>
 
     <update id="updateWxUserByUnionid">
 		update wechat set openid=#{openid}, unionid=#{unionid}, sex=#{sex}, city=#{city}, nickname=#{nickname}, headImgUrl=#{headImgUrl}, language=#{language}, subscribe=#{subscribe}, subscribe_time=#{subscribe_time} where unionid=#{unionid}

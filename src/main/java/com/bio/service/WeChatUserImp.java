@@ -21,6 +21,11 @@ public class WeChatUserImp implements IWeChatUserService {
     }
 
     @Override
+    public void removeWxUserByIdperson(Integer idperson) {
+        iWeChatUserDao.deleteWxUserByIdperson(idperson);
+    }
+
+    @Override
     public void modifyWxUserByUnionid(WeChatUser user) {
         iWeChatUserDao.updateWxUserByUnionid(user);
     }

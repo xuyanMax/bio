@@ -25,12 +25,12 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="/login">登录</a>
+        <a class="navbar-brand mx-auto" href="/wx/login">登录</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <% if ( (request.getSession().getAttribute("username") != null)) {
+    <% if ( (request.getSession().getAttribute("username") != null) && (request.getAttribute("snAdmin")) != null) {
     %>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">

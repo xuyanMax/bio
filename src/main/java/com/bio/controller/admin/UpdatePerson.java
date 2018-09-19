@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,7 +25,7 @@ public class UpdatePerson {
         logger.info(idperson);
         ModelAndView mv = new ModelAndView();
 
-        Person person = personService.findPersonById(idperson);
+        Person person = personService.findPersonByIdperson(idperson);
         mv.addObject("person", person);
 
         logger.info(person);
@@ -48,11 +47,11 @@ public class UpdatePerson {
     @RequestMapping(value = "/delete")
     public ModelAndView delete(@RequestParam("idperson") int idperson){
         ModelAndView mv = new ModelAndView();
-        Person person = personService.findPersonById(idperson);
+        Person person = personService.findPersonByIdperson(idperson);
         //test
         logger.info(person);
         mv.addObject("person", person);
-        personService.removeById(idperson);
+        personService.removeByIdperson(idperson);
         mv.setViewName("views/success");
         return mv;
     }

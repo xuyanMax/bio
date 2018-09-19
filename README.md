@@ -224,7 +224,11 @@ Email|xuyanpeter0619@gmail.com
 1. 修改questionnaire:filling_time为varchar类型(代替date)
 1. 测试，数据库增删改查，建议使用`@RequestMapping`单独测试，报错数据准确
 1. `AJAX`传递表单`form`数据出错，替换为`div`。原因见`微信`，`AJAX`异步，`form`刷新表单界面，导致`AJAX`返回值没有得到页面就刷新，因此，始终进入`error`
-1. 
+1. 添加亲属绑定、删除功能 `/bind/relative` _done_
+1. 添加单位管理员界面 `/snAdmin` _done_
+1. 更新拦截器`CommonInterceptor` _not start_
+1. 添加`session_config session_timeout 30` in `web.xml` _done_
+1. `@SessionAttribute`不同`@Controller`调用
 
 jdk
 ------
@@ -614,27 +618,7 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 没有必做题
     1. __填空题__ 的输入会经由正则表达式判断，如果输入不符合要求，会弹出提示
     1. 问卷调查的最后一页，点击 __提交__
-
-### 测试扫码登陆
-
-1. 测试单位管理员、系统管理员、参加人员扫码登陆
-1. [/wx/login](http://population.chgc.sh.cn/wx/login), [/signupPage](http://population.chgc.sh.cn/signupPage), [/signupPageFollowed](http://population.chgc.sh.cn/signupPageFollowed) 三个连接都指向网页二维码
-1. 单位管理员扫码测试
-    1. 需要本人`idperson`出现在`centers`表中其中一行(仅出现一次)数据的idperson字段
-    1. 测试1 流程图中的`openid`匹配
-    1. 测试2 流程图中的`openid`不匹配情况下
-        1. `unionid`不匹配，则需注册
-        1. `unionid`匹配，则鉴权进入指定页面
-1. 系统管理员测试
-    1. 需要本人`idperson`出现在`admin`表中其中一行(仅出现一次)数据的`idperson`字段
-1. 参加人员测试
-    1. `openid`匹配或`unionid`匹配满足条件之一，可避免进入注册页面
-    1. 参加人员的`idperon`值不出现在`centers`和`admin`表数据中
-
     
-
-
-
 ## 待(已)解决问题
 1. 管理员扫码登陆，短信验证 _in progress_
 1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗

@@ -24,7 +24,7 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
-    public void removeById(Integer idPerson) {
+    public void removeByIdperson(Integer idPerson) {
         personDao.deletePersonByIdPerson(idPerson);
     }
 
@@ -39,7 +39,7 @@ public class PersonImpl implements IPersonService{
     }
 
     @Override
-    public Person findPersonById(int idperson) {
+    public Person findPersonByIdperson(int idperson) {
         return personDao.selectPersonByIdPerson(idperson);
     }
 

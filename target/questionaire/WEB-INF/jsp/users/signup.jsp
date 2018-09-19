@@ -225,7 +225,7 @@
                     if (data.result == 1) {
                         vcode = data.result;
                         alert("验证成功!");
-                        window.location.assign(window.location.origin+"/login");
+                        window.location.assign(window.location.origin+"/wx/login");
                     } else if (data.result == 0){
                         alert("验证失败");
                     }

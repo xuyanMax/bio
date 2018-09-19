@@ -45,34 +45,4 @@ public class FileDownloadController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
     }
-
-    // 测试用功能
-    //reference: https://zhidao.baidu.com/question/54064551.html
-    @RequestMapping(value = "/list")
-    public ModelAndView listFiles(HttpServletRequest request){
-        logger.info(request!=null);
-
-        ModelAndView mv = new ModelAndView();
-        String filesPath = request.getSession().getServletContext().getRealPath("/data");
-
-        logger.info(filesPath);
-
-        File file = new File(filesPath);
-        logger.info(file.isDirectory());
-        File[] files = file.listFiles();
-
-        //test
-        logger.info(files);
-
-        String[] filesNames = file.list();
-        Arrays.stream(filesNames).forEach(System.out::println);
-        //返回包含上传文件列表的字符串
-        String res = Arrays.stream(filesNames).
-                            reduce((f1, f2)->(f1+"\n"+f2)).
-                            get();
-        mv.addObject("files", res);
-        mv.setViewName("views/success");
-        return mv;
-    }
-
 }

@@ -18,10 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.MultiPixelPackedSampleModel;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -76,6 +75,20 @@ public class FileUploadController{
 
         return mv;
     }
+    public List<Person> readXlsFromUploadFiles(MultipartFile[] files, ModelMap session){
+        List<Person> persons = new ArrayList<>();
+        List<Person> person = null;
+        for (MultipartFile file:files){
+            try {
+                 person = DBUtils.readXlsFromFileName(file.getOriginalFilename());
+                persons.addAll(person);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        insertPersonsToDB(persons, session);
+        return person;
+    }
     // 1. upload the files to server
     // 2. insert person data to db
     public List<Person> readXlsFromServerAndSaveToDB(HttpServletRequest request,
@@ -88,18 +101,18 @@ public class FileUploadController{
             String fileName = file.getOriginalFilename();
             logger.info("file=" + path + fileName);
             try {
-                List<Person> persons = DBUtils.readXlsFromServer(path + fileName);
+                List<Person> persons = DBUtils.readXlsFromFileName(path + fileName);
                 res.addAll(persons);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         //将上传所有文档中的数据逐一插入数据库
-        personToDB(res, session);
+        insertPersonsToDB(res, session);
         return res;
     }
 
-    public void personToDB(List<Person> persons, ModelMap session){
+    public void insertPersonsToDB(List<Person> persons, ModelMap session){
         Person sn_person = (Person) session.get("user");
 
         logger.info(sn_person);
@@ -119,6 +132,7 @@ public class FileUploadController{
         }
         for (Person person:persons){
             //todo: ID_code && idcenter 与 单位管理员一致
+            logger.info(person);
             Integer idperon = null;
             p = personService.findPersonByID_code(person.getID_code());
 
@@ -132,14 +146,14 @@ public class FileUploadController{
 
             if (p == null){
                 p = new Person();
-                p.setOriginal_ID_code(p.getOriginal_ID_code());
+                p.setOriginal_ID_code(person.getOriginal_ID_code());
                 p.setID_code(PersonInfoUtils.md5(person.getOriginal_ID_code()));
                 p.setBarcode(person.getBarcode());
                 p.setSn_in_center(person.getSn_in_center());
                 p.setRelative(person.getRelative());
                 p.setAge(PersonInfoUtils.getAge(person.getOriginal_ID_code()));
                 p.setGender(PersonInfoUtils.getGender(person.getOriginal_ID_code()));
-                p.setName(person.getName().substring(0,1) + (p.getGender().equals("男")?"先生":"女士"));
+                p.setName(person.getName().substring(0,1) + (person.getGender().equals("男")?"先生":"女士"));
                 p.setID_code_cut(person.getOriginal_ID_code().substring(14));
                 p.setGlobal_sn(global_sn);
 
@@ -152,7 +166,6 @@ public class FileUploadController{
                 global_sn = p.getGlobal_sn();
                 person.setGlobal_sn(global_sn);
                 logger.info(person);
-
                 personService.modifyPerson(person);
             }
             Exam exam = new Exam();
@@ -160,7 +173,7 @@ public class FileUploadController{
                 p = personService.findPersonByID_code(p.getID_code());
                 idperon = p.getIdperson();
             }
-            exam.setBarcode(p.getBarcode());
+            exam.setBarcode(person.getBarcode());
             exam.setIdperson(idperon);
             exam.setInput_date(ClientInfoUtils.getCurrDatetime());
             logger.info(exam);

@@ -5,7 +5,7 @@ public class Questionnaire {
     Integer idquestionnaire;
     String questionnaire_num;
     String filling_time;
-    String qtnaire_version;
+    Integer qtnaire_version;
     Integer score;
 
     public Integer getIdperson() {
@@ -40,11 +40,11 @@ public class Questionnaire {
         this.filling_time = filling_time;
     }
 
-    public String getQtnaire_version() {
+    public Integer getQtnaire_version() {
         return qtnaire_version;
     }
 
-    public void setQtnaire_version(String qtnaire_version) {
+    public void setQtnaire_version(Integer qtnaire_version) {
         this.qtnaire_version = qtnaire_version;
     }
 

@@ -1,12 +1,9 @@
 package com.bio.Utils;
 
-import com.bio.beans.Person;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class PersonInfoUtils {
     /**
@@ -26,7 +23,6 @@ public class PersonInfoUtils {
             //md5 hash and convert back to bytes
             byte[] res = md.digest();
 
-            //
             return byteArrayToHex(res);
 
         } catch (NoSuchAlgorithmException e) {
@@ -37,11 +33,8 @@ public class PersonInfoUtils {
     // convert md5 bytes back to HEXADECIMAL
     // refer: https://blog.csdn.net/xiao__gui/article/details/8148203
     public static String byteArrayToHex(byte[] bytes){
-        // 首先初始化一个字符数组，用来存放每个16进制字符
         char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9', 'a','b','c','d','e','f' };
-        // new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
         char[] res =new char[bytes.length * 2];
-        // 遍历字节数组，通过位运算（位运算效率高），转换成字符放到字符数组中去
         int index = 0;
         for (byte b:bytes) {
             res[index++] = hexDigits[b>>> 4 & 0xf];
@@ -66,7 +59,6 @@ public class PersonInfoUtils {
     //从ID中获取性别
     public static String getGender(String ID_code){
         int size = ID_code.length();
-        //报错
         if (size == 0) return null;
         switch (size){
             case 15: return Integer.valueOf(ID_code.charAt(14)) % 2 == 0? "女":"男";

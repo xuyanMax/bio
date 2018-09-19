@@ -4,6 +4,12 @@ public class Center {
     private int idcenter;
     private String center;
     private Integer idperson;
+    private int postcode;
+    private int local_num;
+    private String admin_name;
+    private String admin_tel;
+    private Integer current_qtversion;
+    private String sup3;
 
     public Integer getIdperson() {
         return idperson;
@@ -20,13 +26,6 @@ public class Center {
     public void setCenter(String center) {
         this.center = center;
     }
-
-    private int postcode;
-    private int local_num;
-    private String admin_name;
-    private String admin_tel;
-    private int sup2;
-    private String sup3;
 
     public int getIdcenter() {
         return idcenter;
@@ -68,12 +67,12 @@ public class Center {
         this.admin_tel = admin_tel;
     }
 
-    public int getSup2() {
-        return sup2;
+    public Integer getCurrent_qtversion() {
+        return current_qtversion;
     }
 
-    public void setSup2(int sup2) {
-        this.sup2 = sup2;
+    public void setCurrent_qtversion(Integer current_qtversion) {
+        this.current_qtversion = current_qtversion;
     }
 
     public String getSup3() {
@@ -94,7 +93,7 @@ public class Center {
                 ", local_num=" + local_num +
                 ", admin_name='" + admin_name + '\'' +
                 ", admin_tel='" + admin_tel + '\'' +
-                ", sup2=" + sup2 +
+                ", current_qtversion=" + current_qtversion +
                 ", sup3='" + sup3 + '\'' +
                 '}';
     }

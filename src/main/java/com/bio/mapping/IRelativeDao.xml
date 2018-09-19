@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bio.dao.IRelativeDao">
+    <insert id="insertRelative">
+        insert into relatives (idperson1, idperson2, relationship) values (#{idperson1}, #{idperson2}, #{relationship});
+    </insert>
+    <delete id="deleteRelativeByIdperson1">
+        delete from relatives where idperson1=#{0} and idperson2=#{1}
+    </delete>
+    <select id="selectRelativesByIdperson1" resultType="com.bio.beans.Relative">
+      select * from relatives where idperson1=#{xxx}
+    </select>
+    <select id="selectRelativesByIdperson2" resultType="com.bio.beans.Relative">
+      select * from relatives where idperson2=#{xxx} limit 1
+    </select>
+</mapper>

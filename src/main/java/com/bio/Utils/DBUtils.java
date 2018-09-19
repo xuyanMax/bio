@@ -61,7 +61,7 @@ public class DBUtils {
      * * 从服务器端读取上传文件，并获取persons数据
     * @return List<person>
     * */
-    public static List<Person> readXlsFromServer(String path) throws IOException {
+    public static List<Person> readXlsFromFileName(String path) throws IOException {
 
         InputStream is = new FileInputStream(path);
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
@@ -98,6 +98,7 @@ public class DBUtils {
                 p.setOriginal_ID_code(formatter.formatCellValue(ID_code));
                 //md5散列的身份证号
                 p.setID_code(PersonInfoUtils.md5(formatter.formatCellValue(ID_code)));
+                p.setID_code_cut(p.getOriginal_ID_code().substring(14));
 
                 p.setBarcode(formatter.formatCellValue(barcode));
                 p.setRelative(PersonInfoUtils.relative(formatter.formatCellValue(relative)));
@@ -153,7 +154,6 @@ public class DBUtils {
         HSSFCellStyle style = workbook.createCellStyle();
         //设置边框
         setCellStyle(workbook, style);
-
         HSSFFont headerFont = (HSSFFont) workbook.createFont(); // 创建字体样式
         headerFont.setBold(true); // 字体加粗
         headerFont.setFontName("黑体"); // 设置字体类型

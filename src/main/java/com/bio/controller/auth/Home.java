@@ -17,9 +17,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class Home {
     IAnswerService answerService;
     @Autowired
     IQuestionService questionService;
+    @Autowired
+    IRelativeService relativeService;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap session){
@@ -63,6 +66,127 @@ public class Home {
         }
         return mv;
     }
+    @RequestMapping("snAdmin")
+    public ModelAndView snAdminPage(ModelMap session){
+        ModelAndView mv = new ModelAndView("jsp/sys_admin/sys");
+
+        return mv;
+    }
+
+    @RequestMapping("/userHomePage")
+    public ModelAndView userHomePage(HttpServletResponse response,
+                                     HttpServletRequest request,
+                                     ModelMap session){
+        ModelAndView mv = new ModelAndView("jsp/users/userHomePage");
+        //todo:
+        mv.addObject("idperson", request.getAttribute("idperson"));
+        return mv;
+    }
+    @RequestMapping("informant")
+    public ModelAndView signInformant(@RequestParam(value = "idperson2", required = false) Integer idperson2,
+                                      @RequestParam(value = "idperson1", required = false) Integer idperson1) {
+        ModelAndView mv = new ModelAndView("jsp/questionaire/informant");
+        Integer sex = 0;
+        logger.info(idperson1);
+        logger.info(idperson2);
+        if (idperson2 != null){//代替亲属问答
+            Person p2 = personService.findPersonByIdperson(idperson2);
+            String gender2 = p2.getGender();
+            sex = gender2.equals("男")?1:0;
+        }else if (idperson1 != null){//用户本人作答
+         sex = personService.findPersonByIdperson(idperson1).equals("男")?1:0;
+        }
+        mv.addObject("gender", sex);
+        return mv;
+    }
+
+    @RequestMapping("/bind/relative")
+    public ModelAndView bindRelative(ModelMap session){
+
+        ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
+        Person user = (Person) session.get("user");
+        List<Relative> relatives = null;
+        List<Person> persons = null;
+        List<Integer> idpersons = null;
+        //todo:处理user==null
+        if (user != null){
+            relatives = relativeService.findRelativesByIdperson1(user.getIdperson());
+            logger.info(relatives);
+            idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
+            persons = idpersons.stream().map(id->personService.findPersonByIdperson(id)).collect(Collectors.toList());
+            logger.info(persons);
+        } else {
+            //todo:仅用于测试
+            relatives = relativeService.findRelativesByIdperson1(308);
+            logger.info(relatives);
+            idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
+            persons = idpersons.stream().map(id->personService.findPersonByIdperson(id)).collect(Collectors.toList());
+
+            mv.addObject("user", (Person)personService.findPersonByIdperson(308));
+            logger.info(persons);
+        }
+        mv.addObject("persons", persons);
+        return mv;
+    }
+    @RequestMapping("/unbind")
+    public void unbindWxUser(HttpServletRequest request,
+                                     ModelMap session){
+        Person user = (Person) session.get("user");
+        weChatUserService.removeWxUserByIdperson(user.getIdperson());
+        try {
+            response.sendRedirect("/wx/login");
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(user);
+        }
+    }
+
+    @RequestMapping("addRelative")
+    public ModelAndView addRelative(@Param("ID_code") String ID_code,
+                                    @Param("name") String name,
+                                    @Param("relation") String relation,
+                                    ModelMap session){
+        logger.info(ID_code);
+        logger.info(name);
+        logger.info(relation);
+        ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
+        Person toAdded = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code));
+        if (toAdded == null){
+            mv.addObject("msg", "没有您的预申请信息，请联系专属管理员");
+            return mv;
+        }
+        Relative alreadyExist = (Relative) relativeService.findRelativesByIdperson2(toAdded.getIdperson());
+        if (alreadyExist != null) {
+            mv.addObject("msg", "该亲属已绑定");
+            return mv;
+        }
+        Relative relative = new Relative();
+
+        Person p = (Person) session.get("user");
+        logger.info(p);
+        relative.setIdperson1(p!=null?p.getIdperson():1);
+        relative.setIdperson2(toAdded.getIdperson());
+        relative.setRelationship(Integer.valueOf(relation));
+
+        logger.info(relative);
+        relativeService.addRelative(relative);
+        mv.setViewName("jsp/users/BindRelatives");
+
+        return mv;
+    }
+    @RequestMapping("deleteRelative")
+    public ModelAndView deleteRelative(HttpServletRequest request,
+                                       ModelMap session,
+                                       @RequestParam("idperson1") Integer idperson1,
+                                       @RequestParam("idperson2") Integer idperson2){
+
+        ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
+        logger.info(idperson1);
+        logger.info(idperson2);
+        relativeService.removeRelativeByIdperson1AndIdperson2(idperson1, idperson2);
+        return mv;
+    }
+
 
     @RequestMapping("/login")
     public String loginPage(){
@@ -101,19 +225,46 @@ public class Home {
 
         return loginAuthCheck(person.getIdperson(), mv, session);
     }
-    @RequestMapping("/survey")
-    public ModelAndView generateSurveyJSON(){
-        ModelAndView mv = new ModelAndView();
 
-        logger.info("正在调用调查问卷");
-        mv.setViewName("jsp/questionaire/question");
-        String surveyJSON = null;
-        try {
-            surveyJSON = FetchData.getSurveyJSON(1);
-        } catch (JSchException e) {
-            e.printStackTrace();
+    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session){
+
+        Center center = centerService.findPersonInCentersByIdperson(idperson);
+        Person person = personService.findPersonByIdperson(idperson);
+        logger.info(center);
+        logger.info(person);
+        if (center != null && center.getIdperson() != null && center.getIdperson() == idperson){
+            mv.addObject("username", person.getName());
+            mv.addObject("user", person);
+            mv.addObject("snAdmin", "snAdmin");
+
+            session.put("username", person.getName());
+            session.put("snAdmin", "syAdmin");
+            session.put("user", person);
+            mv.setViewName("jsp/sys_admin/sys");
+            return mv;
         }
-        mv.addObject("surveyJSON", surveyJSON);
+
+        Admin admin = adminService.findAdminUser(idperson);
+        logger.info(admin);
+        if (admin != null && admin.getIdperson() == idperson){
+            mv.setViewName("/jsp/sys_admin/sys");
+            mv.addObject("user", person);
+            mv.addObject("username", person.getName());
+            mv.addObject("sys_admin", "sys_admin");
+
+            session.addAttribute("username", person.getName());
+            session.addAttribute("user", person);
+            session.addAttribute("sys_admin", "sys_admin");
+            return mv;
+        }
+        //todo: 参加人员界面
+        mv.setViewName("/jsp/users/userHomePage");
+        mv.addObject("username", person.getName());
+        mv.addObject("idperson", person.getIdperson());
+        mv.addObject("user", person);
+        mv.addObject("nickname", person.getName());
+        mv.addObject("msg", "参加人临时员界面");
+
         return mv;
     }
 
@@ -205,6 +356,8 @@ public class Home {
         if (p.getTel1() != null && !p.getTel1().equals(phone)){
             resMap.put("result", "-2");
             logger.error("单位管理员，手机号码不匹配");
+            p.setTel1(phone);
+            personService.modifyPerson(p);
             return resMap;
         }
         WeChatUser user = (WeChatUser) session.get("wxuser");
@@ -264,14 +417,32 @@ public class Home {
         return resMap;
     }
 
-    @RequestMapping("/logout")
-    public String logout(@ModelAttribute("user") Person person,
-                         SessionStatus sessionStatus){
-        //sessionStatus中的setComplete方法可以将session中的内容全部清空
-        sessionStatus.setComplete();
-        //返回登陆页面
-        return "views/auth/login";
+    @RequestMapping("/survey")
+    public ModelAndView generateSurveyJSON(ModelMap session,
+                                           @RequestParam(value = "gender", required = false) Integer gender){
+        ModelAndView mv = new ModelAndView();
+
+        logger.info("正在调用调查问卷");
+        logger.info(gender);
+        mv.setViewName("jsp/questionaire/question");
+        String surveyJSON = null;
+
+        Person p = (Person) session.get("user");
+        logger.info(p);
+        Center c = centerService.findPersonInCentersByIdperson(p!=null?p.getIdperson():1);
+        Integer sex = Integer.valueOf(gender);
+        try {
+            if (sex % 2 != 0)
+                surveyJSON = FetchData.getSurveyJSON(c!=null?((c.getCurrent_qtversion()!=null)?c.getCurrent_qtversion():1):1);
+            else
+                surveyJSON = FetchData.getSurveyJSON(c!=null?(c.getCurrent_qtversion()!=null?c.getCurrent_qtversion()+1:1):1);
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
+        mv.addObject("surveyJSON", surveyJSON);
+        return mv;
     }
+
     @RequestMapping(value = "/process/survey", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Map<String, Object> processSurvey(HttpServletRequest request,
@@ -287,21 +458,22 @@ public class Home {
             e.printStackTrace();
         }
         JSONObject surveyJSON = JSON.parseObject(surveyJson);
+
+        logger.info(session.get("user"));
         Person user = (Person) session.get("user");
         logger.info(user);
         logger.info(surveyJSON.getString("1"));
 
-        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
-            logger.info(item.getKey());
-            logger.info(item.getValue());
-
-            Questionnaire questionnaire = new Questionnaire();
+        Questionnaire questionnaire = null;
+        if (surveyJSON != null) {
+            questionnaire = new Questionnaire();
 
             questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-            questionnaire.setIdperson(user!=null?user.getIdperson():1);
+            questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
             //todo 临时
-            String version = (String) session.get("q_version");
-            questionnaire.setQtnaire_version(version!=null?version:"1");
+            Integer version = (Integer) session.get("q_version");
+            questionnaire.setQtnaire_version(version != null ? version : 1);
+            //todo: 打分机制待定
             questionnaire.setScore(0);
 
             logger.info(questionnaire);
@@ -312,6 +484,11 @@ public class Home {
             questionnaire = questionService.findQuestionByFillingTime(filling_time);
 
             logger.info(questionnaire);
+        }
+
+        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
+            logger.info(item.getKey());
+            logger.info(item.getValue());
 
             if (questionnaire != null){
                 Answer answer = new Answer();
@@ -326,6 +503,24 @@ public class Home {
 
         }
         return map;
+    }
+
+    @RequestMapping("/logout")
+    public String logout( SessionStatus sessionStatus,
+                          HttpSession httpSession){
+        //sessionStatus中的setComplete方法可以将session中的内容全部清空
+        httpSession.removeAttribute("user");
+        httpSession.removeAttribute("wxuser");
+        httpSession.removeAttribute("snAdmin");
+        httpSession.removeAttribute("username");
+        httpSession.removeAttribute("vcode");
+        httpSession.removeAttribute("idcode");
+        httpSession.removeAttribute("centerNames");
+        httpSession.removeAttribute("sysAdmin");
+        sessionStatus.setComplete();
+
+        //返回登陆页面
+        return "views/auth/login";
     }
 
     @RequestMapping("/preferences")
@@ -343,48 +538,6 @@ public class Home {
     public String _404PageNotFound(HttpServletRequest request){
         return "views/errors/404";
     }
-    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session){
-
-        Center center = centerService.findPersonInCentersByIdperson(idperson);
-        Person person = personService.findPersonById(idperson);
-        logger.info(center);
-        logger.info(person);
-        if (center != null && center.getIdperson() != null && center.getIdperson() == idperson){
-            mv.addObject("username", person.getName());
-            mv.addObject("user", person);
-            mv.addObject("snAdmin", "snAdmin");
-
-            session.put("username", person.getName());
-            session.put("snAdmin", "syAdmin");
-            session.put("user", person);
-            mv.setViewName("../index");
-            return mv;
-        }
-
-        Admin admin = adminService.findAdminUser(idperson);
-        logger.info(admin);
-        if (admin != null && admin.getIdperson() == idperson){
-            mv.setViewName("/jsp/sys_admin/sys");
-            mv.addObject("user", person);
-            mv.addObject("username", person.getName());
-            mv.addObject("sys_admin", "sys_admin");
-
-
-            session.addAttribute("username", person.getName());
-            session.addAttribute("user", person);
-            session.addAttribute("sys_admin", "sys_admin");
-            return mv;
-        }
-        //todo: 参加人员界面
-        mv.setViewName("/jsp/users/userHomePage");
-        mv.addObject("username", person.getName());
-        mv.addObject("idperson", person.getIdperson());
-        mv.addObject("user", person);
-        mv.addObject("nickname", person.getName());
-        mv.addObject("msg", "参加人临时员界面");
-
-        return mv;
-    }
 
     @RequestMapping("/testInsertAnswer")
     public String testInsertAnswer(){
@@ -392,26 +545,27 @@ public class Home {
         JSONObject surveyJSON = JSON.parseObject("{\"1\":\"asdasd\",\"3\":\"1\",\"4\":\"190\",\"5\":\"100\",\"35\":\"3\",\"67\":[\"2\",\"4\"],\"89\":[{\"关系\":\"同父母的兄弟姐妹\"}],\"91\":\"0\"}");
         Person user = new Person();
         user.setIdperson(2);
+        Questionnaire questionnaire = new Questionnaire();
+
+        questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
+        questionnaire.setIdperson(user!=null?user.getIdperson():1);
+        //todo 临时
+        Center c = centerService.findPersonInCentersByIdperson(user.getIdperson());
+        questionnaire.setQtnaire_version(c.getIdcenter());
+        questionnaire.setScore(0);
+
+        logger.info(questionnaire);
+
+        String filling_time = questionnaire.getFilling_time();
+        questionService.addQuestionAnswer(questionnaire);
+
+        questionnaire = questionService.findQuestionByFillingTime(filling_time);
+
+        logger.info(questionnaire);
+
         for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
             logger.info(item.getKey());
             logger.info(item.getValue());
-
-            Questionnaire questionnaire = new Questionnaire();
-
-            questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-            questionnaire.setIdperson(user!=null?user.getIdperson():1);
-            //todo 临时
-            questionnaire.setQtnaire_version("1");
-            questionnaire.setScore(0);
-
-            logger.info(questionnaire);
-
-            String filling_time = questionnaire.getFilling_time();
-            questionService.addQuestionAnswer(questionnaire);
-
-            questionnaire = questionService.findQuestionByFillingTime(filling_time);
-
-            logger.info(questionnaire);
 
             if (questionnaire != null){
                 Answer answer = new Answer();
@@ -427,4 +581,6 @@ public class Home {
         }
         return "../index";
     }
+
+
 }

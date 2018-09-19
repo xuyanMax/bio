@@ -12,6 +12,12 @@
     <p>欢迎微信用户: ${wxuser.nickname}</p>
     <p>idperson: ${user.idperson}</p>
     <p>${msg}</p>
+
+    <a href="/informant?idperson1=${user.idperson}">问卷答题</a> <br/>
+    <a href="/report">查看报告</a> <br/>
+    <a href="/bind/relative">绑定亲属</a><br/>
+    <a href="/unbind">微信解绑</a><br/>
+
 </head>
 <body>
 

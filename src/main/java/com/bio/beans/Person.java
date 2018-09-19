@@ -13,10 +13,10 @@ public class Person {
     private String global_sn;
     private int idcenter;
     private String email;
-    private String barcode;///长度依据数据库限制...
     private int relative;
     private String tel1;
     private String tel2;
+    private String barcode;
 
     public Integer getIdperson() {
         return idperson;
@@ -106,14 +106,6 @@ public class Person {
         this.email = email;
     }
 
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
     public int getRelative() {
         return relative;
     }
@@ -138,6 +130,14 @@ public class Person {
         this.tel2 = tel2;
     }
 
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -152,10 +152,10 @@ public class Person {
                 ", global_sn='" + global_sn + '\'' +
                 ", idcenter=" + idcenter +
                 ", email='" + email + '\'' +
-                ", barcode='" + barcode + '\'' +
                 ", relative=" + relative +
                 ", tel1='" + tel1 + '\'' +
                 ", tel2='" + tel2 + '\'' +
+                ", barcode='" + barcode + '\'' +
                 '}';
     }
 }

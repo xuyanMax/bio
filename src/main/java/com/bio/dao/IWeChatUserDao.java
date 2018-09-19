@@ -10,6 +10,7 @@ public interface IWeChatUserDao {
 
     //删除指定IdPerson
     void deleteWxUserByOpenid(String openid);
+    void deleteWxUserByIdperson(Integer idperson);
     //更新某Person
     void updateWxUserByUnionid(WeChatUser user);
 
