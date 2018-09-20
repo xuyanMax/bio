@@ -230,6 +230,11 @@ Email|xuyanpeter0619@gmail.com
 1. 添加`session_config session_timeout 30` in `web.xml` _done_
 1. `@SessionAttribute`不同`@Controller`调用
 
+**week20**
+1. 修复bug
+    1. Excel上传文件中的`身份证号`需要存为文本格式，而不是`科学计数法`格式
+
+
 jdk
 ------
 

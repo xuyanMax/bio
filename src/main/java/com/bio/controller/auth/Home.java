@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames"})
+@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2"})
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -84,7 +84,8 @@ public class Home {
     }
     @RequestMapping("informant")
     public ModelAndView signInformant(@RequestParam(value = "idperson2", required = false) Integer idperson2,
-                                      @RequestParam(value = "idperson1", required = false) Integer idperson1) {
+                                      @RequestParam(value = "idperson1", required = false) Integer idperson1,
+                                      ModelMap session) {
         ModelAndView mv = new ModelAndView("jsp/questionaire/informant");
         Integer sex = 0;
         logger.info(idperson1);
@@ -97,6 +98,7 @@ public class Home {
          sex = personService.findPersonByIdperson(idperson1).equals("男")?1:0;
         }
         mv.addObject("gender", sex);
+        if (idperson2 != null) session.addAttribute("idperson2", idperson2);
         return mv;
     }
 
@@ -130,6 +132,7 @@ public class Home {
     }
     @RequestMapping("/unbind")
     public void unbindWxUser(HttpServletRequest request,
+                                     HttpServletResponse response,
                                      ModelMap session){
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
@@ -263,7 +266,7 @@ public class Home {
         mv.addObject("idperson", person.getIdperson());
         mv.addObject("user", person);
         mv.addObject("nickname", person.getName());
-        mv.addObject("msg", "参加人临时员界面");
+        mv.addObject("msg", "参加人员界面");
 
         return mv;
     }
@@ -353,7 +356,7 @@ public class Home {
             return resMap;
         }
 
-        if (p.getTel1() != null && !p.getTel1().equals(phone)){
+        if (p.getTel1() == null || (p.getTel1() != null && !p.getTel1().equals(phone)) ){
             resMap.put("result", "-2");
             logger.error("单位管理员，手机号码不匹配");
             p.setTel1(phone);
@@ -427,9 +430,15 @@ public class Home {
         mv.setViewName("jsp/questionaire/question");
         String surveyJSON = null;
 
-        Person p = (Person) session.get("user");
-        logger.info(p);
-        Center c = centerService.findPersonInCentersByIdperson(p!=null?p.getIdperson():1);
+        Person user = (Person) session.get("user");
+        logger.info(user);
+
+        Integer idperson = null;
+
+        if (session.get("idperson2") != null) idperson = (Integer) session.get("idperson2");
+        idperson = user!=null?user.getIdperson():1;
+
+        Center c = centerService.findPersonInCentersByIdperson(idperson);
         Integer sex = Integer.valueOf(gender);
         try {
             if (sex % 2 != 0)
@@ -473,7 +482,7 @@ public class Home {
             //todo 临时
             Integer version = (Integer) session.get("q_version");
             questionnaire.setQtnaire_version(version != null ? version : 1);
-            //todo: 打分机制待定
+
             questionnaire.setScore(0);
 
             logger.info(questionnaire);

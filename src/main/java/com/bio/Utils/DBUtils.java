@@ -143,11 +143,6 @@ public class DBUtils {
 
         //3. 添加内容
         // a. 创建标题
-//        HSSFRow row0 = sheet.createRow(0);
-//        row0.setHeightInPoints(50);//标题高度
-//        HSSFCellStyle style = workbook.createCellStyle();
-//        style.setAlignment(HorizontalAlignment.CENTER_SELECTION);//标题居中
-//        style.setVerticalAlignment(VerticalAlignment.CENTER);//标题居中
         // b. 创建表头
         HSSFRow row0 = sheet.createRow(0);
         row0.setHeightInPoints(37);
