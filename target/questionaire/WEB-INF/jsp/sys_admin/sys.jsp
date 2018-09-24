@@ -12,6 +12,7 @@
     <p>欢迎${user.name}</p>
     <p>idcenter: ${user.idcenter}</p>
     <p>idperson: ${user.idperson}</p>
+    <a href="/home">返回首页</a> <br/>
     <a href="/home">队列成员信息</a> <br/>
     <a href="/sample">样品信息管理</a> <br/>
     <a href="/userHomePage">参与人员界面</a>

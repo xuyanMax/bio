@@ -61,7 +61,7 @@
         <tr>
             <td>${person.name}</td>
             <td><a href="/deleteRelative?idperson2=${person.idperson}&idperson1=${user.idperson}">解除亲属</a></td>
-            <td><a href="/informant?idperson2=${person.idperson}">问卷</a></td>
+            <td><a href="/informant?idperson2=${person.idperson}&idperson1=${user.idperson}">亲属问卷</a></td>
         </tr>
     </c:forEach>
     </table>

@@ -95,10 +95,11 @@ public class Home {
             String gender2 = p2.getGender();
             sex = gender2.equals("男")?1:0;
         }else if (idperson1 != null){//用户本人作答
-         sex = personService.findPersonByIdperson(idperson1).equals("男")?1:0;
+         sex = personService.findPersonByIdperson(idperson1).getGender().equals("男")?1:0;
         }
         mv.addObject("gender", sex);
-        if (idperson2 != null) session.addAttribute("idperson2", idperson2);
+        if (idperson2 != null)
+            session.addAttribute("idperson2", idperson2);
         return mv;
     }
 
@@ -357,11 +358,11 @@ public class Home {
         }
 
         if (p.getTel1() == null || (p.getTel1() != null && !p.getTel1().equals(phone)) ){
-            resMap.put("result", "-2");
+            resMap.put("result", "1");
             logger.error("单位管理员，手机号码不匹配");
             p.setTel1(phone);
             personService.modifyPerson(p);
-            return resMap;
+//            return resMap;
         }
         WeChatUser user = (WeChatUser) session.get("wxuser");
 
@@ -433,10 +434,7 @@ public class Home {
         Person user = (Person) session.get("user");
         logger.info(user);
 
-        Integer idperson = null;
-
-        if (session.get("idperson2") != null) idperson = (Integer) session.get("idperson2");
-        idperson = user!=null?user.getIdperson():1;
+        Integer idperson = user!=null?user.getIdperson():1;
 
         Center c = centerService.findPersonInCentersByIdperson(idperson);
         Integer sex = Integer.valueOf(gender);
@@ -474,11 +472,15 @@ public class Home {
         logger.info(surveyJSON.getString("1"));
 
         Questionnaire questionnaire = null;
+        logger.info(session.get("idperson2"));
         if (surveyJSON != null) {
             questionnaire = new Questionnaire();
 
             questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-            questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
+            if (session.get("idperson2") == null)
+                questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
+            else
+                questionnaire.setIdperson((Integer) session.get("idperson2"));
             //todo 临时
             Integer version = (Integer) session.get("q_version");
             questionnaire.setQtnaire_version(version != null ? version : 1);
@@ -518,6 +520,7 @@ public class Home {
     public String logout( SessionStatus sessionStatus,
                           HttpSession httpSession){
         //sessionStatus中的setComplete方法可以将session中的内容全部清空
+        logger.info("logout");
         httpSession.removeAttribute("user");
         httpSession.removeAttribute("wxuser");
         httpSession.removeAttribute("snAdmin");
@@ -526,6 +529,7 @@ public class Home {
         httpSession.removeAttribute("idcode");
         httpSession.removeAttribute("centerNames");
         httpSession.removeAttribute("sysAdmin");
+        httpSession.removeAttribute("idperson2");
         sessionStatus.setComplete();
 
         //返回登陆页面

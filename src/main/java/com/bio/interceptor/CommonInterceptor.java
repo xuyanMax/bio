@@ -37,7 +37,7 @@ public class CommonInterceptor implements HandlerInterceptor {
         logger.info("snAdmin = "+ (String) httpServletRequest.getSession().getAttribute("snAdmin"));
 
         if (url.contains("logout")){
-            if (username != null){
+            if (username == null){
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
                 logger.info("=====interceptor ends======");
                 return false;

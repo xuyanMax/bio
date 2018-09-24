@@ -25,6 +25,7 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
+        <%--<a class="navbar-brand mx-auto" href="/wx/login">登录</a>--%>
         <a class="navbar-brand mx-auto" href="/wx/login">登录</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
@@ -55,10 +56,22 @@
     <%--<a href="list" class="list-group-item list-group-item-action disabled" disabled="true">List uploaded files</a><br/>--%>
 </div>
 <%
-    }
+    }else{
 
 %>
-
+<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">肿瘤易感性筛查</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+    </ul>
+</div>
+<%
+    }
+%>
 <!--测试用-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
