@@ -5,7 +5,7 @@ public class BaseQuestion {
     String type;
     String title;
     String description;
-    boolean isRequired;
+    boolean isRequired = true;
 
     public BaseQuestion(String name, String title) {
         this.name = name;
@@ -44,5 +44,13 @@ public class BaseQuestion {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean getIsRequired() {
+        return isRequired;
+    }
+
+    public void setIsRequired(boolean isRequired) {
+        this.isRequired = isRequired;
     }
 }
