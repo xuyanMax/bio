@@ -162,7 +162,7 @@
                     }else if (data.result == '-2'){
                         document.getElementById("phone").className=' is-valid';
                         document.getElementById("tel-error").className=' text-danger';
-                        document.getElementById("tel-error").innerText="手机号不匹配/将手机号存入数据库成功了";
+                        document.getElementById("tel-error").innerText="您的手机号与管理员提交的不同";
                         window.location.assign(window.location.origin+"/signupPageFollowed");
                     }else if (data.result == '1'){
                         document.getElementById("vcode-error").innerText="短信验证码已发送，请查收";

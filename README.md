@@ -233,7 +233,8 @@ Email|xuyanpeter0619@gmail.com
 **week20**
 1. 修复bug
     1. Excel上传文件中的`身份证号`需要存为文本格式，而不是`科学计数法`格式
-
+1. 问卷调查存储，需按照实际做题人(亲属或用户本人)的`idperson`进行`questionnaire`及`answers`数据存储
+1. 修复`/logout`功能(`CommonInterceptor`)
 
 jdk
 ------
