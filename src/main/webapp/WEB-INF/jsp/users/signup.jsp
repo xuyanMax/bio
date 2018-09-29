@@ -10,7 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,11 +52,10 @@
     <div name="dataInputForm">
         <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="name_div">
-            <input type="text" class="form-control" placeholder="姓名" required="required" name="name" id="name">
-            <small class="help-block" id="name-error"></small>
+            <p class="form-control" id="name">${name}</p>
         </div>
         <div class="form-group" id="ID_CODE_div">
-            <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code" value="${idcode}">
+            <p class="form-control" id="id_code">${idcode}</p>
             <small class="help-block" id="id-error"></small>
         </div>
 
@@ -65,6 +63,9 @@
         <%
             List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
             if (centerNames != null){
+        %>
+            <p>请选择您的单位</p>
+        <%
                 for (String centerName:centerNames){
         %>
             <label class="">
@@ -80,7 +81,7 @@
             <input type="text" onchange="checkOnSignUp()" class="form-control" placeholder="手机号码" name="phone" id="phone" required>
             <small class="help-block" id="tel-error"></small>
             <input type="text" id="vcode" class="form-control" placeholder="输入手机验证码" required>
-            <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled=""/>
+            <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled="">
             <small class="help-block" id="vcode-error"></small>
         </div>
         <div class="form-group">
@@ -115,68 +116,62 @@
             return;
         }
     }
-    function checkID() {
-        var id_code = document.getElementById("id_code");
-        var id_code_err = document.getElementById("id-error");
-        id_code.innerText="";
-        var reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-        if (!reg.test(id_code.value)){
-            id_code.className += ' is-invalid';
-            id_code_err.className +=' text-danger';
-            id_code_err.innerText="请输入18位合法身份证";
-            return;
-        }
-        return;
-    }
 
     $(document).ready(function () {
         var user = '';
         $("#btn").on("click", function () {
-            currCount = count;
-            // 设置button效果，开始计时
-            btn.attr("disabled", true);
-            btn.val("请在" + currCount + "秒内输入验证码");
+            if ($('input:radio[name="unit"]:checked').val() == null ||
+                $('input:radio[name="unit"]:checked').val() == ""){
+                alert("单位不得为空");
+            }else {
+                currCount = count;
+                // 设置button效果，开始计时
+                btn.attr("disabled", true);
+                btn.val("请在" + currCount + "秒内输入验证码");
 
-            InterValObj = window.setInterval(setRemainTime, 1000);
+                InterValObj = window.setInterval(setRemainTime, 1000);
 
-            //产生验证码
-            for ( var i=0; i<codeLength; i++)
-                vcode += parseInt(Math.random()*9).toString();
+                //产生验证码
+                for (var i = 0; i < codeLength; i++)
+                    vcode += parseInt(Math.random() * 9).toString();
 
-            var upload={};
-            upload.vcode = vcode;
-            upload.phone = $("#phone").val();
-            upload.idcode = $("#id_code").val();
-            upload.centerName = $('input:radio[name="unit"]:checked').val();
-            $.ajax({
-                type: "POST", //用POST方式传输
-                dataType: "json", //数据格式:JSON
-                url: "register/sms", //目标地址
-                data: upload, //post携带数据
-                error: function () {alert("错误提交"); }, //请求错误时的处理函数
-                success: function (data){
-                    if (data.result == '-1'){
-                        document.getElementById("id_code").className=' is-valid';
-                        document.getElementById("id-error").className=' text-danger';
-                        document.getElementById("id-error").innerText="没有您的预申请信息，请联系专属管理员。";
-                    }else if (data.result == '-2'){
-                        document.getElementById("phone").className=' is-valid';
-                        document.getElementById("tel-error").className=' text-danger';
-                        document.getElementById("tel-error").innerText="您的手机号与管理员提交的不同";
-                        window.location.assign(window.location.origin+"/signupPageFollowed");
-                    }else if (data.result == '1'){
-                        document.getElementById("vcode-error").innerText="短信验证码已发送，请查收";
-                        alert("成功发送短信到手机");
-                        wxuser = data.wxuser;
-                        //works
-                        user = $.parseJSON(wxuser);
-                    }else if (data.result == '0'){
-                        document.getElementById("vcode-error").className=' text-danger';
-                        document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新获取";
-                        alert("短信验证码发送失败");
-                    }
-                } //请求成功时执行的函数
-            });
+                var upload = {};
+                upload.vcode = vcode;
+                upload.phone = $("#phone").val();
+                upload.idcode = document.getElementById("id_code").innerText;
+                upload.centerName = $('input:radio[name="unit"]:checked').val();
+                $.ajax({
+                    type: "POST", //用POST方式传输
+                    dataType: "json", //数据格式:JSON
+                    url: "register/sms", //目标地址
+                    data: upload, //post携带数据
+                    error: function () {
+                        alert("错误提交");
+                    }, //请求错误时的处理函数
+                    success: function (data) {
+                        if (data.result == '-1') {
+                            document.getElementById("id_code").className = ' is-valid';
+                            document.getElementById("id-error").className = ' text-danger';
+                            document.getElementById("id-error").innerText = "没有您的预申请信息，请联系专属管理员。";
+                        } else if (data.result == '-2') {
+                            document.getElementById("phone").className = ' is-valid';
+                            document.getElementById("tel-error").className = ' text-danger';
+                            document.getElementById("tel-error").innerText = "您的手机号与管理员提交的不同";
+                            window.location.assign(window.location.origin + "/signupPageFollowed");
+                        } else if (data.result == '1') {
+                            document.getElementById("vcode-error").innerText = "短信验证码已发送，请查收";
+                            wxuser = data.wxuser;
+                            alert("成功发送短信到手机");
+                            //works
+                            user = $.parseJSON(wxuser);
+                        } else if (data.result == '0') {
+                            document.getElementById("vcode-error").className = ' text-danger';
+                            document.getElementById("vcode-error").innerText = "短信验证码发送失败，请重新获取";
+                            alert("短信验证码发送失败");
+                        }
+                    } //请求成功时执行的函数
+                });
+            }
         });
         function setRemainTime(){
             if (currCount == 0){
@@ -192,45 +187,49 @@
         /*不带form的action*/
 
         $("#submit").on("click", function () {
-            // 向后台发送处理数据
-            var upload = {};
-            upload.vcode = vcode;
-            upload.phone = $("#phone").val();
-            upload.ID_code = $("#id_code").val();
-            upload.name = $("#name").val();
+            if ($("#vcode").val() == null || $("#vcode").val() == ""){
+                alert("验证码不得为空");
+            }else {
+                // 向后台发送处理数据
+                var upload = {};
+                upload.vcode = vcode;
+                upload.phone = $("#phone").val();
+                upload.ID_code = document.getElementById("id_code").innerText;
+                upload.name = $("#name").val();
 
-            if ( user != "" ) {
-                upload.openid = user.openid;
-                upload.unionid = user.unionid;
-                upload.subscirbe = user.subscribe;
-                upload.subscirbe_time = user.subscribe_time;
-                upload.city = user.city;
-                upload.nickname = user.nickname;
-                upload.headImgUrl = user.headImgUrl;
-                upload.province = user.province;
-                upload.sex = user.sex;
-                upload.language = user.language;
-                upload.idperson = user.idperson;
-            }
-
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "register/checkVcode",
-                data: upload,
-                error: function () {
-                    alert("输入验证码错误！");
-                },
-                success: function (data) {
-                    if (data.result == 1) {
-                        vcode = data.result;
-                        alert("验证成功!");
-                        window.location.assign(window.location.origin+"/wx/login");
-                    } else if (data.result == 0){
-                        alert("验证失败");
-                    }
+                if ( user != "" ) {
+                    upload.openid = user.openid;
+                    upload.unionid = user.unionid;
+                    upload.subscirbe = user.subscribe;
+                    upload.subscirbe_time = user.subscribe_time;
+                    upload.city = user.city;
+                    upload.nickname = user.nickname;
+                    upload.headImgUrl = user.headImgUrl;
+                    upload.province = user.province;
+                    upload.sex = user.sex;
+                    upload.language = user.language;
+                    upload.idperson = user.idperson;
                 }
-            });
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "register/checkVcode",
+                    data: upload,
+                    error: function () {
+                        alert("输入验证码错误！");
+                    },
+                    success: function (data) {
+                        if (data.result == 1) {
+                            vcode = data.result;
+                            alert("验证成功!");
+                            window.location.assign(window.location.origin+"/wx/login");
+                        } else if (data.result == 0){
+                            alert("验证失败");
+                        }
+                    }
+                });
+            }
         });
     });
 

@@ -48,10 +48,6 @@
 <div class="login-form">
     <div name="dataInputForm" >
         <h2 class="text-center">用户注册</h2>
-        <div class="form-group" id="name_div">
-            <input type="text" class="form-control" placeholder="姓名" required="required" name="name" id="name">
-            <small class="help-block" id="name-error"></small>
-        </div>
         <div class="form-group" id="ID_CODE_div">
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
             <small class="help-block" id="id-error"></small>

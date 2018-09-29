@@ -38,7 +38,7 @@ public class CommonInterceptor implements HandlerInterceptor {
 
         if (url.contains("logout")){
             if (username == null){
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/");
                 logger.info("=====interceptor ends======");
                 return false;
             }else

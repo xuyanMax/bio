@@ -16,7 +16,7 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="navbar-brand" href="/home">FLUP</a>
+                <a class="navbar-brand" href="/returnHome">FLUP</a>
             </li>
         </ul>
     </div>
@@ -54,8 +54,6 @@
 </form>
 上传文件:<br/>
 <div class="list-group" id="fileNames"></div>
-
-
 
 <!--测试用-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

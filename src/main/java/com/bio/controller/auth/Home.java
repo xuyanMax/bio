@@ -9,8 +9,10 @@ import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
+import com.sun.media.sound.ModelSource;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -66,10 +68,20 @@ public class Home {
         }
         return mv;
     }
+    @RequestMapping("returnHome")
+    public void returnHomeCheck(ModelMap session, HttpServletResponse response){
+        try {
+            if (session.get("snAdmin") != null) {
+                response.sendRedirect("/snAdmin");
+            }else
+                response.sendRedirect("/userHomePage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @RequestMapping("snAdmin")
     public ModelAndView snAdminPage(ModelMap session){
         ModelAndView mv = new ModelAndView("jsp/sys_admin/sys");
-
         return mv;
     }
 
@@ -193,8 +205,8 @@ public class Home {
 
 
     @RequestMapping("/login")
-    public String loginPage(){
-        return "views/auth/login";
+    public ModelAndView loginPage(){
+        return new ModelAndView("views/auth/login");
     }
 
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
@@ -210,9 +222,8 @@ public class Home {
                                     .findPersonByID_code(
                                             PersonInfoUtils.md5(ID_code.toUpperCase())
                                     );
-
         if (person == null){
-            mv = new ModelAndView("views/auth/login");
+            mv.setViewName("views/auth/login");
             mv.addObject("error", "请先完成注册!");
             logger.info("未注册用户");
             return mv;
@@ -261,7 +272,6 @@ public class Home {
             session.addAttribute("sys_admin", "sys_admin");
             return mv;
         }
-        //todo: 参加人员界面
         mv.setViewName("/jsp/users/userHomePage");
         mv.addObject("username", person.getName());
         mv.addObject("idperson", person.getIdperson());
@@ -283,6 +293,8 @@ public class Home {
                                        ModelMap session){
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", idcode);
+        Person p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
+        if (p!=null) mv.addObject("name", p.getName());
         session.put("idcode", idcode);
         return mv;
     }
@@ -342,8 +354,6 @@ public class Home {
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         session.addAttribute("vcode", vcode);
-        //测试是ok的
-        //todo 通过id_code && idcenter
 
         int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
         logger.info(idcenter);
@@ -362,13 +372,11 @@ public class Home {
             logger.error("单位管理员，手机号码不匹配");
             p.setTel1(phone);
             personService.modifyPerson(p);
-//            return resMap;
         }
         WeChatUser user = (WeChatUser) session.get("wxuser");
 
         user.setIdperson(p.getIdperson());
 
-        //todo: 添加openid, unionid处理
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
             logger.warn("该用户不在Session!!");
         }else {
@@ -532,8 +540,8 @@ public class Home {
         httpSession.removeAttribute("idperson2");
         sessionStatus.setComplete();
 
-        //返回登陆页面
-        return "views/auth/login";
+        //返回home
+        return "../index";
     }
 
     @RequestMapping("/preferences")

@@ -59,7 +59,7 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="#">Navbar</a>
+        <%--<a class="navbar-brand mx-auto" href="#">Navbar</a>--%>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -71,10 +71,8 @@
         <ul class="navbar-nav ml-auto">
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${username} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/preferences"><i class="icon-cog"></i> Preferences</a></li>
-                    <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
+                    <li><a href="/returnHome">返回首页</a></li>
+                    <li><a href="/logout">退出</a></li>
                 </ul>
             </li>
         </ul>
