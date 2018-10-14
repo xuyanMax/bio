@@ -133,7 +133,7 @@ public class CoreService {
                     return respMessage;
                 } else if (content.equalsIgnoreCase("flup")){
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
-                    String url = WeChatConstants.Get_WEIXINPAGE_Code
+                    String url = WeChatConstants.Get_WEIXINPAGE_Code_silent
                             .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
                             .replace("APPID", TokenThread.appID)
                             .replace("STATE", "AUTH");

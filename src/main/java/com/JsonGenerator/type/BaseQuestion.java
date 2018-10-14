@@ -5,7 +5,7 @@ public class BaseQuestion {
     String type;
     String title;
     String description;
-    boolean isRequired = true;
+    boolean isRequired;
 
     public BaseQuestion(String name, String title) {
         this.name = name;

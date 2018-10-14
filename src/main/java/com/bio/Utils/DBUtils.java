@@ -196,7 +196,6 @@ public class DBUtils {
         // 第六步，存储下载文件到指定位置
         String path = System.getProperty("user.home")+"/Downloads/";
         logger.info(path);
-        // todo: for mac
         try {
             FileOutputStream os = new FileOutputStream(path + FILE_NAME);
             workbook.write(os);//导出

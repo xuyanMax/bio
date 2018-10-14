@@ -77,12 +77,7 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
         <div class="form-group">
             <a href="/signupPage" class="btn btn-primary btn-block">注册</a>
         </div>
-        <%--<div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-            <a href="#" class="pull-right">Forgot Password?</a>
-        </div>--%>
     </form>
-    <%--<p class="text-center"><a href="#">Create an Account</a></p>--%>
 
 </div>
 <script type="text/javascript">
@@ -96,14 +91,10 @@ https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=simple-login-f
         var id1 = document.getElementById("id1").value;
         var id2 = document.getElementById("id2").value;
 
-        // alert(id1);
-        // alert(id2);
-        // todo: 限制为18
         if (id1.length!=18){
             var id_class = document.getElementById("id1_div");
             id_class.className += ' has-error';
             document.getElementById("ID-error1").innerText="身份证号必须为18位";
-            // alert(document.getElementById("id1_div").className);
             return false;
         }
         if ( id2.length!=18){

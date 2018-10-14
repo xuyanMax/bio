@@ -125,9 +125,9 @@
             </div>
             <div class="form-group">
                 <select name="relation" id="relation" class="form-control">
-                    <option value="0">父亲/母亲</option>
-                    <option value="1">子女</option>
-                    <option value="2">兄弟姐妹</option>
+                    <option value="0">这是您的父亲/母亲</option>
+                    <option value="1">这是您的子女</option>
+                    <option value="2">这是您的兄弟姐妹</option>
                 </select>
             </div>
             <div class="form-group">
@@ -136,6 +136,8 @@
             </div>
         </form>
     </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script type="text/javascript">
     function checkID() {
         var id_code = document.getElementById("ID_code");

@@ -17,10 +17,13 @@ public class WeChatConstants {
      * 获取openId的接口相结合
      * 注意：参数REDIRECT_URI 表示的是当授权成功后，跳转到的自己设定的页面，所以这个要根据自己的需要进行修改
      */
-    public static String Get_WEIXINPAGE_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?"+"appid=APPID&redirect_uri="
-            + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+    public static String Get_WEIXINPAGE_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?"+"appid=APPID&redirect_uri=";
+
+    public static String Get_WEIXINPAGE_Code_silent = "https://open.weixin.qq.com/connect/oauth2/authorize?"+"appid=APPID&redirect_uri="
+            + "REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 
     public static String CALL_BACK = "http://population.chgc.sh.cn/user/inf";
+    public static String CALL_BACK_AUTH = "http://population.chgc.sh.cn/user/auth";
     // 通过扫描微信二维码登陆
     public static String scan_auth_url = "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE&uri=URI#wechat_redirect";
 
@@ -38,11 +41,9 @@ public class WeChatConstants {
             "state=s";
     //用于进行网页授权验证的接口URL，通过这个才可以得到opendID等字段信息
     public static String GET_WEBAUTH_URL="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APP_SECRET&code=CODE&grant_type=authorization_code";
-
     // OAuth2 授权获取用户信息，通过两个参数 access_token and openId
     public static String GET_WECHAT_USER_URI = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zn_CN";
 
-    public static String GET_SUBSCRIBERS_BATCH = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN";
     public static String GET_SUBSCRIBERS_URI = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
 
 }

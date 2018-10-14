@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -90,7 +91,6 @@ public class Home {
                                      HttpServletRequest request,
                                      ModelMap session){
         ModelAndView mv = new ModelAndView("jsp/users/userHomePage");
-        //todo:
         mv.addObject("idperson", request.getAttribute("idperson"));
         return mv;
     }
@@ -123,7 +123,7 @@ public class Home {
         List<Relative> relatives = null;
         List<Person> persons = null;
         List<Integer> idpersons = null;
-        //todo:处理user==null
+
         if (user != null){
             relatives = relativeService.findRelativesByIdperson1(user.getIdperson());
             logger.info(relatives);
@@ -131,7 +131,7 @@ public class Home {
             persons = idpersons.stream().map(id->personService.findPersonByIdperson(id)).collect(Collectors.toList());
             logger.info(persons);
         } else {
-            //todo:仅用于测试
+
             relatives = relativeService.findRelativesByIdperson1(308);
             logger.info(relatives);
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
@@ -146,35 +146,37 @@ public class Home {
     @RequestMapping("/unbind")
     public void unbindWxUser(HttpServletRequest request,
                                      HttpServletResponse response,
-                                     ModelMap session){
+                                     ModelMap session,
+                                     SessionStatus sessionStatus){
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
+        sessionStatus.setComplete();
         try {
-            response.sendRedirect("/wx/login");
+            response.sendRedirect("/home");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(user);
         }
     }
 
-    @RequestMapping("addRelative")
-    public ModelAndView addRelative(@Param("ID_code") String ID_code,
-                                    @Param("name") String name,
-                                    @Param("relation") String relation,
-                                    ModelMap session){
+    @RequestMapping("/addRelative")
+    public String addRelative(@Param("ID_code") String ID_code,
+                              @Param("name") String name,
+                              @Param("relation") String relation,
+                              ModelMap session,
+                              Model model){
         logger.info(ID_code);
         logger.info(name);
         logger.info(relation);
-        ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
         Person toAdded = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code));
         if (toAdded == null){
-            mv.addObject("msg", "没有您的预申请信息，请联系专属管理员");
-            return mv;
+            model.addAttribute("msg", "没有您的预申请信息，请联系专属管理员");
+            return "redirect:/bind/relative";
         }
         Relative alreadyExist = (Relative) relativeService.findRelativesByIdperson2(toAdded.getIdperson());
         if (alreadyExist != null) {
-            mv.addObject("msg", "该亲属已绑定");
-            return mv;
+            model.addAttribute("msg", "该亲属已绑定");
+            return "redirect:/bind/relative";
         }
         Relative relative = new Relative();
 
@@ -186,9 +188,9 @@ public class Home {
 
         logger.info(relative);
         relativeService.addRelative(relative);
-        mv.setViewName("jsp/users/BindRelatives");
+//        mv.setViewName("jsp/users/BindRelatives");
 
-        return mv;
+        return "redirect:/bind/relative";
     }
     @RequestMapping("deleteRelative")
     public ModelAndView deleteRelative(HttpServletRequest request,
@@ -514,7 +516,6 @@ public class Home {
                 answer.setIdquestion(Integer.valueOf(item.getKey()));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
-                //todo
                 answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
                 logger.info(answer);
                 answerService.addAnswer(answer);
@@ -593,7 +594,6 @@ public class Home {
                 answer.setIdquestion(Integer.valueOf(item.getKey()));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
-                //todo
                 answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
                 logger.info(answer);
                 answerService.addAnswer(answer);

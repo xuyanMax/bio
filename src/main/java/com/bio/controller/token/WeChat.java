@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
-// references: https://blog.csdn.net/jx2931455/article/details/72833797
 @SessionAttributes({"user","username", "wxuser", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 @Controller
 public class WeChat {
@@ -310,7 +309,7 @@ public class WeChat {
         return mv;
     }
 
-    //===================todo: 单元测试
+    //===================单元测试
     @RequestMapping("testLocal")
     public ModelAndView test(ModelMap map){
         ModelAndView mv = new ModelAndView();
@@ -337,7 +336,6 @@ public class WeChat {
         map.addAttribute("wxuser", wxuser);
         ModelAndView mv = new ModelAndView("jsp/users/signupIdCode");
         return mv;
-
 
     }
     @RequestMapping("testVcode")

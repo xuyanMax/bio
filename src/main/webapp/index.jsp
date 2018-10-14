@@ -1,3 +1,4 @@
+<%@ page import="com.bio.beans.Person" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,17 +12,8 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="navbar-brand" href="/home">FLUP</a>
+                <a class="navbar-brand" href="/returnHome">FLUP</a>
             </li>
-            <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
-            <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
-            <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="#">Link</a>--%>
-            <%--</li>--%>
         </ul>
     </div>
     <div class="mx-auto order-0">
@@ -55,7 +47,9 @@
 </div>
 <div class="list-group list">
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="admin/uploadMultiFiles">文件上传</a></p><br/>
-    <p align="center" style="font-size: 20px;"><a href="admin/manualInsertPage">手动输入用户信息</a></p><br/>
+    <%--<p align="center" style="font-size: 20px;"><a href="admin/manualInsertPage">手动输入用户信息</a></p><br/>--%>
+    <%--todo: RESTFUL API --%>
+    <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="<%((Person)request.getSession().getAttribute("user")).getIdcenter();%>/list">查看本单位人员列表</a></p>
 </div>
 <%
     }else{

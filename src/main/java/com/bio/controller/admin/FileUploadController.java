@@ -126,12 +126,11 @@ public class FileUploadController{
             logger.info(center);
             number = personService.countPersonsByIdCenter(center.getIdcenter());
 
-        }else{//todo: 测试session用
+        }else{
             logger.error("session does not have USER=" + session.get("user"));
             return;
         }
         for (Person person:persons){
-            //todo: ID_code && idcenter 与 单位管理员一致
             logger.info(person);
             Integer idperon = null;
             p = personService.findPersonByID_code(person.getID_code());

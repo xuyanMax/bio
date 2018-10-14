@@ -127,7 +127,6 @@ public class FetchData {
                         multipleText.setItems(multiTextAddItems(question));
 
                         if (description != null) multipleText.setDescription(description);
-                        generateMultiTextValidators(multipleText, question);
                         elements.add(multipleText);
                     }
 
@@ -154,9 +153,7 @@ public class FetchData {
     }
     public static Text generateSingleText(int idquestion, String question, String opts) {
         String title;
-         //todo: 数据库更新后，只需要这一句就够
         title = question.substring(0, question.indexOf(REG_START));
-//        logger.info(title);
         Text text = new Text(
                 "" + idquestion,
                 title
@@ -184,7 +181,6 @@ public class FetchData {
         String[] options = opts.split(COMMA);
         List<Choice> choices = new ArrayList<>();
         for (int i=0; i<options.length; i++) {
-            //todo
             Choice choice = new Choice(i+"", options[i]);
             choices.add(choice);
         }
@@ -238,7 +234,6 @@ public class FetchData {
                     .split(AMPERSAND));
             for (int j=0;  j<names.size(); j++){
                 String name = names.get(j).substring(names.get(j).indexOf(EQUALSIGN) + 1);
-//                logger.warn(name);
                 items.get(j).setName(name);
                 items.get(j).setTitle(name);
             }
