@@ -19,6 +19,10 @@
 		select * from persons where ID_code=#{xxx}
 	</select>
 
+	<select id="selectAllPersonsByIdCenter" resultType="com.bio.beans.Person">
+		select * from persons where idcenter=#{xxx}
+	</select>
+
     <select id="selectPersonByIdPerson" resultType="com.bio.beans.Person">
 		select * from persons where idperson=#{xxx}
 	</select>

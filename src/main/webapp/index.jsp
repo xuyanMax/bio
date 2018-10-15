@@ -49,7 +49,7 @@
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="admin/uploadMultiFiles">文件上传</a></p><br/>
     <%--<p align="center" style="font-size: 20px;"><a href="admin/manualInsertPage">手动输入用户信息</a></p><br/>--%>
     <%--todo: RESTFUL API --%>
-    <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="<%((Person)request.getSession().getAttribute("user")).getIdcenter();%>/list">查看本单位人员列表</a></p>
+    <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="admin/<%((Person)request.getSession().getAttribute("user")).getIdcenter();%>/center/list">查看本单位人员列表</a></p>
 </div>
 <%
     }else{

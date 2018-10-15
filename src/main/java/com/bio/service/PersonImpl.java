@@ -15,6 +15,11 @@ public class PersonImpl implements IPersonService{
     private IPersonDao personDao;//personDao要与jdbcApplicationContext.xml中的 <bean id="personDao" 名称一致
 
     @Override
+    public List<Person> findAllPersonsByCenterId(Integer idcenter) {
+        return personDao.selectAllPersonsByIdCenter(idcenter);
+    }
+
+    @Override
     public void addPerson(Person person) {
         personDao.insertPerson(person);
     }

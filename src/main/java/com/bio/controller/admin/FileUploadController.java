@@ -4,6 +4,7 @@ import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.DBUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Center;
+import com.bio.beans.Download;
 import com.bio.beans.Exam;
 import com.bio.beans.Person;
 import com.bio.service.ICenterService;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 @SessionAttributes({"username", "user", "wxuser"})// 此处定义此Controller中将要创建和使用哪些session中的对象名
-public class FileUploadController{
+public class FileUploadController {
     @Autowired
     private IPersonService personService;
     @Autowired
@@ -36,9 +37,10 @@ public class FileUploadController{
 
     private static Logger logger = Logger.getLogger(FileUploadController.class);
     private static String UNDERLINE = "_";
+
     // 上传多个文件
     @RequestMapping(value = "/uploadMultiFiles")
-    public ModelAndView uploadMultiFiles(@ModelAttribute("username") String username){
+    public ModelAndView uploadMultiFiles(@ModelAttribute("username") String username) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
         mv.setViewName("jsp/upload/uploadFiles");
@@ -47,17 +49,16 @@ public class FileUploadController{
 
     @RequestMapping(value = "/upMultiFiles", method = RequestMethod.POST)
     public ModelAndView upMultiFiles(HttpServletRequest request,
-                               @RequestParam("files") MultipartFile[] files, ModelMap session){
+                                     @RequestParam("files") MultipartFile[] files, ModelMap session) {
         ModelAndView mv = new ModelAndView();
         List<MultipartFile> nonEmptyFiles = Arrays
-                                                .stream(files)
-                                                .filter((f)->(!f.isEmpty()))
-                                                .collect(Collectors.toList());
-        if(nonEmptyFiles.size() != files.length) {
+                .stream(files)
+                .filter((f) -> (!f.isEmpty()))
+                .collect(Collectors.toList());
+        if (nonEmptyFiles.size() != files.length) {
             mv.addObject("error", "错误, 存在空文件！");
             mv.setViewName("views/errors/error");
-        }
-        else {
+        } else {
             Arrays.stream(files).forEach((f) -> DBUtils.uploadAFileToServer(request, f));
 
             List<Person> personsToUpload = readXlsFromServerAndSaveToDB(request, files, session);
@@ -70,17 +71,19 @@ public class FileUploadController{
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createXlsAndDownload(personsToUpload);
+            Download download
             mv.setViewName("views/success");
         }
 
         return mv;
     }
-    public List<Person> readXlsFromUploadFiles(MultipartFile[] files, ModelMap session){
+
+    public List<Person> readXlsFromUploadFiles(MultipartFile[] files, ModelMap session) {
         List<Person> persons = new ArrayList<>();
         List<Person> person = null;
-        for (MultipartFile file:files){
+        for (MultipartFile file : files) {
             try {
-                 person = DBUtils.readXlsFromFileName(file.getOriginalFilename());
+                person = DBUtils.readXlsFromFileName(file.getOriginalFilename());
                 persons.addAll(person);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,13 +92,14 @@ public class FileUploadController{
         insertPersonsToDB(persons, session);
         return person;
     }
+
     // 1. upload the files to server
     // 2. insert person data to db
     public List<Person> readXlsFromServerAndSaveToDB(HttpServletRequest request,
                                                      MultipartFile[] files,
-                                                     ModelMap session){
+                                                     ModelMap session) {
         List<Person> res = new ArrayList<>();
-        for (MultipartFile file:files) {
+        for (MultipartFile file : files) {
             // 1. read the xls file
             String path = request.getServletContext().getRealPath("/data/");
             String fileName = file.getOriginalFilename();
@@ -112,7 +116,7 @@ public class FileUploadController{
         return res;
     }
 
-    public void insertPersonsToDB(List<Person> persons, ModelMap session){
+    public void insertPersonsToDB(List<Person> persons, ModelMap session) {
         Person sn_person = (Person) session.get("user");
 
         logger.info(sn_person);
@@ -121,21 +125,21 @@ public class FileUploadController{
         Center center = null;
         String global_sn = null;
         int number = 0;
-        if (sn_person != null){
+        if (sn_person != null) {
             center = centerService.findPersonInCentersByCenterid(sn_person.getIdcenter());
             logger.info(center);
             number = personService.countPersonsByIdCenter(center.getIdcenter());
 
-        }else{
+        } else {
             logger.error("session does not have USER=" + session.get("user"));
             return;
         }
-        for (Person person:persons){
+        for (Person person : persons) {
             logger.info(person);
             Integer idperon = null;
             p = personService.findPersonByID_code(person.getID_code());
 
-            idperon = p!=null?p.getIdperson():idperon;
+            idperon = p != null ? p.getIdperson() : idperon;
 
             global_sn = center.getPostcode()
                     + UNDERLINE
@@ -143,7 +147,7 @@ public class FileUploadController{
                     + UNDERLINE
                     + ++number;
 
-            if (p == null){
+            if (p == null) {
                 p = new Person();
                 p.setOriginal_ID_code(person.getOriginal_ID_code());
                 p.setID_code(PersonInfoUtils.md5(person.getOriginal_ID_code()));
@@ -152,7 +156,7 @@ public class FileUploadController{
                 p.setRelative(person.getRelative());
                 p.setAge(PersonInfoUtils.getAge(person.getOriginal_ID_code()));
                 p.setGender(PersonInfoUtils.getGender(person.getOriginal_ID_code()));
-                p.setName(person.getName().substring(0,1) + (person.getGender().equals("男")?"先生":"女士"));
+                p.setName(person.getName().substring(0, 1) + (person.getGender().equals("男") ? "先生" : "女士"));
                 p.setID_code_cut(person.getOriginal_ID_code().substring(14));
                 p.setGlobal_sn(global_sn);
 
@@ -161,7 +165,7 @@ public class FileUploadController{
                 logger.info(p);
 
                 personService.addPerson(p);
-            }else {
+            } else {
                 global_sn = p.getGlobal_sn();
                 person.setGlobal_sn(global_sn);
                 logger.info(person);

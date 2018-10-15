@@ -9,10 +9,8 @@ import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
-import com.sun.media.sound.ModelSource;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"user","username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2"})
+@SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2"})
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -57,7 +56,7 @@ public class Home {
     IRelativeService relativeService;
 
     @RequestMapping("/home")
-    public ModelAndView index(ModelMap session){
+    public ModelAndView index(ModelMap session) {
         ModelAndView mv = new ModelAndView("../index");
         if (session.get("username") != null) {
             mv.addObject("username", session.get("username"));
@@ -69,19 +68,21 @@ public class Home {
         }
         return mv;
     }
+
     @RequestMapping("returnHome")
-    public void returnHomeCheck(ModelMap session, HttpServletResponse response){
+    public void returnHomeCheck(ModelMap session, HttpServletResponse response) {
         try {
             if (session.get("snAdmin") != null) {
                 response.sendRedirect("/snAdmin");
-            }else
+            } else
                 response.sendRedirect("/userHomePage");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @RequestMapping("snAdmin")
-    public ModelAndView snAdminPage(ModelMap session){
+    public ModelAndView snAdminPage(ModelMap session) {
         ModelAndView mv = new ModelAndView("jsp/sys_admin/sys");
         return mv;
     }
@@ -89,11 +90,12 @@ public class Home {
     @RequestMapping("/userHomePage")
     public ModelAndView userHomePage(HttpServletResponse response,
                                      HttpServletRequest request,
-                                     ModelMap session){
+                                     ModelMap session) {
         ModelAndView mv = new ModelAndView("jsp/users/userHomePage");
         mv.addObject("idperson", request.getAttribute("idperson"));
         return mv;
     }
+
     @RequestMapping("informant")
     public ModelAndView signInformant(@RequestParam(value = "idperson2", required = false) Integer idperson2,
                                       @RequestParam(value = "idperson1", required = false) Integer idperson1,
@@ -102,12 +104,12 @@ public class Home {
         Integer sex = 0;
         logger.info(idperson1);
         logger.info(idperson2);
-        if (idperson2 != null){//代替亲属问答
+        if (idperson2 != null) {//代替亲属问答
             Person p2 = personService.findPersonByIdperson(idperson2);
             String gender2 = p2.getGender();
-            sex = gender2.equals("男")?1:0;
-        }else if (idperson1 != null){//用户本人作答
-         sex = personService.findPersonByIdperson(idperson1).getGender().equals("男")?1:0;
+            sex = gender2.equals("男") ? 1 : 0;
+        } else if (idperson1 != null) {//用户本人作答
+            sex = personService.findPersonByIdperson(idperson1).getGender().equals("男") ? 1 : 0;
         }
         mv.addObject("gender", sex);
         if (idperson2 != null)
@@ -116,7 +118,7 @@ public class Home {
     }
 
     @RequestMapping("/bind/relative")
-    public ModelAndView bindRelative(ModelMap session){
+    public ModelAndView bindRelative(ModelMap session) {
 
         ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
         Person user = (Person) session.get("user");
@@ -124,30 +126,31 @@ public class Home {
         List<Person> persons = null;
         List<Integer> idpersons = null;
 
-        if (user != null){
+        if (user != null) {
             relatives = relativeService.findRelativesByIdperson1(user.getIdperson());
             logger.info(relatives);
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
-            persons = idpersons.stream().map(id->personService.findPersonByIdperson(id)).collect(Collectors.toList());
+            persons = idpersons.stream().map(id -> personService.findPersonByIdperson(id)).collect(Collectors.toList());
             logger.info(persons);
         } else {
 
             relatives = relativeService.findRelativesByIdperson1(308);
             logger.info(relatives);
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
-            persons = idpersons.stream().map(id->personService.findPersonByIdperson(id)).collect(Collectors.toList());
+            persons = idpersons.stream().map(id -> personService.findPersonByIdperson(id)).collect(Collectors.toList());
 
-            mv.addObject("user", (Person)personService.findPersonByIdperson(308));
+            mv.addObject("user", (Person) personService.findPersonByIdperson(308));
             logger.info(persons);
         }
         mv.addObject("persons", persons);
         return mv;
     }
+
     @RequestMapping("/unbind")
     public void unbindWxUser(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     ModelMap session,
-                                     SessionStatus sessionStatus){
+                             HttpServletResponse response,
+                             ModelMap session,
+                             SessionStatus sessionStatus) {
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
         sessionStatus.setComplete();
@@ -164,12 +167,12 @@ public class Home {
                               @Param("name") String name,
                               @Param("relation") String relation,
                               ModelMap session,
-                              Model model){
+                              Model model) {
         logger.info(ID_code);
         logger.info(name);
         logger.info(relation);
         Person toAdded = personService.findPersonByID_code(PersonInfoUtils.md5(ID_code));
-        if (toAdded == null){
+        if (toAdded == null) {
             model.addAttribute("msg", "没有您的预申请信息，请联系专属管理员");
             return "redirect:/bind/relative";
         }
@@ -182,7 +185,7 @@ public class Home {
 
         Person p = (Person) session.get("user");
         logger.info(p);
-        relative.setIdperson1(p!=null?p.getIdperson():1);
+        relative.setIdperson1(p != null ? p.getIdperson() : 1);
         relative.setIdperson2(toAdded.getIdperson());
         relative.setRelationship(Integer.valueOf(relation));
 
@@ -192,11 +195,12 @@ public class Home {
 
         return "redirect:/bind/relative";
     }
+
     @RequestMapping("deleteRelative")
     public ModelAndView deleteRelative(HttpServletRequest request,
                                        ModelMap session,
                                        @RequestParam("idperson1") Integer idperson1,
-                                       @RequestParam("idperson2") Integer idperson2){
+                                       @RequestParam("idperson2") Integer idperson2) {
 
         ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
         logger.info(idperson1);
@@ -207,7 +211,7 @@ public class Home {
 
 
     @RequestMapping("/login")
-    public ModelAndView loginPage(){
+    public ModelAndView loginPage() {
         return new ModelAndView("views/auth/login");
     }
 
@@ -216,15 +220,15 @@ public class Home {
                               @Param("name") String name,
                               ModelMap session,
                               HttpServletRequest request,
-                              HttpServletResponse response){
+                              HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
 
         /*根据身份证号和姓名, 获取person对象*/
         Person person = personService
-                                    .findPersonByID_code(
-                                            PersonInfoUtils.md5(ID_code.toUpperCase())
-                                    );
-        if (person == null){
+                .findPersonByID_code(
+                        PersonInfoUtils.md5(ID_code.toUpperCase())
+                );
+        if (person == null) {
             mv.setViewName("views/auth/login");
             mv.addObject("error", "请先完成注册!");
             logger.info("未注册用户");
@@ -239,17 +243,18 @@ public class Home {
         loginService.addLoginItem(loginItem);
 
         logger.info(loginItem);
+        mv.addObject("user", person);
 
         return loginAuthCheck(person.getIdperson(), mv, session);
     }
 
-    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session){
+    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session) {
 
         Center center = centerService.findPersonInCentersByIdperson(idperson);
         Person person = personService.findPersonByIdperson(idperson);
         logger.info(center);
         logger.info(person);
-        if (center != null && center.getIdperson() != null && center.getIdperson() == idperson){
+        if (center != null && center.getIdperson() != null && center.getIdperson() == idperson) {
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
             mv.addObject("snAdmin", "snAdmin");
@@ -263,7 +268,7 @@ public class Home {
 
         Admin admin = adminService.findAdminUser(idperson);
         logger.info(admin);
-        if (admin != null && admin.getIdperson() == idperson){
+        if (admin != null && admin.getIdperson() == idperson) {
             mv.setViewName("/jsp/sys_admin/sys");
             mv.addObject("user", person);
             mv.addObject("username", person.getName());
@@ -285,29 +290,30 @@ public class Home {
     }
 
     @RequestMapping("/signupPage")
-    public ModelAndView signUp(){
+    public ModelAndView signUp() {
         return new ModelAndView("jsp/users/signupIdCode");
     }
 
     @RequestMapping("/signupPageFollowed")
     public ModelAndView signUpFollowed(HttpServletRequest request,
                                        String idcode,
-                                       ModelMap session){
+                                       ModelMap session) {
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", idcode);
         Person p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
-        if (p!=null) mv.addObject("name", p.getName());
+        if (p != null) mv.addObject("name", p.getName());
         session.put("idcode", idcode);
         return mv;
     }
+
     @RequestMapping("register/idcheck")
     @ResponseBody
     public Map<String, Object> registerIdcodeCheck(HttpServletRequest request,
                                                    HttpServletResponse response,
                                                    String idcode,
-                                                   ModelMap session){
+                                                   ModelMap session) {
         Map<String, Object> resMap = new HashMap<>();
-        logger.info("idcode="+idcode);
+        logger.info("idcode=" + idcode);
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
 
         Person p = personService.findPersonByID_code(md5);
@@ -316,27 +322,28 @@ public class Home {
         List<String> centerNames = null;
         List<Integer> idcenters = null;
         if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
-             persons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
-             centerNames = new ArrayList<>();
-             idcenters = persons.stream().map(Person::getIdcenter).collect(Collectors.toList());
+            persons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
+            centerNames = new ArrayList<>();
+            idcenters = persons.stream().map(Person::getIdcenter).collect(Collectors.toList());
 
             logger.info(idcenters);
-            for (int idcenter : idcenters){
+            for (int idcenter : idcenters) {
                 Center center = centerService.findPersonInCentersByCenterid(idcenter);
                 logger.info(center);
                 centerNames.add(center.getIdcenter() + "_" + center.getCenter());
             }
-            for(String str:centerNames)
+            for (String str : centerNames)
                 logger.info(str);
 
             resMap.put("result", "1");
             session.put("idcode", idcode);
             logger.info("ok");
             session.put("centerNames", centerNames);
-        }else resMap.put("result", "0");
+        } else resMap.put("result", "0");
 
         return resMap;
     }
+
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;
     //0;失败...
@@ -347,12 +354,12 @@ public class Home {
                                            String vcode,
                                            String phone,
                                            String idcode,
-                                           String centerName){
+                                           String centerName) {
         Map<String, Object> resMap = new HashMap<>();
         logger.info("接受验证码手机号=" + phone);
         logger.info("即将发送的验证码=" + vcode);
         logger.info("身份证号=" + idcode);
-        logger.info("单位="+centerName);
+        logger.info("单位=" + centerName);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         session.addAttribute("vcode", vcode);
@@ -360,16 +367,16 @@ public class Home {
         int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
         logger.info(idcenter);
         Person p = personService.findPersonByID_codeAndIdcenter(PersonInfoUtils
-                        .md5(idcode.toUpperCase()), idcenter);
+                .md5(idcode.toUpperCase()), idcenter);
         logger.info(p);
 
-        if (p == null || p.getID_code() == null){
+        if (p == null || p.getID_code() == null) {
             resMap.put("result", "-1");
             logger.error("注册用户身份证信息不在表person中");
             return resMap;
         }
 
-        if (p.getTel1() == null || (p.getTel1() != null && !p.getTel1().equals(phone)) ){
+        if (p.getTel1() == null || (p.getTel1() != null && !p.getTel1().equals(phone))) {
             resMap.put("result", "1");
             logger.error("单位管理员，手机号码不匹配");
             p.setTel1(phone);
@@ -381,8 +388,8 @@ public class Home {
 
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
             logger.warn("该用户不在Session!!");
-        }else {
-            logger.info("该用户在Session." );
+        } else {
+            logger.info("该用户在Session.");
             logger.info("wxuser=" + JSONObject.toJSON(user));
         }
 
@@ -390,40 +397,40 @@ public class Home {
         String res = SmsBase.httpRequest(requestUrl, "GET", null, vcode);
         logger.info("http=" + res);
 
-        if (res != null && !res.equals("")){
-            if (res.startsWith("1")){//success
+        if (res != null && !res.equals("")) {
+            if (res.startsWith("1")) {//success
                 resMap.put("result", "1");
-            }
-            else if (res.startsWith("0")) {//failure
+            } else if (res.startsWith("0")) {//failure
                 resMap.put("result", "0");
             }
         } else resMap.put("result", "0");
         return resMap;
     }
+
     @RequestMapping("register/checkVcode")
     @ResponseBody
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
-                                  HttpServletRequest request,
-                                  ModelMap session,
-                                  String ID_code,
-                                  String vcode){
-        logger.info("sessionVCode="+session.get("vcode"));
-        logger.info("Actual vcode="+vcode);
-        logger.info("idcode="+ID_code);
+                                                  HttpServletRequest request,
+                                                  ModelMap session,
+                                                  String ID_code,
+                                                  String vcode) {
+        logger.info("sessionVCode=" + session.get("vcode"));
+        logger.info("Actual vcode=" + vcode);
+        logger.info("idcode=" + ID_code);
 
         ModelAndView mv = new ModelAndView();
 
         Map<String, Object> resMap = new HashMap<>();
         String sessionVcode = (String) session.get("vcode");
 
-        if (sessionVcode!=null && vcode!=null && sessionVcode.equals(vcode)){
+        if (sessionVcode != null && vcode != null && sessionVcode.equals(vcode)) {
 
-                WeChatUser user = (WeChatUser) session.get("wxuser");
-                logger.info(user);
+            WeChatUser user = (WeChatUser) session.get("wxuser");
+            logger.info(user);
 
-                weChatUserService.addWxUser(user);
+            weChatUserService.addWxUser(user);
 
-                resMap.put("result", 1);
+            resMap.put("result", 1);
         } else {
             resMap.put("result", 0);
             logger.info("");
@@ -433,7 +440,7 @@ public class Home {
 
     @RequestMapping("/survey")
     public ModelAndView generateSurveyJSON(ModelMap session,
-                                           @RequestParam(value = "gender", required = false) Integer gender){
+                                           @RequestParam(value = "gender", required = false) Integer gender) {
         ModelAndView mv = new ModelAndView();
 
         logger.info("正在调用调查问卷");
@@ -444,15 +451,15 @@ public class Home {
         Person user = (Person) session.get("user");
         logger.info(user);
 
-        Integer idperson = user!=null?user.getIdperson():1;
+        Integer idperson = user != null ? user.getIdperson() : 1;
 
         Center c = centerService.findPersonInCentersByIdperson(idperson);
         Integer sex = Integer.valueOf(gender);
         try {
             if (sex % 2 != 0)
-                surveyJSON = FetchData.getSurveyJSON(c!=null?((c.getCurrent_qtversion()!=null)?c.getCurrent_qtversion():1):1);
+                surveyJSON = FetchData.getSurveyJSON(c != null ? ((c.getCurrent_qtversion() != null) ? c.getCurrent_qtversion() : 1) : 1);
             else
-                surveyJSON = FetchData.getSurveyJSON(c!=null?(c.getCurrent_qtversion()!=null?c.getCurrent_qtversion()+1:1):1);
+                surveyJSON = FetchData.getSurveyJSON(c != null ? (c.getCurrent_qtversion() != null ? c.getCurrent_qtversion() + 1 : 1) : 1);
         } catch (JSchException e) {
             e.printStackTrace();
         }
@@ -466,7 +473,7 @@ public class Home {
                                              HttpServletResponse response,
                                              @RequestBody String surveyJson,
                                              ModelMap session
-                                             ){
+    ) {
         Map<String, Object> map = new HashMap<>();
         try {
             //https://blog.csdn.net/j080624/article/details/54598734
@@ -507,16 +514,16 @@ public class Home {
             logger.info(questionnaire);
         }
 
-        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
+        for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
             logger.info(item.getKey());
             logger.info(item.getValue());
 
-            if (questionnaire != null){
+            if (questionnaire != null) {
                 Answer answer = new Answer();
                 answer.setIdquestion(Integer.valueOf(item.getKey()));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
-                answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
+                answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
                 logger.info(answer);
                 answerService.addAnswer(answer);
             }
@@ -526,8 +533,8 @@ public class Home {
     }
 
     @RequestMapping("/logout")
-    public String logout( SessionStatus sessionStatus,
-                          HttpSession httpSession){
+    public String logout(SessionStatus sessionStatus,
+                         HttpSession httpSession) {
         //sessionStatus中的setComplete方法可以将session中的内容全部清空
         logger.info("logout");
         httpSession.removeAttribute("user");
@@ -546,23 +553,23 @@ public class Home {
     }
 
     @RequestMapping("/preferences")
-    public String preference(){
+    public String preference() {
         return "views/errors/404";
     }
 
     @RequestMapping("/help/support")
-    public String support(){
+    public String support() {
         return "views/errors/404";
     }
 
     /*404 Page Not Found*/
     @RequestMapping("*")
-    public String _404PageNotFound(HttpServletRequest request){
+    public String _404PageNotFound(HttpServletRequest request) {
         return "views/errors/404";
     }
 
     @RequestMapping("/testInsertAnswer")
-    public String testInsertAnswer(){
+    public String testInsertAnswer() {
 
         JSONObject surveyJSON = JSON.parseObject("{\"1\":\"asdasd\",\"3\":\"1\",\"4\":\"190\",\"5\":\"100\",\"35\":\"3\",\"67\":[\"2\",\"4\"],\"89\":[{\"关系\":\"同父母的兄弟姐妹\"}],\"91\":\"0\"}");
         Person user = new Person();
@@ -570,7 +577,7 @@ public class Home {
         Questionnaire questionnaire = new Questionnaire();
 
         questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-        questionnaire.setIdperson(user!=null?user.getIdperson():1);
+        questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
         //todo 临时
         Center c = centerService.findPersonInCentersByIdperson(user.getIdperson());
         questionnaire.setQtnaire_version(c.getIdcenter());
@@ -585,16 +592,16 @@ public class Home {
 
         logger.info(questionnaire);
 
-        for (Map.Entry<String, Object> item:surveyJSON.entrySet()){
+        for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
             logger.info(item.getKey());
             logger.info(item.getValue());
 
-            if (questionnaire != null){
+            if (questionnaire != null) {
                 Answer answer = new Answer();
                 answer.setIdquestion(Integer.valueOf(item.getKey()));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
-                answer.setIdquestionnaire(questionnaire.getIdquestionnaire()!=null?questionnaire.getIdquestionnaire():1);
+                answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
                 logger.info(answer);
                 answerService.addAnswer(answer);
             }
