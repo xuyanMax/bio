@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.InputStream;
+
 //消息处理工具的封装
 public class MessageUtil {
     /**
@@ -106,26 +108,27 @@ public class MessageUtil {
             List<Element> list = root.elements();
             // 遍历所有子节点
 
-            list.forEach(e->{
+            list.forEach(e -> {
                 map.put(e.getName(), e.getText());
             });
             return map;
         } catch (DocumentException e1) {
             e1.printStackTrace();
-        }finally{
+        } finally {
             // 释放资源
             inputStream.close();
         }
 
         return null;
     }
+
     /**
      * 文本消息对象转换成xml
      *
      * @param textMessage 文本消息对象
      * @return xml
      */
-    public static String textMessageToXml(TextMessage textMessage){
+    public static String textMessageToXml(TextMessage textMessage) {
         XStream xstream = new XStream();
         xstream.alias("xml", textMessage.getClass());
         return xstream.toXML(textMessage);
@@ -145,7 +148,6 @@ public class MessageUtil {
 
     /**
      * 扩展xstream，使其支持CDATA块
-     *
      */
     private static XStream xstream = new XStream(new XppDriver() {
         public HierarchicalStreamWriter createWriter(Writer out) {

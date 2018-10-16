@@ -24,19 +24,23 @@
             width: 340px;
             margin: 50px auto;
         }
+
         .login-form form {
             margin-bottom: 15px;
             background: #f7f7f7;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
         }
+
         .login-form h2 {
             margin: 0 0 15px;
         }
+
         .form-control, .btn {
             min-height: 38px;
             border-radius: 2px;
         }
+
         .btn {
             font-size: 15px;
             font-weight: bold;
@@ -46,15 +50,16 @@
 </head>
 <body>
 <div class="login-form">
-    <div name="dataInputForm" >
+    <div name="dataInputForm">
         <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="ID_CODE_div">
-            <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required" name="id_code" id="id_code">
+            <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required"
+                   name="id_code" id="id_code">
             <small class="help-block" id="id-error"></small>
         </div>
         <%--<div class="form-group" id="phone_div">--%>
-            <%--<input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">--%>
-            <%--<small class="help-block" id="phone-error"></small>--%>
+        <%--<input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">--%>
+        <%--<small class="help-block" id="phone-error"></small>--%>
         <%--</div>--%>
         <div class="form-group">
             <button type="submit" id="submit" class="btn btn-primary btn-block">注册查询</button>
@@ -62,41 +67,44 @@
     </div>
 
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
     function checkID() {
         var id_code = document.getElementById("id_code");
         var id_code_err = document.getElementById("id-error");
-        id_code_err.innerText="";
-        id_code.innerText="";
+        id_code_err.innerText = "";
+        id_code.innerText = "";
         var reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-        if (!reg.test(id_code.value)){
+        if (!reg.test(id_code.value)) {
             id_code.className += ' is-invalid';
-            id_code_err.className +=' text-danger';
-            id_code_err.innerText="请输入18位合法身份证!";
+            id_code_err.className += ' text-danger';
+            id_code_err.innerText = "请输入18位合法身份证!";
             return;
         }
         return;
     }
+
     $(document).ready(function () {
         $("#submit").on("click", function () {
             var idcode = $("#id_code").val();
-            var upload={};
+            var upload = {};
             upload.idcode = idcode;
             $.ajax({
-                type:"POST",
-                dataType:"json",
-                data:upload,
-                url:"register/idcheck",
-                error:function () {
+                type: "POST",
+                dataType: "json",
+                data: upload,
+                url: "register/idcheck",
+                error: function () {
                     alert("错误");
                 },
-                success:function (data) {
+                success: function (data) {
                     if (data.result == '0') {
                         alert("没有您的预申请信息，请联系专属管理员。");
-                    } else if (data.result == '1'){
+                    } else if (data.result == '1') {
                         alert("匹配成功");
-                        window.location.assign(window.location.origin+"/signupPageFollowed?idcode="+idcode);
+                        window.location.assign(window.location.origin + "/signupPageFollowed?idcode=" + idcode);
                     }
                 }
             });

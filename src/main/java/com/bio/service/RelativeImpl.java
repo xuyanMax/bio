@@ -11,6 +11,7 @@ import java.util.List;
 public class RelativeImpl implements IRelativeService {
     @Autowired
     private IRelativeDao iRelativeDao;
+
     @Override
     public void addRelative(Relative relative) {
         iRelativeDao.insertRelative(relative);
@@ -25,6 +26,7 @@ public class RelativeImpl implements IRelativeService {
     public List<Relative> findRelativesByIdperson1(Integer idperson1) {
         return iRelativeDao.selectRelativesByIdperson1(idperson1);
     }
+
     @Override
     public Relative findRelativesByIdperson2(Integer idperson2) {
         return iRelativeDao.selectRelativesByIdperson2(idperson2);

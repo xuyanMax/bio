@@ -10,21 +10,22 @@ import java.net.URLEncoder;
 
 public class MenuThread implements Runnable {
     private static Logger logger = Logger.getLogger(MenuThread.class);
+
     @Override
     public void run() {
-        if (TokenThread.access_token.getToken() != null){
+        if (TokenThread.access_token.getToken() != null) {
             int result = WeChatUtils.createMenu(getMenu(), TokenThread.access_token.getToken());
-            if(result == 0) {
+            if (result == 0) {
                 logger.info("Menu created successfully");
-            }
-            else {
+            } else {
                 logger.warn("Menu failed to create, error code: " + result);
             }
-        }else {
+        } else {
             logger.error("Access Token did not get");
         }
     }
-    public static Menu getMenu(){
+
+    public static Menu getMenu() {
         /**
          * 这是公众号xiaoqrobot目前的菜单结构，每个一级菜单都有二级菜单项<br>
          *
@@ -59,7 +60,7 @@ public class MenuThread implements Runnable {
         right.setUrl("http://www.chgc.sh.cn/page104");
         right.setType("view");
 
-        menu.setButton(new Button[] {left, parentCenter, right});
+        menu.setButton(new Button[]{left, parentCenter, right});
 
         return menu;
     }

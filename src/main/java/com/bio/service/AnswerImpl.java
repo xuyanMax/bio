@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class AnswerImpl implements IAnswerService {
     @Autowired
     private IAnswerDao iAnswerDao;
+
     @Override
     public void addAnswer(Answer answer) {
         iAnswerDao.insertAnswer(answer);

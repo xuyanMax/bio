@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebListener;
 public class MyContextListener implements ServletContextListener {
     private SSHConnection sshConnection;
     private Logger logger = Logger.getLogger(MyContextListener.class);
+
     public MyContextListener() {
         super();
     }
@@ -27,6 +28,7 @@ public class MyContextListener implements ServletContextListener {
             e.printStackTrace();
         }
     }
+
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         logger.info("=====Context destroyed=====");

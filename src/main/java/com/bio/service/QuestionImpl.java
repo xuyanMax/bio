@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class QuestionImpl implements IQuestionService {
     @Autowired
     IQDao iqDao;
+
     @Override
     public void addQuestionAnswer(Questionnaire questionnaire) {
         iqDao.insertQuestion(questionnaire);

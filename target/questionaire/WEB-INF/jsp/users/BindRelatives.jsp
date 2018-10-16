@@ -110,6 +110,7 @@
                 <thead>
                 <tr>
                     <th>亲属姓名</th>
+                    <th>身份证后四位</th>
                     <th>解除绑定</th>
                     <th>开始问卷</th>
                 </tr>
@@ -119,6 +120,7 @@
                 <c:forEach var="person" items="${persons}">
                     <tr>
                         <td>${person.name}</td>
+                        <td>${person.ID_code_cut}</td>
                         <td>
                             <a href="/deleteRelative?idperson2=${person.idperson}&idperson1=${user.idperson}">解除亲属</a>
                         </td>
@@ -154,6 +156,7 @@
                 <option value="0">这是您的父亲/母亲</option>
                 <option value="1">这是您的子女</option>
                 <option value="2">这是您的兄弟姐妹</option>
+                <option value="3">这是您的配偶</option>
             </select>
         </div>
         <div class="form-group">

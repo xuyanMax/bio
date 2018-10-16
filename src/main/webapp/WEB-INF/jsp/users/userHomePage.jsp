@@ -12,7 +12,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -30,11 +31,13 @@
         </button>
     </div>
 
-    <% if ( (request.getSession().getAttribute("username") != null)) {
+    <% if ((request.getSession().getAttribute("username") != null)) {
     %>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <%=request.getSession().getAttribute("username")%> <b class="caret"></b></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                    data-toggle="dropdown">Welcome <%=request.getSession().getAttribute("username")%> <b
+                    class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/returnHome">返回首页</a></li>
                     <li class="divider"></li>
@@ -49,10 +52,10 @@
 <p align="center" style="font-size: 20pt"><a href="/bind/relative" target="_blank">绑定亲属</a></p><br/>
 <p align="center" style="font-size: 20pt"><a href="/unbind">微信解绑</a></p><br/>
 
-    <%
-    }else{
+<%
+} else {
 
-    %>
+%>
 <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -61,10 +64,14 @@
     </ul>
 </div>
 </nav>
-    <%
-        }
-    %>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<%
+    }
+%>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 </body>
 </html>

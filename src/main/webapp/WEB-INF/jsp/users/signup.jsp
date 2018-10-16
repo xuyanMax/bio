@@ -27,19 +27,23 @@
             width: 340px;
             margin: 50px auto;
         }
+
         .login-form form {
             margin-bottom: 15px;
             background: #f7f7f7;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
         }
+
         .login-form h2 {
             margin: 0 0 15px;
         }
+
         .form-control, .btn {
             min-height: 38px;
             border-radius: 2px;
         }
+
         .btn {
             font-size: 15px;
             font-weight: bold;
@@ -60,25 +64,27 @@
         </div>
 
         <div class="form-group" id="unit_div">
-        <%
-            List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
-            if (centerNames != null){
-        %>
+            <%
+                List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
+                if (centerNames != null) {
+            %>
             <p>请选择您的单位</p>
-        <%
-                for (String centerName:centerNames){
-        %>
+            <%
+                for (String centerName : centerNames) {
+            %>
             <label class="">
-                <input type="radio" class="form-control" required id="unit1" name="unit" id="unit1" value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
+                <input type="radio" class="form-control" required id="unit1" name="unit" id="unit1"
+                       value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
             </label>
-        <%
+            <%
+                    }
                 }
-            }
-        %>
+            %>
         </div>
 
         <div class="form-group" id="tel_div">
-            <input type="text" onchange="checkOnSignUp()" class="form-control" placeholder="手机号码" name="phone" id="phone" required>
+            <input type="text" onchange="checkOnSignUp()" class="form-control" placeholder="手机号码" name="phone"
+                   id="phone" required>
             <small class="help-block" id="tel-error"></small>
             <input type="text" id="vcode" class="form-control" placeholder="输入手机验证码" required>
             <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled="">
@@ -90,10 +96,12 @@
     </div>
 
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    var count=60;////间隔函数，1秒执行
+    var count = 60;////间隔函数，1秒执行
     var InterValObj;//timer变量，控制时间
     var vcode = ""; //验证码
     var codeLength = 6;//验证码长度
@@ -105,11 +113,11 @@
         document.getElementById('tel-error').innerText = "";
         var phone = document.getElementById("phone").value;
         var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (reg.test(phone)){
+        if (reg.test(phone)) {
             btn.removeAttr("disabled");
             return;
-        }else{
-            document.getElementById("phone").className +=' is-invalid';
+        } else {
+            document.getElementById("phone").className += ' is-invalid';
             document.getElementById("tel-error").className += ' text-danger';
             document.getElementById("tel-error").innerText = "请输入合法手机号";
             btn.attr("disabled", true);
@@ -121,9 +129,9 @@
         var user = '';
         $("#btn").on("click", function () {
             if ($('input:radio[name="unit"]:checked').val() == null ||
-                $('input:radio[name="unit"]:checked').val() == ""){
+                $('input:radio[name="unit"]:checked').val() == "") {
                 alert("单位不得为空");
-            }else {
+            } else {
                 currCount = count;
                 // 设置button效果，开始计时
                 btn.attr("disabled", true);
@@ -173,23 +181,25 @@
                 });
             }
         });
-        function setRemainTime(){
-            if (currCount == 0){
+
+        function setRemainTime() {
+            if (currCount == 0) {
                 window.clearInterval(InterValObj);// 停止计时器
                 $("#btn").removeAttr("disabled");// 启用按钮
                 $("#btn").val("重新发送验证码");
                 vcode = ""; // 清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
-            }else{
+            } else {
                 currCount--;
                 $("#btn").val("请在" + currCount + "秒内输入验证码");
             }
         }
+
         /*不带form的action*/
 
         $("#submit").on("click", function () {
-            if ($("#vcode").val() == null || $("#vcode").val() == ""){
+            if ($("#vcode").val() == null || $("#vcode").val() == "") {
                 alert("验证码不得为空");
-            }else {
+            } else {
                 // 向后台发送处理数据
                 var upload = {};
                 upload.vcode = vcode;
@@ -197,7 +207,7 @@
                 upload.ID_code = document.getElementById("id_code").innerText;
                 upload.name = $("#name").val();
 
-                if ( user != "" ) {
+                if (user != "") {
                     upload.openid = user.openid;
                     upload.unionid = user.unionid;
                     upload.subscirbe = user.subscribe;
@@ -223,8 +233,8 @@
                         if (data.result == 1) {
                             vcode = data.result;
                             alert("验证成功!");
-                            window.location.assign(window.location.origin+"/wx/login");
-                        } else if (data.result == 0){
+                            window.location.assign(window.location.origin + "/wx/login");
+                        } else if (data.result == 0) {
                             alert("验证失败");
                         }
                     }

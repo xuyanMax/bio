@@ -71,7 +71,8 @@ public class FileUploadController {
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
             DBUtils.createXlsAndDownload(personsToUpload);
-            Download download
+            //todo:
+            Download download = new Download();
             mv.setViewName("views/success");
         }
 

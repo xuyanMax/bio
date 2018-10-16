@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class AdminService implements IAdminService {
     @Autowired
     IAdminDao adminDao;
+
     @Override
     public Admin findAdminUser(int idperson) {
         return adminDao.selectAdminUser(idperson);

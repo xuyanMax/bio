@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 /*could be used for jdbc JUnit test*/
 /*could be used for Spring, must have a implementation of service*/
 @Service
-public class PersonImpl implements IPersonService{
+public class PersonImpl implements IPersonService {
 
     @Autowired
     private IPersonDao personDao;//personDao要与jdbcApplicationContext.xml中的 <bean id="personDao" 名称一致

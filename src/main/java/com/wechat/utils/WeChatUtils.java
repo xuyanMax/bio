@@ -6,6 +6,7 @@ import com.bio.beans.WeChatUser;
 import com.wechat.model.button.Menu;
 import com.wechat.thread.TokenThread;
 import org.apache.log4j.Logger;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -37,7 +38,7 @@ public class WeChatUtils {
      * @param requestUrl    请求地址
      * @param requestMethod 请求方式（GET、POST）
      * @param outputStr     提交的数据
-     * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
+     * @return JSONObject(通过JSONObject.get ( key)的方式获取json对象的属性值)
      */
     public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
 
@@ -45,7 +46,7 @@ public class WeChatUtils {
         StringBuffer buffer = new StringBuffer();
         try {
             // 创建SSLContext对象，并使用我们指定的信任管理器初始化
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = null;
             sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
@@ -91,7 +92,7 @@ public class WeChatUtils {
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
@@ -103,10 +104,11 @@ public class WeChatUtils {
 
     // 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+
     /**
      * 创建菜单
      *
-     * @param menu 菜单实例，可以包含post/get到微信的查询接口按钮
+     * @param menu        菜单实例，可以包含post/get到微信的查询接口按钮
      * @param accessToken 有效的access_token
      * @return 0表示成功，其他值表示失败
      */
@@ -135,25 +137,26 @@ public class WeChatUtils {
     private static String get_openId_url_msg = "https://api.weixin.qq.com/cgi-bin/user/info?" +
             "access_token=ACCESS_TOKEN&" +
             "openid=OPENID&lang=zh_CN";
+
     /*
      * 关注公众号的用户发送消息，获取用户部分信息
      * */
-    public static WeChatUser getWeChatUser(String openId, String accessToken){
+    public static WeChatUser getWeChatUser(String openId, String accessToken) {
         //1.
         String url = get_openId_url_msg.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
 
         if (jsonObject != null) {
-            logger.info("WeChatUser="+jsonObject.toJSONString());
+            logger.info("WeChatUser=" + jsonObject.toJSONString());
             WeChatUser user = composeWeChatUser(jsonObject);
             return user;
-        }
-        else{
+        } else {
             logger.warn("返回JSONObject=Null");
             return null;
         }
     }
+
     //todo:
     //在创建自定义菜单时指定URL为网页授权接口：
     public static final String url_snsapi_base = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
@@ -165,16 +168,17 @@ public class WeChatUtils {
 
     /**
      * 通过code获取Access_Token
+     *
      * @param code
-     * @return  OAuthInfo
-     * */
-    public static OAuthInfo getOAuthInfoByCode(String code){
+     * @return OAuthInfo
+     */
+    public static OAuthInfo getOAuthInfoByCode(String code) {
 
         //todo: 更改appid, secret
         String url = WeChatConstants.GET_WEBAUTH_URL
-                                    .replace("CODE",code)
-                                    .replace("APPID", WeChatUtils.APPID_URL)
-                                    .replace("APP_SECRET", WeChatUtils.SECRET_URL);
+                .replace("CODE", code)
+                .replace("APPID", WeChatUtils.APPID_URL)
+                .replace("APP_SECRET", WeChatUtils.SECRET_URL);
 
         JSONObject JSONOAuth = httpRequest(url, "GET", null);
         logger.info(JSONOAuth);
@@ -187,19 +191,19 @@ public class WeChatUtils {
     // OAuth2 授权获取用户信息by access_token and openId
     public static String url_get_user = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
 
-    public static WeChatUser getUserByAccessTokenAndOpenId(String access_token, String openid){
+    public static WeChatUser getUserByAccessTokenAndOpenId(String access_token, String openid) {
         String url = url_get_user.replace("ACCESS_TOKEN", access_token).replace("OPENID", openid);
         JSONObject JSONUser = httpRequest(url, "GET", null);
         logger.info(JSONUser);
 
-        if (JSONUser != null){
+        if (JSONUser != null) {
             if (JSONUser.getString("errcode") == null) {
                 WeChatUser user = composeWeChatUser(JSONUser);
                 logger.info(user);
                 return user;
-            }else{
+            } else {
                 logger.error(JSONUser);
-                logger.error("通过access_token="+access_token+", openid="+openid+" 没能获取微信用户信息.");
+                logger.error("通过access_token=" + access_token + ", openid=" + openid + " 没能获取微信用户信息.");
             }
         }
         logger.warn("NO Access Token Get!");
@@ -207,7 +211,7 @@ public class WeChatUtils {
     }
 
     // 组装一个WeChatUser
-    public static WeChatUser composeWeChatUser(JSONObject jsonObject){
+    public static WeChatUser composeWeChatUser(JSONObject jsonObject) {
 
         WeChatUser user = new WeChatUser();
 
@@ -224,7 +228,8 @@ public class WeChatUtils {
 
         return user;
     }
-    public static OAuthInfo composeAuthInfo(JSONObject jsonObject){
+
+    public static OAuthInfo composeAuthInfo(JSONObject jsonObject) {
         OAuthInfo authInfo = new OAuthInfo();
         authInfo.setAccess_token(jsonObject.getString("access_token"));
         authInfo.setExpires_in(jsonObject.getString("expires_in"));
@@ -238,7 +243,7 @@ public class WeChatUtils {
 
     //微信二维码登陆
     public static void wxLoginUrl(HttpServletRequest request,
-                                  HttpServletResponse response){
+                                  HttpServletResponse response) {
         try {
             String url = scan_auth_url
                     .replace("APPID", APPID_URL)

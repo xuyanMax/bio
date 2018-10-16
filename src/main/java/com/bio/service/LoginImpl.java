@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class LoginImpl implements ILoginService {
     @Autowired
     private ILoginDao loginDao;
+
     @Override
     public void addLoginItem(LoginItem loginItem) {
         loginDao.insertLoginItem(loginItem);

@@ -9,7 +9,8 @@
 <html>
 <head>
     <title>多文件上传</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -31,7 +32,8 @@
 
         %>
         <ul class="navbar-nav ml-auto">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${username} <b class="caret"></b></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${username} <b
+                    class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/returnHome">返回首页</a></li>
                     <li><a href="/logout">退出</a></li>
@@ -47,22 +49,26 @@
 <form class="" action="/admin/upMultiFiles" enctype="multipart/form-data" method="post">
     <!-- 可以选取一张或者多种图片上传 -->
     请上传2003版Excel文件: <input type="file" id="files" name="files" multiple="multiple"
-                                      required="required" accept=".xls" onchange="getFiles();"><br/>
+                            required="required" accept=".xls" onchange="getFiles();"><br/>
     上传: <input type="submit" value="submit">
 </form>
 上传文件:<br/>
 <div class="list-group" id="fileNames"></div>
 
 <!--测试用-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
     function getFiles() {
         var files = document.getElementById("files");
         var span = document.getElementById("fileNames");
-        for (i=0; i<files.files.length; i++){
+        for (i = 0; i < files.files.length; i++) {
             console.log(files.files[i].name);
-            span.innerHTML += "<span class=\"list-group\" id=\"fileNames\">"+files.files[i].name+"</span>";
+            span.innerHTML += "<span class=\"list-group\" id=\"fileNames\">" + files.files[i].name + "</span>";
         }
     }
 </script>

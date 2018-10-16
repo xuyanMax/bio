@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class ExamServiceImpl implements IExamService {
     @Autowired
     IExamDao examDao;
+
     @Override
     public void addExam(Exam exam) {
         examDao.insertExam(exam);

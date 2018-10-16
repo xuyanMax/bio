@@ -10,9 +10,9 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-    <context:component-scan base-package="com.bio.controller" />
+    <context:component-scan base-package="com.bio.controller"/>
     <!--解决spring mvc No mapping found for HTTP request with URI-->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -27,7 +27,7 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->
+                <ref bean="mappingJacksonHttpMessageConverter"/> <!-- JSON转换器 -->
             </list>
         </property>
     </bean>
@@ -37,21 +37,21 @@
         <property name="prefix">
             <value>/WEB-INF/</value>
         </property>
-        <property name="suffix" value=".jsp" />
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!-- 配置文件上传，如果没有使用文件上传可以不用配置，如果不配，那么配置文件中也不必引入上传组件包 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 默认编码 -->
-        <property name="defaultEncoding" value="utf-8" />
+        <property name="defaultEncoding" value="utf-8"/>
         <!-- 文件大小最大值 -->
-        <property name="maxUploadSize" value="10485760000" />
+        <property name="maxUploadSize" value="10485760000"/>
         <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="40960" />
+        <property name="maxInMemorySize" value="40960"/>
     </bean>
     <!--<mvc:default-servlet-handler/>-->
-    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/images/**" location="/images/"/>
 
     <!--配置拦截器-0607-管理员登陆验证设定, 未来Shiro框架替代-->
     <mvc:interceptors>

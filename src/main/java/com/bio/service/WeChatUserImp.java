@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class WeChatUserImp implements IWeChatUserService {
     @Autowired
     private IWeChatUserDao iWeChatUserDao;
+
     @Override
     public void addWxUser(WeChatUser user) {
         iWeChatUserDao.insertWxUser(user);

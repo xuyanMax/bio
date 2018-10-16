@@ -23,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
-@SessionAttributes({"user","username", "wxuser", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
+@SessionAttributes({"user", "username", "wxuser", "snAdmin", "sysAdmin", "vcode"})/*单位管理员，系统管理员*/
 @Controller
 public class WeChat {
     private static String ACCESS_TOKEN = "brbxyxzyz";
@@ -60,7 +61,7 @@ public class WeChat {
 
         logger.info("Request from WeChat=" + request.getRequestURL().toString());
 
-        if (request.getMethod().toLowerCase().equals("get")){// REQUEST.METHOD = GET
+        if (request.getMethod().toLowerCase().equals("get")) {// REQUEST.METHOD = GET
             //微信加密签名
             String signature = request.getParameter("signature");
             //时间戳
@@ -72,28 +73,29 @@ public class WeChat {
 
             PrintWriter printWriter = null;
             //通过验证Signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-            if (signature!=null && CheckTokenUtils.checkSignature(ACCESS_TOKEN, timestamp, nonce, signature)){
+            if (signature != null && CheckTokenUtils.checkSignature(ACCESS_TOKEN, timestamp, nonce, signature)) {
                 try {
                     printWriter = response.getWriter();
                     printWriter.print(echostr);
                     printWriter.flush();
                     printWriter.close();
-                    logger.info("token verification: A REQUEST FROM WECHAT!" );
+                    logger.info("token verification: A REQUEST FROM WECHAT!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             logger.error("WeChat token verification failed!");
             logger.error("WeChat server address: " + ClientInfoUtils.getIpAddr(request));
-        }else {
+        } else {
             logger.info("message request from wechat.");
             request.getRequestDispatcher("/wx/rec/msg").forward(request, response);
         }
     }
+
     /*微信消息接口测试*/
     @RequestMapping("/wx/rec/msg")
     public void receiveMessage(HttpServletRequest request,
-                                     HttpServletResponse response) throws IOException {
+                               HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
         // 调用核心业务类接收消息、处理消息
@@ -105,10 +107,11 @@ public class WeChat {
         pw.close();
 
     }
+
     @RequestMapping("/auth")
     public ModelAndView processCodeAndStateAndGetWxUserByAuthorization(HttpServletRequest request,
                                                                        HttpServletResponse response,
-                                                                       ModelMap map){
+                                                                       ModelMap map) {
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
         logger.info(code);
@@ -119,7 +122,7 @@ public class WeChat {
         logger.info(url);
         JSONObject JsonWxUser = WeChatUtils.httpRequest(url, "GET", null);
 
-        if (JsonWxUser.getString("errcode") != null){
+        if (JsonWxUser.getString("errcode") != null) {
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser);
             return mv;
@@ -133,17 +136,17 @@ public class WeChat {
                 .replace("OPENID", openid);
         JsonWxUser = WeChatUtils.httpRequest(url2, "GET", null);
 
-        if (JsonWxUser.getString("errcode") != null){
+        if (JsonWxUser.getString("errcode") != null) {
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser.getString("errmsg"));
             logger.error(JsonWxUser);
             return mv;
         }
         WeChatUser wxuser = iWeChatUserService.findWxUserByOpenId(JsonWxUser.getString("openid"));
-        if (wxuser != null && wxuser.getIdperson() != null){
+        if (wxuser != null && wxuser.getIdperson() != null) {
             logger.info(wxuser);
             return loginAuthCheck(wxuser.getIdperson(), mv, map, wxuser);
-        }else {
+        } else {
 
             String url3 = WeChatConstants.GET_WXUSER_BY_OPENID_ACCESS_TOKEN
                     .replace("OPENID", openid)
@@ -151,42 +154,44 @@ public class WeChat {
 
             JsonWxUser = WeChatUtils.httpRequest(url3, "GET", null);
             wxuser = iWeChatUserService.findWxUserByUnionid(JsonWxUser.getString("unionid"));
-            if (wxuser == null || wxuser.getIdperson() == null){
-                if (JsonWxUser.getString("errcode") != null){
+            if (wxuser == null || wxuser.getIdperson() == null) {
+                if (JsonWxUser.getString("errcode") != null) {
                     mv.addObject("error", JsonWxUser.getString("errmsg"));
                     mv.setViewName("views/errors/error");
                     return mv;
-                }else{
+                } else {
                     logger.info("扫码登录=>openid和unionid不匹配，将进入注册页");
                     mv.setViewName("jsp/users/signupIdCode");
                     mv.addObject("wxuser", wxuser);
                     map.addAttribute("wxuser", wxuser);
                     return mv;
                 }
-            }else{
+            } else {
                 return loginAuthCheck(wxuser.getIdperson(), mv, map, wxuser);
             }
         }
 
     }
+
     /**
      * 进行网页授权，便于获取到用户的绑定内容
      * 此为回调页面
      * reference: https://blog.csdn.net/cs_hnu_scw/article/details/79103129
      * https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
+     *
      * @return
      */
     @RequestMapping("/info")
     public ModelAndView processCodeAndStateAndFetchAccessTokenAndOpenidAndGetWxUser(HttpServletRequest request,
                                                                                     HttpServletResponse response,
-                                                                                    ModelMap modelMap){
+                                                                                    ModelMap modelMap) {
         ModelAndView mv = new ModelAndView();
         String code = request.getParameter("code");
 
-        logger.info("code="+code);
-        logger.info("state="+request.getParameter("state"));
+        logger.info("code=" + code);
+        logger.info("state=" + request.getParameter("state"));
 
-        if (code == null || code.equals("")){
+        if (code == null || code.equals("")) {
             logger.error("unauthorized wxUser ");
             mv.addObject("error", "Not Authorized.");
             mv.setViewName("views/errors/error");
@@ -203,7 +208,7 @@ public class WeChat {
         //测试openid是否匹配
         if (openid != null && !openid.equals("")) {
             wxUser = iWeChatUserService.findWxUserByOpenId(openid);
-            if (wxUser != null && wxUser.getOpenid().equals(openid)){
+            if (wxUser != null && wxUser.getOpenid().equals(openid)) {
                 logger.info(wxUser);
                 logger.info("扫码登陆openid匹配");
                 return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
@@ -225,7 +230,7 @@ public class WeChat {
                     //update wechat user's openid etc.
                     iWeChatUserService.modifyWxUserByUnionid(wxUser);
                     return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
-                }else{
+                } else {
                     logger.info("扫码登陆openid和unionid不匹配，即将进入注册页");
                     mv.setViewName("jsp/users/signupIdCode");
 
@@ -233,40 +238,41 @@ public class WeChat {
                     modelMap.addAttribute("wxuser", wxUser);
                     return mv;
                 }
-            }else{
+            } else {
                 logger.error("从微信服务器获取的用户数据为空");
                 mv.setViewName("views/errors/error");
                 mv.addObject("error", "从微信服务器获取的用户数据为空");
                 return mv;
             }
-        }else{
+        } else {
             logger.warn("获取的openid无效");
             mv.setViewName("views/errors/error");
             mv.addObject("error", "openid获取为null或者空!!!");
             return mv;
         }
     }
+
     @RequestMapping("wx/login")
     public void wxLogin(HttpServletRequest request,
-                          HttpServletResponse response,
-                          ModelMap map){
+                        HttpServletResponse response,
+                        ModelMap map) {
         logger.info("正在微信网页扫码登陆");
         WeChatUtils.wxLoginUrl(request, response);
 
     }
 
-    public  ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user){
-        logger.info("idperson="+idperson+", mv="+mv+", modelmap="+map);
+    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user) {
+        logger.info("idperson=" + idperson + ", mv=" + mv + ", modelmap=" + map);
 
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
         Person person = iPersonService.findPersonByIdperson(idperson);
         logger.info(center);
         logger.info(person);
-        if (center != null && center.getIdperson() == idperson){
+        if (center != null && center.getIdperson() == idperson) {
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
             mv.addObject("snsAdmin", "snsAdmin");
-            if (user!=null) {
+            if (user != null) {
                 user.setIdperson(person.getIdperson());
                 mv.addObject("wxuser", user);
             }
@@ -281,13 +287,13 @@ public class WeChat {
 
         Admin admin = iAdminService.findAdminUser(idperson);
         logger.info(admin);
-        if (admin != null && admin.getIdperson() == idperson){
+        if (admin != null && admin.getIdperson() == idperson) {
             mv.setViewName("/jsp/sys_admin/sys");
             mv.addObject("user", person);
             mv.addObject("username", person.getName());
             mv.addObject("sys_admin", "sys_admin");
 
-            if (user!=null) {
+            if (user != null) {
                 user.setIdperson(person.getIdperson());
                 mv.addObject("wxuser", user);
             }
@@ -311,15 +317,16 @@ public class WeChat {
 
     //===================单元测试
     @RequestMapping("testLocal")
-    public ModelAndView test(ModelMap map){
+    public ModelAndView test(ModelMap map) {
         ModelAndView mv = new ModelAndView();
         WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");
         iWeChatUserService.addWxUser(user);
         logger.info(user);
         return loginAuthCheck(user.getIdperson(), mv, map, user);
     }
+
     @RequestMapping("testSignup")
-    public ModelAndView testSignup(ModelMap map){
+    public ModelAndView testSignup(ModelMap map) {
         WeChatUser wxuser = new WeChatUser();
         wxuser.setIdwechat(999);
         wxuser.setUnionid("123");
@@ -338,8 +345,9 @@ public class WeChat {
         return mv;
 
     }
+
     @RequestMapping("testVcode")
-    public ModelAndView testVcode(ModelMap session){
+    public ModelAndView testVcode(ModelMap session) {
         WeChatUser user = iWeChatUserService.findWxUserByOpenId("abx");
         session.addAttribute("wxuser", user);
         session.addAttribute("idcode", "13010419920518241X");
@@ -347,6 +355,7 @@ public class WeChat {
         mv.addObject("idcode", "13010419920518241X");
         return mv;
     }
+
     @RequestMapping("testGetPeronByIdAndIdcenter")
     public String testGetPeronByIdAndIdcenter(ModelMap session) {
         Person p = iPersonService.findPersonByID_codeAndIdcenter(PersonInfoUtils.md5("13010419920518241X"), 1);

@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class CoreService {
     private static Logger logger = Logger.getLogger(CoreService.class);
+
     /**
      * 处理微信发来的请求
      *
@@ -55,9 +56,9 @@ public class CoreService {
             textMessage.setFuncFlag(0);
 
             /*
-            *
-            * 获得openId, 获取用户信息
-            * */
+             *
+             * 获得openId, 获取用户信息
+             * */
             WeChatUser user = WeChatUtils.getWeChatUser(fromUserName, TokenThread.access_token.getToken());
 
             // 文本消息
@@ -76,7 +77,7 @@ public class CoreService {
                 newsMessage.setFuncFlag(0);
 
                 //单图文消息
-                if (content.equals("1")){
+                if (content.equals("1")) {
                     Article article = new Article();
                     article.setTitle("测试");
                     article.setDescription("务正业");
@@ -91,7 +92,7 @@ public class CoreService {
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
                     return respMessage;
 
-                } else if (content.equals("2")){
+                } else if (content.equals("2")) {
                     Article article = new Article();
                     article.setTitle("没什么");
                     // 图文消息中可以使用QQ表情、符号表情
@@ -131,24 +132,24 @@ public class CoreService {
                     newsMessage.setArticles(articles);
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
                     return respMessage;
-                } else if (content.equalsIgnoreCase("flup")){
+                } else if (content.equalsIgnoreCase("flup")) {
                     //reference: https://blog.csdn.net/lyq8479/article/details/9393195
                     String url = WeChatConstants.Get_WEIXINPAGE_Code_silent
                             .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
                             .replace("APPID", TokenThread.appID)
                             .replace("STATE", "AUTH");
-                    logger.info("访问主页="+url);
+                    logger.info("访问主页=" + url);
                     textMessage.setContent("欢迎访问<a href=\"" + url + "\">Flup</a>!");
 
                     // 将文本消息对象转换成xml字符串
                     // 默认回复消息
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
-                } else if (content.matches(".*openid.*")){
+                } else if (content.matches(".*openid.*")) {
                     textMessage.setContent(user.toString());
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                     return respMessage;
-                } else if (content.matches("showAllUsers")){
+                } else if (content.matches("showAllUsers")) {
                     if (TokenThread.access_token != null && TokenThread.access_token.getToken() != null) {
                         String url = WeChatConstants.GET_SUBSCRIBERS_URI.replace("ACCESS_TOKEN", TokenThread.access_token.getToken());
                         JSONObject JSONSubscribers = WeChatUtils.httpRequest(url, "GET", null);
@@ -162,43 +163,43 @@ public class CoreService {
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
-                logger.info(user.getNickname()+" 发送的是图片消息！");
+                logger.info(user.getNickname() + " 发送的是图片消息！");
                 respContent = "您发送的是图片消息！";
             }
             // 地理位置消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
-                logger.info(user.getNickname()+" 发送的是地理位置消息！");
+                logger.info(user.getNickname() + " 发送的是地理位置消息！");
                 respContent = "您发送的是地理位置消息！";
             }
             // 链接消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
-                logger.info(user.getNickname()+" 发送的是链接消息！");
+                logger.info(user.getNickname() + " 发送的是链接消息！");
                 respContent = "您发送的是链接消息！";
             }
             // 音频消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
-                logger.info(user.getNickname()+" 发送的是音频消息！");
+                logger.info(user.getNickname() + " 发送的是音频消息！");
                 respContent = "您发送的是音频消息！";
             }
             // 事件推送
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 // 事件类型
-                logger.info(user.getNickname()+"发送的是事件推送");
+                logger.info(user.getNickname() + "发送的是事件推送");
                 String eventType = requestMap.get("Event");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    logger.info(user.getNickname()+"关注了公众号");
+                    logger.info(user.getNickname() + "关注了公众号");
                     respContent = "谢谢您的关注！";
                 }
                 // 取消订阅
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                     // TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
-                    logger.info(user.getNickname()+"取消了关注");
+                    logger.info(user.getNickname() + "取消了关注");
                 }
                 // 自定义菜单点击事件
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 自定义菜单权没有开放，暂不处理该类消息
-                    logger.info(user.getNickname()+"触发自定义菜单点击事件");
+                    logger.info(user.getNickname() + "触发自定义菜单点击事件");
                 }
             }
             textMessage.setContent(respContent);

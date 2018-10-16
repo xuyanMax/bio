@@ -29,7 +29,7 @@ public class ManualInsert {
     private IExamService examService;
 
     @RequestMapping("/manualInsertPage")
-    public ModelAndView goInsertPage(@ModelAttribute("username") String username){
+    public ModelAndView goInsertPage(@ModelAttribute("username") String username) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
         mv.setViewName("jsp/upload/manualInsertion");
@@ -39,14 +39,14 @@ public class ManualInsert {
     @RequestMapping(value = "/manualInsertion")
     public ModelAndView manualInsertion(HttpServletRequest request,
                                         Person person,
-                                        @ModelAttribute("username") String username){
+                                        @ModelAttribute("username") String username) {
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", username);
-        if (person == null){
+        if (person == null) {
             //暂时前端无用message
             mv.addObject("message", "输入错误");
-        }else {
+        } else {
             String ID_code = person.getID_code();
 
             person.setID_code(PersonInfoUtils.md5(ID_code));

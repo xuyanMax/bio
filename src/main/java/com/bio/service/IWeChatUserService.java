@@ -8,6 +8,7 @@ public interface IWeChatUserService {
     void addWxUser(WeChatUser user);
 
     void removeWxUserByOpenid(String openid);
+
     void removeWxUserByIdperson(Integer idperson);
 
     void modifyWxUserByUnionid(WeChatUser user);

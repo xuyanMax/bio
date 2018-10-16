@@ -20,8 +20,9 @@ public class DBUtils {
     private static final String FILE_EXTENSION = ".xls";
     private static final String FILE_NAME = "队列成员信息表" + LocalDate.now().format(DATE_TIME_FORMATTER) + FILE_EXTENSION;
     private static final String[] COL_NAMES = new String[10];
-    private static final String[] PS =  new String[9];
+    private static final String[] PS = new String[9];
     private static final String[] COL_C_NAMES = new String[10];
+
     static {
         COL_NAMES[0] = "项目内序号";
         COL_NAMES[1] = "单位内序号(工号)";
@@ -55,12 +56,15 @@ public class DBUtils {
         COL_C_NAMES[0] = "relative";
         COL_C_NAMES[0] = "tel1";
     }
+
     private static int INFO_ROWS = 6;
+
     /**
-    * read xls
+     * read xls
      * * 从服务器端读取上传文件，并获取persons数据
-    * @return List<person>
-    * */
+     *
+     * @return List<person>
+     */
     public static List<Person> readXlsFromFileName(String path) throws IOException {
 
         InputStream is = new FileInputStream(path);
@@ -74,9 +78,9 @@ public class DBUtils {
         //sanity check
         if (uploadQueueInfo == null) return res;
         // iterate every row
-        for (int i=2; i<=uploadQueueInfo.getLastRowNum()-INFO_ROWS; i++){
+        for (int i = 2; i <= uploadQueueInfo.getLastRowNum() - INFO_ROWS; i++) {
             HSSFRow hssfRow = uploadQueueInfo.getRow(i);
-            if (hssfRow != null){
+            if (hssfRow != null) {
                 Person p = new Person();
                 HSSFCell sn_in_center = hssfRow.getCell(0);
                 HSSFCell name = hssfRow.getCell(1);
@@ -128,11 +132,12 @@ public class DBUtils {
             filePath.getParentFile().mkdir();
         }
         try {
-            multipartFile.transferTo(new File(path+fileName));
+            multipartFile.transferTo(new File(path + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     // output an excel file, containing all person's essential info
     public static void createXlsAndDownload(List<Person> persons) {
         logger.info(persons.size());
@@ -164,7 +169,7 @@ public class DBUtils {
             cell.setCellStyle(style);
         }
         HSSFRow row1 = sheet.createRow(1);
-        for (int i=0; i<COL_C_NAMES.length; i++){
+        for (int i = 0; i < COL_C_NAMES.length; i++) {
             cell = row1.createCell(i);
             cell.setCellValue(COL_C_NAMES[i]);
             cell.setCellStyle(style);
@@ -172,8 +177,8 @@ public class DBUtils {
         // 第五步，创建单元格，并设置值
         HSSFRow row = null;
         int i;
-        for ( i=0; i < persons.size(); i++) {
-            row = sheet.createRow(i+2);
+        for (i = 0; i < persons.size(); i++) {
+            row = sheet.createRow(i + 2);
             // 为数据内容设置特点新单元格样式1 自动换行 上下居中
             style = workbook.createCellStyle();
             //设置单元格边框
@@ -181,20 +186,20 @@ public class DBUtils {
             //获取row的输入信息
             List<String> rowInfo = getColValuesFromUser(persons.get(i), persons.get(i).getOriginal_ID_code());
             //插入每一列单元格信息
-            for (int j = 0; j< COL_NAMES.length; j++){
+            for (int j = 0; j < COL_NAMES.length; j++) {
                 cell = row.createCell(j);
                 cell.setCellValue(rowInfo.get(j));
                 cell.setCellStyle(style);
             }
         }
         // 插入注解信息
-        for (int j=0; j<PS.length; j++, i++){
-            row = sheet.createRow(i+1);
+        for (int j = 0; j < PS.length; j++, i++) {
+            row = sheet.createRow(i + 1);
             cell = row.createCell(0);
             cell.setCellValue(PS[j]);
         }
         // 第六步，存储下载文件到指定位置
-        String path = System.getProperty("user.home")+"/Downloads/";
+        String path = System.getProperty("user.home") + "/Downloads/";
         logger.info(path);
         try {
             FileOutputStream os = new FileOutputStream(path + FILE_NAME);
@@ -209,7 +214,8 @@ public class DBUtils {
             os
         }*/
     }
-    public static void setCellStyle(HSSFWorkbook workbook, CellStyle style){
+
+    public static void setCellStyle(HSSFWorkbook workbook, CellStyle style) {
         style.setWrapText(true);// 设置自动换行
         style.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         style.setVerticalAlignment(VerticalAlignment.CENTER); // 创建一个居中格式
@@ -220,7 +226,8 @@ public class DBUtils {
         style.setBorderRight(BorderStyle.THIN);
         style.setBorderTop(BorderStyle.THIN);
     }
-    public static List<String> getColValuesFromUser(Person person, String ID){
+
+    public static List<String> getColValuesFromUser(Person person, String ID) {
         if (person == null)
             return new ArrayList<>();
         List<String> res = new ArrayList<>();
@@ -228,13 +235,13 @@ public class DBUtils {
         String global_sn = person.getGlobal_sn();
         String sn_in_center = person.getSn_in_center();
         String name = person.getName();
-        String gender = person.getGender().equals("男")?"1":"0";
+        String gender = person.getGender().equals("男") ? "1" : "0";
         String age = String.valueOf(person.getAge());
         String ID_code = ID;//原身份证号
         String ID_md5 = person.getID_code();//加密身份证号
         //1:男 else女
         String barcode = person.getBarcode();
-        String relative = person.getRelative()==0?"participant":"relative";
+        String relative = person.getRelative() == 0 ? "participant" : "relative";
         String tel1 = person.getTel1();
 
         res.add(global_sn);
