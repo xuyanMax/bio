@@ -2,6 +2,7 @@ package com.wechat.model;
 
 public class AccessToken {
     private String token;// 获取到的凭证
+
     private int expiresIn;//凭证有效期,秒
 
     public String getToken() {

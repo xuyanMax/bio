@@ -46,7 +46,7 @@
     </div>
 </nav>
 
-<form class="" action="/admin/upMultiFiles" enctype="multipart/form-data" method="post">
+<form action="/admin/upMultiFiles" enctype="multipart/form-data" method="post">
     <!-- 可以选取一张或者多种图片上传 -->
     请上传2003版Excel文件: <input type="file" id="files" name="files" multiple="multiple"
                             required="required" accept=".xls" onchange="getFiles();"><br/>

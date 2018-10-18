@@ -4,7 +4,6 @@ import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.DBUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.Center;
-import com.bio.beans.Download;
 import com.bio.beans.Exam;
 import com.bio.beans.Person;
 import com.bio.service.ICenterService;
@@ -13,14 +12,15 @@ import com.bio.service.IPersonService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.MultiPixelPackedSampleModel;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,35 +48,72 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/upMultiFiles", method = RequestMethod.POST)
-    public ModelAndView upMultiFiles(HttpServletRequest request,
-                                     @RequestParam("files") MultipartFile[] files, ModelMap session) {
-        ModelAndView mv = new ModelAndView();
+    public String upMultiFiles(HttpServletRequest request,
+                               HttpServletResponse response,
+                               @RequestParam("files") MultipartFile[] files, ModelMap session,
+                               Model model) {
         List<MultipartFile> nonEmptyFiles = Arrays
                 .stream(files)
                 .filter((f) -> (!f.isEmpty()))
                 .collect(Collectors.toList());
         if (nonEmptyFiles.size() != files.length) {
-            mv.addObject("error", "错误, 存在空文件！");
-            mv.setViewName("views/errors/error");
+            model.addAttribute("error", "错误, 存在空文件！");
+            return "views/errors/error";
         } else {
             Arrays.stream(files).forEach((f) -> DBUtils.uploadAFileToServer(request, f));
 
             List<Person> personsToUpload = readXlsFromServerAndSaveToDB(request, files, session);
             logger.info("上传" + personsToUpload);
 
-            mv.addObject("persons", personsToUpload);
-            mv.addObject("message", "successfully uploaded " + files.length + " files");
+            model.addAttribute("persons", personsToUpload);
+            model.addAttribute("message", "successfully uploaded " + files.length + " files");
 
             logger.info("Creating the Excel Sheet.");
 
             //生成一个Excel文件并自动下载到~/Downloads/目录下
-            DBUtils.createXlsAndDownload(personsToUpload);
-            //todo:
-            Download download = new Download();
-            mv.setViewName("views/success");
-        }
+            DBUtils.createXlsAndDownload(personsToUpload, request, response);
 
-        return mv;
+            String fileName = request.getServletContext().getRealPath("/data/") + DBUtils.FILE_NAME;
+            model.addAttribute("fileName", fileName);
+            return "views/success";
+        }
+    }
+
+    @RequestMapping(value = "/uploaded/download", method = RequestMethod.GET)
+    public String downloadUploaded(Model model,
+                                   @RequestParam("fileName") String fileName,
+                                   HttpServletResponse response) throws UnsupportedEncodingException {
+
+        File file = new File(fileName);
+
+        response.addHeader("Content-Disposition", "attachment;filename=" + new String(DBUtils.FILE_NAME.getBytes("UTF-8"), "ISO8859-1"));
+
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        OutputStream out = null;
+        FileInputStream in = null;
+        try {
+            out = response.getOutputStream();
+            in = new FileInputStream(file);
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = in.read(b)) != -1) {
+                out.write(b, 0, n);
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                out.close();
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        model.addAttribute("msg", "上传成功");
+        return "redirect:/success";
     }
 
     public List<Person> readXlsFromUploadFiles(MultipartFile[] files, ModelMap session) {
@@ -120,8 +157,6 @@ public class FileUploadController {
     public void insertPersonsToDB(List<Person> persons, ModelMap session) {
         Person sn_person = (Person) session.get("user");
 
-        logger.info(sn_person);
-
         Person p = null;
         Center center = null;
         String global_sn = null;
@@ -136,7 +171,6 @@ public class FileUploadController {
             return;
         }
         for (Person person : persons) {
-            logger.info(person);
             Integer idperon = null;
             p = personService.findPersonByID_code(person.getID_code());
 
@@ -163,13 +197,10 @@ public class FileUploadController {
 
                 p.setIdcenter(sn_person.getIdcenter());
 
-                logger.info(p);
-
                 personService.addPerson(p);
             } else {
                 global_sn = p.getGlobal_sn();
                 person.setGlobal_sn(global_sn);
-                logger.info(person);
                 personService.modifyPerson(person);
             }
             Exam exam = new Exam();

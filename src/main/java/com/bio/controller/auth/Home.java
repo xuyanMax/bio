@@ -128,19 +128,14 @@ public class Home {
 
         if (user != null) {
             relatives = relativeService.findRelativesByIdperson1(user.getIdperson());
-            logger.info(relatives);
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
             persons = idpersons.stream().map(id -> personService.findPersonByIdperson(id)).collect(Collectors.toList());
-            logger.info(persons);
         } else {
 
             relatives = relativeService.findRelativesByIdperson1(308);
-            logger.info(relatives);
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
             persons = idpersons.stream().map(id -> personService.findPersonByIdperson(id)).collect(Collectors.toList());
-
             mv.addObject("user", (Person) personService.findPersonByIdperson(308));
-            logger.info(persons);
         }
         mv.addObject("persons", persons);
         return mv;
@@ -184,14 +179,10 @@ public class Home {
         Relative relative = new Relative();
 
         Person p = (Person) session.get("user");
-        logger.info(p);
         relative.setIdperson1(p != null ? p.getIdperson() : 1);
         relative.setIdperson2(toAdded.getIdperson());
         relative.setRelationship(Integer.valueOf(relation));
-
-        logger.info(relative);
         relativeService.addRelative(relative);
-//        mv.setViewName("jsp/users/BindRelatives");
 
         return "redirect:/bind/relative";
     }
@@ -202,7 +193,7 @@ public class Home {
                                        @RequestParam("idperson1") Integer idperson1,
                                        @RequestParam("idperson2") Integer idperson2) {
 
-        ModelAndView mv = new ModelAndView("jsp/users/BindRelatives");
+        ModelAndView mv = new ModelAndView("redirect:/bind/relative");
         logger.info(idperson1);
         logger.info(idperson2);
         relativeService.removeRelativeByIdperson1AndIdperson2(idperson1, idperson2);
@@ -234,7 +225,6 @@ public class Home {
             logger.info("未注册用户");
             return mv;
         }
-        logger.info(person);
 
         LoginItem loginItem = new LoginItem();
         loginItem.setIdperson(person.getIdperson());
@@ -243,6 +233,7 @@ public class Home {
         loginService.addLoginItem(loginItem);
 
         logger.info(loginItem);
+        session.addAttribute("user", person);
         mv.addObject("user", person);
 
         return loginAuthCheck(person.getIdperson(), mv, session);
@@ -253,7 +244,7 @@ public class Home {
         Center center = centerService.findPersonInCentersByIdperson(idperson);
         Person person = personService.findPersonByIdperson(idperson);
         logger.info(center);
-        logger.info(person);
+        logger.info(person.getID_code_cut());
         if (center != null && center.getIdperson() != null && center.getIdperson() == idperson) {
             mv.addObject("username", person.getName());
             mv.addObject("user", person);
@@ -267,7 +258,7 @@ public class Home {
         }
 
         Admin admin = adminService.findAdminUser(idperson);
-        logger.info(admin);
+        logger.info(admin.getIdperson());
         if (admin != null && admin.getIdperson() == idperson) {
             mv.setViewName("/jsp/sys_admin/sys");
             mv.addObject("user", person);
@@ -368,7 +359,6 @@ public class Home {
         logger.info(idcenter);
         Person p = personService.findPersonByID_codeAndIdcenter(PersonInfoUtils
                 .md5(idcode.toUpperCase()), idcenter);
-        logger.info(p);
 
         if (p == null || p.getID_code() == null) {
             resMap.put("result", "-1");
@@ -387,7 +377,7 @@ public class Home {
         user.setIdperson(p.getIdperson());
 
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
-            logger.warn("该用户不在Session!!");
+            logger.warn("该用户不在Session!");
         } else {
             logger.info("该用户在Session.");
             logger.info("wxuser=" + JSONObject.toJSON(user));
@@ -426,14 +416,13 @@ public class Home {
         if (sessionVcode != null && vcode != null && sessionVcode.equals(vcode)) {
 
             WeChatUser user = (WeChatUser) session.get("wxuser");
-            logger.info(user);
+            logger.info(user.getOpenid());
 
             weChatUserService.addWxUser(user);
 
             resMap.put("result", 1);
         } else {
             resMap.put("result", 0);
-            logger.info("");
         }
         return resMap;
     }
@@ -449,7 +438,7 @@ public class Home {
         String surveyJSON = null;
 
         Person user = (Person) session.get("user");
-        logger.info(user);
+        logger.info(user.getID_code_cut());
 
         Integer idperson = user != null ? user.getIdperson() : 1;
 
@@ -485,7 +474,7 @@ public class Home {
 
         logger.info(session.get("user"));
         Person user = (Person) session.get("user");
-        logger.info(user);
+        logger.info(user.getID_code_cut());
         logger.info(surveyJSON.getString("1"));
 
         Questionnaire questionnaire = null;
@@ -498,7 +487,7 @@ public class Home {
                 questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
             else
                 questionnaire.setIdperson((Integer) session.get("idperson2"));
-            //todo 临时
+            
             Integer version = (Integer) session.get("q_version");
             questionnaire.setQtnaire_version(version != null ? version : 1);
 
@@ -551,6 +540,10 @@ public class Home {
         //返回home
         return "../index";
     }
+    @RequestMapping("/success")
+    public String success(Model model){
+        return "views/success";
+    }
 
     @RequestMapping("/preferences")
     public String preference() {
@@ -578,7 +571,6 @@ public class Home {
 
         questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
         questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
-        //todo 临时
         Center c = centerService.findPersonInCentersByIdperson(user.getIdperson());
         questionnaire.setQtnaire_version(c.getIdcenter());
         questionnaire.setScore(0);

@@ -25,11 +25,8 @@ public class UpdatePerson {
     public ModelAndView update(@RequestParam("idperson") int idperson) {
         logger.info(idperson);
         ModelAndView mv = new ModelAndView();
-
         Person person = personService.findPersonByIdperson(idperson);
         mv.addObject("person", person);
-
-        logger.info(person);
         mv.setViewName("jsp/upload/updatePerson");
         return mv;
     }
@@ -39,7 +36,6 @@ public class UpdatePerson {
                                      Person person) {
         ModelAndView mv = new ModelAndView();
         //test
-        logger.info(person);
         personService.modifyPerson(person);
         mv.addObject("message", "updated user " + person);
         mv.setViewName("/views/success");
@@ -51,7 +47,6 @@ public class UpdatePerson {
         ModelAndView mv = new ModelAndView();
         Person person = personService.findPersonByIdperson(idperson);
         //test
-        logger.info(person);
         mv.addObject("person", person);
         personService.removeByIdperson(idperson);
         mv.setViewName("views/success");

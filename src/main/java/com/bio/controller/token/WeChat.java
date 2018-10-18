@@ -261,8 +261,8 @@ public class WeChat {
 
     }
 
-    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap map, WeChatUser user) {
-        logger.info("idperson=" + idperson + ", mv=" + mv + ", modelmap=" + map);
+    public ModelAndView loginAuthCheck(int idperson, ModelAndView mv, ModelMap session, WeChatUser user) {
+        logger.info("idperson=" + idperson + ", mv=" + mv + ", modelmap=" + session);
 
         Center center = iCenterService.findPersonInCentersByIdperson(idperson);
         Person person = iPersonService.findPersonByIdperson(idperson);
@@ -277,10 +277,10 @@ public class WeChat {
                 mv.addObject("wxuser", user);
             }
 
-            map.put("username", person.getName());
-            map.put("snAdmin", "snAdmin");
-            map.put("user", person);
-            map.put("wxuser", user);
+            session.put("username", person.getName());
+            session.put("snAdmin", "snAdmin");
+            session.put("user", person);
+            session.put("wxuser", user);
             mv.setViewName("jsp/sys_admin/sys");
             return mv;
         }
@@ -298,9 +298,9 @@ public class WeChat {
                 mv.addObject("wxuser", user);
             }
 
-            map.addAttribute("username", person.getName());
-            map.addAttribute("user", person);
-            map.addAttribute("sys_admin", "sys_admin");
+            session.addAttribute("username", person.getName());
+            session.addAttribute("user", person);
+            session.addAttribute("sys_admin", "sys_admin");
             return mv;
         }
         mv.setViewName("/jsp/users/userHomePage");

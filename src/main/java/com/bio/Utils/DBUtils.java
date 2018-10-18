@@ -7,8 +7,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,9 @@ import java.util.List;
 public class DBUtils {
     private static Logger logger = Logger.getLogger(DBUtils.class);
     private static String sheetName = "下载队列成员信息表";
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final String FILE_EXTENSION = ".xls";
-    private static final String FILE_NAME = "队列成员信息表" + LocalDate.now().format(DATE_TIME_FORMATTER) + FILE_EXTENSION;
+    public static String FILE_NAME = "队列成员信息表" + LocalDateTime.now().format(DATE_TIME_FORMATTER) + FILE_EXTENSION;
     private static final String[] COL_NAMES = new String[10];
     private static final String[] PS = new String[9];
     private static final String[] COL_C_NAMES = new String[10];
@@ -139,7 +140,9 @@ public class DBUtils {
     }
 
     // output an excel file, containing all person's essential info
-    public static void createXlsAndDownload(List<Person> persons) {
+    public static void createXlsAndDownload(List<Person> persons,
+                                            HttpServletRequest request,
+                                            HttpServletResponse response) {
         logger.info(persons.size());
         //1. 创建workbook，对应一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -199,20 +202,27 @@ public class DBUtils {
             cell.setCellValue(PS[j]);
         }
         // 第六步，存储下载文件到指定位置
-        String path = System.getProperty("user.home") + "/Downloads/";
+        String path = request.getServletContext().getRealPath("/data/");
         logger.info(path);
+        FileOutputStream os = null;
         try {
-            FileOutputStream os = new FileOutputStream(path + FILE_NAME);
+            os = new FileOutputStream(path + FILE_NAME);
             workbook.write(os);//导出
             logger.info("已导出: " + FILE_NAME);
-            os.close();//关闭输出流
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }/*finally {
-            os
-        }*/
+        } finally {
+            try {
+                if (os != null)
+                    os.close();//关闭输出流
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public static void setCellStyle(HSSFWorkbook workbook, CellStyle style) {

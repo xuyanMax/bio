@@ -15,10 +15,15 @@
 </head>
 <body>
 <a href="/home">返回主页</a>
-<p>上传成功，《队列成员信息表》已下载到'Downloads'以供查看；若没有下载《队列成员信息表》，请检查您的电脑是否已安装java
+<br/>
+<p>上传成功
 </p>
+<a href="/admin/uploaded/download?fileName=<%=request.getAttribute("fileName")%>">下载文件
+</a>
+<br/>
+请点击下载，《队列成员信息表》将下载到'Downloads'以供查看；若没有下载《队列成员信息表》，请检查您的电脑是否已安装java
 <br>
-<a href=""></a>
+<p style="color:red;text-align:center">${msg}</p>
 
 </body>
 </html>

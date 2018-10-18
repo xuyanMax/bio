@@ -157,7 +157,6 @@ public class WeChatUtils {
         }
     }
 
-    //todo:
     //在创建自定义菜单时指定URL为网页授权接口：
     public static final String url_snsapi_base = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
             "appid=APPID&" +
@@ -174,7 +173,6 @@ public class WeChatUtils {
      */
     public static OAuthInfo getOAuthInfoByCode(String code) {
 
-        //todo: 更改appid, secret
         String url = WeChatConstants.GET_WEBAUTH_URL
                 .replace("CODE", code)
                 .replace("APPID", WeChatUtils.APPID_URL)
@@ -199,7 +197,6 @@ public class WeChatUtils {
         if (JSONUser != null) {
             if (JSONUser.getString("errcode") == null) {
                 WeChatUser user = composeWeChatUser(JSONUser);
-                logger.info(user);
                 return user;
             } else {
                 logger.error(JSONUser);

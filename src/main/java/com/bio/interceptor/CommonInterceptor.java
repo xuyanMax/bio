@@ -14,7 +14,7 @@ public class CommonInterceptor implements HandlerInterceptor {
     private static final String USER = "user";
     private static Logger logger = Logger.getLogger(CommonInterceptor.class);
 
-    private static String[] INTERCEPTOR_URL= {
+    private static String[] INTERCEPTOR_URL = {
             "/home",
             "/manualInsertion",
             "/auth/logout",
@@ -24,7 +24,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             "/admin/update",
             "/displayUses"
     };
-//    https://blog.csdn.net/tonytfjing/article/details/39207551
+
+    //    https://blog.csdn.net/tonytfjing/article/details/39207551
 //    https://blog.csdn.net/huangjp_hz/article/details/73614314
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -34,17 +35,17 @@ public class CommonInterceptor implements HandlerInterceptor {
 
         logger.info("=====interceptor begins======");
         logger.info("username = " + username);
-        logger.info("snAdmin = "+ (String) httpServletRequest.getSession().getAttribute("snAdmin"));
+        logger.info("snAdmin = " + (String) httpServletRequest.getSession().getAttribute("snAdmin"));
 
-        if (url.contains("logout")){
-            if (username == null){
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/");
+        if (url.contains("logout")) {
+            if (username == null) {
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
                 logger.info("=====interceptor ends======");
                 return false;
-            }else
+            } else
                 return true;
         }
-         /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
+        /*进入login页面，判断session中是否有key，有的话重定向到首页，否则进入登录界面*/
         if (url.contains("login")) {
             if (username != null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/home");
@@ -54,20 +55,20 @@ public class CommonInterceptor implements HandlerInterceptor {
                 return true;
         }
         if (url.contains("signupPageFollowed")) {
-            if (httpServletRequest.getSession().getAttribute("idcode") == null ){
+            if (httpServletRequest.getSession().getAttribute("idcode") == null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
 //                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/signupPage");
                 logger.info("=====interceptor end======");
                 return false;
-            }else
+            } else
                 return true;
         }
-        if (url.contains("signupPage")){
-            if (httpServletRequest.getSession().getAttribute("wxuser") == null){
+        if (url.contains("signupPage")) {
+            if (httpServletRequest.getSession().getAttribute("wxuser") == null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
                 logger.info("=====interceptor end======");
                 return false;
-            }else return true;
+            } else return true;
         }
         //其他情况判断session中是否有key，有的话继续用户的操作
         if (username != null)
