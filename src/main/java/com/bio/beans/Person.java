@@ -17,6 +17,15 @@ public class Person {
     private String tel1;
     private String tel2;
     private String barcode;
+    private String identity;
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
 
     public Integer getIdperson() {
         return idperson;

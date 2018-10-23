@@ -188,13 +188,12 @@ public class FileUploadController {
                 p.setID_code(PersonInfoUtils.md5(person.getOriginal_ID_code()));
                 p.setBarcode(person.getBarcode());
                 p.setSn_in_center(person.getSn_in_center());
-                p.setRelative(person.getRelative());
+                p.setIdentity(person.getIdentity());
                 p.setAge(PersonInfoUtils.getAge(person.getOriginal_ID_code()));
                 p.setGender(PersonInfoUtils.getGender(person.getOriginal_ID_code()));
                 p.setName(person.getName().substring(0, 1) + (person.getGender().equals("男") ? "先生" : "女士"));
                 p.setID_code_cut(person.getOriginal_ID_code().substring(14));
                 p.setGlobal_sn(global_sn);
-
                 p.setIdcenter(sn_person.getIdcenter());
 
                 personService.addPerson(p);

@@ -122,6 +122,8 @@ public class WeChat {
         logger.info(url);
         JSONObject JsonWxUser = WeChatUtils.httpRequest(url, "GET", null);
 
+        logger.info(JsonWxUser);
+
         if (JsonWxUser.getString("errcode") != null) {
             mv.setViewName("views/errors/error");
             mv.addObject("error", JsonWxUser);
@@ -134,7 +136,12 @@ public class WeChat {
         String url2 = WeChatConstants.GET_WECHAT_USER_URI
                 .replace("ACCESS_TOKEN", access_token)
                 .replace("OPENID", openid);
+
+        logger.info(url2);
+
         JsonWxUser = WeChatUtils.httpRequest(url2, "GET", null);
+
+        logger.info(JsonWxUser);
 
         if (JsonWxUser.getString("errcode") != null) {
             mv.setViewName("views/errors/error");
@@ -142,17 +149,19 @@ public class WeChat {
             logger.error(JsonWxUser);
             return mv;
         }
+
         WeChatUser wxuser = iWeChatUserService.findWxUserByOpenId(JsonWxUser.getString("openid"));
+        logger.info(wxuser);
         if (wxuser != null && wxuser.getIdperson() != null) {
-            logger.info(wxuser);
             return loginAuthCheck(wxuser.getIdperson(), mv, map, wxuser);
         } else {
 
-            String url3 = WeChatConstants.GET_WXUSER_BY_OPENID_ACCESS_TOKEN
-                    .replace("OPENID", openid)
-                    .replace("ACCESS_TOKEN", access_token);
-
-            JsonWxUser = WeChatUtils.httpRequest(url3, "GET", null);
+//            String url3 = WeChatConstants.GET_WXUSER_BY_OPENID_ACCESS_TOKEN
+//                    .replace("OPENID", openid)
+//                    .replace("ACCESS_TOKEN", access_token);
+//
+//            JsonWxUser = WeChatUtils.httpRequest(url 3, "GET", null);
+            logger.info("Trying unionid");
             wxuser = iWeChatUserService.findWxUserByUnionid(JsonWxUser.getString("unionid"));
             if (wxuser == null || wxuser.getIdperson() == null) {
                 if (JsonWxUser.getString("errcode") != null) {
@@ -161,6 +170,7 @@ public class WeChat {
                     return mv;
                 } else {
                     logger.info("扫码登录=>openid和unionid不匹配，将进入注册页");
+                    wxuser = WeChatUtils.composeWeChatUser(JsonWxUser);
                     mv.setViewName("jsp/users/signupIdCode");
                     mv.addObject("wxuser", wxuser);
                     map.addAttribute("wxuser", wxuser);

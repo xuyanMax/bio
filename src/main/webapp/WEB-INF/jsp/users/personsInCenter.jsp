@@ -35,7 +35,6 @@
                     <th>年龄</th>
                     <th>身份证号后四位</th>
                     <th>编译后的身份证号</th>
-                    <th>样品条形码</th>
                     <th>身份</th>
                     <th>电话</th>
                 </tr>
@@ -44,15 +43,14 @@
 
                 <c:forEach var="person" items="${persons}">
                     <tr>
-                        <td>${person.sn_in_center}</td>
                         <td>${person.global_sn}</td>
+                        <td>${person.sn_in_center}</td>
                         <td>${person.name}</td>
                         <td>${person.gender}</td>
                         <td>${person.age}</td>
                         <td>${person.ID_code_cut}</td>
                         <td>${person.ID_code}</td>
-                        <td>${person.barcode}</td>
-                        <td>${person.relative}</td>
+                        <td>${person.identity}</td>
                         <td>${person.tel1}</td>
                     </tr>
                 </c:forEach>

@@ -20,7 +20,7 @@ public class WeChatConstants {
     public static String Get_WEIXINPAGE_Code = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=APPID&redirect_uri=";
 
     public static String Get_WEIXINPAGE_Code_silent = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=APPID&redirect_uri="
-            + "REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+            + "REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
     public static String CALL_BACK = "http://population.chgc.sh.cn/user/inf";
     public static String CALL_BACK_AUTH = "http://population.chgc.sh.cn/user/auth";

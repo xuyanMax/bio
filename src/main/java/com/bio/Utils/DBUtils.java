@@ -47,15 +47,15 @@ public class DBUtils {
         PS[8] = "下载成功说明队列成员信息已入库，如下载失败须重新上传和下载";
 
         COL_C_NAMES[0] = "global_sn";
-        COL_C_NAMES[0] = "sn_in_center";
-        COL_C_NAMES[0] = "name";
-        COL_C_NAMES[0] = "gender";
-        COL_C_NAMES[0] = "age";
-        COL_C_NAMES[0] = "ID_code";
-        COL_C_NAMES[0] = "ID_code";
-        COL_C_NAMES[0] = "barcode";
-        COL_C_NAMES[0] = "relative";
-        COL_C_NAMES[0] = "tel1";
+        COL_C_NAMES[1] = "sn_in_center";
+        COL_C_NAMES[2] = "name";
+        COL_C_NAMES[3] = "gender";
+        COL_C_NAMES[4] = "age";
+        COL_C_NAMES[5] = "ID_code";
+        COL_C_NAMES[6] = "ID_code";
+        COL_C_NAMES[7] = "barcode";
+        COL_C_NAMES[8] = "relative";
+        COL_C_NAMES[9] = "tel1";
     }
 
     private static int INFO_ROWS = 6;
@@ -79,6 +79,7 @@ public class DBUtils {
         //sanity check
         if (uploadQueueInfo == null) return res;
         // iterate every row
+        logger.error("num=" + uploadQueueInfo.getLastRowNum());
         for (int i = 2; i <= uploadQueueInfo.getLastRowNum() - INFO_ROWS; i++) {
             HSSFRow hssfRow = uploadQueueInfo.getRow(i);
             if (hssfRow != null) {
@@ -106,7 +107,7 @@ public class DBUtils {
                 p.setID_code_cut(p.getOriginal_ID_code().substring(14));
 
                 p.setBarcode(formatter.formatCellValue(barcode));
-                p.setRelative(PersonInfoUtils.relative(formatter.formatCellValue(relative)));
+                p.setIdentity(formatter.formatCellValue(relative));
                 p.setSn_in_center(formatter.formatCellValue(sn_in_center));
                 p.setTel1(formatter.formatCellValue(tel1));
 

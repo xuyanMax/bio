@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bio.dao.IPersonDao">
     <insert id="insertPerson">
-		insert into persons (name, gender, age, ID_code, ID_code_cut, sn_in_center, email, relative, tel1, tel2, global_sn, idcenter) values (#{name}, #{gender}, #{age}, #{ID_code}, #{ID_code_cut}, #{sn_in_center}, #{email}, #{relative}, #{tel1}, #{tel2}, #{global_sn}, #{idcenter});
+		insert into persons (name, gender, age, ID_code, ID_code_cut, sn_in_center, email, identity, tel1, tel2, global_sn, idcenter) values (#{name}, #{gender}, #{age}, #{ID_code}, #{ID_code_cut}, #{sn_in_center}, #{email}, #{identity}, #{tel1}, #{tel2}, #{global_sn}, #{idcenter});
 	</insert>
 
     <delete id="deletePersonByIdPerson">
