@@ -67,11 +67,6 @@
     <div class="jumbotron">
         <h1 align="center">Flup</h1>
         <h1 align="center">职业人群健康体检筛查项目</h1></br></br>
-        <p align="center" class="glyphicon-font">本系统暂时只支持chrome/safari浏览器，我们为您提供了32/64位chrome浏览器安装包，请根据您的电脑选择安装 <a href="https://pan.baidu.com/s/1TloVKXhanqEGdMxQZqUjrw">Chrome32</a>
-            , <a href="https://pan.baidu.com/s/1TLYUbhiBPItKpdNAHaP2sQ">Chrome64位</a></p>
-        <p align="center"><a class="btn btn-primary btn-lg" role="button" href="/wx/login">
-            点击登录</a>
-        </p>
     </div>
 </div>
 <%

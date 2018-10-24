@@ -236,6 +236,13 @@ Email|xuyanpeter0619@gmail.com
 1. 问卷调查存储，需按照实际做题人(亲属或用户本人)的`idperson`进行`questionnaire`及`answers`数据存储
 1. 修复`/logout`功能(`CommonInterceptor`)
 
+**week23**
+1. 实现公众号授权登录(已关注CHGC的用户，官方文档说明不需弹出授权界面即可获取用户信息)
+1. 修复注册逻辑中验证码对比始终成功的错误
+1. 修改逻辑
+    1. 解绑后跳转至登录界面
+    1. 注册后直接登录
+
 jdk
 ------
 
@@ -640,3 +647,18 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. Type Status Report
     1. Message Not found
     1. Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+1. 注册时，如果微信用户已经不存在则`insert`，否则`update`; 抑或始终`update`
+```mysql
+INSERT INTO clients
+
+(client_id, client_name, client_type)
+
+SELECT 10345, 'IBM', 'advertising'
+
+FROM dual -- 使用 dual 做表名可以让你在 select 语句后面直接跟上要insert字段值，即使这些值还不存在当前表中。
+
+WHERE not exists (select * from clients
+
+where clients.client_id = 10345);
+
+```

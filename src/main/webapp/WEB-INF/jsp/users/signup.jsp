@@ -202,7 +202,7 @@
             } else {
                 // 向后台发送处理数据
                 var upload = {};
-                upload.vcode = vcode;
+                upload.vcode = $("#vcode").val();
                 upload.phone = $("#phone").val();
                 upload.ID_code = document.getElementById("id_code").innerText;
                 upload.name = $("#name").val();
@@ -230,11 +230,11 @@
                         alert("输入验证码错误！");
                     },
                     success: function (data) {
-                        if (data.result == 1) {
+                        if (data.result == '1') {
                             vcode = data.result;
                             alert("验证成功!");
-                            window.location.assign(window.location.origin + "/wx/login");
-                        } else if (data.result == 0) {
+                            window.location.assign(window.location.origin + "/returnHome");
+                        } else if (data.result == '0') {
                             alert("验证失败");
                         }
                     }

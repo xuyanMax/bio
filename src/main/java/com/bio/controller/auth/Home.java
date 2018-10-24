@@ -144,13 +144,11 @@ public class Home {
     @RequestMapping("/unbind")
     public void unbindWxUser(HttpServletRequest request,
                              HttpServletResponse response,
-                             ModelMap session,
-                             SessionStatus sessionStatus) {
+                             ModelMap session) {
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
-        sessionStatus.setComplete();
         try {
-            response.sendRedirect("/home");
+            response.sendRedirect("/signupPage");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(user);
@@ -403,22 +401,24 @@ public class Home {
                                                   HttpServletRequest request,
                                                   ModelMap session,
                                                   String ID_code,
+                                                  HttpSession httpSession,
                                                   String vcode) {
         logger.info("sessionVCode=" + session.get("vcode"));
         logger.info("Actual vcode=" + vcode);
         logger.info("idcode=" + ID_code);
-
-        ModelAndView mv = new ModelAndView();
 
         Map<String, Object> resMap = new HashMap<>();
         String sessionVcode = (String) session.get("vcode");
 
         if (sessionVcode != null && vcode != null && sessionVcode.equals(vcode)) {
 
-            WeChatUser user = (WeChatUser) session.get("wxuser");
-            logger.info(user.getOpenid());
+            WeChatUser wxuser = (WeChatUser) session.get("wxuser");
+            logger.info(wxuser.getOpenid());
 
-            weChatUserService.addWxUser(user);
+            weChatUserService.addWxUser(wxuser);
+            httpSession.setAttribute("wxuser", wxuser);
+            httpSession.setAttribute("username", wxuser.getNickname());
+            httpSession.setAttribute("user", personService.findPersonByIdperson(wxuser.getIdperson()));
 
             resMap.put("result", 1);
         } else {
@@ -487,7 +487,7 @@ public class Home {
                 questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
             else
                 questionnaire.setIdperson((Integer) session.get("idperson2"));
-            
+
             Integer version = (Integer) session.get("q_version");
             questionnaire.setQtnaire_version(version != null ? version : 1);
 
@@ -540,8 +540,9 @@ public class Home {
         //返回home
         return "../index";
     }
+
     @RequestMapping("/success")
-    public String success(Model model){
+    public String success(Model model) {
         return "views/success";
     }
 
