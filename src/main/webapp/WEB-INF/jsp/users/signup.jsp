@@ -160,12 +160,7 @@
                         if (data.result == '-1') {
                             document.getElementById("id_code").className = ' is-valid';
                             document.getElementById("id-error").className = ' text-danger';
-                            document.getElementById("id-error").innerText = "没有您的预申请信息，请联系专属管理员。";
-                        } else if (data.result == '-2') {
-                            document.getElementById("phone").className = ' is-valid';
-                            document.getElementById("tel-error").className = ' text-danger';
-                            document.getElementById("tel-error").innerText = "您的手机号与管理员提交的不同";
-                            window.location.assign(window.location.origin + "/signupPageFollowed");
+                            document.getElementById("id-error").innerText = "您的手机号与系统记录不符，请联系管理员核实";//没有您的预申请信息，请联系专属管理员。
                         } else if (data.result == '1') {
                             document.getElementById("vcode-error").innerText = "短信验证码已发送，请查收";
                             wxuser = data.wxuser;

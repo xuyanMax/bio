@@ -67,6 +67,9 @@
     <div class="jumbotron">
         <h1 align="center">Flup</h1>
         <h1 align="center">职业人群健康体检筛查项目</h1></br></br>
+        <p align="center"><a class="btn btn-primary btn-lg" role="button" href="/wx/login">
+            点击登录</a>
+        </p>
     </div>
 </div>
 <%

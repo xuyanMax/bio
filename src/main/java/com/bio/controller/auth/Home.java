@@ -364,12 +364,20 @@ public class Home {
             return resMap;
         }
 
-        if (p.getTel1() == null || (p.getTel1() != null && !p.getTel1().equals(phone))) {
-            resMap.put("result", "1");
-            logger.error("单位管理员，手机号码不匹配");
+        //手机号码为空
+        if (p.getTel1() == null) {
             p.setTel1(phone);
             personService.modifyPerson(p);
+            logger.error("数据库手机号码为空");
         }
+        // 不为空 && 不匹配
+        if ((p.getTel1() != null && !p.getTel1().equals(phone))) {
+            resMap.put("result", -1);//返回"您的手机号与系统记录不符，请联系管理员核实"
+            return resMap;
+        }
+
+        //(手机号码不为空 && 匹配) || 手机号码为空
+        //执行发送短信操作
         WeChatUser user = (WeChatUser) session.get("wxuser");
 
         user.setIdperson(p.getIdperson());
