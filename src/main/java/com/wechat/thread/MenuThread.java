@@ -43,7 +43,7 @@ public class MenuThread implements Runnable {
         center.setName("职业人群项目");
         center.setType("view");
         try {
-            center.setUrl(WeChatConstants.Get_WEIXINPAGE_Code
+            center.setUrl(WeChatConstants.Get_WEIXINPAGE_Code_silent
                     .replace("REDIRECT_URI", URLEncoder.encode(WeChatConstants.CALL_BACK, "utf-8"))
                     .replace("APPID", TokenThread.appID)
                     .replace("STATE", "AUTH"));
