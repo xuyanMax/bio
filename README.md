@@ -247,6 +247,11 @@ Email|xuyanpeter0619@gmail.com
         1. 不为空，且不匹配，提示“您的手机号与系统记录不符，请联系管理员核实”
         1. 不为空，且匹配，发送短信
 
+**week24**
+1. 添加Result, Exception
+1. 优化代码
+
+
 jdk
 ------
 
@@ -352,23 +357,6 @@ ssh连接
 1. 部署到服务器 
 
 
-登陆
-------
-    
-管理员利用md5脚本工具`Flup/scripts/output_file_md5.py`，预先添加persons表中的管理员用户，对应的centerid字段不能为空且要出现于表centers的idcenter字段中
-     
-## pc端登陆
-1. 用户/本地管理员/系统管理员登陆，校验姓名+身份证号，判断是否为Admin user，
-    1. 若是本地管理员, 进入主页index.jsp
-    1. 若是普通user，进入待定用户界面 xxx.jsp
-    1. 若是系统管理员, 进入待定系统界面 yyy.jsp
-------    
-2. 登陆流程
-    1. 判断无指定session, 则拦截访问, 跳转至登陆界面: 请求输入用户名+身份证验证
-        1. 管理员，可上传文件、添加用户信息  
-        1. 普通用户  
-        1. 系统管理员
-
 ### 微信端扫码登陆
      
 上传文件
@@ -383,7 +371,7 @@ ssh连接
 **下载表格模版**
 进入`上传文件`页面，点击导航栏的`下载表格模版`,模版自动下载到`Downloads`文件夹下
     
-## AJAX注意点
+## AJAX
 1. __什么叫异步__
     1. 当前页面发送一个请求给服务器，当前页面不需要等待服务器响应才能操作网页。发送完请求之后，当前页面可以继续浏览，操作。
 1. 概念
@@ -508,22 +496,8 @@ http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js
 
 ```
 
-##  OAuth2.0开放授权
-
-
 问题交流
 ------
-**上传/下载文件**
-
-1. 根据上传文件，`生成下载队列信息表`中可包含上传文件中的原身份证号信息，然后结合的数据库数据中，无法反推得到该部分用户原身份证号信息(从实现的角度，还是有点疑惑)
-1. `文件下载`，并未像传统下载方式一样，在浏览器界面左下角显示下载文件，而是直接下载到当前用户的Downloads，同时在浏览器界面提示下载成功信息
-
-**SSH 远程连接**
-参考`/com/bio/Utils/SSHConnection.java`
-
-**tomcat部署**
-1. `Tomcat部署war包`访问路径问题，通过替换ROOT文件方式实现
-
 
 **session管理**
 1. `Session`管理，目前使用注解@sessionAttribute
@@ -580,15 +554,10 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
         1. 配置GetAccessTokenServlet, 于web.xml添加Servlet, 声明其在Spring容器启动时，启动该Servlet中线程，获取Access_Token 
 
  
-**微信公众平台接口调试工具**
-1. 测试微信不同接口类型
-
 **获取用户openId的途径有 [参考](https://www.cnblogs.com/txw1958/p/weixin76-user-info.html)**
 1. 用户关注以及回复消息的时候，均可以获得用户的OpenID
 1. 通过OAuth2.0方式弹出授权页面获得用户基本信息
 1. 通过OAuth2.0方式不弹出授权页面获得用户基本信息
-
-**向微信特定地址发起GET请求**
 
 **SERVERE:Could not contact localhost:8005. Tomcat may not be running. Connection refused**
 
@@ -602,28 +571,10 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 也可能，是tomcat内存不够 
         1. 配置tomcat调用的虚拟机内存大小: Linux, 修改`$TOMCAT_HOME/bin/catalina.sh`, 位置`cygwin=false`前。`JAVA_OPTS="-server -Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m"`（仅做参考，具体数值根据自己的电脑内存配置）
 
-**HttpServletRequest vs. HttpServletResponse**
-1. __重定向与请求转发区别__
-    1. 重定向，是服务器向浏览器重新发送了一个`response`命令,让游览器再次向url2发送请求，以获取url2的资源
-    1. 而请求转发，类似于是服务器自己向自己发了一个跳转，然后将结果直接给浏览器，这也是问什么游览器会不改变url地址
-1. request.getRequestDispather(url).forward(request, response)  
-    1. 服务器跳转，url保持不变
-    1. 只能定位到服务器资源，不能转发到此WEB外
-1. response.sendRedirect(url)  
-    1. 浏览器跳转，url改变
-    1. 能跳转到任意网址
-    1. 跳转到指定页面后，上一个页面的request对象消亡，数据丢失
-
-
-**发起http(s)请求**
-1. 发起http与https请求原理区别
-1. Java实现区别
-1. 项目中用到的地方有
-
 **测试流程**
 1. 本地管理员登陆
     1. 用户名: 本地管理员
-    1. 密码：13010419920518241X
+    1. 密码：1301042992051888X
 1. 上传文件
     1. 点击`下载模版`，获得模版后，将用户信息填入，不要空行
     1. 上传1或多个`***.xls`文件
@@ -643,16 +594,9 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
 1. 自动初始化题目数量 _done_
 1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _done_
 1. __AJAX发送JSON数据到后台__ _done_
-1. 上传Excel文件后，人员信息存入两次 _not started_
-    1. DEBUG模式，输出返回的
-1. __完善微信二维码登陆逻辑梳理__ _in progress_
-1. __tomcat启动网页后错误__ __not started__
-    1. HTTP Status 404 – Not Found
-    1. Type Status Report
-    1. Message Not found
-    1. Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
 1. 注册时，如果微信用户已经不存在则`insert`，否则`update`; 抑或始终`update`
 ```mysql
+
 INSERT INTO clients
 
 (client_id, client_name, client_type)
