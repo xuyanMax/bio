@@ -147,6 +147,10 @@ public class Home {
                              ModelMap session) {
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
+
+        user.setTel1("");
+        personService.modifyPerson(user);
+
         try {
             response.sendRedirect("/signupPage");
         } catch (IOException e) {
@@ -339,7 +343,7 @@ public class Home {
     @RequestMapping("register/sms")
     @ResponseBody
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
-                                           ModelMap session,
+                                           HttpSession session,
                                            String vcode,
                                            String phone,
                                            String idcode,
@@ -351,7 +355,9 @@ public class Home {
         logger.info("单位=" + centerName);
 
         /** 短信验证码存入session(session的默认失效时间30分钟) */
-        session.addAttribute("vcode", vcode);
+        session.setAttribute("vcode", vcode);
+
+        session.setMaxInactiveInterval(5 * 60);
 
         int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
         logger.info(idcenter);
@@ -378,7 +384,7 @@ public class Home {
 
         //(手机号码不为空 && 匹配) || 手机号码为空
         //执行发送短信操作
-        WeChatUser user = (WeChatUser) session.get("wxuser");
+        WeChatUser user = (WeChatUser) session.getAttribute("wxuser");
 
         user.setIdperson(p.getIdperson());
 
