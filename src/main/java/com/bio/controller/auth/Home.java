@@ -148,7 +148,7 @@ public class Home {
         Person user = (Person) session.get("user");
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
 
-        user.setTel1("");
+        user.setTel1(null);
         personService.modifyPerson(user);
 
         try {
