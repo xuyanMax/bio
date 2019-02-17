@@ -75,7 +75,7 @@ public class FileUploadController {
 
             String fileName = request.getServletContext().getRealPath("/data/") + DBUtils.FILE_NAME;
             model.addAttribute("fileName", fileName);
-            return "views/success";
+            return "redirect:/success";
         }
     }
 

@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2"})
+@SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2", "firstValues"})
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -456,7 +456,7 @@ public class Home {
 
         Integer idperson = user != null ? user.getIdperson() : 1;
 
-        Center c = centerService.findPersonInCentersByIdperson(idperson);
+        Center c = centerService.findPersonInCentersByCenterid(user.getIdcenter());
         Integer sex = Integer.valueOf(gender);
         try {
             if (sex % 2 != 0)
@@ -466,6 +466,11 @@ public class Home {
         } catch (JSchException e) {
             e.printStackTrace();
         }
+        List<Integer> firstValues = FetchData.getFirstValues();
+
+        logger.info(firstValues);
+
+        mv.addObject("firstValues", firstValues);
         mv.addObject("surveyJSON", surveyJSON);
         return mv;
     }
@@ -484,12 +489,12 @@ public class Home {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        int idquestionnaire = 0;
         JSONObject surveyJSON = JSON.parseObject(surveyJson);
 
         logger.info(session.get("user"));
         Person user = (Person) session.get("user");
         logger.info(user.getID_code_cut());
-        logger.info(surveyJSON.getString("1"));
 
         Questionnaire questionnaire = null;
         logger.info(session.get("idperson2"));
@@ -507,23 +512,21 @@ public class Home {
 
             questionnaire.setScore(0);
 
-            logger.info(questionnaire);
-
             String filling_time = questionnaire.getFilling_time();
             questionService.addQuestionAnswer(questionnaire);
 
             questionnaire = questionService.findQuestionByFillingTime(filling_time);
 
             logger.info(questionnaire);
-        }
 
+        }
         for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
             logger.info(item.getKey());
             logger.info(item.getValue());
 
             if (questionnaire != null) {
                 Answer answer = new Answer();
-                answer.setIdquestion(Integer.valueOf(item.getKey()));
+                answer.setIdquestion(Integer.parseInt(parseIdquestion(item)));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
                 answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
@@ -532,6 +535,23 @@ public class Home {
             }
 
         }
+        idquestionnaire = questionnaire.getIdquestionnaire();
+        List<Integer> firstValues = (List<Integer>) session.get("firstValues");
+
+        logger.info(firstValues);
+        int count = 0;
+
+        for (Integer idquestion : firstValues) {
+            // size of answers = 2
+            List<Answer> answers = answerService.findByIdquestionIdQuestionnaire(idquestion, idquestionnaire);
+            if (answers != null && answers.size() > 1) {
+                if (answers.get(0).getAnswers().equalsIgnoreCase(answers.get(1).getAnswers()))
+                    count += 20;
+            } else break;
+        }
+        logger.info(count);
+        //记录问卷调查总分
+        map.put("count", count);
         return map;
     }
 
@@ -615,6 +635,13 @@ public class Home {
 
         }
         return "../index";
+    }
+
+    public String parseIdquestion(Map.Entry<String, Object> item) {
+
+        if (item.getKey().contains("_"))
+            return item.getKey().substring(0, item.getKey().length() - 1);
+        else return item.getKey();
     }
 
 

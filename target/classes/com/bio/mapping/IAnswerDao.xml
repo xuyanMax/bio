@@ -6,4 +6,7 @@
     <insert id="insertAnswer">
         insert into answers (idquestion, idquestionnaire, answers) values (#{idquestion}, #{idquestionnaire}, #{answers});
     </insert>
+    <select id="selectByIdquestionIdquestionnaire" resultType="com.bio.beans.Answer">
+        select * from answers where idquestion=#{0} and idquestionnaire=#{1};
+    </select>
 </mapper>

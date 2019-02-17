@@ -4,13 +4,14 @@ import com.JsonGenerator.element.*;
 import com.JsonGenerator.type.*;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.SSHConnection;
+import com.bio.beans.Answer;
+import com.bio.service.IAnswerService;
 import com.jcraft.jsch.JSchException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FetchData {
     private static Logger logger = Logger.getLogger(FetchData.class);
@@ -18,6 +19,9 @@ public class FetchData {
     private static String SQL_ALL = "SELECT * FROM questions";
     private static String SQL_TABLE = "SELECT * FROM questions where types = \'blank\' limit 2";
     private static String SQL = "SELECT a.* FROM questions as a, qtnaire_version as b where a.idquestion=b.idquestion and b.version=?";
+    private static String SQL_REPEAT = "SELECT DISTINCT * from (select c.*, d.`sup1` FROM questions as c, qtnaire_version as d where c.idquestion=d.idquestion and d.version=? order by d.idquestion DESC) n\n" +
+            "union all\n" +
+            "SELECT DISTINCT * from (select a.*, b.`sup1` from questions as a inner join `qtnaire_version` as b on a.idquestion=b.idquestion and b.sup1='repeat' and b.version=? order by b.idquestion DESC) m";
     private static String LEFT_BRACKET = "（";
     private static String RIGHT_BRACKET = "）";
     private static String REG_START = "^";
@@ -32,27 +36,32 @@ public class FetchData {
     private static String QUESTIONMARK = "?";
     private static String AMPERSAND = "&";
     private static String EQUALSIGN = "=";
-
+    public static List<Integer> firstValues;
 
     //参考 www.cnblogs.com/guodefu909/p/5805667.html
     public static void main(String[] args) {
         try {
             SSHConnection sshConnection = new SSHConnection();
-            getSurveyJSON(4);
+            System.out.println(getSurveyJSON(5));
         } catch (JSchException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getSurveyJSON(int num) throws JSchException {
+    public static List<Integer> getFirstValues() {
+        return firstValues;
+    }
+
+    public static String getSurveyJSON(int version) throws JSchException {
 
         //单独跑main()方法连接远程库时候需要本句，连接本地库不需要
-        //配合SpringMVC使用，则注释下掉该句
+        //配合SpringMVC使用，则注释掉该句
         Connection conn = null;
         Statement statement = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         SurveyJson surveyJson = new SurveyJson();
+        firstValues = new ArrayList<>();
 
         try {
             Class.forName(SSHConnection.JDBC_DRIVER);
@@ -61,20 +70,24 @@ public class FetchData {
             //本地库
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev",SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
 //            statement = conn.createStatement();
-            preparedStatement = conn.prepareStatement(SQL);
-            preparedStatement.setInt(1, num);
+            Set<Integer> repeated = selectRepeatQuestions(conn, version);
+            firstValues.addAll(repeated);
+            preparedStatement = conn.prepareStatement(SQL_REPEAT);
+            preparedStatement.setInt(1, version);
+            preparedStatement.setInt(2, version);
             rs = preparedStatement.executeQuery();
 //            rs = statement.executeQuery(SQL);
-
-            //获取列名
-            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+//            rs.last();
+//            int RsSize = rs.getRow();
+//            logger.info(RsSize);
+//            rs.beforeFirst();
 
             //获取数据
             int num_quest = 0;
             Page page;
             List<BaseQuestion> elements = null;
+            boolean flag = false;
             while (rs.next()) {
-
                 if (num_quest % NUM_PER_PAGE == 0) {
                     page = new Page();
                     page.setName("page" + num_quest / NUM_PER_PAGE);
@@ -91,16 +104,20 @@ public class FetchData {
                 String description = rs.getString("note");
                 String section = rs.getString("section");
                 String supporting = rs.getString("supporting");
+
+                if (repeated != null && !repeated.isEmpty() && repeated.contains(idquestion))
+                    repeated.remove(idquestion);
+
                 if (type.equals("choice")) {
 
-                    RadioGroup radioGroup = new RadioGroup("" + idquestion, question);
+                    RadioGroup radioGroup = new RadioGroup("" + idquestion + (flag ? "_" : ""), question);
                     //拆分选项,生成选项
                     List<Choice> choices = addChoices(opts);
                     radioGroup.setChoices(choices);
                     //添加到Page.elements
                     elements.add(radioGroup);
                 } else if (type.equals("double")) {
-                    Checkbox checkBox = new Checkbox("" + idquestion, question);
+                    Checkbox checkBox = new Checkbox("" + idquestion + (flag ? "_" : ""), question);
                     List<Choice> choices = addChoices(opts);
 
                     if (description != null) checkBox.setDescription(description);
@@ -110,7 +127,7 @@ public class FetchData {
                     elements.add(checkBox);
                 } else if (type.equals("table")) {
 
-                    MatrixDynamic matrixDynamic = new MatrixDynamic("" + idquestion, question);
+                    MatrixDynamic matrixDynamic = new MatrixDynamic("" + idquestion + (flag ? "_" : ""), question);
                     AssembleMatrixDynamic(matrixDynamic, description, opts);
                     elements.add(matrixDynamic);
 
@@ -122,16 +139,19 @@ public class FetchData {
                         elements.add(text);
                     } else {
 
-                        MultipleText multipleText = new MultipleText("" + idquestion, generateMultiTextTitle(question));
+                        MultipleText multipleText = new MultipleText("" + idquestion + (flag ? "_" : ""),
+                                generateMultiTextTitle(question));
 
                         multipleText.setItems(multiTextAddItems(question));
 
                         if (description != null) multipleText.setDescription(description);
                         elements.add(multipleText);
                     }
-
                 }
+                if (repeated.isEmpty())
+                    flag = true;
             }
+            logger.info("【问卷题目数目】=" + num_quest);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -226,6 +246,7 @@ public class FetchData {
 
                 if (subqustions[i].contains(HASH)) {//添加错误提示
                     String text = subqustions[i].substring(subqustions[i].indexOf(HASH) + 1);
+                    //todo 错误提示错误地将后面地?text1=name1&text2=name2传入提示
                     validatorRegex.setText(text);//错误提示
                 }
                 items.get(i).getValidators().add(validatorRegex);
@@ -282,6 +303,29 @@ public class FetchData {
             }
             column.setName(name);
             matrixDynamic.getColumns().add(column);
+        }
+    }
+
+    public static String sql = "select a.idquestion from questions as a, qtnaire_version as b " +
+            "where a.idquestion=b.idquestion and b.sup1='repeat' and b.version=?";
+
+    public static Set<Integer> selectRepeatQuestions(Connection connection, int version) {
+
+        Set<Integer> repeatIdquestions = new HashSet<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, version);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) repeatIdquestions.add(rs.getInt("idquestion"));
+
+            logger.info(repeatIdquestions);
+            return repeatIdquestions;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            return repeatIdquestions;
         }
     }
 }

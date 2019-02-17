@@ -1,7 +1,9 @@
 package com.bio.beans;
 
 public class Admin {
+
     private int idadmin;
+
     private int idperson;
 
     public int getIdadmin() {

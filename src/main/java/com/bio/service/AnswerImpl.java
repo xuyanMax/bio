@@ -5,6 +5,8 @@ import com.bio.dao.IAnswerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnswerImpl implements IAnswerService {
     @Autowired
@@ -13,5 +15,10 @@ public class AnswerImpl implements IAnswerService {
     @Override
     public void addAnswer(Answer answer) {
         iAnswerDao.insertAnswer(answer);
+    }
+
+    @Override
+    public List<Answer> findByIdquestionIdQuestionnaire(int idquestion, int idquestionnaire) {
+        return iAnswerDao.selectByIdquestionIdquestionnaire(idquestion, idquestionnaire);
     }
 }

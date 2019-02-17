@@ -5,13 +5,13 @@ public class BaseQuestion {
     String type;
     String title;
     String description;
-    boolean isRequired;
+    boolean isRequired = false;
 
     public BaseQuestion(String name, String title) {
         this.name = name;
         this.title = title;
         this.description="";
-        this.isRequired = true;
+        this.isRequired = false;
     }
 
     public String getDescription() {

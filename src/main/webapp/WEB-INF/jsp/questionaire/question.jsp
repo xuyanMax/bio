@@ -42,10 +42,11 @@
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 data: JSON.stringify(survey.data),
-                success: function () {
+                success: function (data) {
                     alert("问卷结果：" + JSON.stringify(survey.data));
                     // alert(surveyJSON);
                     // alert(JSON.stringify(surveyJSON));
+                    alert("得分情况: " + data.count);
                 },
                 error: function () {
                     alert("提交发送错误!");

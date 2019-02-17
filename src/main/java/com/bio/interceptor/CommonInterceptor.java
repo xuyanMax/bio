@@ -57,7 +57,6 @@ public class CommonInterceptor implements HandlerInterceptor {
         if (url.contains("signupPageFollowed")) {
             if (httpServletRequest.getSession().getAttribute("idcode") == null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/wx/login");
-//                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/signupPage");
                 logger.info("=====interceptor end======");
                 return false;
             } else

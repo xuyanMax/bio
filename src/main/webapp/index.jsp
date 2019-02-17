@@ -68,8 +68,13 @@
         <h1 align="center">Flup</h1>
         <h1 align="center">职业人群健康体检筛查项目</h1></br></br>
         <p align="center"><a class="btn btn-primary btn-lg" role="button" href="/wx/login">
-            点击登录</a>
+            点击登录网页版系统</a>
         </p>
+    </div>
+    <div class = "container">
+        <h2 style="text-align: center;">扫码关注CHGC微信公众账号</h2>
+        <img src = "https://www.tutorialspoint.com/bootstrap/images/64.jpg"
+             class = "mx-auto d-block" alt = "Center Image" width = "200" height = "200">
     </div>
 </div>
 <%
