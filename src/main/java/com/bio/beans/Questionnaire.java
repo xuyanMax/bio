@@ -1,12 +1,68 @@
 package com.bio.beans;
 
 public class Questionnaire {
+
     Integer idperson;
+
     Integer idquestionnaire;
+
     String questionnaire_num;
+
     String filling_time;
+
     Integer qtnaire_version;
+
     Integer score;
+
+    String fyrs_risk;
+
+    String lifetime_risk;
+
+    String risk_crcmale;
+
+    String risk_crcfemale;
+
+    String risk_bra;
+
+    public String getFyrs_risk() {
+        return fyrs_risk;
+    }
+
+    public void setFyrs_risk(String fyrs_risk) {
+        this.fyrs_risk = fyrs_risk;
+    }
+
+    public String getLifetime_risk() {
+        return lifetime_risk;
+    }
+
+    public void setLifetime_risk(String lifetime_risk) {
+        this.lifetime_risk = lifetime_risk;
+    }
+
+    public String getRisk_crcmale() {
+        return risk_crcmale;
+    }
+
+    public void setRisk_crcmale(String risk_crcmale) {
+        this.risk_crcmale = risk_crcmale;
+    }
+
+    public String getRisk_crcfemale() {
+        return risk_crcfemale;
+    }
+
+    public void setRisk_crcfemale(String risk_crcfemale) {
+        this.risk_crcfemale = risk_crcfemale;
+    }
+
+    public String getRisk_bra() {
+        return risk_bra;
+    }
+
+    public void setRisk_bra(String risk_bra) {
+        this.risk_bra = risk_bra;
+    }
 
     public Integer getIdperson() {
         return idperson;

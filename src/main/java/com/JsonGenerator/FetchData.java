@@ -40,16 +40,32 @@ public class FetchData {
 
     //参考 www.cnblogs.com/guodefu909/p/5805667.html
     public static void main(String[] args) {
-        try {
-            SSHConnection sshConnection = new SSHConnection();
-            System.out.println(getSurveyJSON(5));
-        } catch (JSchException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            SSHConnection sshConnection = new SSHConnection();
+//            System.out.println(getSurveyJSON(5));
+
+            String sql = "select `lifetime_risk` from risk_crcmale where factor1=50 and factor2=0 and factor3=1 and factor4=1 and factor5=1 and factor6=0 and factor7=1 and factor8=0 and factor9=1 and factor10=0";
+            Connection connection = null;
+            try {
+                connection = FetchData.getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                logger.info(rs.getString(0));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+//        } catch (JSchException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static List<Integer> getFirstValues() {
         return firstValues;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(SSHConnection.JDBC_URL, SSHConnection.DB_USERNAME, SSHConnection.DB_PASSWORD);
     }
 
     public static String getSurveyJSON(int version) throws JSchException {
@@ -66,7 +82,7 @@ public class FetchData {
         try {
             Class.forName(SSHConnection.JDBC_DRIVER);
             //远程库
-            conn = DriverManager.getConnection(SSHConnection.JDBC_URL, SSHConnection.DB_USERNAME, SSHConnection.DB_PASSWORD);
+            conn = getConnection();
             //本地库
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev",SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
 //            statement = conn.createStatement();

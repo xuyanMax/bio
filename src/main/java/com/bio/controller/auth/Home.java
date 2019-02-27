@@ -22,9 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +38,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2", "firstValues"})
+@SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2", "firstValues", "q_version"})
 public class Home {
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
@@ -54,6 +59,10 @@ public class Home {
     IQuestionService questionService;
     @Autowired
     IRelativeService relativeService;
+    @Autowired
+    IQtRiskModelService qtRiskModelService;
+    @Autowired
+    IRiskModelService riskModelService;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap session) {
@@ -471,6 +480,7 @@ public class Home {
         logger.info(firstValues);
 
         mv.addObject("firstValues", firstValues);
+        mv.addObject("q_version", c.getCurrent_qtversion());
         mv.addObject("surveyJSON", surveyJSON);
         return mv;
     }
@@ -498,28 +508,106 @@ public class Home {
 
         Questionnaire questionnaire = null;
         logger.info(session.get("idperson2"));
+
+        Integer version = (Integer) session.get("q_version");
+
+        List<Qtnaireversion_riskmodel> riskmodelList = qtRiskModelService.findRiskModelByVersion(version);
+
+        String lifetimeRisk = "";
+        String fyrsRisk = "";
+        String modelName = "";
+
+        try {
+            Connection connection = FetchData.getConnection();
+            Statement statement = connection.createStatement();
+
+            for (Qtnaireversion_riskmodel qtnaireversionRiskmodel : riskmodelList) {
+                logger.info(qtnaireversionRiskmodel);
+                RiskModel rm = riskModelService.findRiskModelByIdriskmodel(qtnaireversionRiskmodel.getIdriskmodel());
+                logger.info(rm);
+                modelName = rm.getModelname();
+                String sqlselectFactor = rm.getSqlselect_factor();
+                String sqlselectRisk = rm.getSqlselect_risk();
+
+                logger.info("【sqlselectFactor】=" + sqlselectFactor);
+                logger.info("【sqlselectRisk】=" + sqlselectRisk);
+
+                // 10 factors
+                ResultSet rs = statement.executeQuery(sqlselectFactor);
+                List<Integer> listValues = new ArrayList<>();
+
+                while (rs.next()) listValues.add(rs.getInt(2));
+
+                if (listValues != null && listValues.size() != 0) {
+                    if (listValues.get(0) < 50) {
+                        listValues.set(0, 50);
+                    }
+                }
+
+                StringBuilder sqlBuilder = new StringBuilder();
+                String[] strs = sqlselectRisk.split("\\?");
+
+                if (strs != null && listValues != null) {
+                    logger.info(strs.length);
+                    logger.info(listValues.size());
+                    if (strs.length != listValues.size()) {
+                        logger.error("sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致");
+                    } else {
+                        for (int i = 0; i < strs.length; i++) sqlBuilder.append(strs[i]).append(listValues.get(i));
+
+                        logger.info(sqlBuilder.toString());
+
+                        statement = connection.createStatement();
+                        rs = statement.executeQuery(sqlBuilder.toString());
+
+                        while (rs.next()) {
+                            lifetimeRisk = rs.getString("lifetime_risk");
+                            fyrsRisk = rs.getString("fyrs_risk");
+                        }
+
+                        logger.info(lifetimeRisk);
+                        logger.info(fyrsRisk);
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         if (surveyJSON != null) {
             questionnaire = new Questionnaire();
 
             questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-            if (session.get("idperson2") == null)
+            if (session.get("idperson2") == null) {
                 questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
-            else
+            } else {
                 questionnaire.setIdperson((Integer) session.get("idperson2"));
+            }
 
-            Integer version = (Integer) session.get("q_version");
             questionnaire.setQtnaire_version(version != null ? version : 1);
 
-            questionnaire.setScore(0);
+            questionnaire.setQtnaire_version(version);
+
+            if (modelName.equalsIgnoreCase("crcmale")) {
+                questionnaire.setRisk_crcmale(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
+            } else if (modelName.equalsIgnoreCase("crcfemale")) {
+                questionnaire.setRisk_crcfemale(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
+            } else if (modelName.equalsIgnoreCase("bra")) {
+                questionnaire.setRisk_bra(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
+            }
 
             String filling_time = questionnaire.getFilling_time();
             questionService.addQuestionAnswer(questionnaire);
 
             questionnaire = questionService.findQuestionByFillingTime(filling_time);
 
+//            questionnaire.setLifetime_risk(lifetimeRisk);
+
             logger.info(questionnaire);
 
         }
+
         for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
             logger.info(item.getKey());
             logger.info(item.getValue());
@@ -533,8 +621,8 @@ public class Home {
                 logger.info(answer);
                 answerService.addAnswer(answer);
             }
-
         }
+
         idquestionnaire = questionnaire.getIdquestionnaire();
         List<Integer> firstValues = (List<Integer>) session.get("firstValues");
 
@@ -549,9 +637,12 @@ public class Home {
                     count += 20;
             } else break;
         }
+        questionnaire.setScore(count);
+        questionService.modifyQuestionnaire(questionnaire);
         logger.info(count);
         //记录问卷调查总分
         map.put("count", count);
+        map.put("lifetime_risk", fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
         return map;
     }
 
@@ -632,9 +723,40 @@ public class Home {
                 logger.info(answer);
                 answerService.addAnswer(answer);
             }
-
         }
         return "../index";
+    }
+
+    @RequestMapping("/testQtnaireversion_riskmodel")
+    public String testQtnaireversion_riskmodel(HttpServletRequest request) {
+
+        List<Qtnaireversion_riskmodel> riskModelList = qtRiskModelService.findRiskModelByVersion(3);
+        for (Qtnaireversion_riskmodel qtnaireversionRiskmodel : riskModelList) {
+            logger.info(qtnaireversionRiskmodel);
+            RiskModel rm = riskModelService.findRiskModelByIdriskmodel(qtnaireversionRiskmodel.getIdriskmodel());
+            logger.info(rm);
+            String sql = rm.getSqlselect_factor();
+            logger.info("【sql】=" + sql);
+        }
+
+        return "../index";
+
+    }
+
+    @RequestMapping("/testUpdateQustionnaireById")
+    public String testUpdateQustionnaireById(HttpServletRequest request) {
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setScore(50);
+        questionnaire.setIdquestionnaire(49);
+        questionnaire.setFilling_time("2018-10-25 11:39:99");
+        questionnaire.setIdperson(999);
+        questionnaire.setQtnaire_version(2);
+        questionService.modifyQuestionnaire(questionnaire);
+        logger.info(questionnaire);
+
+        return "../index";
+
     }
 
     public String parseIdquestion(Map.Entry<String, Object> item) {

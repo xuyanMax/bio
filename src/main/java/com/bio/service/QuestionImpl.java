@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionImpl implements IQuestionService {
+
     @Autowired
     IQDao iqDao;
 
@@ -18,5 +19,10 @@ public class QuestionImpl implements IQuestionService {
     @Override
     public Questionnaire findQuestionByFillingTime(String filling_time) {
         return iqDao.selectQuestion(filling_time);
+    }
+
+    @Override
+    public void modifyQuestionnaire(Questionnaire questionnaire) {
+        iqDao.updateQuestion(questionnaire);
     }
 }

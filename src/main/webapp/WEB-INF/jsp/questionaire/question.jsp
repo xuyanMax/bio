@@ -47,6 +47,7 @@
                     // alert(surveyJSON);
                     // alert(JSON.stringify(surveyJSON));
                     alert("得分情况: " + data.count);
+                    alert("lifetime_risk: " + data.lifetime_risk)
                 },
                 error: function () {
                     alert("提交发送错误!");
