@@ -480,7 +480,7 @@ public class Home {
         logger.info(firstValues);
 
         mv.addObject("firstValues", firstValues);
-        mv.addObject("q_version", c.getCurrent_qtversion());
+        mv.addObject("q_version", sex % 2 != 0 ? c.getCurrent_qtversion() : c.getCurrent_qtversion() + 1);
         mv.addObject("surveyJSON", surveyJSON);
         return mv;
     }
@@ -516,24 +516,71 @@ public class Home {
         String lifetimeRisk = "";
         String fyrsRisk = "";
         String modelName = "";
+        String filling_time = ClientInfoUtils.getCurrDatetime();
+
+
+        if (surveyJSON != null) {
+
+            questionnaire = new Questionnaire();
+
+            questionnaire.setFilling_time(filling_time);
+            if (session.get("idperson2") == null) {
+                questionnaire.setIdperson(user != null ? user.getIdperson() : -1);
+            } else {
+                questionnaire.setIdperson((Integer) session.get("idperson2"));
+            }
+
+            questionnaire.setQtnaire_version(version != null ? version : -1);
+
+            filling_time = questionnaire.getFilling_time();
+            questionService.addQuestionAnswer(questionnaire);
+
+            questionnaire = questionService.findQuestionByFillingTime(filling_time);
+
+            logger.info(questionnaire);
+
+        }
+
+        for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
+            logger.info(item.getKey());
+            logger.info(item.getValue());
+
+            if (questionnaire != null) {
+                Answer answer = new Answer();
+                answer.setIdquestion(Integer.parseInt(parseIdquestion(item)));
+                answer.setAnswers(item.getValue().toString());
+                answer.setIdperson(questionnaire.getIdperson());
+                answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
+                logger.info(answer);
+                answerService.addAnswer(answer);
+            }
+        }
 
         try {
+
             Connection connection = FetchData.getConnection();
             Statement statement = connection.createStatement();
 
             for (Qtnaireversion_riskmodel qtnaireversionRiskmodel : riskmodelList) {
+
+                questionnaire = questionService.findQuestionByFillingTime(filling_time);
                 logger.info(qtnaireversionRiskmodel);
                 RiskModel rm = riskModelService.findRiskModelByIdriskmodel(qtnaireversionRiskmodel.getIdriskmodel());
                 logger.info(rm);
                 modelName = rm.getModelname();
                 String sqlselectFactor = rm.getSqlselect_factor();
+
                 String sqlselectRisk = rm.getSqlselect_risk();
 
-                logger.info("【sqlselectFactor】=" + sqlselectFactor);
                 logger.info("【sqlselectRisk】=" + sqlselectRisk);
+                logger.info("【sqlselectFactor】=" + sqlselectFactor
+                        .replaceAll("IDPERSON", "" + user.getIdperson())
+                        .replaceAll("IDQUESTIONNAIRE", questionnaire.getIdquestionnaire() + ""));
 
                 // 10 factors
-                ResultSet rs = statement.executeQuery(sqlselectFactor);
+                ResultSet rs = statement.executeQuery(sqlselectFactor
+                        .replaceAll("IDPERSON", "" + user.getIdperson())
+                        .replaceAll("IDQUESTIONNAIRE", questionnaire.getIdquestionnaire() + ""));
                 List<Integer> listValues = new ArrayList<>();
 
                 while (rs.next()) listValues.add(rs.getInt(2));
@@ -545,7 +592,10 @@ public class Home {
                 }
 
                 StringBuilder sqlBuilder = new StringBuilder();
-                String[] strs = sqlselectRisk.split("\\?");
+                String[] strs = sqlselectRisk
+                        .replace("IDPERSON", "" + user.getIdperson())
+                        .replace("IDQUESTIONNAIRE", questionnaire.getIdquestionnaire() + "")
+                        .split("\\?");
 
                 if (strs != null && listValues != null) {
                     logger.info(strs.length);
@@ -569,58 +619,18 @@ public class Home {
                         logger.info(fyrsRisk);
                     }
                 }
+                if (modelName.equalsIgnoreCase("crcmale")) {
+                    questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                } else if (modelName.equalsIgnoreCase("crcfemale")) {
+                    questionnaire.setRisk_crcfemale(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                } else if (modelName.equalsIgnoreCase("bra")) {
+                    questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                }
+                questionService.modifyQuestionnaire(questionnaire);
 
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        if (surveyJSON != null) {
-            questionnaire = new Questionnaire();
-
-            questionnaire.setFilling_time(ClientInfoUtils.getCurrDatetime());
-            if (session.get("idperson2") == null) {
-                questionnaire.setIdperson(user != null ? user.getIdperson() : 1);
-            } else {
-                questionnaire.setIdperson((Integer) session.get("idperson2"));
-            }
-
-            questionnaire.setQtnaire_version(version != null ? version : 1);
-
-            questionnaire.setQtnaire_version(version);
-
-            if (modelName.equalsIgnoreCase("crcmale")) {
-                questionnaire.setRisk_crcmale(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
-            } else if (modelName.equalsIgnoreCase("crcfemale")) {
-                questionnaire.setRisk_crcfemale(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
-            } else if (modelName.equalsIgnoreCase("bra")) {
-                questionnaire.setRisk_bra(fyrsRisk!=null?fyrsRisk:"" + ";" + lifetimeRisk);
-            }
-
-            String filling_time = questionnaire.getFilling_time();
-            questionService.addQuestionAnswer(questionnaire);
-
-            questionnaire = questionService.findQuestionByFillingTime(filling_time);
-
-//            questionnaire.setLifetime_risk(lifetimeRisk);
-
-            logger.info(questionnaire);
-
-        }
-
-        for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
-            logger.info(item.getKey());
-            logger.info(item.getValue());
-
-            if (questionnaire != null) {
-                Answer answer = new Answer();
-                answer.setIdquestion(Integer.parseInt(parseIdquestion(item)));
-                answer.setAnswers(item.getValue().toString());
-                answer.setIdperson(questionnaire.getIdperson());
-                answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
-                logger.info(answer);
-                answerService.addAnswer(answer);
-            }
         }
 
         idquestionnaire = questionnaire.getIdquestionnaire();

@@ -7,7 +7,7 @@
         insert into questionnaire (idperson, filling_time, qtnaire_version, score, fyrs_risk, lifetime_risk, risk_crcmale, risk_crcfemale, risk_bra) values (#{idperson}, #{filling_time}, #{qtnaire_version}, #{score}, #{fyrs_risk}, #{lifetime_risk}, #{risk_crcmale}, #{risk_crcfemale}, #{risk_bra});
     </insert>
     <update id="updateQuestion">
-        update questionnaire set score=#{score} where idquestionnaire=#{idquestionnaire}
+        update questionnaire set score=#{score}, risk_crcmale=#{risk_crcmale}, risk_crcfemale=#{risk_crcmale}, risk_bra=#{risk_bra}, lifetime_risk=#{lifetime_risk} where idquestionnaire=#{idquestionnaire}
     </update>
     <select id="selectQuestion" resultType="com.bio.beans.Questionnaire">
         select * from questionnaire where filling_time=#{xxx} limit 1
