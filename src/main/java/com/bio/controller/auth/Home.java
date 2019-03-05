@@ -575,7 +575,7 @@ public class Home {
                 logger.info("【sqlselectRisk】=" + sqlselectRisk);
                 logger.info("【sqlselectFactor】=" + sqlselectFactor
                         .replaceAll("IDPERSON", "" + user.getIdperson())
-                        .replaceAll("IDQUESTIONNAIRE", questionnaire.getIdquestionnaire() + ""));
+                        .replaceAll("IDQUESTIONNAIRE", "" + questionnaire.getIdquestionnaire()));
 
                 // 10 factors
                 ResultSet rs = statement.executeQuery(sqlselectFactor
@@ -592,10 +592,7 @@ public class Home {
                 }
 
                 StringBuilder sqlBuilder = new StringBuilder();
-                String[] strs = sqlselectRisk
-                        .replace("IDPERSON", "" + user.getIdperson())
-                        .replace("IDQUESTIONNAIRE", questionnaire.getIdquestionnaire() + "")
-                        .split("\\?");
+                String[] strs = sqlselectRisk.split("\\?");
 
                 if (strs != null && listValues != null) {
                     logger.info(strs.length);
@@ -606,13 +603,13 @@ public class Home {
                         for (int i = 0; i < strs.length; i++) sqlBuilder.append(strs[i]).append(listValues.get(i));
 
                         logger.info(sqlBuilder.toString());
+//                        connection = FetchData.getConnection();
+//                        Statement state = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(sqlBuilder.toString());
 
-                        statement = connection.createStatement();
-                        rs = statement.executeQuery(sqlBuilder.toString());
-
-                        while (rs.next()) {
-                            lifetimeRisk = rs.getString("lifetime_risk");
-                            fyrsRisk = rs.getString("fyrs_risk");
+                        while (resultSet.next()) {
+                            lifetimeRisk = resultSet.getString("lifetime_risk");
+                            fyrsRisk = resultSet.getString("fyrs_risk");
                         }
 
                         logger.info(lifetimeRisk);
@@ -620,11 +617,11 @@ public class Home {
                     }
                 }
                 if (modelName.equalsIgnoreCase("crcmale")) {
-                    questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                    questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 } else if (modelName.equalsIgnoreCase("crcfemale")) {
-                    questionnaire.setRisk_crcfemale(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                    questionnaire.setRisk_crcfemale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 } else if (modelName.equalsIgnoreCase("bra")) {
-                    questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);
+                    questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 }
                 questionService.modifyQuestionnaire(questionnaire);
 
