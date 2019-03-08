@@ -154,10 +154,15 @@ public class Home {
     public void unbindWxUser(HttpServletRequest request,
                              HttpServletResponse response,
                              ModelMap session) {
+
         Person user = (Person) session.get("user");
+
         weChatUserService.removeWxUserByIdperson(user.getIdperson());
 
+        relativeService.removeRelativeByIdperson1(user.getIdperson());
+
         user.setTel1(null);
+
         personService.modifyPerson(user);
 
         try {
@@ -616,6 +621,7 @@ public class Home {
                         logger.info(fyrsRisk);
                     }
                 }
+
                 if (modelName.equalsIgnoreCase("crcmale")) {
                     questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 } else if (modelName.equalsIgnoreCase("crcfemale")) {
@@ -623,7 +629,12 @@ public class Home {
                 } else if (modelName.equalsIgnoreCase("bra")) {
                     questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 }
+
+                // static update fixed model risk values.
                 questionService.modifyQuestionnaire(questionnaire);
+                // dynamic update risk model values;
+                String updateSql = "update questionnaire set risk_" + modelName + " where idquestionnaire=" + questionnaire.getIdquestionnaire();
+                statement.executeUpdate(updateSql);
 
             }
         } catch (SQLException e) {

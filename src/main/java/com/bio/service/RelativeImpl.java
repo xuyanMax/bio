@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class RelativeImpl implements IRelativeService {
+
     @Autowired
     private IRelativeDao iRelativeDao;
 
@@ -19,7 +20,12 @@ public class RelativeImpl implements IRelativeService {
 
     @Override
     public void removeRelativeByIdperson1AndIdperson2(Integer idperson1, Integer idperson2) {
-        iRelativeDao.deleteRelativeByIdperson1(idperson1, idperson2);
+        iRelativeDao.deleteRelativeByIdperson1AndIdperson2(idperson1, idperson2);
+    }
+
+    @Override
+    public void removeRelativeByIdperson1(Integer idperson1) {
+        iRelativeDao.deleteRelativeByIdperson1(idperson1);
     }
 
     @Override
