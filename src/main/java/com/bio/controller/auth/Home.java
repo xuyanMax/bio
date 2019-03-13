@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -622,20 +621,23 @@ public class Home {
                     }
                 }
 
-                if (modelName.equalsIgnoreCase("crcmale")) {
+           /*     if (modelName.equalsIgnoreCase("crcmale")) {
                     questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 } else if (modelName.equalsIgnoreCase("crcfemale")) {
                     questionnaire.setRisk_crcfemale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
                 } else if (modelName.equalsIgnoreCase("bra")) {
                     questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
-                }
+                }*/
 
                 // static update fixed model risk values.
-                questionService.modifyQuestionnaire(questionnaire);
+                // questionService.modifyQuestionnaire(questionnaire);
                 // dynamic update risk model values;
-                String updateSql = "update questionnaire set risk_" + modelName + " where idquestionnaire=" + questionnaire.getIdquestionnaire();
+                String updateSql = "update questionnaire set risk_"
+                        + modelName + "="
+                        + fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk
+                        + "where idquestionnaire="
+                        + questionnaire.getIdquestionnaire();
                 statement.executeUpdate(updateSql);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
