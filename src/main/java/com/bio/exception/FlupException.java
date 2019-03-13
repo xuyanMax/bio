@@ -1,12 +1,17 @@
 package com.bio.exception;
 
+import com.bio.enums.ResultEnum;
+
 public class FlupException extends RuntimeException {
 
-    public FlupException(String message) {
-        super(message);
+    private Integer code;
+
+    public FlupException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        this.code = resultEnum.getCode();
     }
 
-    public FlupException(String message, Throwable cause) {
-        super(message, cause);
+    public Integer getCode() {
+        return code;
     }
 }

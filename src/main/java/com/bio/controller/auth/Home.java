@@ -503,6 +503,7 @@ public class Home {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         int idquestionnaire = 0;
         JSONObject surveyJSON = JSON.parseObject(surveyJson);
 
@@ -522,7 +523,7 @@ public class Home {
         String modelName = "";
         String filling_time = ClientInfoUtils.getCurrDatetime();
 
-
+        // 生成idquestionnaire
         if (surveyJSON != null) {
 
             questionnaire = new Questionnaire();
@@ -544,7 +545,7 @@ public class Home {
             logger.info(questionnaire);
 
         }
-
+        // 将问卷答案输入answers表
         for (Map.Entry<String, Object> item : surveyJSON.entrySet()) {
             logger.info(item.getKey());
             logger.info(item.getValue());
@@ -560,11 +561,17 @@ public class Home {
             }
         }
 
+        // fyrs_riskN
+        List<Double> fyrRisks = new ArrayList<>();
+        // lifetime_riskN
+        List<Double> lifetimeRisks = new ArrayList<>();
+
         try {
 
             Connection connection = FetchData.getConnection();
             Statement statement = connection.createStatement();
 
+            // 计算各个模型值
             for (Qtnaireversion_riskmodel qtnaireversionRiskmodel : riskmodelList) {
 
                 questionnaire = questionService.findQuestionByFillingTime(filling_time);
@@ -589,6 +596,7 @@ public class Home {
 
                 while (rs.next()) listValues.add(rs.getInt(2));
 
+                // 年龄<50算，记录存50
                 if (listValues != null && listValues.size() != 0) {
                     if (listValues.get(0) < 50) {
                         listValues.set(0, 50);
@@ -599,38 +607,32 @@ public class Home {
                 String[] strs = sqlselectRisk.split("\\?");
 
                 if (strs != null && listValues != null) {
-                    logger.info(strs.length);
-                    logger.info(listValues.size());
+
+                    logger.info(strs.length == listValues.size() ?
+                            "数组大小一致=" + strs.length :
+                            "sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致");
+
                     if (strs.length != listValues.size()) {
                         logger.error("sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致");
                     } else {
                         for (int i = 0; i < strs.length; i++) sqlBuilder.append(strs[i]).append(listValues.get(i));
 
                         logger.info(sqlBuilder.toString());
-//                        connection = FetchData.getConnection();
-//                        Statement state = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery(sqlBuilder.toString());
 
                         while (resultSet.next()) {
                             lifetimeRisk = resultSet.getString("lifetime_risk");
                             fyrsRisk = resultSet.getString("fyrs_risk");
+
+                            if (lifetimeRisk != null) lifetimeRisks.add(Double.valueOf(lifetimeRisk));
+                            if (fyrRisks != null) fyrRisks.add(Double.valueOf(fyrsRisk));
                         }
 
-                        logger.info(lifetimeRisk);
-                        logger.info(fyrsRisk);
+                        logger.info("lifetime_risk=" + lifetimeRisk);
+                        logger.info("5yrs_risk=" + fyrsRisk);
                     }
                 }
 
-           /*     if (modelName.equalsIgnoreCase("crcmale")) {
-                    questionnaire.setRisk_crcmale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
-                } else if (modelName.equalsIgnoreCase("crcfemale")) {
-                    questionnaire.setRisk_crcfemale(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
-                } else if (modelName.equalsIgnoreCase("bra")) {
-                    questionnaire.setRisk_bra(fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk);
-                }*/
-
-                // static update fixed model risk values.
-                // questionService.modifyQuestionnaire(questionnaire);
                 // dynamic update risk model values;
                 String updateSql = "update questionnaire set risk_"
                         + modelName + "="
@@ -649,6 +651,7 @@ public class Home {
         logger.info(firstValues);
         int count = 0;
 
+        // 匹配重复问卷题目，求问卷得(0,20,40,60,80,100)
         for (Integer idquestion : firstValues) {
             // size of answers = 2
             List<Answer> answers = answerService.findByIdquestionIdQuestionnaire(idquestion, idquestionnaire);
@@ -657,9 +660,24 @@ public class Home {
                     count += 20;
             } else break;
         }
+
+        // 计算lifetime_risk, fyrs_risk
+        double lfr = 1.0, fyr = 1.0;
+        for (double num : lifetimeRisks)
+            lfr *= (1 - num);
+        for (double num : fyrRisks)
+            fyr *= (1 - num);
+
+        // 计算lifetime_score, fyrs_score
+
         questionnaire.setScore(count);
+        questionnaire.setLifetime_risk(String.valueOf(lfr));
+        questionnaire.setFyrs_risk(String.valueOf(fyr));
+
+        logger.info("lfr=" + lfr + ", 5yr_risk=" + fyr);
         questionService.modifyQuestionnaire(questionnaire);
         logger.info(count);
+
         //记录问卷调查总分
         map.put("count", count);
         map.put("lifetime_risk", fyrsRisk != null ? fyrsRisk : "" + ";" + lifetimeRisk);

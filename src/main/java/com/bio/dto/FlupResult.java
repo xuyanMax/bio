@@ -1,9 +1,15 @@
 package com.bio.dto;
 
 public class FlupResult<T> {
+
+    private static final long serialVersionUID = 3068837394742385883L;
+
     private boolean success;
+
     private T data;
+
     private String error;
+
     private Integer code;
 
     public Integer getCode() {
