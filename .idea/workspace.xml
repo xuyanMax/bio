@@ -7,28 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/handler/BioExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/test/HomeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/Utils/ResultUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/Utils/ResultVOUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/Utils/ClientInfoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/Utils/ClientInfoUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/dto/FlupResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/dto/FlupResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/exception/FlupException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/exception/FlupException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IQuestionDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IQuestionDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/shiro/ShiroDbRealm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/dao/IRelativeDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/dao/IRelativeDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/mapping/IQuestionDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/mapping/IQuestionDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/mapping/IRelativeDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/mapping/IRelativeDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/IRelativeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/IRelativeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/service/RelativeImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/service/RelativeImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IRelativeDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/dao/IRelativeDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IQuestionDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IQuestionDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IRelativeDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/mapping/IRelativeDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IRelativeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/IRelativeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/RelativeImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/service/RelativeImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,15 +46,37 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="653" column="26" selection-start-line="653" selection-start-column="26" selection-end-line="653" selection-end-column="26" />
+            <state relative-caret-position="244">
+              <caret line="716" column="36" lean-forward="true" selection-start-line="716" selection-start-column="36" selection-end-line="716" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#27815#27816#0" expanded="true" />
-                <element signature="e#27926#27927#0" expanded="true" />
-                <element signature="e#28035#28036#0" expanded="true" />
-                <element signature="e#28194#28195#0" expanded="true" />
+                <element signature="e#27793#27794#0" expanded="true" />
+                <element signature="e#27831#27832#0" expanded="true" />
+                <element signature="e#27942#27943#0" expanded="true" />
+                <element signature="e#28051#28052#0" expanded="true" />
+                <element signature="e#28210#28211#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/test/HomeTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="95" column="58" lean-forward="true" selection-start-line="95" selection-start-column="58" selection-end-line="95" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/ClientInfoUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="424">
+              <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -109,24 +113,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
               <caret line="262" column="21" selection-start-line="262" selection-start-column="21" selection-end-line="262" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IRelativeDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/IRelativeService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -257,8 +243,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/IPersonDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/personsInCenter.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/GetAccessTokenServlet.java" />
@@ -307,6 +291,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bio/exception/FlupException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/handler/BioExceptionHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/dto/FlupResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/ClientInfoUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/test/HomeTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
       </list>
     </option>
@@ -664,7 +650,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/apple/Documents/workspace/bio/src/main/java/com/bio/controller/token/WeChat.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552481193212" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552482035333" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -1098,7 +1084,7 @@
       <workItem from="1550665806891" duration="13560000" />
       <workItem from="1551271097454" duration="10574000" />
       <workItem from="1551620798411" duration="18686000" />
-      <workItem from="1552056989122" duration="12207000" />
+      <workItem from="1552056989122" duration="12973000" />
     </task>
     <servers />
   </component>
@@ -1135,7 +1121,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1006772000" />
+    <option name="totallyTimeSpent" value="1007538000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1157,17 +1143,17 @@
       <window_info id="Favorites" order="4" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
       <window_info id="Web" order="5" sideWeight="0.33114034" side_tool="true" weight="0.24964234" />
       <window_info id="Capture Tool" order="6" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" visible="true" weight="0.26466382" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" visible="true" weight="0.26466382" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4892704" visible="true" weight="0.3987952" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4892704" weight="0.3987952" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.42891565" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.24939759" />
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49928468" weight="0.32650602" />
       <window_info anchor="bottom" id="Spring" order="8" weight="0.32771084" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.27710843" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.27710843" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.32650602" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" sideWeight="0.49928468" weight="0.32771084" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
@@ -1295,20 +1281,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IRiskModelDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/IRiskModelService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/RiskModelServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1765,16 +1737,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/ClientInfoUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="653" column="26" selection-start-line="653" selection-start-column="26" selection-end-line="653" selection-end-column="26" />
+        <state relative-caret-position="424">
+          <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/test/HomeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="95" column="58" lean-forward="true" selection-start-line="95" selection-start-column="58" selection-end-line="95" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#27815#27816#0" expanded="true" />
-            <element signature="e#27926#27927#0" expanded="true" />
-            <element signature="e#28035#28036#0" expanded="true" />
-            <element signature="e#28194#28195#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="716" column="36" lean-forward="true" selection-start-line="716" selection-start-column="36" selection-end-line="716" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#27793#27794#0" expanded="true" />
+            <element signature="e#27831#27832#0" expanded="true" />
+            <element signature="e#27942#27943#0" expanded="true" />
+            <element signature="e#28051#28052#0" expanded="true" />
+            <element signature="e#28210#28211#0" expanded="true" />
           </folding>
         </state>
       </provider>
