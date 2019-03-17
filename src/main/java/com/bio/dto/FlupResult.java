@@ -1,6 +1,8 @@
 package com.bio.dto;
 
-public class FlupResult<T> {
+import java.io.Serializable;
+
+public class FlupResult<T> implements Serializable {
 
     private static final long serialVersionUID = 3068837394742385883L;
 

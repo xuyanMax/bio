@@ -3,10 +3,7 @@ package com.bio;
 import com.JsonGenerator.FetchData;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @Author: xyx
@@ -19,13 +16,16 @@ public class JDBCTest {
     public void test() {
         try {
             Connection connection = FetchData.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from persons");
-            rs.last();
-            System.out.println(rs.getRow());
-            ResultSet rs2 = statement.executeQuery("select * from centers");
-            rs2.last();
-            System.out.println(rs2.getRow());
+            String sql = "update questionnaire set risk_bra= '999;000' where idquestionnaire=80";
+            PreparedStatement statement = connection.prepareStatement(sql);
+//            ResultSet rs = statement.executeQuery("select * from persons");
+//            rs.last();
+//            System.out.println(rs.getRow());
+//            ResultSet rs2 = statement.executeQuery("select * from centers");
+//            rs2.last();
+//            System.out.println(rs2.getRow());
+
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

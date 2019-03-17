@@ -13,4 +13,6 @@ public interface IQtRiskModelService {
 
     public List<Qtnaireversion_riskmodel> findRiskModelByVersion(int version);
 
+    public Qtnaireversion_riskmodel findRiskModelByVersionLimitOne(int version);
+
 }

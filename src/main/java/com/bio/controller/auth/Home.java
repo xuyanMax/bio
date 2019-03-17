@@ -9,6 +9,7 @@ import com.bio.beans.*;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
+import com.wechat.utils.ScoreUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -608,13 +609,10 @@ public class Home {
 
                 if (strs != null && listValues != null) {
 
-                    logger.info(strs.length == listValues.size() ?
-                            "数组大小一致=" + strs.length :
-                            "sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致");
-
                     if (strs.length != listValues.size()) {
-                        logger.error("sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致");
+                        logger.error("【sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致】");
                     } else {
+                        logger.info("【数组大小一致】=" + strs.length);
                         for (int i = 0; i < strs.length; i++) sqlBuilder.append(strs[i]).append(listValues.get(i));
 
                         logger.info(sqlBuilder.toString());
@@ -635,10 +633,11 @@ public class Home {
 
                 // dynamic update risk model values;
                 String updateSql = "update questionnaire set risk_"
-                        + modelName + "="
-                        + fyrsRisk != null ? fyrsRisk + ";" + lifetimeRisk : ";" + lifetimeRisk
-                        + "where idquestionnaire="
+                        + modelName + "='"
+                        + fyrsRisk != null ? (fyrsRisk + ";" + lifetimeRisk) : (";" + lifetimeRisk)
+                        + "' where idquestionnaire="
                         + questionnaire.getIdquestionnaire();
+                logger.warn(updateSql);
                 statement.executeUpdate(updateSql);
             }
         } catch (SQLException e) {
@@ -674,7 +673,25 @@ public class Home {
         questionnaire.setLifetime_risk(String.valueOf(lfr));
         questionnaire.setFyrs_risk(String.valueOf(fyr));
 
+        // 获取lifetime_risk/fyrs_risk min/max
+        Qtnaireversion_riskmodel qtnaireversion_riskmodel = qtRiskModelService.findRiskModelByVersionLimitOne(questionnaire.getQtnaire_version());
+
+        logger.info("【模型】="+qtnaireversion_riskmodel);
+
         logger.info("lfr=" + lfr + ", 5yr_risk=" + fyr);
+
+        questionnaire.setLifetime_score(
+                String.valueOf(
+                        ScoreUtil.lifetime_risk_score(
+                                Double.valueOf(qtnaireversion_riskmodel.getLifetime_min()),
+                                Double.valueOf(qtnaireversion_riskmodel.getFyrs_max()), lfr)));
+
+        questionnaire.setFyrs_score(
+                String.valueOf(
+                ScoreUtil.lifetime_risk_score(
+                        Double.valueOf(qtnaireversion_riskmodel.getFyrs_min()),
+                        Double.valueOf(qtnaireversion_riskmodel.getFyrs_max()), fyr)));
+
         questionService.modifyQuestionnaire(questionnaire);
         logger.info(count);
 

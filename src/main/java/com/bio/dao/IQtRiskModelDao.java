@@ -13,4 +13,6 @@ public interface IQtRiskModelDao {
 
     List<Qtnaireversion_riskmodel> selectRiskModelByVersion(int version);
 
+    Qtnaireversion_riskmodel selectRiskModelByVersionLimitOne(int version);
+
 }

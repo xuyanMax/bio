@@ -22,4 +22,9 @@ public class QtRiskModelServiceImpl implements IQtRiskModelService {
     public List<Qtnaireversion_riskmodel> findRiskModelByVersion(int version) {
         return iQtRiskModelDao.selectRiskModelByVersion(version);
     }
+
+    @Override
+    public Qtnaireversion_riskmodel findRiskModelByVersionLimitOne(int version) {
+        return iQtRiskModelDao.selectRiskModelByVersionLimitOne(version);
+    }
 }

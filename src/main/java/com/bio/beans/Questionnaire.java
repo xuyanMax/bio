@@ -18,11 +18,32 @@ public class Questionnaire {
 
     String lifetime_risk;
 
+    String lifetime_score;
+
+    String fyrs_score;
+
     String risk_crcmale;
 
     String risk_crcfemale;
 
     String risk_bra;
+
+
+    public String getLifetime_score() {
+        return lifetime_score;
+    }
+
+    public void setLifetime_score(String lifetime_score) {
+        this.lifetime_score = lifetime_score;
+    }
+
+    public String getFyrs_score() {
+        return fyrs_score;
+    }
+
+    public void setFyrs_score(String fyrs_score) {
+        this.fyrs_score = fyrs_score;
+    }
 
     public String getFyrs_risk() {
         return fyrs_risk;
@@ -119,8 +140,15 @@ public class Questionnaire {
                 ", idquestionnaire=" + idquestionnaire +
                 ", questionnaire_num='" + questionnaire_num + '\'' +
                 ", filling_time='" + filling_time + '\'' +
-                ", qtnaire_version='" + qtnaire_version + '\'' +
+                ", qtnaire_version=" + qtnaire_version +
                 ", score=" + score +
+                ", fyrs_risk='" + fyrs_risk + '\'' +
+                ", lifetime_risk='" + lifetime_risk + '\'' +
+                ", lifetime_score='" + lifetime_score + '\'' +
+                ", fyrs_score='" + fyrs_score + '\'' +
+                ", risk_crcmale='" + risk_crcmale + '\'' +
+                ", risk_crcfemale='" + risk_crcfemale + '\'' +
+                ", risk_bra='" + risk_bra + '\'' +
                 '}';
     }
 }
