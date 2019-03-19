@@ -12,6 +12,6 @@ public class ScoreUtil {
     }
 
     public static double lifetime_risk_score(double min, double max, double val) {
-        return Math.abs((Math.log(val) - Math.log(min)) / (Math.log(max) - Math.log(min)));
+        return fyrs_risk_score(min, max, val);
     }
 }

@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.beans.*;
+import com.bio.exception.FlupException;
 import com.bio.service.*;
 import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
 import com.wechat.utils.ScoreUtil;
+import com.wechat.utils.SqlUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +147,7 @@ public class Home {
             idpersons = relatives.stream().map(Relative::getIdperson2).collect(Collectors.toList());
             persons = idpersons.stream().map(id -> personService.findPersonByIdperson(id)).collect(Collectors.toList());
             mv.addObject("user", (Person) personService.findPersonByIdperson(308));
+
         }
         mv.addObject("persons", persons);
         return mv;
@@ -563,9 +566,9 @@ public class Home {
         }
 
         // fyrs_riskN
-        List<Double> fyrRisks = new ArrayList<>();
+        List<Double> fyrsRiskList = new ArrayList<>();
         // lifetime_riskN
-        List<Double> lifetimeRisks = new ArrayList<>();
+        List<Double> lifetimeRiskList = new ArrayList<>();
 
         try {
 
@@ -611,6 +614,8 @@ public class Home {
 
                     if (strs.length != listValues.size()) {
                         logger.error("【sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致】");
+                        logger.error(strs.length + ";" + listValues.size());
+//                        throw new FlupException();
                     } else {
                         logger.info("【数组大小一致】=" + strs.length);
                         for (int i = 0; i < strs.length; i++) sqlBuilder.append(strs[i]).append(listValues.get(i));
@@ -619,22 +624,24 @@ public class Home {
                         ResultSet resultSet = statement.executeQuery(sqlBuilder.toString());
 
                         while (resultSet.next()) {
+
                             lifetimeRisk = resultSet.getString("lifetime_risk");
                             fyrsRisk = resultSet.getString("fyrs_risk");
 
-                            if (lifetimeRisk != null) lifetimeRisks.add(Double.valueOf(lifetimeRisk));
-                            if (fyrRisks != null) fyrRisks.add(Double.valueOf(fyrsRisk));
+                            logger.info("lifetime_risk=" + lifetimeRisk);
+                            logger.info("5yrs_risk=" + fyrsRisk);
+
+                            if (lifetimeRisk != null) lifetimeRiskList.add(Double.valueOf(lifetimeRisk));
+                            if (fyrsRisk != null) fyrsRiskList.add(Double.valueOf(fyrsRisk));
                         }
 
-                        logger.info("lifetime_risk=" + lifetimeRisk);
-                        logger.info("5yrs_risk=" + fyrsRisk);
                     }
                 }
 
                 // dynamic update risk model values;
                 String updateSql = "update questionnaire set risk_"
                         + modelName + "='"
-                        + fyrsRisk != null ? (fyrsRisk + ";" + lifetimeRisk) : (";" + lifetimeRisk)
+                        + SqlUtil.riskModelValue(lifetimeRisk, fyrsRisk)
                         + "' where idquestionnaire="
                         + questionnaire.getIdquestionnaire();
                 logger.warn(updateSql);
@@ -648,50 +655,39 @@ public class Home {
         List<Integer> firstValues = (List<Integer>) session.get("firstValues");
 
         logger.info(firstValues);
-        int count = 0;
 
-        // 匹配重复问卷题目，求问卷得(0,20,40,60,80,100)
-        for (Integer idquestion : firstValues) {
-            // size of answers = 2
-            List<Answer> answers = answerService.findByIdquestionIdQuestionnaire(idquestion, idquestionnaire);
-            if (answers != null && answers.size() > 1) {
-                if (answers.get(0).getAnswers().equalsIgnoreCase(answers.get(1).getAnswers()))
-                    count += 20;
-            } else break;
-        }
+        int count = SqlUtil.countDuplicateQustions(firstValues, answerService, idquestionnaire);
 
         // 计算lifetime_risk, fyrs_risk
-        double lfr = 1.0, fyr = 1.0;
-        for (double num : lifetimeRisks)
-            lfr *= (1 - num);
-        for (double num : fyrRisks)
-            fyr *= (1 - num);
-
-        // 计算lifetime_score, fyrs_score
+        double lfr = SqlUtil.countRisk(lifetimeRiskList), fyr = SqlUtil.countRisk(fyrsRiskList);
 
         questionnaire.setScore(count);
-        questionnaire.setLifetime_risk(String.valueOf(lfr));
-        questionnaire.setFyrs_risk(String.valueOf(fyr));
+        questionnaire.setLifetime_risk(String.valueOf(1 - lfr));
+        questionnaire.setFyrs_risk(String.valueOf(1 - fyr));
 
         // 获取lifetime_risk/fyrs_risk min/max
-        Qtnaireversion_riskmodel qtnaireversion_riskmodel = qtRiskModelService.findRiskModelByVersionLimitOne(questionnaire.getQtnaire_version());
+        Qtnaireversion_riskmodel qtnaireversion_riskmodel =
+                qtRiskModelService.findRiskModelByVersionLimitOne(questionnaire.getQtnaire_version());
 
-        logger.info("【模型】="+qtnaireversion_riskmodel);
+        logger.info("【模型】=" + qtnaireversion_riskmodel);
 
-        logger.info("lfr=" + lfr + ", 5yr_risk=" + fyr);
+        logger.info("lfr=" + (1 - lfr) + ", 5yr_risk=" + (1 - fyr));
 
         questionnaire.setLifetime_score(
                 String.valueOf(
                         ScoreUtil.lifetime_risk_score(
-                                Double.valueOf(qtnaireversion_riskmodel.getLifetime_min()),
-                                Double.valueOf(qtnaireversion_riskmodel.getFyrs_max()), lfr)));
+                                Double.valueOf(SqlUtil.stringEmptyNull(qtnaireversion_riskmodel.getLifetime_min())),
+                                Double.valueOf(SqlUtil.stringEmptyNull(qtnaireversion_riskmodel.getLifetime_max())),
+                                (1 - lfr))));
 
         questionnaire.setFyrs_score(
                 String.valueOf(
-                ScoreUtil.lifetime_risk_score(
-                        Double.valueOf(qtnaireversion_riskmodel.getFyrs_min()),
-                        Double.valueOf(qtnaireversion_riskmodel.getFyrs_max()), fyr)));
+                        ScoreUtil.lifetime_risk_score(
+                                Double.valueOf(SqlUtil.stringEmptyNull(qtnaireversion_riskmodel.getFyrs_min())),
+                                Double.valueOf(SqlUtil.stringEmptyNull(qtnaireversion_riskmodel.getFyrs_max())),
+                                (1 - fyr))));
 
+        logger.info(questionnaire);
         questionService.modifyQuestionnaire(questionnaire);
         logger.info(count);
 

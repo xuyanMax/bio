@@ -1,9 +1,13 @@
 package com.bio.beans;
 
 public class Relative {
+
     Integer idrelative;
+
     Integer idperson1;
+
     Integer idperson2;
+
     Integer relationship;
 
     public Integer getIdrelative() {
