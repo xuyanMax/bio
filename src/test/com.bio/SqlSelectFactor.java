@@ -28,8 +28,5 @@ public class SqlSelectFactor {
                 "#10Fam_Hist_CRC????#\n" +
                 "(select answers,(case when answers like '%?%' then '1' else '0' end) from answers where idquestionnaire = IDQUESTIONNAIRE and idquestion =89)";
         System.out.println(sql.replaceAll("IDPERSON", "1").replaceAll("IDQUESTIONNAIRE", "2"));
-
-        String dd = "11.2311";
-        System.out.println(Double.valueOf(dd));
     }
 }

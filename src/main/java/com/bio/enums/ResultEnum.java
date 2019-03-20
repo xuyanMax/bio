@@ -1,10 +1,9 @@
 package com.bio.enums;
 
 public enum ResultEnum {
-
     SUCCESS(1, "success"),
     FAILURE(-1, "failure"),
-    FACTOR_NOT_MATCH(10, "sql提取factor参数与要求不一致");
+    FACTOR_NOT_EQUAL(11, "factor参数不等");
 
     private Integer code;
     private String msg;

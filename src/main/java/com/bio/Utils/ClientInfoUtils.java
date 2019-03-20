@@ -5,7 +5,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Map;
 
 public class ClientInfoUtils {
 
@@ -45,13 +44,6 @@ public class ClientInfoUtils {
         Calendar calendar = Calendar.getInstance();
         System.out.println(sdf.format(calendar.getTime()));
         return sdf.format(calendar.getTime());
-    }
-
-    public static String parseIdquestion(Map.Entry<String, Object> item) {
-
-        if (item.getKey().contains("_"))
-            return item.getKey().substring(0, item.getKey().length() - 1);
-        else return item.getKey();
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class SqlUtil {
+
     public static String riskModelValue(String lifetime_risk, String fyrs_risk) {
 
         if (lifetime_risk == null && fyrs_risk == null) return ";";
@@ -23,7 +24,7 @@ public class SqlUtil {
         return stringEmptyNull(str);
     }
 
-    public static Integer countDuplicateQustions(List<Integer> firstValues, IAnswerService answerService, Integer idquestionnaire) {
+    public static Integer countDuplicateQuestions(List<Integer> firstValues, IAnswerService answerService, Integer idquestionnaire) {
         // 匹配重复问卷题目，求问卷得(0,20,40,60,80,100)
         int count = 0;
         for (Integer idquestion : firstValues) {
@@ -40,11 +41,12 @@ public class SqlUtil {
     public static Double countRisk(List<Double> list) {
         double res = 1.0;
         for (double l : list)
-            res *= l;
+            res *= 1 - l;
         return 1 - res;
     }
 
     public static String stringEmptyNull(String str) {
         return str == null ? "" : str;
     }
+
 }

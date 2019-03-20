@@ -14,20 +14,19 @@ public class Questionnaire {
 
     Integer score;
 
-    String fyrs_risk;
-
-    String lifetime_risk;
-
     String lifetime_score;
 
     String fyrs_score;
+
+    String fyrs_risk;
+
+    String lifetime_risk;
 
     String risk_crcmale;
 
     String risk_crcfemale;
 
     String risk_bra;
-
 
     public String getLifetime_score() {
         return lifetime_score;
@@ -142,10 +141,10 @@ public class Questionnaire {
                 ", filling_time='" + filling_time + '\'' +
                 ", qtnaire_version=" + qtnaire_version +
                 ", score=" + score +
-                ", fyrs_risk='" + fyrs_risk + '\'' +
-                ", lifetime_risk='" + lifetime_risk + '\'' +
                 ", lifetime_score='" + lifetime_score + '\'' +
                 ", fyrs_score='" + fyrs_score + '\'' +
+                ", fyrs_risk='" + fyrs_risk + '\'' +
+                ", lifetime_risk='" + lifetime_risk + '\'' +
                 ", risk_crcmale='" + risk_crcmale + '\'' +
                 ", risk_crcfemale='" + risk_crcfemale + '\'' +
                 ", risk_bra='" + risk_bra + '\'' +
