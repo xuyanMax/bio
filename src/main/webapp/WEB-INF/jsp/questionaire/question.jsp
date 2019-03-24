@@ -47,7 +47,7 @@
                     // alert(surveyJSON);
                     // alert(JSON.stringify(surveyJSON));
                     alert("得分情况: " + data.count);
-                    alert("lifetime_risk: " + data.lifetime_risk)
+                    alert("您的近期患癌风险值时：" + data.fyrs_score + " 您的终身患癌风险值是：" + data.lifetime_score);
                 },
                 error: function () {
                     alert("提交发送错误!");

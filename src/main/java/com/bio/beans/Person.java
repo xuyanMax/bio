@@ -3,21 +3,46 @@ package com.bio.beans;
 public class Person {
 
     private Integer idperson;
+
     private String name;
+
     private String gender;
+
     private int age;
+
     private String original_ID_code;
+
     private String ID_code;
+
     private String ID_code_cut;
+
     private String sn_in_center;
+
     private String global_sn;
+
     private int idcenter;
+
     private String email;
+
     private int relative;
+
     private String tel1;
+
     private String tel2;
+
     private String barcode;
+    
     private String identity;
+
+    private String birth;
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
 
     public String getIdentity() {
         return identity;
@@ -165,6 +190,8 @@ public class Person {
                 ", tel1='" + tel1 + '\'' +
                 ", tel2='" + tel2 + '\'' +
                 ", barcode='" + barcode + '\'' +
+                ", identity='" + identity + '\'' +
+                ", birth='" + birth + '\'' +
                 '}';
     }
 }

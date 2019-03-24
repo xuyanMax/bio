@@ -44,6 +44,7 @@ import java.util.stream.Collectors;
 @Controller
 @SessionAttributes({"user", "username", "snAdmin", "wxuser", "sysAdmin", "vcode", "idcode", "centerNames", "idperson2", "firstValues", "q_version"})
 public class Home {
+
     private static Logger logger = Logger.getLogger(Home.class.getName());
 
     private static final String ACCESS_TOKEN = "brbxyxzyz";
@@ -599,11 +600,12 @@ public class Home {
 
                 while (rs.next()) listValues.add(rs.getInt(2));
 
-                if (listValues != null && listValues.size() != 0) {
+                /*remove 对小于50岁年龄设置为50的逻辑*/
+                /*if (listValues != null && listValues.size() != 0) {
                     if (listValues.get(0) < 50) {
                         listValues.set(0, 50);
                     }
-                }
+                }*/
 
                 StringBuilder sqlBuilder = new StringBuilder();
                 String[] strs = sqlselectRisk.split("\\?");
@@ -694,6 +696,9 @@ public class Home {
         logger.info(count);
         //记录问卷调查总分
         map.put("count", count);
+        map.put("fyrs_score", fyrs_risk_score);
+        map.put("lifetime_score", lifetime_risk_score);
+
         map.put("lifetime_risk", SqlUtil.riskModelValue(lifetimeRisk, fyrsRisk));
         return map;
     }

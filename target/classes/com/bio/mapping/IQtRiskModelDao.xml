@@ -5,11 +5,11 @@
 <mapper namespace="com.bio.dao.IQtRiskModelDao">
 
     <select id="selectRiskModelByVersion" resultType="com.bio.beans.Qtnaireversion_riskmodel">
-        select * from qtnaireversion_riskmodel where qtnaire_version=#{###}
+        select * from qtnaireversion_riskmodel where qtnaire_version=#{###};
 	</select>
 
     <select id="selectRiskModelByVersionLimitOne" resultType="com.bio.beans.Qtnaireversion_riskmodel">
-        select * from qtnaireversion_riskmodel where qtnaire_version=#{###}
+        select * from qtnaireversion_riskmodel where qtnaire_version=#{###} limit 1;
 	</select>
 
 

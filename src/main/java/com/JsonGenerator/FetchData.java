@@ -4,11 +4,8 @@ import com.JsonGenerator.element.*;
 import com.JsonGenerator.type.*;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.SSHConnection;
-import com.bio.beans.Answer;
-import com.bio.service.IAnswerService;
 import com.jcraft.jsch.JSchException;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.*;
@@ -19,7 +16,7 @@ public class FetchData {
     private static String SQL_ALL = "SELECT * FROM questions";
     private static String SQL_TABLE = "SELECT * FROM questions where types = \'blank\' limit 2";
     private static String SQL = "SELECT a.* FROM questions as a, qtnaire_version as b where a.idquestion=b.idquestion and b.version=?";
-    private static String SQL_REPEAT = "SELECT DISTINCT * from (select c.*, d.`sup1` FROM questions as c, qtnaire_version as d where c.idquestion=d.idquestion and d.version=?) n\n" +
+    private static String SQL_REPEAT = "SELECT DISTINCT * from (select c.*, d.`sup1` FROM questions as c, qtnaire_version as d where c.idquestion=d.idquestion and d.version=? order by d.`num`) n\n" +
             "union all\n" +
             "SELECT DISTINCT * from (select a.*, b.`sup1` from questions as a inner join `qtnaire_version` as b on a.idquestion=b.idquestion and b.sup1='repeat' and b.version=?) m";
     private static String LEFT_BRACKET = "（";
