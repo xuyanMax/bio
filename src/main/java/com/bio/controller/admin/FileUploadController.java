@@ -195,6 +195,7 @@ public class FileUploadController {
                 p.setID_code_cut(person.getOriginal_ID_code().substring(14));
                 p.setGlobal_sn(global_sn);
                 p.setIdcenter(sn_person.getIdcenter());
+                p.setBirth(person.getBirth());
 
                 personService.addPerson(p);
             } else {

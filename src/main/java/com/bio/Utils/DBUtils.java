@@ -114,6 +114,7 @@ public class DBUtils {
                 // generated person info, age and sex
                 p.setGender(PersonInfoUtils.getGender(formatter.formatCellValue(ID_code)));
                 p.setAge(PersonInfoUtils.getAge(formatter.formatCellValue(ID_code)));
+                p.setBirth(PersonInfoUtils.getBirth(formatter.formatCellValue(ID_code)));
                 res.add(p);
                 // assemble done
             }

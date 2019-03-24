@@ -1,5 +1,6 @@
 package com.bio.Utils;
 
+import javax.persistence.Id;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -99,5 +100,8 @@ public class PersonInfoUtils {
         return !relative.equals("参与人") ? 0 : 1;
     }
 
+    public static String getBirth(String ID_code) {
+        return ID_code.substring(6, 12);
+    }
 
 }
