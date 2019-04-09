@@ -730,16 +730,6 @@ public class Home {
         return "views/success";
     }
 
-    @RequestMapping("/preferences")
-    public String preference() {
-        return "views/errors/404";
-    }
-
-    @RequestMapping("/help/support")
-    public String support() {
-        return "views/errors/404";
-    }
-
     /*404 Page Not Found*/
     @RequestMapping("*")
     public String _404PageNotFound(HttpServletRequest request) {
