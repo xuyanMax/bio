@@ -13,23 +13,30 @@ public class MenuThread implements Runnable {
 
     @Override
     public void run() {
-        while (TokenThread.access_token == null) {
-            while (TokenThread.access_token == null || TokenThread.access_token.getToken() == null) {
-                try {
+        if (TokenThread.access_token == null) {
+            try {
+                while (TokenThread.access_token == null || TokenThread.access_token.getToken() == null) {
+
                     logger.warn("wait 6s before getting the menu");
                     Thread.sleep(6000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
-            }
-            int result = WeChatUtils.createMenu(getMenu(), TokenThread.access_token.getToken());
-            if (result == 0) {
-                logger.info("Menu created successfully");
-            } else {
-                logger.warn("Menu failed to create, error code: " + result);
+            } catch (InterruptedException e) {
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                e.printStackTrace();
             }
         }
-    }
+        int result = WeChatUtils.createMenu(getMenu(), TokenThread.access_token.getToken());
+        if (result == 0) {
+            logger.info("Menu created successfully");
+        } else {
+            logger.warn("Menu failed to create, error code: " + result);
+        }
+
+}
 
     public static Menu getMenu() {
         /**

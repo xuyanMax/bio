@@ -2,6 +2,7 @@ package com.wechat.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +11,7 @@ import static org.junit.Assert.*;
  * @Date: 2019-03-18 22:49
  * @Version 1.0
  */
+
 public class SqlUtilTest {
 
     @Test

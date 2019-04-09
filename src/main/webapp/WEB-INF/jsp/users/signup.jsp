@@ -68,7 +68,7 @@
                 List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
                 if (centerNames != null) {
             %>
-            <p>请选择您的单位</p>
+            <p>勾选您所在单位前的圆圈或方框</p>
             <%
                 for (String centerName : centerNames) {
             %>

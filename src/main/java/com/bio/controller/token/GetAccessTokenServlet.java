@@ -19,7 +19,7 @@ public class GetAccessTokenServlet extends HttpServlet {
         Thread token = new Thread(new TokenThread());
         token.setDaemon(true);
         Thread menu = new Thread(new MenuThread());
-        token.setDaemon(true);
+        menu.setDaemon(true);
         token.start();
         menu.start();
         logger.info("Token thread and menu thread start.");

@@ -17,7 +17,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -573,10 +572,13 @@ public class Home {
 
         try {
 
-            Connection connection = FetchData.getConnection();
+            Connection connection = FetchData.getRemoteConnection();
             Statement statement = connection.createStatement();
 
             for (Qtnaireversion_riskmodel qtnaireversionRiskmodel : riskmodelList) {
+
+                lifetimeRisk = "";
+                fyrsRisk = "";
 
                 questionnaire = questionService.findQuestionByFillingTime(filling_time);
                 logger.info(qtnaireversionRiskmodel);
@@ -631,8 +633,8 @@ public class Home {
                         logger.info("lifetime_risk=" + lifetimeRisk);
                         logger.info("5yrs_risk=" + fyrsRisk);
 
-                        if (lifetimeRisk != null) lifetimeRiskList.add(Double.valueOf(lifetimeRisk));
-                        if (fyrsRisk != null) fyrsRiskList.add(Double.valueOf(fyrsRisk));
+                        lifetimeRiskList.add(SqlUtil.stringToDouble(lifetimeRisk));
+                        fyrsRiskList.add(SqlUtil.stringToDouble(fyrsRisk));
 
                     }
                 }

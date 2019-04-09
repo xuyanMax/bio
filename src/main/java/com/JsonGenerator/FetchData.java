@@ -41,16 +41,16 @@ public class FetchData {
 //            SSHConnection sshConnection = new SSHConnection();
 //            System.out.println(getSurveyJSON(5));
 
-            String sql = "select `lifetime_risk` from risk_crcmale where factor1=50 and factor2=0 and factor3=1 and factor4=1 and factor5=1 and factor6=0 and factor7=1 and factor8=0 and factor9=1 and factor10=0";
-            Connection connection = null;
-            try {
-                connection = FetchData.getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(sql);
-                logger.info(rs.getString(0));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        String sql = "select `lifetime_risk` from risk_crcmale where factor1=50 and factor2=0 and factor3=1 and factor4=1 and factor5=1 and factor6=0 and factor7=1 and factor8=0 and factor9=1 and factor10=0";
+        Connection connection = null;
+        try {
+            connection = FetchData.getRemoteConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            logger.info(rs.getString(0));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 //        } catch (JSchException e) {
 //            e.printStackTrace();
@@ -61,8 +61,12 @@ public class FetchData {
         return firstValues;
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getRemoteConnection() throws SQLException {
         return DriverManager.getConnection(SSHConnection.JDBC_URL, SSHConnection.DB_USERNAME, SSHConnection.DB_PASSWORD);
+    }
+
+    public static Connection getLocalConnection(String URL, String USERNAME, String PASSWORD) throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
     public static String getSurveyJSON(int version) throws JSchException {
@@ -79,9 +83,9 @@ public class FetchData {
         try {
             Class.forName(SSHConnection.JDBC_DRIVER);
             //远程库
-            conn = getConnection();
+            conn = getRemoteConnection();
             //本地库
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdcDev",SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
+//            conn = DriverManager.getRemoteConnection("jdbc:mysql://localhost:3306/cdcDev",SSHConnection.DB_USERNAME,SSHConnection.DB_PASSWORD);
 //            statement = conn.createStatement();
             Set<Integer> repeated = selectRepeatQuestions(conn, version);
             firstValues.addAll(repeated);

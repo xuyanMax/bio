@@ -55,7 +55,7 @@
         <div class="form-group" id="ID_CODE_div">
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required"
                    name="id_code" id="id_code">
-            <small class="help-block" id="id-error"></small>
+            <small class="help-block" id="id-error">身份证号码由系统自动进行不可逆编码，如：7c00526f4d。系统代码已审核，项目数据库不保存身份证号</small>
         </div>
         <%--<div class="form-group" id="phone_div">--%>
         <%--<input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">--%>

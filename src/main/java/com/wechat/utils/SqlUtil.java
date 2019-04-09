@@ -45,6 +45,12 @@ public class SqlUtil {
         return 1 - res;
     }
 
+    public static Double stringToDouble(String str) {
+        if (str == null || str.equals("")) return 0.0;
+        return Double.valueOf(str);
+
+    }
+
     public static String stringEmptyNull(String str) {
         return str == null ? "" : str;
     }

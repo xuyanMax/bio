@@ -6,8 +6,11 @@
     <insert id="insertRelative">
         insert into relatives (idperson1, idperson2, relationship) values (#{idperson1}, #{idperson2}, #{relationship});
     </insert>
-    <delete id="deleteRelativeByIdperson1">
+    <delete id="deleteRelativeByIdperson1AndIdperson2">
         delete from relatives where idperson1=#{0} and idperson2=#{1}
+    </delete>
+    <delete id="deleteRelativeByIdperson1">
+        delete from relatives where idperson1=#{0}
     </delete>
     <select id="selectRelativesByIdperson1" resultType="com.bio.beans.Relative">
       select * from relatives where idperson1=#{xxx}
