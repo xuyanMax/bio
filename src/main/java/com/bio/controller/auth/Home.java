@@ -570,6 +570,8 @@ public class Home {
         // lifetime_riskN
         List<Double> lifetimeRiskList = new ArrayList<>();
 
+        List<String> missingModels = new ArrayList<>();
+
         try {
 
             Connection connection = FetchData.getRemoteConnection();
@@ -602,18 +604,15 @@ public class Home {
 
                 while (rs.next()) listValues.add(rs.getInt(2));
 
-                /*remove 对小于50岁年龄设置为50的逻辑*/
-                /*if (listValues != null && listValues.size() != 0) {
-                    if (listValues.get(0) < 50) {
-                        listValues.set(0, 50);
-                    }
-                }*/
-
                 StringBuilder sqlBuilder = new StringBuilder();
                 String[] strs = sqlselectRisk.split("\\?");
 
                 if (strs != null && listValues != null) {
 
+                    if (listValues.size() == 0) {
+                        map.put("missing", "1");
+                        missingModels.add(rm.getModelname());
+                    }
                     if (strs.length != listValues.size()) {
                         logger.error("【sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致】");
                         logger.error(strs.length + ";" + listValues.size());
@@ -702,6 +701,9 @@ public class Home {
         map.put("lifetime_score", lifetime_risk_score);
 
         map.put("lifetime_risk", SqlUtil.riskModelValue(lifetimeRisk, fyrsRisk));
+        if (missingModels != null && missingModels.size() != 0) {
+            map.put("missingModels", missingModels);
+        }
         return map;
     }
 
