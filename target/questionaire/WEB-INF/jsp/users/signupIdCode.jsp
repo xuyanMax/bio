@@ -55,7 +55,7 @@
         <div class="form-group" id="ID_CODE_div">
             <input type="text" class="form-control" onchange="checkID()" placeholder="身份证号" required="required"
                    name="id_code" id="id_code">
-            <small class="help-block" id="id-error">身份证号码由系统自动进行不可逆编码，如：241X。系统代码已审核，项目数据库不保存身份证号</small>
+            <small class="help-block" id="id-error">身份证号码由系统自动进行不可逆编码，如：7c00526f4d。系统代码已审核，项目数据库不保存身份证号</small>
         </div>
         <%--<div class="form-group" id="phone_div">--%>
         <%--<input type="text" class="form-control" onchange="checkPhone()" placeholder="手机号" required="required" name="phone" id="phone">--%>
@@ -104,6 +104,12 @@
                         alert("没有您的预申请信息，请联系专属管理员。");
                     } else if (data.result == '1') {
                         alert("匹配成功");
+                        alert(JSON.stringify(data.list));
+                        var a = '';
+                        for (b in data.list) {
+                            a = a+data.list[b]+' ';
+                        }
+                        alert(a);
                         window.location.assign(window.location.origin + "/signupPageFollowed?idcode=" + idcode);
                     }
                 }

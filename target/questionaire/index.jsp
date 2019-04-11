@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>后台控制</title>
+    <title>Flup</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <%--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">--%>
@@ -55,10 +55,8 @@
 <div class="list-group list">
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="admin/uploadMultiFiles">文件上传</a></p>
     <br/>
-    <%--<p align="center" style="font-size: 20px;"><a href="admin/manualInsertPage">手动输入用户信息</a></p><br/>--%>
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a
             href="admin/<%=((Person) request.getAttribute("user")).getIdcenter()%>/center/list">查看本单位人员列表</a></p>
-    <p><%=((Person) request.getAttribute("user")).getIdcenter()%>
     </p>
 </div>
 <%
@@ -79,6 +77,8 @@
         <p style="text-indent:2em">肿瘤本质上是一种基因缺陷疾病，肿瘤细胞的相关基因缺陷可能是从父母继承，也可能是个体在出生后独立发生的突变，因此最终的发病取决于导致基因缺陷的遗传因素和环境因素的综合效应。针对高危人群进行早期预防和干预，仍是目前肿瘤防控最有效的方法。前瞻性队列研究临床可操作性高，国际上最早的大样本队列研究可以追溯至20世纪40年代，以美国弗雷明汉心脏研究、英国国家儿童出生队列、美国护士健康队列和欧洲癌症与营养前瞻性队列等为代表的队列研究项目逐渐形成规模，为阐明病因并发展相应的疾病预防措施提供了证据。
         </p> </br>
         <p style="text-indent:2em">响应“关口前移、预防为主”的国家总体导向，基于大数据，对遗传因素和生活方式等外部因素进行相对定量分析，对肿瘤精准防控有重要意义。中国疾病预防控制中心慢性非传染性疾病预防控制中心与国家人类基因组南方研究中心（暨上海人类基因组研究中心）共同发起了全国职业人群肿瘤风险普查研究，依托在线问卷调查信息系统，对高危人群，进行遗传性肿瘤相关基因序列捕获和测序分析，改进肿瘤风险评估方法，形成一套集肿瘤患病风险咨询和预警、生活习惯指导以及在线家庭医生服务于一体的职业人群健康管理体系。</p>
+        </br>
+        </br>
         <div class="">
             <p align="center"><a class="btn btn-primary btn-lg" role="button" href="/wx/login">
                 点击登录网页版系统</a> &nbsp;&nbsp;

@@ -55,10 +55,8 @@
 <div class="list-group list">
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a href="admin/uploadMultiFiles">文件上传</a></p>
     <br/>
-    <%--<p align="center" style="font-size: 20px;"><a href="admin/manualInsertPage">手动输入用户信息</a></p><br/>--%>
     <p align="center" style="font-size: 20px; font-family: 'Heiti SC';"><a
             href="admin/<%=((Person) request.getAttribute("user")).getIdcenter()%>/center/list">查看本单位人员列表</a></p>
-    <p><%=((Person) request.getAttribute("user")).getIdcenter()%>
     </p>
 </div>
 <%

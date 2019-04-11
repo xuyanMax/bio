@@ -609,10 +609,6 @@ public class Home {
 
                 if (strs != null && listValues != null) {
 
-                    if (listValues.size() == 0) {
-                        map.put("missing", "1");
-                        missingModels.add(rm.getModelname());
-                    }
                     if (strs.length != listValues.size()) {
                         logger.error("【sqlselectRisk问号?数量与sqlselectFactor获取结果数量不一致】");
                         logger.error(strs.length + ";" + listValues.size());
@@ -635,6 +631,11 @@ public class Home {
                         lifetimeRiskList.add(SqlUtil.stringToDouble(lifetimeRisk));
                         fyrsRiskList.add(SqlUtil.stringToDouble(fyrsRisk));
 
+                        if (lifetimeRisk == null && fyrsRisk == null) {
+                            map.putIfAbsent("missing", 1);
+                            missingModels.add(rm.getModelname());
+                            logger.info("【风险值缺失model】=" + rm.getModelname());
+                        }
                     }
                 }
 
@@ -701,7 +702,7 @@ public class Home {
         map.put("lifetime_score", lifetime_risk_score);
 
         map.put("lifetime_risk", SqlUtil.riskModelValue(lifetimeRisk, fyrsRisk));
-        if (missingModels != null && missingModels.size() != 0) {
+        if (map.get("missing") != null) {
             map.put("missingModels", missingModels);
         }
         return map;

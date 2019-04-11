@@ -68,12 +68,12 @@
                 List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
                 if (centerNames != null) {
             %>
-            <p>请选择您的单位</p>
+            <p>勾选您所在单位前的圆圈或方框</p>
             <%
                 for (String centerName : centerNames) {
             %>
             <label class="">
-                <input type="radio" class="form-control" required id="unit1" name="unit" id="unit1"
+                <input type="radio" class="" required id="unit1" name="unit" id="unit1"
                        value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
             </label>
             <%

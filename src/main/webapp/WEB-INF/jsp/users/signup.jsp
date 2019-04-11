@@ -73,7 +73,7 @@
                 for (String centerName : centerNames) {
             %>
             <label class="">
-                <input type="radio" class="form-control" required id="unit1" name="unit" id="unit1"
+                <input type="radio" class="" required id="unit1" name="unit" id="unit1"
                        value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
             </label>
             <%
