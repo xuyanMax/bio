@@ -634,7 +634,7 @@ public class Home {
                         if (lifetimeRisk == null && fyrsRisk == null) {
                             map.putIfAbsent("missing", 1);
                             missingModels.add(rm.getModelname());
-                            logger.info("【风险值缺失model】=" + rm.getModelname());
+                            logger.info("【风险值缺失model】=" + rm.getCancername());
                         }
                     }
                 }

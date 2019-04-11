@@ -11,6 +11,8 @@ public class RiskModel {
 
     private String modelname;
 
+    private String cancername;
+
     private String sqlselect_factor;
 
     private String sqlselect_risk;
@@ -47,11 +49,20 @@ public class RiskModel {
         this.sqlselect_factor = sqlselect_factor;
     }
 
+    public String getCancername() {
+        return cancername;
+    }
+
+    public void setCancername(String cancername) {
+        this.cancername = cancername;
+    }
+
     @Override
     public String toString() {
         return "RiskModel{" +
                 "idriskmodel=" + idriskmodel +
                 ", modelname='" + modelname + '\'' +
+                ", cancername='" + cancername + '\'' +
                 ", sqlselect_factor='" + sqlselect_factor + '\'' +
                 ", sqlselect_risk='" + sqlselect_risk + '\'' +
                 '}';

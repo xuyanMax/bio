@@ -7,25 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/interceptor/CommonInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/interceptor/CommonInterceptor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/JsonGenerator/FetchData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/Utils/SSHConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/Utils/SSHConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/interceptor/CommonInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/interceptor/CommonInterceptor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/questionaire/question.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/questionaire/question.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/BindRelatives.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/BindRelatives.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/signup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/signupIdCode.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/signupIdCode.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/questionaire/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/index.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,11 +41,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="637" column="25" selection-start-line="637" selection-start-column="25" selection-end-line="637" selection-end-column="25" />
+            <state relative-caret-position="173">
+              <caret line="636" column="76" selection-end-line="750" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8400#8401#0" expanded="true" />
@@ -70,6 +53,39 @@
                 <element signature="e#11457#11458#0" expanded="true" />
                 <element signature="e#11522#11523#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+              <folding>
+                <element signature="e#1036#1037#0" expanded="true" />
+                <element signature="e#1069#1070#0" expanded="true" />
+                <element signature="e#1121#1122#0" expanded="true" />
+                <element signature="e#1165#1166#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IRiskModelDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IRiskModelDao.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -110,30 +126,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
               <first_editor relative-caret-position="-4498" />
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sys_admin/sys.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/PersonInfoUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1692">
-              <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -218,7 +216,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bio/service/IRiskCrcmaleService.java" />
         <option value="$PROJECT_DIR$/src/test/com/bio/service/QtRiskModelServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/TestLog4j.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/service/IQuestionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/service/QuestionImpl.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/SqlSelectFactor.java" />
@@ -259,9 +256,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
       </list>
     </option>
   </component>
@@ -663,7 +661,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/apple/Documents/workspace/bio/src/main/java/com/bio/controller/token/WeChat.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555001717310" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555002074443" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -1124,7 +1122,7 @@
       <workItem from="1554905368256" duration="276000" />
       <workItem from="1554906338202" duration="5574000" />
       <workItem from="1554918033225" duration="857000" />
-      <workItem from="1554951348240" duration="4403000" />
+      <workItem from="1554951348240" duration="4538000" />
     </task>
     <servers />
   </component>
@@ -1161,7 +1159,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1055827000" />
+    <option name="totallyTimeSpent" value="1055962000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1321,24 +1319,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/GetAccessTokenServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/IPersonDao.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-shiro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/maven-archiver/pom.properties" />
     <entry file="file://$PROJECT_DIR$/corrected">
       <provider selected="true" editor-type-id="text-editor">
@@ -1653,20 +1633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="637" column="25" selection-start-line="637" selection-start-column="25" selection-end-line="637" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
-            <element signature="e#8459#8460#0" expanded="true" />
-            <element signature="e#11457#11458#0" expanded="true" />
-            <element signature="e#11522#11523#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -1686,6 +1652,47 @@
         <state split_layout="FIRST">
           <first_editor relative-caret-position="-4498" />
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IRiskModelDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IRiskModelDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/RiskModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding>
+            <element signature="e#1036#1037#0" expanded="true" />
+            <element signature="e#1069#1070#0" expanded="true" />
+            <element signature="e#1121#1122#0" expanded="true" />
+            <element signature="e#1165#1166#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="636" column="76" selection-end-line="750" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8400#8401#0" expanded="true" />
+            <element signature="e#8459#8460#0" expanded="true" />
+            <element signature="e#11457#11458#0" expanded="true" />
+            <element signature="e#11522#11523#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
