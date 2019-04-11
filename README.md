@@ -252,13 +252,32 @@ Email|xuyanpeter0619@gmail.com
 1. 优化代码
 
 
+**2019 WEEK-8 -- WEEK-15**
+1. 引入问卷打分机制: 根据重复5道题目结果匹配结果给分，分别返回0/20/40/60/80/100分
+1. 风险值: lifetime_risk终生风险值, fyrs_risk五年风险值
+    1. 将问卷结果写入answers表，
+    1. 根据问卷版本，数据库中查询问卷需要用到的风险模型idriskmodel
+    1. 根据风险模型idriskmodel，获取风险模型modelname、cancername以及两组存在`riskmodel`表中的两列SQL查询语句
+    1. 通过两组连续查询获得长度为N的返回值，通过在对应risk_modelname表中匹配每一列，返回匹配的行数据，再从中获取`lifetime_risk`和`fyrs_risk`
+        1. 如果风险模型返回两风险值都为null，那么记录该风险模型cancername
+        1. 分别加入风险值列表，后续用于计算综合终身风险值和综合五年风险值
+1. 提供两种登录方式，PC登录以及微信扫描二维码
+
+**2019 WEEK-15**
+
+1. 注册部分增加对数据库中未存储信息用户的注册流程
+1. 问卷提交后，界面重新定制
+1. 用户登录首页，添加`单位管理员信息查询`
+1. 问卷`知情同意书`存储格式由图片变成数据库存储HTML，目的便于调整
+
+
 jdk
 ------
 
 java version "1.8.0_101"
 
 maven
-------
+-----
 
 OS name: "mac os x", version: "10.13.5", arch: "x86_64", family: "mac"
 
@@ -429,7 +448,6 @@ ssh连接
     1. OutputStrem vs. InputStream
 1. preventDefault()作用
 1. async:false将关闭异步效果
-1. 原理
 
 
 ## 服务器log日志
@@ -587,14 +605,10 @@ __Spring MVC对于url的匹配采用的是一种叫做“最精确匹配的方�
     1. 问卷调查的最后一页，点击 __提交__
     
 ## 待(已)解决问题
-1. 管理员扫码登陆，短信验证 _in progress_
-1. 参加人员也可以在浏览器上扫码进入，如何？能识别视图大小自动调整题目数量吗
-1. 微信公众号，发送信息服务错误 _done_
 1. 小程序开发 _in progress_
-1. 自动初始化题目数量 _done_
-1. 确定logs/sm.log所在远程服务器的位置，通过查看log分析错误 _done_
-1. __AJAX发送JSON数据到后台__ _done_
-1. 注册时，如果微信用户已经不存在则`insert`，否则`update`; 抑或始终`update`
+1. logs/sm.log暂时没有日志输出，怀疑配置问题 _not started_
+1. Web客户端值传递，存储在cache、session、和ModelMap的方法 _in progress_
+
 ```mysql
 
 INSERT INTO clients
