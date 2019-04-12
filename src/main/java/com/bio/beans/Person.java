@@ -16,6 +16,8 @@ public class Person {
 
     private String ID_code_cut;
 
+    private String ID_code_six;
+
     private String sn_in_center;
 
     private String global_sn;
@@ -172,6 +174,14 @@ public class Person {
         this.barcode = barcode;
     }
 
+    public String getID_code_six() {
+        return ID_code_six;
+    }
+
+    public void setID_code_six(String ID_code_six) {
+        this.ID_code_six = ID_code_six;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -182,6 +192,7 @@ public class Person {
                 ", original_ID_code='" + original_ID_code + '\'' +
                 ", ID_code='" + ID_code + '\'' +
                 ", ID_code_cut='" + ID_code_cut + '\'' +
+                ", ID_code_six='" + ID_code_six + '\'' +
                 ", sn_in_center='" + sn_in_center + '\'' +
                 ", global_sn='" + global_sn + '\'' +
                 ", idcenter=" + idcenter +

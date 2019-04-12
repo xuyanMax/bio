@@ -104,12 +104,6 @@
                         alert("没有您的预申请信息，请联系专属管理员。");
                     } else if (data.result == '1') {
                         alert("匹配成功");
-                        alert(JSON.stringify(data.list));
-                        var a = '';
-                        for (b in data.list) {
-                            a = a+data.list[b]+' ';
-                        }
-                        alert(a);
                         window.location.assign(window.location.origin + "/signupPageFollowed?idcode=" + idcode);
                     }
                 }
