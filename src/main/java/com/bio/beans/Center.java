@@ -1,15 +1,26 @@
 package com.bio.beans;
 
 public class Center {
+
     private int idcenter;
+
     private String center;
+
     private Integer idperson;
+
     private int postcode;
+
     private int local_num;
+
     private String admin_name;
+
     private String admin_tel;
+
     private Integer current_qtversion;
+
     private String sup3;
+
+    private int no_centers;
 
     public Integer getIdperson() {
         return idperson;
@@ -83,6 +94,14 @@ public class Center {
         this.sup3 = sup3;
     }
 
+    public int getNo_centers() {
+        return no_centers;
+    }
+
+    public void setNo_centers(int no_centers) {
+        this.no_centers = no_centers;
+    }
+
     @Override
     public String toString() {
         return "Center{" +
@@ -95,6 +114,7 @@ public class Center {
                 ", admin_tel='" + admin_tel + '\'' +
                 ", current_qtversion=" + current_qtversion +
                 ", sup3='" + sup3 + '\'' +
+                ", no_centers=" + no_centers +
                 '}';
     }
 }

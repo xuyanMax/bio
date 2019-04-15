@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.PersonInfoUtils;
+import com.bio.Utils.ResultUtil;
 import com.bio.beans.*;
 import com.bio.enums.ResultEnum;
 import com.bio.exception.FlupException;
@@ -348,9 +349,8 @@ public class Home {
 
             resMap.put("result", "1");
             session.put("idcode", idcode);
-            logger.info("ok");
             session.put("centerNames", centerNames);
-        } else resMap.put("result", "0");
+        } else { resMap.put("result", "0"); }
 
         return resMap;
     }
