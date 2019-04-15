@@ -350,7 +350,18 @@ public class Home {
             resMap.put("result", "1");
             session.put("idcode", idcode);
             session.put("centerNames", centerNames);
-        } else { resMap.put("result", "0"); }
+        } else {
+            p = new Person();
+            List<Center> noCenters = centerService.findNoCenters();
+            if (noCenters == null) {
+                logger.error("【noCenters】数组为空");
+            }
+            centerNames = noCenters.stream().map(Center::getCenter).collect(Collectors.toList());
+            logger.info(centerNames);
+            session.put("centerNames", centerNames);
+            session.put("idcode", idcode);
+            resMap.put("result", "0");
+        }
 
         return resMap;
     }
@@ -403,6 +414,8 @@ public class Home {
         //(手机号码不为空 && 匹配) || 手机号码为空
         //执行发送短信操作
         WeChatUser user = (WeChatUser) session.getAttribute("wxuser");
+        //todo to be removed
+        if (user == null) user = new WeChatUser();
 
         user.setIdperson(p.getIdperson());
 

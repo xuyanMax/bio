@@ -69,15 +69,22 @@
                 if (centerNames != null) {
             %>
             <p>勾选您所在单位前的圆圈或方框</p>
-            <%
-                for (String centerName : centerNames) {
-            %>
-            <label class="">
-                <input type="radio" class="" required id="unit1" name="unit" id="unit1"
-                       value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
-            </label>
-            <%
+            <select name="center" id="center">
+                <%
+                    for (String centerName : centerNames) {
+                %>
+
+
+                <option value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>
+                </option>
+                <%--<input type="radio" class="" required id="unit1" name="unit" id="unit1"--%>
+                <%--value="<%=centerName%>"><%=centerName.substring(centerName.indexOf("_") + 1)%>--%>
+
+                <%
                     }
+                %>
+            </select>
+            <%
                 }
             %>
         </div>
@@ -90,6 +97,7 @@
             <input type="button" class="button btn-sm" id="btn" value="点击获取验证码" disabled="">
             <small class="help-block" id="vcode-error"></small>
         </div>
+        <p style="font-size: smaller; color: red;">请先点击验证码框再点击发送按钮，以屏蔽网络机器人</p>
         <div class="form-group">
             <button type="submit" id="submit" class="btn btn-primary btn-block">提交注册</button>
         </div>
@@ -117,7 +125,7 @@
             btn.removeAttr("disabled");
             return;
         } else {
-            document.getElementById("phone").className += ' is-invalid';
+            document.getElementById("tel_div").className += ' has-error';
             document.getElementById("tel-error").className += ' text-danger';
             document.getElementById("tel-error").innerText = "请输入合法手机号";
             btn.attr("disabled", true);
@@ -128,8 +136,7 @@
     $(document).ready(function () {
         var user = '';
         $("#btn").on("click", function () {
-            if ($('input:radio[name="unit"]:checked').val() == null ||
-                $('input:radio[name="unit"]:checked').val() == "") {
+            if (!$("#center").val()) {
                 alert("单位不得为空");
             } else {
                 currCount = count;
@@ -147,7 +154,7 @@
                 upload.vcode = vcode;
                 upload.phone = $("#phone").val();
                 upload.idcode = document.getElementById("id_code").innerText;
-                upload.centerName = $('input:radio[name="unit"]:checked').val();
+                upload.centerName = $("#center").val();
                 $.ajax({
                     type: "POST", //用POST方式传输
                     dataType: "json", //数据格式:JSON
@@ -158,7 +165,7 @@
                     }, //请求错误时的处理函数
                     success: function (data) {
                         if (data.result == '-1') {
-                            document.getElementById("id_code").className = ' is-valid';
+                            document.getElementById("ID_CODE_div").className = ' has-error';
                             document.getElementById("id-error").className = ' text-danger';
                             document.getElementById("id-error").innerText = "您的手机号与系统记录不符，请联系管理员核实";//没有您的预申请信息，请联系专属管理员。
                         } else if (data.result == '1') {

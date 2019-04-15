@@ -12,6 +12,6 @@
     </select>
 
     <select id="selectCentersByNoCenters" resultType="com.bio.beans.Center">
-        select * from centers where no_centers=1
+        select * from centers where no_centers=1 order by idcenter
     </select>
 </mapper>
