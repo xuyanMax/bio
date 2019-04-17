@@ -104,4 +104,11 @@ public class PersonInfoUtils {
         return ID_code.substring(6, 12);
     }
 
+    public static String getIDCodeSix(String ID_code) {
+        return ID_code.substring(0, 6);
+    }
+
+    public static String getIDCodeCut(String ID_code) {
+        return ID_code.substring(14);
+    }
 }

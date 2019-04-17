@@ -28,4 +28,14 @@ public class CenterImpl implements ICenterService {
     public List<Center> findNoCenters() {
         return centerDao.selectCentersByNoCenters();
     }
+
+    @Override
+    public Center findCenterByCenterName(String center) {
+        return centerDao.selectCenterByCenterName(center);
+    }
+
+    @Override
+    public List<Center> findCentersBy1And2() {
+        return centerDao.selectCentersBy1And2();
+    }
 }

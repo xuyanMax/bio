@@ -11,4 +11,8 @@ public interface ICenterService {
     Center findPersonInCentersByIdperson(int idperson);
 
     List<Center> findNoCenters();
+
+    Center findCenterByCenterName(String center);
+
+    List<Center> findCentersBy1And2();
 }

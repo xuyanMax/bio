@@ -313,7 +313,9 @@ public class Home {
         ModelAndView mv = new ModelAndView("jsp/users/signup");
         mv.addObject("idcode", idcode);
         Person p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
-        if (p != null) mv.addObject("name", p.getName());
+        if (p != null) {
+            mv.addObject("name", p.getName());
+        }
         session.put("idcode", idcode);
         return mv;
     }
@@ -352,12 +354,12 @@ public class Home {
             session.put("centerNames", centerNames);
         } else {
             p = new Person();
-            List<Center> noCenters = centerService.findNoCenters();
+            List<Center> noCenters = centerService.findCentersBy1And2();
             if (noCenters == null) {
                 logger.error("【noCenters】数组为空");
             }
             centerNames = noCenters.stream().map(Center::getCenter).collect(Collectors.toList());
-            logger.info(centerNames);
+            logger.info("【centerNames】=" + centerNames);
             session.put("centerNames", centerNames);
             session.put("idcode", idcode);
             resMap.put("result", "0");
@@ -369,6 +371,18 @@ public class Home {
     //验证手机短信是否发送成功
     //1;发送成功!;1;0;1;70;7440;
     //0;失败...
+
+    /**
+     * @param request
+     * @param response
+     * @param session
+     * @param vcode
+     * @param phone
+     * @param idcode
+     * @param centerName
+     * @param type       1:表示预存人员 0:未预存人员
+     * @return
+     */
     @RequestMapping("register/sms")
     @ResponseBody
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
@@ -376,39 +390,76 @@ public class Home {
                                            String vcode,
                                            String phone,
                                            String idcode,
-                                           String centerName) {
+                                           String centerName,
+                                           String type,
+                                           String name) {
         Map<String, Object> resMap = new HashMap<>();
         logger.info("接受验证码手机号=" + phone);
         logger.info("即将发送的验证码=" + vcode);
         logger.info("身份证号=" + idcode);
         logger.info("单位=" + centerName);
-
+        logger.info("type=" + type);
+        logger.info("姓名=" + name);
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         session.setAttribute("vcode", vcode);
 
         session.setMaxInactiveInterval(5 * 60);
 
-        int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
-        logger.info(idcenter);
-        Person p = personService.findPersonByID_codeAndIdcenter(PersonInfoUtils
-                .md5(idcode.toUpperCase()), idcenter);
+        Person p;
+        if (type.equals("1")) {
+            int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
+            logger.info(idcenter);
+            p = personService.findPersonByID_codeAndIdcenter(PersonInfoUtils
+                    .md5(idcode.toUpperCase()), idcenter);
 
-        if (p == null || p.getID_code() == null) {
-            resMap.put("result", "-1");
-            logger.error("注册用户身份证信息不在表person中");
-            return resMap;
-        }
+            if (p == null || p.getID_code() == null) {
+                resMap.put("result", "-1");
+                logger.error("注册用户身份证信息不在表person中");
+                return resMap;
+            }
 
-        //手机号码为空
-        if (p.getTel1() == null) {
+            //手机号码为空
+            if (p.getTel1() == null) {
+                p.setTel1(phone);
+                personService.modifyPerson(p);
+                logger.error("数据库手机号码为空");
+            }
+            // 不为空 && 不匹配
+            if ((p.getTel1() != null && !p.getTel1().equals(phone))) {
+                resMap.put("result", -1);//返回"您的手机号与系统记录不符，请联系管理员核实"
+                return resMap;
+            }
+
+        } else {
+            p = new Person();
+
+            Center center = centerService.findCenterByCenterName(centerName);
+            logger.info(center);
+
+            p.setIdcenter(center.getIdcenter());
+            p.setGender(PersonInfoUtils.getGender(idcode));
+            p.setAge(PersonInfoUtils.getAge(idcode));
             p.setTel1(phone);
-            personService.modifyPerson(p);
-            logger.error("数据库手机号码为空");
-        }
-        // 不为空 && 不匹配
-        if ((p.getTel1() != null && !p.getTel1().equals(phone))) {
-            resMap.put("result", -1);//返回"您的手机号与系统记录不符，请联系管理员核实"
-            return resMap;
+            p.setID_code(PersonInfoUtils.md5(idcode));
+            p.setBirth(PersonInfoUtils.getBirth(idcode));
+            p.setID_code_six(PersonInfoUtils.getIDCodeSix(idcode));
+            p.setID_code_cut(PersonInfoUtils.getIDCodeCut(idcode));
+            p.setName(name.substring(0, 1) + (p.getGender().equals("男") ? "先生" : "女士"));
+
+            int num = personService.countPersonsByIdCenter(center.getIdcenter());
+
+            String global_sn = center.getPostcode()
+                    + "_"
+                    + center.getLocal_num()
+                    + "_"
+                    + ++num;
+
+            p.setGlobal_sn(global_sn);
+            p.setSn_in_center("sn_in_center生成公式忘记");
+
+
+            logger.info("【未预存用户】=" + p);
+            personService.addPerson(p);
         }
 
         //(手机号码不为空 && 匹配) || 手机号码为空
@@ -425,6 +476,7 @@ public class Home {
             logger.info("该用户在Session.");
             logger.info("wxuser=" + JSONObject.toJSON(user));
         }
+
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "GET", null, vcode);

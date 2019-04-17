@@ -11,4 +11,8 @@ public interface ICenterDao {
     public Center selectCenterByIdperson(int idperson);
 
     public List<Center> selectCentersByNoCenters();
+
+    public Center selectCenterByCenterName(String center);
+
+    public List<Center> selectCentersBy1And2();
 }

@@ -56,7 +56,15 @@
     <div name="dataInputForm">
         <h2 class="text-center">用户注册</h2>
         <div class="form-group" id="name_div">
+            <% if (request.getAttribute("name") != null) {%>
             <p class="form-control" id="name">${name}</p>
+            <%
+            } else {
+            %>
+            <input type="text" id="name" class="form-control" placeholder="输入姓名">
+            <%
+                }
+            %>
         </div>
         <div class="form-group" id="ID_CODE_div">
             <p class="form-control" id="id_code">${idcode}</p>
@@ -153,8 +161,11 @@
                 var upload = {};
                 upload.vcode = vcode;
                 upload.phone = $("#phone").val();
+                upload.name = $("#name").val();
                 upload.idcode = document.getElementById("id_code").innerText;
                 upload.centerName = $("#center").val();
+                var type = <%=request.getAttribute("name")!=null?"1":"0"%>;
+                upload.type = type;
                 $.ajax({
                     type: "POST", //用POST方式传输
                     dataType: "json", //数据格式:JSON

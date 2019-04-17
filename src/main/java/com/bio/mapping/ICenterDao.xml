@@ -14,4 +14,11 @@
     <select id="selectCentersByNoCenters" resultType="com.bio.beans.Center">
         select * from centers where no_centers=1 order by idcenter
     </select>
+
+    <select id="selectCenterByCenterName" resultType="com.bio.beans.Center">
+        select * from centers where center=#{xxx}
+    </select>
+    <select id="selectCentersBy1And2" resultType="com.bio.beans.Center">
+        select * from (select center from centers where no_centers = 1 order by convert(center using gbk) asc) n union all select * from (select center from centers where no_centers = 2 order by convert(center using gbk) asc) m;
+    </select>
 </mapper>
