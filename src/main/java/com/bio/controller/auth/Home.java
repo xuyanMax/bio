@@ -375,18 +375,19 @@ public class Home {
     /**
      * @param request
      * @param response
-     * @param session
+     * @param httpSession
      * @param vcode
      * @param phone
      * @param idcode
      * @param centerName
-     * @param type       1:表示预存人员 0:未预存人员
+     * @param type        1:表示预存人员 0:未预存人员
      * @return
      */
     @RequestMapping("register/sms")
     @ResponseBody
     public Map<String, Object> registerSms(HttpServletRequest request, HttpServletResponse response,
-                                           HttpSession session,
+                                           HttpSession httpSession,
+                                           ModelMap session,
                                            String vcode,
                                            String phone,
                                            String idcode,
@@ -401,11 +402,11 @@ public class Home {
         logger.info("type=" + type);
         logger.info("姓名=" + name);
         /** 短信验证码存入session(session的默认失效时间30分钟) */
-        session.setAttribute("vcode", vcode);
+        httpSession.setAttribute("vcode", vcode);
 
-        session.setMaxInactiveInterval(5 * 60);
+        httpSession.setMaxInactiveInterval(5 * 60);
 
-        Person p;
+        Person p = new Person();
         if (type.equals("1")) {
             int idcenter = Integer.valueOf(centerName.substring(0, centerName.indexOf("_")));
             logger.info(idcenter);
@@ -429,46 +430,18 @@ public class Home {
                 resMap.put("result", -1);//返回"您的手机号与系统记录不符，请联系管理员核实"
                 return resMap;
             }
-
-        } else {
-            p = new Person();
-
-            Center center = centerService.findCenterByCenterName(centerName);
-            logger.info(center);
-
-            p.setIdcenter(center.getIdcenter());
-            p.setGender(PersonInfoUtils.getGender(idcode));
-            p.setAge(PersonInfoUtils.getAge(idcode));
-            p.setTel1(phone);
-            p.setID_code(PersonInfoUtils.md5(idcode));
-            p.setBirth(PersonInfoUtils.getBirth(idcode));
-            p.setID_code_six(PersonInfoUtils.getIDCodeSix(idcode));
-            p.setID_code_cut(PersonInfoUtils.getIDCodeCut(idcode));
-            p.setName(name.substring(0, 1) + (p.getGender().equals("男") ? "先生" : "女士"));
-
-            int num = personService.countPersonsByIdCenter(center.getIdcenter());
-
-            String global_sn = center.getPostcode()
-                    + "_"
-                    + center.getLocal_num()
-                    + "_"
-                    + ++num;
-
-            p.setGlobal_sn(global_sn);
-            p.setSn_in_center("sn_in_center生成公式忘记");
-
-
-            logger.info("【未预存用户】=" + p);
-            personService.addPerson(p);
         }
 
         //(手机号码不为空 && 匹配) || 手机号码为空
         //执行发送短信操作
-        WeChatUser user = (WeChatUser) session.getAttribute("wxuser");
+        WeChatUser user = (WeChatUser) session.get("wxuser");
+        WeChatUser user2 = (WeChatUser) httpSession.getAttribute("wxuser");
+
         //todo to be removed
         if (user == null) user = new WeChatUser();
+        logger.info(user);
+        logger.info(user2);
 
-        user.setIdperson(p.getIdperson());
 
         if (user == null || user.getOpenid() == null || user.getOpenid().equals("")) {
             logger.warn("该用户不在Session!");
@@ -476,7 +449,6 @@ public class Home {
             logger.info("该用户在Session.");
             logger.info("wxuser=" + JSONObject.toJSON(user));
         }
-
 
         String requestUrl = SmsBase.URL_SMS.replace("AIMCODES", phone);
         String res = SmsBase.httpRequest(requestUrl, "GET", null, vcode);
@@ -497,22 +469,59 @@ public class Home {
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                                   HttpServletRequest request,
                                                   ModelMap session,
-                                                  String ID_code,
+                                                  String idcode,
                                                   HttpSession httpSession,
-                                                  String vcode) {
-        logger.info("sessionVCode=" + session.get("vcode"));
+                                                  String vcode,
+                                                  String centerName,
+                                                  String phone,
+                                                  String name) {
+        logger.info("sessionVCode=" + httpSession.getAttribute("vcode"));
         logger.info("Actual vcode=" + vcode);
-        logger.info("idcode=" + ID_code);
+        logger.info("idcode=" + idcode);
+        logger.info("phone=" + phone);
+        logger.info("centerName=" + centerName);
+        logger.info("姓名=" + name);
 
         Map<String, Object> resMap = new HashMap<>();
         String sessionVcode = (String) session.get("vcode");
 
         if (sessionVcode != null && vcode != null && sessionVcode.equals(vcode)) {
 
-            WeChatUser wxuser = (WeChatUser) session.get("wxuser");
-            logger.info(wxuser.getOpenid());
+            WeChatUser wxuser = (WeChatUser) httpSession.getAttribute("wxuser");
+            logger.info(wxuser);
 
-            weChatUserService.addWxUser(wxuser);
+            Person p = new Person();
+
+            Center center = centerService.findCenterByCenterName(centerName);
+            logger.info(center);
+            int sn_in_center = personService.countPersonsByIdCenter(center.getIdcenter());
+            p.setIdcenter(center.getIdcenter());
+            p.setGender(PersonInfoUtils.getGender(idcode));
+            p.setAge(PersonInfoUtils.getAge(idcode));
+            p.setTel1(phone);
+            p.setID_code(PersonInfoUtils.md5(idcode));
+            p.setBirth(PersonInfoUtils.getBirth(idcode));
+            p.setID_code_six(PersonInfoUtils.getIDCodeSix(idcode));
+            p.setID_code_cut(PersonInfoUtils.getIDCodeCut(idcode));
+            p.setName(name.substring(0, 1) + (p.getGender().equals("男") ? "先生" : "女士"));
+
+            int num = personService.countPersonsByIdCenter(center.getIdcenter());
+
+            String global_sn = center.getPostcode()
+                    + "_"
+                    + center.getLocal_num()
+                    + "_"
+                    + ++num;
+
+            p.setGlobal_sn(global_sn);
+            p.setSn_in_center("" + sn_in_center);
+
+            logger.info("【未预存用户】=" + p);
+            personService.addPerson(p);
+            p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
+            logger.info(p);
+            wxuser.setIdperson(p.getIdperson());
+//            weChatUserService.addWxUser(wxuser);
             httpSession.setAttribute("wxuser", wxuser);
             httpSession.setAttribute("username", wxuser.getNickname());
             httpSession.setAttribute("user", personService.findPersonByIdperson(wxuser.getIdperson()));

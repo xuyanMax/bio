@@ -76,7 +76,7 @@
                 List<String> centerNames = (List<String>) request.getSession().getAttribute("centerNames");
                 if (centerNames != null) {
             %>
-            <p>勾选您所在单位前的圆圈或方框</p>
+            <p>请在下拉框中选择您所在的单位</p>
             <select name="center" id="center">
                 <%
                     for (String centerName : centerNames) {
@@ -162,6 +162,7 @@
                 upload.vcode = vcode;
                 upload.phone = $("#phone").val();
                 upload.name = $("#name").val();
+                alert(upload.name);
                 upload.idcode = document.getElementById("id_code").innerText;
                 upload.centerName = $("#center").val();
                 var type = <%=request.getAttribute("name")!=null?"1":"0"%>;
@@ -217,8 +218,11 @@
                 var upload = {};
                 upload.vcode = $("#vcode").val();
                 upload.phone = $("#phone").val();
-                upload.ID_code = document.getElementById("id_code").innerText;
+                upload.idcode = document.getElementById("id_code").innerText;
                 upload.name = $("#name").val();
+                upload.phone=$("#phone").val();
+                upload.centerName=$("#center").val();
+                alert(upload.name);
 
                 if (user != "") {
                     upload.openid = user.openid;
