@@ -23,4 +23,6 @@ public interface IPersonService {
 
     int countPersonsByIdCenter(int idcenter);
 
+    String findCenterAdminInfo(Integer idperson);
+
 }

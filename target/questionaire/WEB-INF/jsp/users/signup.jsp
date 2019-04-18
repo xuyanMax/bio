@@ -162,7 +162,6 @@
                 upload.vcode = vcode;
                 upload.phone = $("#phone").val();
                 upload.name = $("#name").val();
-                alert(upload.name);
                 upload.idcode = document.getElementById("id_code").innerText;
                 upload.centerName = $("#center").val();
                 var type = <%=request.getAttribute("name")!=null?"1":"0"%>;
@@ -222,7 +221,6 @@
                 upload.name = $("#name").val();
                 upload.phone=$("#phone").val();
                 upload.centerName=$("#center").val();
-                alert(upload.name);
 
                 if (user != "") {
                     upload.openid = user.openid;

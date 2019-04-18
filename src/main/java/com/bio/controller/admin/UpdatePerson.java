@@ -63,4 +63,13 @@ public class UpdatePerson {
         return "jsp/users/personsInCenter";
     }
 
+    @RequestMapping(value = "/center/{idperson}/info", method = RequestMethod.GET)
+    public String listCenterAdminInfo(@PathVariable("idperson") Integer idperson,
+                                      Model model) {
+        String info = personService.findCenterAdminInfo(idperson);
+        model.addAttribute("adminInfo", info);
+
+        return "jsp/users/adminInfo";
+    }
+
 }

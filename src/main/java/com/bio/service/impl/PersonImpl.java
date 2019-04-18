@@ -1,6 +1,8 @@
 package com.bio.service.impl;
 
+import com.bio.beans.Center;
 import com.bio.beans.Person;
+import com.bio.dao.ICenterDao;
 import com.bio.dao.IPersonDao;
 import com.bio.service.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class PersonImpl implements IPersonService {
 
     @Autowired
     private IPersonDao personDao;//personDao要与jdbcApplicationContext.xml中的 <bean id="personDao" 名称一致
+
+    @Autowired
+    private ICenterDao centerDao;
 
     @Override
     public List<Person> findAllPersonsByCenterId(Integer idcenter) {
@@ -63,5 +68,21 @@ public class PersonImpl implements IPersonService {
     @Override
     public int countPersonsByIdCenter(int idcenter) {
         return personDao.selectPersonsByIdcenter(idcenter);
+    }
+
+    @Override
+    public String findCenterAdminInfo(Integer idperson) {
+        Person p = personDao.selectPersonByIdPerson(idperson);
+        int idcenter = p.getIdcenter();
+        Center center = centerDao.selectCenterIdById(idcenter);
+        StringBuilder builder = new StringBuilder();
+        builder.append("您的单位管理员姓名为:");
+        if (center.getAdmin_name() != null) {
+            builder.append(center.getAdmin_name()).append(", ");
+        }
+        if (center.getAdmin_tel() != null) {
+            builder.append(center.getAdmin_tel());
+        }
+        return builder.toString();
     }
 }

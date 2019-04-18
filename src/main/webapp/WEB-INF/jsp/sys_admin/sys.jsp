@@ -58,6 +58,8 @@
 <%
     }
 %>
+<br/>
+<br/>
 <p align="center" style="font-size: 20pt;"><a href="/logout">重新登录</a></p><br/>
 <p align="center" style="font-size: 20pt;"><a href="/home">队列成员信息</a></p><br/>
 <p align="center" style="font-size: 20pt;"><a href="/userHomePage">参与人员界面</a></p><br/>
