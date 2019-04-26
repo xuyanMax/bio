@@ -11,7 +11,7 @@ public class BaseQuestion {
         this.name = name;
         this.title = title;
         this.description="";
-        this.isRequired = false;
+        this.isRequired = true;
     }
 
     public String getDescription() {

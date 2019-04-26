@@ -241,23 +241,22 @@ public class WeChat {
                     iWeChatUserService.modifyWxUserByUnionid(wxUser);
                     return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
                 } else {
-                    logger.info("扫码登陆openid和unionid不匹配，即将进入注册页");
+                    logger.info("【扫码登陆openid和unionid不匹配】，即将进入注册页");
                     mv.setViewName("jsp/users/signupIdCode");
-
                     mv.addObject("wxuser", wxUser);
                     modelMap.addAttribute("wxuser", wxUser);
                     return mv;
                 }
             } else {
-                logger.error("从微信服务器获取的用户数据为空");
+                logger.error("【从微信服务器获取的用户数据为空，wxuser=null】");
                 mv.setViewName("views/errors/error");
                 mv.addObject("error", "从微信服务器获取的用户数据为空");
                 return mv;
             }
         } else {
-            logger.warn("获取的openid无效");
+            logger.warn("获取的openid无效, openid=" + openid);
             mv.setViewName("views/errors/error");
-            mv.addObject("error", "openid获取为null或者空!!!");
+            mv.addObject("error", "openid=" + openid);
             return mv;
         }
     }

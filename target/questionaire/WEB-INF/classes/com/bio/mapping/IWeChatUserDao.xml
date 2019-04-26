@@ -23,19 +23,19 @@
 	</select>
 
     <select id="selectWxUserByOpenid" resultType="com.bio.beans.WeChatUser">
-		select * from wechat where openid=#{###}
+		select * from wechat where openid=#{###} limit 1
 	</select>
 
     <select id="selectWxUserByUnionid" resultType="com.bio.beans.WeChatUser">
-		select * from wechat where unionid=#{###}
+		select * from wechat where unionid=#{###} limit 1
 	</select>
 
     <select id="selectWxUserByIdwechat" resultType="com.bio.beans.WeChatUser">
-        select * from wechat where idwechat=#{###}
+        select * from wechat where idwechat=#{###} limit 1
 	</select>
 
 	<select id="selectWxUserByIdperson" resultType="com.bio.beans.WeChatUser">
-        select * from wechat where idperson=#{###}
+        select * from wechat where idperson=#{###} limit 1
 	</select>
 
 </mapper>

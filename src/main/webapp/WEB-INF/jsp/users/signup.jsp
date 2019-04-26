@@ -61,7 +61,7 @@
             <%
             } else {
             %>
-            <input type="text" id="name" class="form-control" placeholder="输入姓名">
+            <input type="text" id="name" class="form-control" placeholder="输入姓名" required>
             <%
                 }
             %>
@@ -161,7 +161,11 @@
                 var upload = {};
                 upload.vcode = vcode;
                 upload.phone = $("#phone").val();
-                upload.name = $("#name").val();
+                if ($("#name").val() == "") {
+                    upload.name = $("#name").text();
+                } else {
+                    upload.name = $("#name").val();
+                }
                 upload.idcode = document.getElementById("id_code").innerText;
                 upload.centerName = $("#center").val();
                 var type = <%=request.getAttribute("name")!=null?"1":"0"%>;
@@ -216,11 +220,16 @@
                 // 向后台发送处理数据
                 var upload = {};
                 upload.vcode = $("#vcode").val();
-                upload.phone = $("#phone").val();
+                if ($("#name").val() == "") {
+                    upload.name = $("#name").text();
+                } else {
+                    upload.name = $("#name").val();
+                }
                 upload.idcode = document.getElementById("id_code").innerText;
-                upload.name = $("#name").val();
-                upload.phone=$("#phone").val();
-                upload.centerName=$("#center").val();
+                upload.phone = $("#phone").val();
+                upload.centerName = $("#center").val();
+                var type = <%=request.getAttribute("name")!=null?"1":"0"%>;
+                upload.type = type;
 
                 if (user != "") {
                     upload.openid = user.openid;

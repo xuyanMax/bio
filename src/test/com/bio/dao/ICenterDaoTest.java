@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @Version 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring-mybatis.xml"})
+@ContextConfiguration({"classpath*:spring-mybatis.xml"})
 public class ICenterDaoTest {
 
     @Autowired

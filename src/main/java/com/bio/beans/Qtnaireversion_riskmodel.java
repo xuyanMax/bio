@@ -21,6 +21,11 @@ public class Qtnaireversion_riskmodel {
 
     private String fyrs_max;
 
+    private String low_risk;
+
+    private String high_risk;
+
+
     @Override
     public String toString() {
         return "Qtnaireversion_riskmodel{" +
@@ -31,7 +36,25 @@ public class Qtnaireversion_riskmodel {
                 ", lifetime_max='" + lifetime_max + '\'' +
                 ", fyrs_min='" + fyrs_min + '\'' +
                 ", fyrs_max='" + fyrs_max + '\'' +
+                ", low_risk='" + low_risk + '\'' +
+                ", high_risk='" + high_risk + '\'' +
                 '}';
+    }
+
+    public String getLow_risk() {
+        return low_risk;
+    }
+
+    public void setLow_risk(String low_risk) {
+        this.low_risk = low_risk;
+    }
+
+    public String getHigh_risk() {
+        return high_risk;
+    }
+
+    public void setHigh_risk(String high_risk) {
+        this.high_risk = high_risk;
     }
 
     public String getLifetime_min() {

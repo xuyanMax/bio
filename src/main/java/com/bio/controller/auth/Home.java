@@ -34,10 +34,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -87,9 +84,12 @@ public class Home {
     public void returnHomeCheck(ModelMap session, HttpServletResponse response) {
         try {
             if (session.get("snAdmin") != null) {
+                logger.error("【returnHome】=单位管理员");
                 response.sendRedirect("/snAdmin");
-            } else
+            } else {
+                logger.error("【returnHome】=普通用户 ");
                 response.sendRedirect("/userHomePage");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -331,14 +331,18 @@ public class Home {
         String md5 = PersonInfoUtils.md5(idcode.toUpperCase());
 
         Person p = personService.findPersonByID_code(md5);
-        logger.info(p);
+        if (p == null) {
+            logger.error("【待注册用户不在persons 表中】");
+        } else {
+            logger.info(p);
+        }
         List<Person> persons = null;
         List<String> centerNames = null;
-        List<Integer> idcenters = null;
+        Set<Integer> idcenters = null;
         if (p != null && p.getID_code().equalsIgnoreCase(md5)) {
             persons = personService.findAllPersons(PersonInfoUtils.md5(idcode));
             centerNames = new ArrayList<>();
-            idcenters = persons.stream().map(Person::getIdcenter).collect(Collectors.toList());
+            idcenters = persons.stream().map(Person::getIdcenter).collect(Collectors.toSet());
 
             logger.info(idcenters);
             for (int idcenter : idcenters) {
@@ -474,56 +478,74 @@ public class Home {
                                                   String vcode,
                                                   String centerName,
                                                   String phone,
-                                                  String name) {
-        logger.info("sessionVCode=" + httpSession.getAttribute("vcode"));
-        logger.info("Actual vcode=" + vcode);
+                                                  String name,
+                                                  String type) {
+        logger.info("SessionVCode=" + httpSession.getAttribute("vcode"));
+        logger.info("Input vcode=" + vcode);
         logger.info("idcode=" + idcode);
         logger.info("phone=" + phone);
         logger.info("centerName=" + centerName);
         logger.info("姓名=" + name);
+        logger.info("type=" + type);
 
         Map<String, Object> resMap = new HashMap<>();
-        String sessionVcode = (String) session.get("vcode");
+        String sessionVcode = (String) httpSession.getAttribute("vcode");
 
         if (sessionVcode != null && vcode != null && sessionVcode.equals(vcode)) {
 
             WeChatUser wxuser = (WeChatUser) httpSession.getAttribute("wxuser");
-            logger.info(wxuser);
+            if (wxuser != null) {
+                logger.info(wxuser);
+            } else {
+                logger.error("");
+            }
 
-            Person p = new Person();
+            if (type != null && !type.equals("1")) {
+                Person p = new Person();
 
-            Center center = centerService.findCenterByCenterName(centerName);
-            logger.info(center);
-            int sn_in_center = personService.countPersonsByIdCenter(center.getIdcenter());
-            p.setIdcenter(center.getIdcenter());
-            p.setGender(PersonInfoUtils.getGender(idcode));
-            p.setAge(PersonInfoUtils.getAge(idcode));
-            p.setTel1(phone);
-            p.setID_code(PersonInfoUtils.md5(idcode));
-            p.setBirth(PersonInfoUtils.getBirth(idcode));
-            p.setID_code_six(PersonInfoUtils.getIDCodeSix(idcode));
-            p.setID_code_cut(PersonInfoUtils.getIDCodeCut(idcode));
-            p.setName(name.substring(0, 1) + (p.getGender().equals("男") ? "先生" : "女士"));
+                Center center = centerService.findCenterByCenterName(centerName.substring(centerName.indexOf("_") + 1));
+                if (center != null) {
+                    logger.info(center);
+                } else {
+                    logger.error("【center查询不存在】, centerName=" + centerName.substring(centerName.indexOf("_") + 1));
+                }
+                int sn_in_center = personService.countPersonsByIdCenter(center.getIdcenter());
+                p.setIdcenter(center.getIdcenter());
+                p.setGender(PersonInfoUtils.getGender(idcode));
+                p.setAge(PersonInfoUtils.getAge(idcode));
+                p.setTel1(phone);
+                p.setID_code(PersonInfoUtils.md5(idcode));
+                p.setBirth(PersonInfoUtils.getBirth(idcode));
+                p.setID_code_six(PersonInfoUtils.getIDCodeSix(idcode));
+                p.setID_code_cut(PersonInfoUtils.getIDCodeCut(idcode));
+                p.setName(name.substring(0, 1) + (p.getGender().equals("男") ? "先生" : "女士"));
 
-            int num = personService.countPersonsByIdCenter(center.getIdcenter());
+                int num = personService.countPersonsByIdCenter(center.getIdcenter());
 
-            String global_sn = center.getPostcode()
-                    + "_"
-                    + center.getLocal_num()
-                    + "_"
-                    + ++num;
+                String global_sn = center.getPostcode()
+                        + "_"
+                        + center.getLocal_num()
+                        + "_"
+                        + ++num;
 
-            p.setGlobal_sn(global_sn);
-            p.setSn_in_center("" + sn_in_center);
-
-            logger.info("【未预存用户】=" + p);
-            personService.addPerson(p);
-            p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
-            logger.info(p);
-            wxuser.setIdperson(p.getIdperson());
-//            weChatUserService.addWxUser(wxuser);
+                p.setGlobal_sn(global_sn);
+                p.setSn_in_center("" + sn_in_center);
+                personService.addPerson(p);
+                p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
+                logger.info(p);
+            }
+            // 未预存 && 预存 都需要将微信用户信息写入wechat
+            Person p = personService.findPersonByID_code(PersonInfoUtils.md5(idcode));
+            if (p != null && p.getIdperson() != null) {
+                wxuser.setIdperson(p.getIdperson());
+            } else {
+                logger.error("【用户数据出错】, " + p);
+                resMap.put("result", 0);
+                return resMap;
+            }
+            weChatUserService.addWxUser(wxuser);
             httpSession.setAttribute("wxuser", wxuser);
-            httpSession.setAttribute("username", wxuser.getNickname());
+            httpSession.setAttribute("username", p.getName());
             httpSession.setAttribute("user", personService.findPersonByIdperson(wxuser.getIdperson()));
 
             resMap.put("result", 1);
@@ -761,8 +783,13 @@ public class Home {
                 ScoreUtil.scoreEmptyNull(SqlUtil.stringEmptyNull(qtnaireversion_riskmodel.getFyrs_max())),
                 fyr
         );
+
+        double low_risk = ScoreUtil.getRisk(qtnaireversion_riskmodel.getLow_risk());
+        double high_risk = ScoreUtil.getRisk(qtnaireversion_riskmodel.getHigh_risk());
         logger.info("lifetime_risk_score=" + lifetime_risk_score);
         logger.info("fyrs_risk_score=" + fyrs_risk_score);
+        logger.info("low_risk=" + low_risk);
+        logger.info("high_risk=" + high_risk);
 
         questionnaire.setLifetime_score(String.valueOf(lifetime_risk_score));
         questionnaire.setFyrs_score(String.valueOf(fyrs_risk_score));
@@ -774,6 +801,7 @@ public class Home {
         map.put("count", count);
         map.put("fyrs_score", fyrs_risk_score);
         map.put("lifetime_score", lifetime_risk_score);
+        map.put("riskEvaluation", ScoreUtil.evaluateRisk(low_risk, high_risk, lifetime_risk_score));
 
         map.put("lifetime_risk", SqlUtil.riskModelValue(lifetimeRisk, fyrsRisk));
         if (map.get("missing") != null) {

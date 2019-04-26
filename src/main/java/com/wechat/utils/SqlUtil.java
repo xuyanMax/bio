@@ -2,6 +2,7 @@ package com.wechat.utils;
 
 import com.bio.beans.Answer;
 import com.bio.service.IAnswerService;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class SqlUtil {
     }
 
     public static Double stringToDouble(String str) {
-        if (str == null || str.equals("")) return 0.0;
+        if (StringUtils.isEmpty(str)) return 0.0;
         return Double.valueOf(str);
 
     }

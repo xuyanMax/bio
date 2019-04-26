@@ -263,13 +263,27 @@ Email|xuyanpeter0619@gmail.com
         1. 分别加入风险值列表，后续用于计算综合终身风险值和综合五年风险值
 1. 提供两种登录方式，PC登录以及微信扫描二维码
 
-**2019 WEEK-15**
+**2019 WEEK-15/16**
 
-1. 注册部分增加对数据库中未存储信息用户的注册流程
-1. 问卷提交后，界面重新定制
-1. 用户登录首页，添加`单位管理员信息查询`
-1. 问卷`知情同意书`存储格式由图片变成数据库存储HTML，目的便于调整
+1. 注册部分增加对数据库中未存储信息用户的注册流程 _done_
+1. 问卷提交后，界面重新定制 _started_
+1. 用户登录首页，添加`单位管理员信息查询` _done_
+1. 问卷`知情同意书`存储格式由图片变成数据库存储HTML，目的便于调整 _not started_
 
+**2019 WEEK-17**
+1. 处理测试0421
+1. 处理IDEA tomcat 启动等配置问题
+    1. Project Structure 
+        1. Module: 可以删除, 不影响当前项目; 再次引入maven项目对应pom文件
+        1. Facets: 配置指定当前应用的根目录 例如`/Users/apple/Documents/workspace/bio/src/main/webapp`
+        1. Artifacts: 初次配置`Module`后, 会自动生成两项
+            1. bio: war (Web Application: Archive)
+            1. bio: war exploded (Web Application: Exploded)
+    1. Edit Configurations:
+        1. Server
+            1. URL: `http://localhost:8080/` (这里可以添加url前缀)
+        1. Deployment
+            1. Application context: `/`
 
 jdk
 ------
