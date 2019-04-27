@@ -272,9 +272,16 @@ Email|xuyanpeter0619@gmail.com
 
 **2019 WEEK-17**
 1. 处理测试0421
+    1. 单位管理员登录界面不一致 _started_
+1. 处理测试0415
+    1. `css/script`加载问题 _not started_
+    1. 添加简化版知情同意书于身份证填写前 _not started_
+    1. 问卷结果以网页形式展现, 取代弹窗 _started_
+    1. 知情同意书部分，勾上同意框，再去掉（变成不同意），还是可以继续答题。改为再去掉后，无法继续答题。现在上下的框和按钮不同步，索性去掉上面的框和按钮。并从数据库调用显示该说明书 _started_
+
 1. 处理IDEA tomcat 启动等配置问题
     1. Project Structure 
-        1. Module: 可以删除, 不影响当前项目; 再次引入maven项目对应pom文件
+        1. Module: 可以删除, 不影响当前项目; 再次引入maven项目对应pom文件, 重新设置文件夹类型
         1. Facets: 配置指定当前应用的根目录 例如`/Users/apple/Documents/workspace/bio/src/main/webapp`
         1. Artifacts: 初次配置`Module`后, 会自动生成两项
             1. bio: war (Web Application: Archive)

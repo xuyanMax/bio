@@ -4,9 +4,11 @@ import com.JsonGenerator.FetchData;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
+import com.bio.Utils.InformedConsentUtil;
 import com.bio.Utils.PersonInfoUtils;
 import com.bio.Utils.ResultUtil;
 import com.bio.beans.*;
+import com.bio.dao.IInformedConsentDao;
 import com.bio.enums.ResultEnum;
 import com.bio.exception.FlupException;
 import com.bio.service.*;
@@ -65,6 +67,8 @@ public class Home {
     IQtRiskModelService qtRiskModelService;
     @Autowired
     IRiskModelService riskModelService;
+    @Autowired
+    IInformedConsentDao iInformedConsentDao;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap session) {
@@ -830,6 +834,23 @@ public class Home {
         return "../index";
     }
 
+    @RequestMapping("/user/informedConsent/acknowledge")
+    public String informedConsent(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  ModelMap modelMap) {
+        InformedConsent informedConsent = iInformedConsentDao.selectInformedConsent();
+        if (informedConsent == null) {
+            logger.error("【提取认证申请书错误】");
+        }
+        String html = informedConsent.getInformed_consent1();
+        String style = InformedConsentUtil.getStyle(html);
+        String body = InformedConsentUtil.getBody(html);
+        modelMap.addAttribute("style", style);
+        modelMap.addAttribute("body", body);
+        return "jsp/users/informedConsent";
+
+    }
+
     @RequestMapping("/success")
     public String success(Model model) {
         return "views/success";
@@ -847,6 +868,4 @@ public class Home {
             return item.getKey().substring(0, item.getKey().length() - 1);
         else return item.getKey();
     }
-
-
 }

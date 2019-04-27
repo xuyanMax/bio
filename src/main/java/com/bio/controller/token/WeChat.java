@@ -242,7 +242,7 @@ public class WeChat {
                     return loginAuthCheck(wxUser.getIdperson(), mv, modelMap, wxUser);
                 } else {
                     logger.info("【扫码登陆openid和unionid不匹配】，即将进入注册页");
-                    mv.setViewName("jsp/users/signupIdCode");
+                    mv.setViewName("jsp/users/informedConsent");
                     mv.addObject("wxuser", wxUser);
                     modelMap.addAttribute("wxuser", wxUser);
                     return mv;
