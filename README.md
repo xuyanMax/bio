@@ -268,7 +268,7 @@ Email|xuyanpeter0619@gmail.com
 1. 注册部分增加对数据库中未存储信息用户的注册流程 _done_
 1. 问卷提交后，界面重新定制 _started_
 1. 用户登录首页，添加`单位管理员信息查询` _done_
-1. 问卷`知情同意书`存储格式由图片变成数据库存储HTML，目的便于调整 _not started_
+1. 问卷`知情同意书`存储格式由图片变成数据库存储HTML，目的便于调整 _done_
 
 **2019 WEEK-17**
 1. 处理测试0421
@@ -276,10 +276,10 @@ Email|xuyanpeter0619@gmail.com
 1. 处理测试0415
     1. `css/script`加载问题 _not started_
     1. 添加简化版知情同意书于身份证填写前 _not started_
-    1. 问卷结果以网页形式展现, 取代弹窗 _started_
+    1. 问卷结果以网页形式展现, 取代弹窗; 添加`surveyreport`表存储网页需要呈现的内容 _started_
     1. 知情同意书部分，勾上同意框，再去掉（变成不同意），还是可以继续答题。改为再去掉后，无法继续答题。现在上下的框和按钮不同步，索性去掉上面的框和按钮。并从数据库调用显示该说明书 _started_
-
-1. 处理IDEA tomcat 启动等配置问题
+    1. 预存问题
+1. 处理IDEA tomcat 启动等配置问题 _done_
     1. Project Structure 
         1. Module: 可以删除, 不影响当前项目; 再次引入maven项目对应pom文件, 重新设置文件夹类型
         1. Facets: 配置指定当前应用的根目录 例如`/Users/apple/Documents/workspace/bio/src/main/webapp`
@@ -291,6 +291,10 @@ Email|xuyanpeter0619@gmail.com
             1. URL: `http://localhost:8080/` (这里可以添加url前缀)
         1. Deployment
             1. Application context: `/`
+**2019 WEEK-20**
+1. 将问卷json存入数据库调用, 不再程序生成问卷json _done_
+1. `WEEk-19`反馈的问题
+    1. 
 
 jdk
 ------

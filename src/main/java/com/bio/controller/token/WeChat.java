@@ -324,47 +324,6 @@ public class WeChat {
         return mv;
     }
 
-    //===================单元测试
-    @RequestMapping("testLocal")
-    public ModelAndView test(ModelMap map) {
-        ModelAndView mv = new ModelAndView();
-        WeChatUser user = iWeChatUserService.findWxUserByOpenId("oJXrv0lCVwavIP1VTQVRD-HDrv08");
-        iWeChatUserService.addWxUser(user);
-        logger.info(user);
-        return loginAuthCheck(user.getIdperson(), mv, map, user);
-    }
-
-    @RequestMapping("testSignup")
-    public ModelAndView testSignup(ModelMap map) {
-        WeChatUser wxuser = new WeChatUser();
-        wxuser.setIdwechat(999);
-        wxuser.setUnionid("123");
-        wxuser.setOpenid("abx");
-        wxuser.setSubscribe("1100420");
-        wxuser.setSubscribe_time("123123123123)))");
-        wxuser.setLanguage("zn");
-        wxuser.setHeadImgUrl("http://***.com");
-        wxuser.setNickname("xyx");
-        wxuser.setIdperson(308);
-        wxuser.setSex("男");
-        wxuser.setCity("石家庄");
-        wxuser.setProvince("河北省");
-        map.addAttribute("wxuser", wxuser);
-        ModelAndView mv = new ModelAndView("jsp/users/signupIdCode");
-        return mv;
-
-    }
-
-    @RequestMapping("testVcode")
-    public ModelAndView testVcode(ModelMap session) {
-        WeChatUser user = iWeChatUserService.findWxUserByOpenId("abx");
-        session.addAttribute("wxuser", user);
-        session.addAttribute("idcode", "13010419920518241X");
-        ModelAndView mv = new ModelAndView("jsp/users/signup");
-        mv.addObject("idcode", "13010419920518241X");
-        return mv;
-    }
-
     @RequestMapping("testGetPeronByIdAndIdcenter")
     public String testGetPeronByIdAndIdcenter(ModelMap session) {
         Person p = iPersonService.findPersonByID_codeAndIdcenter(PersonInfoUtils.md5("13010419920518241X"), 1);

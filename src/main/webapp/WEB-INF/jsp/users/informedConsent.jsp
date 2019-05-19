@@ -9,14 +9,21 @@
 <html>
 <head>
     <title>知情同意书</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     ${style}
 </head>
 
 <body lang=ZH-CN link="#000000" vlink=fuchsia>
 ${body}
-<p style="font-size: 20pt; color: red;" align="center">如果您继续注册，视同同意上述事项。</p>
-<p style="font-size:20pt;" align="center"><a href="/signupPage">下一步</a></p>
-<p style="font-size:20pt;" align="center"><a href="/returnHome">返回首页</a></p>
+<form class="form-inline" action="/survey" method="post" style="margin-left: auto; margin-right: auto">
+    <p style="font-size: 20pt; color: red;" align="center">如果您继续注册，视同同意上述事项。</p>
+    <input type="hidden" id="gender" name="gender" value="${gender}"/>
+    <input class="btn btn-default" type="submit" name="submit" id="submit">下一步</input>
+    <a href="/userHomePage" class="button">不同意</a>
+</form>
+
 </body>
 
 </html>

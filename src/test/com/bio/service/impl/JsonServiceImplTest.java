@@ -1,33 +1,28 @@
-package com.bio.dao;
+package com.bio.service.impl;
 
-import com.bio.beans.InformedConsent;
+import com.bio.service.IJsonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static org.junit.Assert.*;
 
 /**
  * @Author: xyx
- * @Date: 2019-04-27 22:31
+ * @Date: 2019-05-16 10:19
  * @Version 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mybatis.xml"})
-public class IInformedConsentDaoTest {
+public class JsonServiceImplTest {
 
     @Autowired
-    private IInformedConsentDao informedConsentDao;
+    private IJsonService jsonService;
 
     @Test
-    public void testSelectInformedConsent1() {
-        InformedConsent res = informedConsentDao.selectInformedConsent();
-        System.out.println(res);
+    public void findJsonByVersion() {
+        System.out.println(jsonService.findJsonByVersion(1));
     }
-
-
 }

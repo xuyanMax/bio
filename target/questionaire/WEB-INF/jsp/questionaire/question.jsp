@@ -44,24 +44,24 @@
                 data: JSON.stringify(survey.data),
                 success: function (data) {
 
-                    alert("您本次问卷答题的分数为" + data.count + "分");
-                    alert("如果您的分数低于60分，系统计算的患癌风险值可能无法反映真实情况，建议您退回主界面重新答题。");
-                    alert("您的近期患癌风险值是：" + data.fyrs_score + " 您的终身患癌风险值是：" + data.lifetime_score);
-
-                    if (data.missing == '1') {
-
-                        var modelNames = '';
-
-                        for (var num in data.missingModels) {
-                            modelNames = modelNames + data.missingModels[num] + ' ';
-                        }
-                        alert("根据您的问卷答案无法计算出 " + modelNames +
-                            "癌的风险值，综合风险值中不包含 " + modelNames +
-                            " 癌的风险值。您可以返回主页面重新答题。如若仍无法解决请联系管理员询问具体情况"
-                        )
-                    }
+                    // alert("您本次问卷答题的分数为" + data.count + "分");
+                    // alert("如果您的分数低于60分，系统计算的患癌风险值可能无法反映真实情况，建议您退回主界面重新答题。");
+                    // alert("您的近期患癌风险值是：" + data.fyrs_score + " 您的终身患癌风险值是：" + data.lifetime_score);
+                    //
+                    // if (data.missing == '1') {
+                    //
+                    //     var modelNames = '';
+                    //
+                    //     for (var num in data.missingModels) {
+                    //         modelNames = modelNames + data.missingModels[num] + ' ';
+                    //     }
+                    //     alert("根据您的问卷答案无法计算出 " + modelNames +
+                    //         "癌的风险值，综合风险值中不包含 " + modelNames +
+                    //         " 癌的风险值。您可以返回主页面重新答题。如若仍无法解决请联系管理员询问具体情况"
+                    //     )
+                    // }
                     //todo: remove above alerts and just redirect to below url
-                    // window.location.assign(window.location.origin + "/questionnaire/display")
+                    window.location.assign(window.location.origin + "/survey/result/display/" + data.idquestionnaire)
                 },
                 error: function () {
                     alert("提交发送错误!");

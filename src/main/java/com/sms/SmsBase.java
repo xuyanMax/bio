@@ -18,7 +18,7 @@ public class SmsBase {
             + "&aimcodes=AIMCODES&content=CONTENT【"
             + SIGNATURE
             + "】&dataType=DATATYPE";
-    public static String content = "您好，短信验证码是${6}，5分钟内有效，请勿告知他人。";
+    public static String content = "您好，短信验证码是${6}，2分钟内有效，请勿告知他人。";
     public static String Json = "json";
     public static String STRING = "string";
     public static Logger logger = Logger.getLogger(SmsBase.class);

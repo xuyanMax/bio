@@ -6,13 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.InformedConsentUtil;
 import com.bio.Utils.PersonInfoUtils;
-import com.bio.Utils.ResultUtil;
 import com.bio.beans.*;
 import com.bio.dao.IInformedConsentDao;
 import com.bio.enums.ResultEnum;
 import com.bio.exception.FlupException;
 import com.bio.service.*;
-import com.jcraft.jsch.JSchException;
 import com.sms.SmsBase;
 import com.wechat.utils.ScoreUtil;
 import com.wechat.utils.SqlUtil;
@@ -69,6 +67,10 @@ public class Home {
     IRiskModelService riskModelService;
     @Autowired
     IInformedConsentDao iInformedConsentDao;
+    @Autowired
+    IJsonService jsonService;
+    @Autowired
+    ISurveyReportService reportService;
 
     @RequestMapping("/home")
     public ModelAndView index(ModelMap session) {
@@ -412,7 +414,7 @@ public class Home {
         /** 短信验证码存入session(session的默认失效时间30分钟) */
         httpSession.setAttribute("vcode", vcode);
 
-        httpSession.setMaxInactiveInterval(5 * 60);
+        httpSession.setMaxInactiveInterval(2 * 60);
 
         Person p = new Person();
         if (type.equals("1")) {
@@ -576,14 +578,22 @@ public class Home {
 
         Center c = centerService.findPersonInCentersByCenterid(user.getIdcenter());
         Integer sex = Integer.valueOf(gender);
-        try {
+        /*try {
             if (sex % 2 != 0)
                 surveyJSON = FetchData.getSurveyJSON(c != null ? ((c.getCurrent_qtversion() != null) ? c.getCurrent_qtversion() : 1) : 1);
             else
                 surveyJSON = FetchData.getSurveyJSON(c != null ? (c.getCurrent_qtversion() != null ? c.getCurrent_qtversion() + 1 : 1) : 1);
         } catch (JSchException e) {
             e.printStackTrace();
+        }*/
+
+        //todo: test
+        if (sex % 2 != 0) {
+            surveyJSON = jsonService.findJsonByVersion(c != null ? ((c.getCurrent_qtversion() != null) ? c.getCurrent_qtversion() : 1) : 1).getJson();
+        } else {
+            surveyJSON = jsonService.findJsonByVersion(c != null ? ((c.getCurrent_qtversion() != null) ? c.getCurrent_qtversion() + 1 : 1) : 1).getJson();
         }
+        logger.info(surveyJSON);
         List<Integer> firstValues = FetchData.getFirstValues();
 
         logger.info(firstValues);
@@ -811,6 +821,15 @@ public class Home {
         if (map.get("missing") != null) {
             map.put("missingModels", missingModels);
         }
+        //todo save SurveyReport to db and cache idquestionnaire for retrieval
+        reportService.addSurveyReport(idquestionnaire,
+                String.valueOf(low_risk),
+                String.valueOf(high_risk),
+                String.valueOf(fyrs_risk_score),
+                String.valueOf(lifetime_risk_score),
+                count,
+                String.join(";", missingModels));
+        map.put("idquestionnaire", idquestionnaire);
         return map;
     }
 
@@ -837,7 +856,10 @@ public class Home {
     @RequestMapping("/user/informedConsent/acknowledge")
     public String informedConsent(HttpServletRequest request,
                                   HttpServletResponse response,
-                                  ModelMap modelMap) {
+                                  ModelMap modelMap,
+                                  @RequestParam(value = "idperson2", required = false) Integer idperson2,
+                                  @RequestParam(value = "idperson1", required = false) Integer idperson1
+    ) {
         InformedConsent informedConsent = iInformedConsentDao.selectInformedConsent();
         if (informedConsent == null) {
             logger.error("【提取认证申请书错误】");
@@ -847,6 +869,21 @@ public class Home {
         String body = InformedConsentUtil.getBody(html);
         modelMap.addAttribute("style", style);
         modelMap.addAttribute("body", body);
+
+        Integer sex = 0;
+        logger.info(idperson1);
+        logger.info(idperson2);
+        if (idperson2 != null) {//代替亲属问答
+            Person p2 = personService.findPersonByIdperson(idperson2);
+            String gender2 = p2.getGender();
+            sex = gender2.equals("男") ? 1 : 0;
+        } else if (idperson1 != null) {//用户本人作答
+            sex = personService.findPersonByIdperson(idperson1).getGender().equals("男") ? 1 : 0;
+        }
+        modelMap.addAttribute("gender", sex);
+        if (idperson2 != null)
+            modelMap.addAttribute("idperson2", idperson2);
+
         return "jsp/users/informedConsent";
 
     }
@@ -867,5 +904,20 @@ public class Home {
         if (item.getKey().contains("_"))
             return item.getKey().substring(0, item.getKey().length() - 1);
         else return item.getKey();
+    }
+
+    @RequestMapping("/survey/result/display/{idquestionnaire}")
+    public String surveyReportDisplay(@PathVariable("idquestionnaire") Integer idquestionnaire,
+                                      ModelMap modelMap) {
+
+        SurveyReport report = reportService.findSurveyReportByIdquestionnaire(idquestionnaire);
+        modelMap.addAttribute("fyrs_score", report.getFyrs_score());
+        modelMap.addAttribute("lifetime_score", report.getFyrs_score());
+        modelMap.addAttribute("evaluation", ScoreUtil.evaluateRisk(
+                Double.valueOf(report.getLow_risk()),
+                Double.valueOf(report.getHigh_risk()),
+                Double.valueOf(report.getLifetime_score())));
+
+        return "jsp/questionaire/report";
     }
 }

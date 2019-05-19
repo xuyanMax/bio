@@ -7,18 +7,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b0db38-a8a2-4129-aebe-f12db076b2bc" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/Utils/InformedConsentUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/InformedConsent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/dao/IInformedConsentDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IInformedConsentDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/com/bio/Utils/InformedConsentUtilTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/Utils/SurveyReportUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/Json.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/beans/SurveyReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/dao/IJsonDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/dao/ISurveyReportDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/IJsonDao.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/mapping/ISurveyReportDao.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/IJsonService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/ISurveyReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/impl/JsonServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bio/service/impl/SurveyReportServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/report.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/com/bio/service/impl/JsonServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/com/bio/service/impl/SurveyReportServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/ssm.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/ssm.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/auth/Home.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bio/controller/token/WeChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bio/controller/token/WeChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/sms/SmsBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sms/SmsBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/auth/Home.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/token/WeChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/bio/controller/token/WeChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/sms/SmsBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/classes/com/sms/SmsBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/questionaire/question.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/questionaire/question.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/BindRelatives.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/BindRelatives.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/informedConsent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/informedConsent.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/userHomePage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/questionaire/WEB-INF/jsp/users/userHomePage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bio/dao/IInformedConsentDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bio/dao/IInformedConsentDaoTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,8 +72,7 @@
     <select />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="bio" />
@@ -56,22 +80,35 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/InformedConsentUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+            <state relative-caret-position="7038">
+              <caret line="430" selection-start-line="430" selection-end-line="430" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#36181#36182#0" expanded="true" />
+                <element signature="e#36219#36220#0" expanded="true" />
+                <element signature="e#36337#36338#0" expanded="true" />
+                <element signature="e#36378#36379#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IPersonDao.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="172" column="17" lean-forward="true" selection-start-line="172" selection-start-column="17" selection-end-line="172" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/SurveyReportUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -79,13 +116,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="279">
+              <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
               <folding>
-                <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1001">
+              <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -93,8 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-208">
-              <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+            <state relative-caret-position="-6">
+              <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -102,62 +155,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/informant.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-352" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="107" column="36" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+            <state relative-caret-position="139">
+              <caret line="31" column="64" lean-forward="true" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
               <folding>
-                <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="838" column="22" lean-forward="true" selection-start-line="838" selection-start-column="22" selection-end-line="838" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8474#8475#0" expanded="true" />
-                <element signature="e#8533#8534#0" expanded="true" />
-                <element signature="e#11531#11532#0" expanded="true" />
-                <element signature="e#11596#11597#0" expanded="true" />
-                <element signature="e#33603#33604#0" expanded="true" />
-                <element signature="e#33641#33642#0" expanded="true" />
-                <element signature="e#33759#33760#0" expanded="true" />
-                <element signature="e#33800#33801#0" expanded="true" />
+                <element signature="n#style#0;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/com/bio/Utils/InformedConsentUtilTest.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/report.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="384" column="9" lean-forward="true" selection-start-line="384" selection-start-column="9" selection-end-line="384" selection-end-column="9" />
-              <folding>
-                <element signature="e#490#491#0" expanded="true" />
-                <element signature="e#560#561#0" expanded="true" />
-                <element signature="e#19810#19811#0" expanded="true" />
-                <element signature="e#19846#19847#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-164">
+              <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -170,33 +181,14 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
         <option value="Jsp File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>index.js</find>
-      <find>/home</find>
-      <find>/support</find>
-      <find>result</find>
-      <find>to</find>
-      <find>却是</find>
-      <find>id_code_six</find>
-      <find>has-</find>
-      <find>add</find>
-      <find>put</find>
-      <find>name</find>
-      <find>&quot;name&quot;</find>
-      <find>unit</find>
-      <find>idcheck</find>
-      <find>setID_code_six</find>
-      <find>setID_code_cut</find>
-      <find>先生</find>
-      <find>fetchDa</find>
-      <find>wxuser</find>
       <find>重新登录</find>
       <find>centerNames</find>
       <find>addWxUser</find>
@@ -208,6 +200,25 @@
       <find>signupPage</find>
       <find>info</find>
       <find>/info</find>
+      <find>Home</find>
+      <find>lombo</find>
+      <find>evalu</find>
+      <find>{</find>
+      <find>br</find>
+      <find>&lt;br</find>
+      <find>/survey</find>
+      <find>/q</find>
+      <find>/informat</find>
+      <find>`</find>
+      <find>idperson2</find>
+      <find>$PROJECT_DIR$/../../../../userHomeP</find>
+      <find>userHomePage</find>
+      <find>idperson1</find>
+      <find>dele</find>
+      <find>/delete</find>
+      <find>deleteRelative?</find>
+      <find>分钟</find>
+      <find>check</find>
     </findStrings>
     <replaceStrings>
       <replace>small</replace>
@@ -226,35 +237,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/Center.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/AdminServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/AdminServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/RiskModelServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/WeChatUserImp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/RelativeImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/interceptor/CommonInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/PersonInfoUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/ICenterDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/ICenterDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/ICenterService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/CenterImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/IPersonService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/PersonImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sys_admin/sys.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/adminInfo.jsp" />
-        <option value="$PROJECT_DIR$/src/test/com/bio/controller/admin/UpdatePersonTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/admin/UpdatePerson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/IQtRiskModelDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/Qtnaireversion_riskmodel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/SqlUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" />
         <option value="$PROJECT_DIR$/src/test/com/wechat/utils/ScoreUtilTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wechat/utils/ScoreUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/JsonGenerator/type/BaseQuestion.java" />
         <option value="$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java" />
         <option value="$PROJECT_DIR$/src/test/com/bio/dao/IPersonDaoTest.java" />
@@ -270,13 +260,34 @@
         <option value="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConcentDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/IInformedConsentDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/InformedConsent.java" />
-        <option value="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/IInformedConsentDao.xml" />
         <option value="$PROJECT_DIR$/src/test/com/bio/Utils/InformedConsentUtilTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/InformedConsentUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/IJsonDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/IJsonDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/IJsonService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/IExamDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/Json.java" />
+        <option value="$PROJECT_DIR$/src/test/com/bio/service/impl/JsonServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/JsonServiceImpl.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/beans/SurveyReport.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/dao/ISurveryReportDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/mapping/ISurveyReportDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/Utils/SurveyReportUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/ISurveyReportService.java" />
+        <option value="$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bio/service/impl/SurveyReportServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/test/com/bio/service/impl/SurveyReportServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/report.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp" />
       </list>
     </option>
   </component>
@@ -323,7 +334,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -379,6 +389,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -413,6 +433,47 @@
               <item name="bio" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
               <item name="token" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="mapping" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -482,6 +543,26 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="sys_admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
               <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -492,6 +573,26 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="errors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
@@ -526,6 +627,25 @@
             <path>
               <item name="bio" type="b2602c69:ProjectViewProjectNode" />
               <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bio" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -540,6 +660,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -560,25 +681,15 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.bio.service.impl" />
       <recent name="com.bio.Utils" />
       <recent name="com.bio.dao" />
       <recent name="com.wechat.utils" />
       <recent name="com.bio.service" />
-      <recent name="com.bio.controller.admin" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/com/JsonGenerator" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.JsonGenerator" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp" />
@@ -586,6 +697,16 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/errors" />
       <recent name="$PROJECT_DIR$/src/main/java/com/bio/mapping" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.JsonGenerator" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/JsonGenerator" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -630,51 +751,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IQtRiskModelDaoTest.testSelectByVersion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonServiceImplTest.findJsonByVersion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bio" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bio.dao.*" />
+          <option name="PATTERN" value="com.bio.service.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bio.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.bio.dao.IQtRiskModelDaoTest" />
-      <option name="METHOD_NAME" value="testSelectByVersion" />
+      <option name="PACKAGE_NAME" value="com.bio.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.bio.service.impl.JsonServiceImplTest" />
+      <option name="METHOD_NAME" value="findJsonByVersion" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InformedConsentUtilTest.getBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SurveyReportServiceImplTest.addSurveyReport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bio" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bio.Utils.*" />
+          <option name="PATTERN" value="com.bio.service.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bio.Utils" />
-      <option name="MAIN_CLASS_NAME" value="com.bio.Utils.InformedConsentUtilTest" />
-      <option name="METHOD_NAME" value="getBody" />
+      <option name="PACKAGE_NAME" value="com.bio.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.bio.service.impl.SurveyReportServiceImplTest" />
+      <option name="METHOD_NAME" value="addSurveyReport" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InformedConsentUtilTest.getStyle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SurveyReportServiceImplTest.findSurveyReportByIdquestionnaire" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bio" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bio.Utils.*" />
+          <option name="PATTERN" value="com.bio.service.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bio.Utils" />
-      <option name="MAIN_CLASS_NAME" value="com.bio.Utils.InformedConsentUtilTest" />
-      <option name="METHOD_NAME" value="getStyle" />
+      <option name="PACKAGE_NAME" value="com.bio.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.bio.service.impl.SurveyReportServiceImplTest" />
+      <option name="METHOD_NAME" value="findSurveyReportByIdquestionnaire" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -832,19 +953,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Tomcat Server.index.jsp" />
+      <item itemvalue="JUnit.JsonServiceImplTest.findJsonByVersion" />
+      <item itemvalue="JUnit.SurveyReportServiceImplTest.addSurveyReport" />
+      <item itemvalue="JUnit.SurveyReportServiceImplTest.findSurveyReportByIdquestionnaire" />
       <item itemvalue="JUnit.IInformedConsentDaoTest.testSelectInformedConsent1" />
-      <item itemvalue="JUnit.IQtRiskModelDaoTest.testSelectByVersion" />
-      <item itemvalue="JUnit.InformedConsentUtilTest.getStyle" />
-      <item itemvalue="JUnit.InformedConsentUtilTest.getBody" />
+      <item itemvalue="Tomcat Server.index.jsp" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Tomcat Server.index.jsp" />
-        <item itemvalue="JUnit.InformedConsentUtilTest.getStyle" />
-        <item itemvalue="JUnit.InformedConsentUtilTest.getBody" />
+        <item itemvalue="JUnit.SurveyReportServiceImplTest.addSurveyReport" />
         <item itemvalue="JUnit.IInformedConsentDaoTest.testSelectInformedConsent1" />
-        <item itemvalue="JUnit.IQtRiskModelDaoTest.testSelectByVersion" />
+        <item itemvalue="JUnit.SurveyReportServiceImplTest.findSurveyReportByIdquestionnaire" />
+        <item itemvalue="JUnit.JsonServiceImplTest.findJsonByVersion" />
       </list>
     </recent_temporary>
   </component>
@@ -1021,44 +1142,50 @@
       <workItem from="1556244633884" duration="527000" />
       <workItem from="1556247646765" duration="77000" />
       <workItem from="1556247776007" duration="1315000" />
-      <workItem from="1556251859535" duration="9740000" />
+      <workItem from="1556251859535" duration="10909000" />
+      <workItem from="1557063304550" duration="652000" />
+      <workItem from="1557404965464" duration="116000" />
+      <workItem from="1557938036079" duration="11258000" />
+      <workItem from="1558014748470" duration="7187000" />
+      <workItem from="1558058748881" duration="848000" />
+      <workItem from="1558257241873" duration="716000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.04.27 at 23h 26m 44s.xml">
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 20h 57m 55s.xml">
       <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.04.27 at 23h 29m 04s.xml">
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 20h 58m 11s.xml">
       <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 29m 33s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 20h 58m 51s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 30m 26s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 20h 59m 44s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 30m 53s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 21h 00m 12s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 42m 36s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 21h 00m 39s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 49m 52s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 21h 01m 20s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 54m 56s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="IInformedConsentDaoTest_testSelectInformedConsent1 - 2019.05.16 at 21h 07m 20s.xml">
+      <configuration name="IInformedConsentDaoTest.testSelectInformedConsent1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getBody - 2019.04.27 at 23h 55m 12s.xml">
-      <configuration name="InformedConsentUtilTest.getBody" configurationId="JUnit" />
+    <history-entry file="SurveyReportServiceImplTest_addSurveyReport - 2019.05.16 at 22h 34m 45s.xml">
+      <configuration name="SurveyReportServiceImplTest.addSurveyReport" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="InformedConsentUtilTest_getStyle - 2019.04.28 at 00h 02m 04s.xml">
-      <configuration name="InformedConsentUtilTest.getStyle" configurationId="JUnit" />
+    <history-entry file="SurveyReportServiceImplTest_addSurveyReport - 2019.05.16 at 22h 41m 52s.xml">
+      <configuration name="SurveyReportServiceImplTest.addSurveyReport" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1127939000" />
+    <option name="totallyTimeSpent" value="1149885000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1070,17 +1197,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" id="Structure" order="0" sideWeight="0.2813067" side_tool="true" visible="true" weight="0.28612304" />
+      <window_info id="Structure" order="0" sideWeight="0.2813067" side_tool="true" weight="0.29041487" />
       <window_info id="Designer" order="1" />
       <window_info id="Image Layers" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
       <window_info id="Web" order="5" sideWeight="0.33114034" side_tool="true" weight="0.24964234" />
       <window_info id="Capture Tool" order="6" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" weight="0.33261803" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" visible="true" weight="0.3469242" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4892704" visible="true" weight="0.41084337" />
@@ -1115,22 +1242,22 @@
       <window_info anchor="right" id="Maven" order="14" weight="0.3297568" />
     </layout>
     <layout-to-restore>
-      <window_info id="Structure" order="0" sideWeight="0.2813067" side_tool="true" weight="0.28612304" />
+      <window_info id="Structure" order="0" sideWeight="0.2813067" side_tool="true" weight="0.29041487" />
       <window_info id="Designer" order="1" />
       <window_info id="Image Layers" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" sideWeight="0.60714287" side_tool="true" weight="0.23247497" />
       <window_info id="Web" order="5" sideWeight="0.33114034" side_tool="true" weight="0.24964234" />
       <window_info id="Capture Tool" order="6" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" weight="0.3197425" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.7173913" side_tool="true" visible="true" weight="0.33690986" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4892704" visible="true" weight="0.43493977" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.20120482" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4892704" visible="true" weight="0.41084337" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.4554217" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.24939759" />
-      <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49928468" weight="0.32650602" />
+      <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49928468" weight="0.4759036" />
       <window_info anchor="bottom" id="Spring" order="8" weight="0.32771084" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.28433734" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49785408" weight="0.3253012" />
@@ -1218,25 +1345,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java</url>
-          <line>474</line>
+          <line>476</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java</url>
-          <line>476</line>
+          <line>478</line>
           <properties class="com.bio.controller.auth.Home" method="registerCheckVcode">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java</url>
-          <line>837</line>
-          <properties class="com.bio.controller.auth.Home" method="informedConsent">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1246,242 +1365,56 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/ICenterDao.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.2.RELEASE/spring-web-4.0.2.RELEASE.jar!/org/springframework/web/bind/annotation/SessionAttributes.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        <state relative-caret-position="180">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/InformedConsentUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com/bio/Utils/InformedConsentUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6786">
+          <caret line="384" column="9" selection-start-line="384" selection-start-column="9" selection-end-line="384" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#19810#19811#0" expanded="true" />
+            <element signature="e#19879#19880#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com.bio/JDBCTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="58" column="75" selection-start-line="58" selection-start-column="75" selection-end-line="58" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/JsonGenerator/element/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com.bio/PersonUtilsTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/Admin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/impl/PersonImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/ICenterServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/IPersonServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="27" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/IWeChatUserServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dto/FlupResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/wechat/utils/ScoreUtilTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="13" column="3" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/logging.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/javax/management/remote/rmi/RMIConnectionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25254">
-          <caret line="1467" selection-start-line="1467" selection-end-line="1467" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="144">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resource/questions.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/dao/ICenterDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-shiro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IExamDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IAdminDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IExamDao.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/ILoginDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/dao/IQtRiskModelDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/dao/IPersonDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IAdminDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IPersonDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-303">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IInformedConsentDao.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/admin/FileDownloadController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="5" column="54" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/admin/ManualInsert.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="377">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IAnswerDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1492,158 +1425,360 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/InformedConsent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IExamDao.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state>
+          <caret selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IInformedConsentDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="54" selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/ILoginDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IJsonDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IJsonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IExamDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/IJsonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="10" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/impl/PersonImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sys_admin/sys.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-381" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/impl/JsonServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
           <folding>
-            <element signature="e#203#204#0" expanded="true" />
-            <element signature="e#243#244#0" expanded="true" />
-            <element signature="e#309#310#0" expanded="true" />
-            <element signature="e#367#368#0" expanded="true" />
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#494#495#0" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#618#619#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IPersonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.2.RELEASE/spring-webmvc-4.0.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="418" selection-start-line="418" selection-end-line="418" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.2.RELEASE/spring-webmvc-4.0.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.2.RELEASE/spring-webmvc-4.0.2.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="453" selection-start-line="453" selection-end-line="453" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.2.RELEASE/spring-webmvc-4.0.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.2.RELEASE/spring-web-4.0.2.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/com/bio/Utils/InformedConsentUtilTest.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
-          <caret line="384" column="9" lean-forward="true" selection-start-line="384" selection-start-column="9" selection-end-line="384" selection-end-column="9" />
+          <caret line="256" column="36" selection-start-line="256" selection-start-column="36" selection-end-line="256" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/IWeChatUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-24">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IWeChatUserDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="3798" column="30" selection-start-line="3798" selection-start-column="30" selection-end-line="3798" selection-end-column="30" />
           <folding>
-            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#177013#177014#0" expanded="true" />
+            <element signature="e#177054#177055#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/ISurveyReportDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/dao/ISurveyReportDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/impl/JsonServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="16" selection-start-line="16" selection-end-line="17" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/SurveyReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1692">
+          <caret line="94" column="41" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
+          <folding>
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#422#423#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#483#484#0" expanded="true" />
+            <element signature="e#522#523#0" expanded="true" />
             <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#19810#19811#0" expanded="true" />
-            <element signature="e#19846#19847#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#716#717#0" expanded="true" />
+            <element signature="e#758#759#0" expanded="true" />
+            <element signature="e#825#826#0" expanded="true" />
+            <element signature="e#887#888#0" expanded="true" />
+            <element signature="e#922#923#0" expanded="true" />
+            <element signature="e#953#954#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+            <element signature="e#1041#1042#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1109#1110#0" expanded="true" />
+            <element signature="e#1159#1160#0" expanded="true" />
+            <element signature="e#1201#1202#0" expanded="true" />
+            <element signature="e#1238#1239#0" expanded="true" />
+            <element signature="e#1271#1272#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+            <element signature="e#1408#1409#0" expanded="true" />
+            <element signature="e#1445#1446#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1557#1558#0" expanded="true" />
+            <element signature="e#1594#1595#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+            <element signature="e#1679#1680#0" expanded="true" />
+            <element signature="e#1723#1724#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/ISurveyReportService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/service/impl/SurveyReportServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com/bio/service/impl/SurveyReportServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wechat/utils/ScoreUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/admin/UpdatePerson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="55" column="39" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/Json.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/com/bio/dao/IInformedConsentDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signupIdCode.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/beans/InformedConsent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/success.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/personList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-207" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/personsInCenter.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-678" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-310">
+          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/userHomePage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="268">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/informant.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/BindRelatives.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/signup.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="107" column="36" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/InformedConsentUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-208">
-          <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.2.RELEASE/spring-web-4.0.2.RELEASE.jar!/org/springframework/web/bind/annotation/SessionAttributes.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        <state relative-caret-position="194">
+          <caret line="126" column="28" lean-forward="true" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/token/WeChat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="172" column="17" lean-forward="true" selection-start-line="172" selection-start-column="17" selection-end-line="172" selection-end-column="17" />
+        <state relative-caret-position="169">
+          <caret line="324" column="5" selection-start-line="324" selection-start-column="5" selection-end-line="324" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/controller/auth/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="838" column="22" lean-forward="true" selection-start-line="838" selection-start-column="22" selection-end-line="838" selection-end-column="22" />
+        <state relative-caret-position="7038">
+          <caret line="430" selection-start-line="430" selection-end-line="430" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8474#8475#0" expanded="true" />
-            <element signature="e#8533#8534#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#11596#11597#0" expanded="true" />
-            <element signature="e#33603#33604#0" expanded="true" />
-            <element signature="e#33641#33642#0" expanded="true" />
-            <element signature="e#33759#33760#0" expanded="true" />
-            <element signature="e#33800#33801#0" expanded="true" />
+            <element signature="e#36181#36182#0" expanded="true" />
+            <element signature="e#36219#36220#0" expanded="true" />
+            <element signature="e#36337#36338#0" expanded="true" />
+            <element signature="e#36378#36379#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/Utils/SurveyReportUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sms/SmsBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bio/mapping/IPersonDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/informant.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="31" column="64" lean-forward="true" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/report.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/questionaire/question.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6">
+          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/informedConsent.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+          <folding>
+            <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1001">
+          <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
         </state>
       </provider>
     </entry>
