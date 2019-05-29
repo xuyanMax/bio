@@ -184,7 +184,7 @@
                             document.getElementById("id-error").className = ' text-danger';
                             document.getElementById("id-error").innerText = "您的手机号与系统记录不符，请联系管理员核实";//没有您的预申请信息，请联系专属管理员。
                         } else if (data.result == '1') {
-                            document.getElementById("vcode-error").innerText = "短信验证码已发送，请查收;此为验证码重发倒数时间，手机收到验证码时间根据运营商会有不同，验证码过期时间为5分钟";
+                            document.getElementById("vcode-error").innerText = "短信验证码已发送，请查收;此为验证码重发倒数时间，手机收到验证码时间根据运营商会有不同，验证码过期时间为2分钟";
                             wxuser = data.wxuser;
                             alert("成功发送短信到手机");
                             //works

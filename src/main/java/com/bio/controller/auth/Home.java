@@ -907,6 +907,8 @@ public class Home {
         SurveyReport report = reportService.findSurveyReportByIdquestionnaire(idquestionnaire);
         modelMap.addAttribute("fyrs_score", report.getFyrs_score());
         modelMap.addAttribute("lifetime_score", report.getFyrs_score());
+        modelMap.addAttribute("count", report.getQuestionnaire_score());
+        modelMap.addAttribute("modelnames", report.getModelnames());
         modelMap.addAttribute("evaluation", ScoreUtil.evaluateRisk(
                 Double.valueOf(report.getLow_risk()),
                 Double.valueOf(report.getHigh_risk()),
