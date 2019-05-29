@@ -49,10 +49,9 @@
 </nav>
 <br/>
 <br/>
-<p align="center" style="font-size: 20pt"><a href="/user/informedConsent/acknowledge?idperson1=${user.idperson}">问卷答题</a></p><br/>
+<p align="center" style="font-size: 20pt"><a href="/informedConsent/acknowledge?idperson1=${user.idperson}">问卷答题</a></p><br/>
 <p align="center" style="font-size: 20pt"><a href="/bind/relative" target="_blank">绑定亲属</a></p><br/>
 <p align="center" style="font-size: 20pt"><a href="/unbind">微信解绑</a></p><br/>
-<p align="center" style="font-size: 20pt"><a href="/logout">重新登录</a></p><br/>
 <p align="center" style="font-size: 20pt"><a href="/admin/center/${user.idperson}/info">单位管理员信息查询</a></p>
 
 <%

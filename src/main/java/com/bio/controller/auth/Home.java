@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bio.Utils.ClientInfoUtils;
 import com.bio.Utils.InformedConsentUtil;
 import com.bio.Utils.PersonInfoUtils;
+import com.bio.Utils.SurveyUtil;
 import com.bio.beans.*;
 import com.bio.dao.IInformedConsentDao;
 import com.bio.enums.ResultEnum;
@@ -478,7 +479,6 @@ public class Home {
     @ResponseBody
     public Map<String, Object> registerCheckVcode(HttpServletResponse response,
                                                   HttpServletRequest request,
-                                                  ModelMap session,
                                                   String idcode,
                                                   HttpSession httpSession,
                                                   String vcode,
@@ -503,7 +503,7 @@ public class Home {
             if (wxuser != null) {
                 logger.info(wxuser);
             } else {
-                logger.error("");
+                logger.error("【HttpSession不包含wxuser】");
             }
 
             if (type != null && !type.equals("1")) {
@@ -515,6 +515,7 @@ public class Home {
                 } else {
                     logger.error("【center查询不存在】, centerName=" + centerName.substring(centerName.indexOf("_") + 1));
                 }
+
                 int sn_in_center = personService.countPersonsByIdCenter(center.getIdcenter());
                 p.setIdcenter(center.getIdcenter());
                 p.setGender(PersonInfoUtils.getGender(idcode));
@@ -549,6 +550,7 @@ public class Home {
                 resMap.put("result", 0);
                 return resMap;
             }
+
             weChatUserService.addWxUser(wxuser);
             httpSession.setAttribute("wxuser", wxuser);
             httpSession.setAttribute("username", p.getName());
@@ -598,7 +600,7 @@ public class Home {
 
         logger.info(firstValues);
 
-        mv.addObject("firstValues", firstValues);
+//        mv.addObject("firstValues", firstValues);
         mv.addObject("q_version", sex % 2 != 0 ? c.getCurrent_qtversion() : c.getCurrent_qtversion() + 1);
         mv.addObject("surveyJSON", surveyJSON);
         return mv;
@@ -666,7 +668,7 @@ public class Home {
 
             if (questionnaire != null) {
                 Answer answer = new Answer();
-                answer.setIdquestion(Integer.parseInt(parseIdquestion(item)));
+                answer.setIdquestion(Integer.parseInt(SurveyUtil.parseIdquestion(item)));
                 answer.setAnswers(item.getValue().toString());
                 answer.setIdperson(questionnaire.getIdperson());
                 answer.setIdquestionnaire(questionnaire.getIdquestionnaire() != null ? questionnaire.getIdquestionnaire() : 1);
@@ -765,11 +767,12 @@ public class Home {
         }
         questionnaire = questionService.findQuestionByFillingTime(filling_time);
         idquestionnaire = questionnaire.getIdquestionnaire();
-        List<Integer> firstValues = (List<Integer>) session.get("firstValues");
+//        List<Integer> firstValues = (List<Integer>) session.get("firstValues");
 
-        logger.info(firstValues);
+//        logger.info(firstValues);
 
-        int count = SqlUtil.countDuplicateQuestions(firstValues, answerService, idquestionnaire);
+//        int count = SqlUtil.countDuplicateQuestions(firstValues, answerService, idquestionnaire);
+        int count = 1111;
         logger.info("count=" + count);
 
         // 计算lifetime_risk, fyrs_risk
@@ -853,9 +856,8 @@ public class Home {
         return "../index";
     }
 
-    @RequestMapping("/user/informedConsent/acknowledge")
+    @RequestMapping("/informedConsent/acknowledge")
     public String informedConsent(HttpServletRequest request,
-                                  HttpServletResponse response,
                                   ModelMap modelMap,
                                   @RequestParam(value = "idperson2", required = false) Integer idperson2,
                                   @RequestParam(value = "idperson1", required = false) Integer idperson1
@@ -883,9 +885,8 @@ public class Home {
         modelMap.addAttribute("gender", sex);
         if (idperson2 != null)
             modelMap.addAttribute("idperson2", idperson2);
-
+        logger.info("【/user/informedConsent】进入");
         return "jsp/users/informedConsent";
-
     }
 
     @RequestMapping("/success")
@@ -897,13 +898,6 @@ public class Home {
     @RequestMapping("*")
     public String _404PageNotFound(HttpServletRequest request) {
         return "views/errors/404";
-    }
-
-    public String parseIdquestion(Map.Entry<String, Object> item) {
-
-        if (item.getKey().contains("_"))
-            return item.getKey().substring(0, item.getKey().length() - 1);
-        else return item.getKey();
     }
 
     @RequestMapping("/survey/result/display/{idquestionnaire}")

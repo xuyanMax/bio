@@ -4,7 +4,7 @@ public class WeChatConstants {
     private static String ACCESS_TOKEN = "brbxyxzyz";
     //服务号应用
     public static final String appID = "wxb92b6517e66c5eda";
-    public static final String appSecret = "6f4300688f55cf4a7e4700d683195789";
+    public static final String appSecret = "a6276b10b09a40969b566865def9197b";
     //网页应用
     private static String APPID_URL = "wx73e0725a818a8ccb";
     private static String SECRET_URL = "570d28bcda358b8c8d7021e8ee18f184";

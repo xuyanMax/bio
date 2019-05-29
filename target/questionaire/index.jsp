@@ -63,12 +63,13 @@
 } else {
 
 %>
-<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+<img class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <a class="nav-link" href="#">肿瘤易感性筛查</a>
         </li>
     </ul>
+    <img src="http://thirdwx.qlogo.cn/mmopen/vi_32/Mn88ViblicUQCFcmb87qjCsl6qibL0tpsVRicQ3rA0M7B4ZLpHVpBGTeicPiaKmhDFmnKsbHiaibiaSfR6QympoiaicwL8zWg/132" width="60" height="60" class="img-circle"></img>
 </div>
 </nav>
 <div class="container">

@@ -41,6 +41,16 @@ public class WeChatUser {
 
     private String tagid_list;
 
+    private String createtime;
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
     public void setIdwechat(Integer idwechat) {
         this.idwechat = idwechat;
     }
@@ -175,6 +185,7 @@ public class WeChatUser {
                 ", remark='" + remark + '\'' +
                 ", groupid='" + groupid + '\'' +
                 ", tagid_list='" + tagid_list + '\'' +
+                ", createtime='" + createtime + '\'' +
                 '}';
     }
 }

@@ -125,7 +125,7 @@
                             <a href="/deleteRelative?idperson2=${person.idperson}&idperson1=${user.idperson}">解除亲属</a>
                         </td>
                         <td>
-                            <a href="/user/informedConsent/acknowledge?idperson2=${person.idperson}&idperson1=${user.idperson}">开始问卷</a>
+                            <a href="/informedConsent/acknowledge?idperson2=${person.idperson}&idperson1=${user.idperson}">开始问卷</a>
                         </td>
                     </tr>
                 </c:forEach>

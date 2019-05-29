@@ -44,9 +44,9 @@
                 data: JSON.stringify(survey.data),
                 success: function (data) {
 
-                    // alert("您本次问卷答题的分数为" + data.count + "分");
-                    // alert("如果您的分数低于60分，系统计算的患癌风险值可能无法反映真实情况，建议您退回主界面重新答题。");
-                    // alert("您的近期患癌风险值是：" + data.fyrs_score + " 您的终身患癌风险值是：" + data.lifetime_score);
+                    alert("您本次问卷答题的分数为" + data.count + "分");
+                    alert("如果您的分数低于60分，系统计算的患癌风险值可能无法反映真实情况，建议您退回主界面重新答题。");
+                    alert("您的近期患癌风险值是：" + data.fyrs_score + " 您的终身患癌风险值是：" + data.lifetime_score);
                     //
                     // if (data.missing == '1') {
                     //

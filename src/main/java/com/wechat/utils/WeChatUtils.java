@@ -1,6 +1,7 @@
 package com.wechat.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bio.Utils.ClientInfoUtils;
 import com.wechat.model.OAuthInfo;
 import com.bio.beans.WeChatUser;
 import com.wechat.model.button.Menu;
@@ -222,6 +223,7 @@ public class WeChatUtils {
         user.setSubscribe(jsonObject.getString("subscribe"));
         user.setSubscribe_time(jsonObject.getString("subscribe_time"));
         user.setLanguage(jsonObject.getString("language"));
+        user.setCreatetime(ClientInfoUtils.getCurrDatetime());
 
         return user;
     }

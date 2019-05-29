@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 public class TokenThread implements Runnable {
     //微信公众号的凭证和秘钥
     public static final String appID = "wxb92b6517e66c5eda";
-    public static final String appSecret = "6f4300688f55cf4a7e4700d683195789";
+    public static final String appSecret = "a6276b10b09a40969b566865def9197b";
     public static AccessToken access_token = null;
     private static Logger logger = Logger.getLogger(TokenThread.class);
 
@@ -23,6 +23,7 @@ public class TokenThread implements Runnable {
                 } else {//获取失败时，60秒之后尝试重新获取
                     Thread.sleep(60000);
                     logger.warn("Currently trying to get access token every 60 seconds");
+                    logger.error("ACEESSTOKEN=" + TokenThread.appSecret);
                 }
             } catch (InterruptedException e) {
                 try {
